@@ -10,7 +10,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-import styles from "@/sass/indexPage.module.sass";
+import styles from "@/sass/indexPage/indexPage.module.sass";
 
 interface AboutDestinationParams {
     currentDestination: TravelDestination;

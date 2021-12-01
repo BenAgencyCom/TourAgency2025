@@ -1,7 +1,9 @@
 import type { FunctionComponent } from "react";
 import type { TravelDestination } from "@/data/destinations";
+import { useState, useEffect } from "react";
 // My components
 import BottomSidePartialInfo from "./BottomSidePartialInfo";
+import BackgroundCountryName from "./BackgroundCountryName";
 // Material Components
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -12,18 +14,20 @@ import AccessTime from "@mui/icons-material/AccessTime";
 import StarBorder from "@mui/icons-material/StarBorder";
 import Euro from "@mui/icons-material/Euro";
 // Styles
-import styles from "@/sass/indexPage.module.sass";
+import styles from "@/sass/indexPage/indexPage.module.sass";
 import colors from "@/sass/variables.module.sass";
 
 const CurrentDestinationInfo: FunctionComponent<{ currentDestination: TravelDestination }> = ({ currentDestination }) => {
-    const backgroundTextSize = currentDestination.country.length > 15 ? 10 : 15;
-    const top = currentDestination.country.length > 15 ? "50%" : "30%";
+    const [triggerAnimations, setTriggerAnimations] = useState<number>(0);
+    useEffect(() => {
+        setTriggerAnimations((t) => t + 1);
+    }, [currentDestination.id]);
+
     return (
         <Box className={styles.currentDestinationInfo}>
-            <Typography className={styles.currentDestinationInfoCountry} sx={{ fontSize: `${backgroundTextSize}rem`, top }} component="span">
-                {currentDestination.country}
-            </Typography>
             {/* Country */}
+            <BackgroundCountryName countryName={currentDestination.country} triggerAnimations={triggerAnimations}></BackgroundCountryName>
+            {/* City */}
             <Typography variant="h4" className={colors.mainFontColor}>
                 {currentDestination.city}
             </Typography>
@@ -48,14 +52,14 @@ const CurrentDestinationInfo: FunctionComponent<{ currentDestination: TravelDest
                 {/*  */}
                 <Divider orientation="vertical" flexItem sx={{ mx: 2 }}></Divider>
                 <BottomSidePartialInfo logo={<StarBorder></StarBorder>}>
-                    Reviews: <strong>{currentDestination.review}</strong>
+                    Reviews: <strong>{currentDestination.review.toFixed(2)}</strong>
                 </BottomSidePartialInfo>{" "}
                 <Divider orientation="vertical" flexItem sx={{ mx: 2 }}></Divider>
                 {/*  */}
                 {/* PRICE */}
                 {/*  */}
                 <BottomSidePartialInfo logo={<Euro></Euro>}>
-                    Starting at <strong>{currentDestination.price}</strong>{" "}
+                    Starting at <strong>{currentDestination.price.toFixed(2)}</strong>{" "}
                 </BottomSidePartialInfo>
             </Box>
             <Button variant="contained" sx={{ mt: 3, px: 5 }}>

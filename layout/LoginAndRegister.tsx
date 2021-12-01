@@ -2,6 +2,7 @@ import type { FunctionComponent } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Login from "@mui/icons-material/Login";
+import Link from "next/link";
 
 const LoginAndRegister: FunctionComponent<{}> = () => {
     return (
@@ -10,9 +11,14 @@ const LoginAndRegister: FunctionComponent<{}> = () => {
                 <Login sx={{ mr: 1 }}></Login>
                 <span>Login</span>
             </Button>
-            <Button variant="outlined" sx={{ px: 3, mx: 1 }}>
-                Register
-            </Button>
+
+            <Link href="/register">
+                <a>
+                    <Button variant="outlined" sx={{ px: 3, mx: 1 }}>
+                        Register
+                    </Button>
+                </a>
+            </Link>
         </Box>
     );
 };

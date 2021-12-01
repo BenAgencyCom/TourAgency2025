@@ -8,7 +8,7 @@ import CurrentDestinationInfo from "@/components/index/currentDestinationInfo/Cu
 import SelectDestination from "@/components/index/selectDestination/SelectDestination";
 import AboutDestination from "@/components/index/AboutDestination";
 
-import styles from "@/sass/indexPage.module.sass";
+import styles from "@/sass/indexPage/indexPage.module.sass";
 
 const IndexPage: FunctionComponent<{}> = () => {
     const [currentDestinationIndex, setCurrentDestinationIndex] = useState<number>(1);

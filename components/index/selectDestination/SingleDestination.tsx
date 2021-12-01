@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import LocationOn from "@mui/icons-material/LocationOn";
 // Styles
 import colors from "@/sass/variables.module.sass";
-import styles from "@/sass/indexPage.module.sass";
+import styles from "@/sass/indexPage/indexPage.module.sass";
 
 interface SingleDestinationParams {
     target: TravelDestination;

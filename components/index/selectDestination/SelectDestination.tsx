@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import SingleDestination from "./SingleDestination";
 import Box from "@mui/material/Box";
 
-import styles from "@/sass/indexPage.module.sass";
+import styles from "@/sass/indexPage/indexPage.module.sass";
 
 interface SelectDestinationParams {
     data: TravelDestination[];

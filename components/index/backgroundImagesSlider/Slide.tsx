@@ -2,7 +2,7 @@ import type { FunctionComponent } from "react";
 import Box from "@mui/material/Box";
 import { TravelDestination } from "@/data/destinations";
 
-import indexPageStyles from "@/sass/indexPage.module.sass";
+import indexPageStyles from "@/sass/indexPage/indexPage.module.sass";
 
 const Slide: FunctionComponent<{ destination: TravelDestination }> = ({ destination }) => {
     return (
