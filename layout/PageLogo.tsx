@@ -7,7 +7,7 @@ import Link from "next/link";
 const PageLogo: FunctionComponent<{}> = () => {
     return (
         <Link href="/">
-            <a>
+            <a tabIndex={-1}>
                 <Box
                     sx={{
                         userSelect: "none", //

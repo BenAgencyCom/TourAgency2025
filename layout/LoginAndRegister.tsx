@@ -7,14 +7,14 @@ import Link from "next/link";
 const LoginAndRegister: FunctionComponent<{}> = () => {
     return (
         <Box sx={{ ml: 2 }}>
-            <Button variant="contained" sx={{ px: 3, mx: 1 }}>
+            <Button variant="contained" sx={{ px: 3, mx: 1 }} tabIndex={-1}>
                 <Login sx={{ mr: 1 }}></Login>
                 <span>Login</span>
             </Button>
 
             <Link href="/register">
-                <a>
-                    <Button variant="outlined" sx={{ px: 3, mx: 1 }}>
+                <a tabIndex={-1}>
+                    <Button variant="outlined" sx={{ px: 3, mx: 1 }} tabIndex={-1}>
                         Register
                     </Button>
                 </a>

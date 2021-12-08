@@ -52,7 +52,9 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                 </Container>
             </AppBar>
             {/*  */}
-            <main>{children}</main>
+            <Box sx={{ backgroundColor: "background.paper" }}>
+                <main>{children}</main>
+            </Box>
         </>
     );
 };
