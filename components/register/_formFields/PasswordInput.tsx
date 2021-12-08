@@ -18,8 +18,8 @@ interface InputProps {
     // Methods
     updateValue: (value: string) => void;
 }
-const PasswordInput: FunctionComponent<InputProps> = (params) => {
-    const { label, value, updateValue, buttonStyles } = params;
+const PasswordInput: FunctionComponent<InputProps> = (props) => {
+    const { label, value, updateValue, buttonStyles } = props;
     const id = `password-inp-${label}`;
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateValue(e.target.value);
 

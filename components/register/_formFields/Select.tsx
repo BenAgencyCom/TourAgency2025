@@ -15,19 +15,20 @@ interface InputProps {
     updateValue: (value: string) => void;
 }
 
-const TextInput: FunctionComponent<InputProps> = (params) => {
-    const { label, value, updateValue, buttonStyles, options } = params;
+const TextInput: FunctionComponent<InputProps> = (props) => {
+    const { label, value, updateValue, buttonStyles, options } = props;
     const id = `text-inp-${label}`;
     const handleChange = (e: any) => updateValue(e.target.value);
 
     return (
-        <FormControl variant="outlined" sx={buttonStyles}>
+        <FormControl variant="outlined">
             <InputLabel htmlFor={id}>{label}</InputLabel>
             <Select
                 id={id} //
                 label={label}
                 value={value}
                 onChange={handleChange}
+                sx={buttonStyles}
             >
                 {options.map((option) => {
                     return (

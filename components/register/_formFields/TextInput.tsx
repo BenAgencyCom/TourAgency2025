@@ -13,8 +13,8 @@ interface InputProps {
     updateValue: (value: string) => void;
 }
 
-const TextInput: FunctionComponent<InputProps> = (params) => {
-    const { label, value, updateValue, buttonStyles } = params;
+const TextInput: FunctionComponent<InputProps> = (props) => {
+    const { label, value, updateValue, buttonStyles } = props;
     const id = `text-inp-${label}`;
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateValue(e.target.value);
 
