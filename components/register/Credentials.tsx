@@ -1,4 +1,5 @@
 import type { FunctionComponent } from "react";
+import type { StatedDataField } from "@/@types/StagedDataField";
 import { useState, useEffect } from "react";
 import joi from "joi";
 import PasswordStrengthBar from "react-password-strength-bar";
@@ -13,10 +14,8 @@ import Fade from "@mui/material/Fade";
 // Material UI icons
 import Key from "@mui/icons-material/Key";
 
-interface StatedDataField<T> {
-    value: T;
-    setValue: (value: T) => void;
-}
+import styles from "@/sass/pages/register.module.sass";
+
 interface PersonalDataAndCredentialsProps {
     // Data
     password: StatedDataField<string>;
@@ -45,7 +44,6 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
             passwordRepeatation: passwordRepeatation.value,
             email: email.value,
         });
-        console.log(error);
         setBlockContinue(Boolean(error));
     };
     useEffect(test, [password, passwordRepeatation, email, joiScheme]);
@@ -57,7 +55,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <StepHeader
                     header="Credentials" //
-                    icon={<Key sx={{ fontSize: "10rem" }}></Key>}
+                    icon={<Key className={styles.icon}></Key>}
                 ></StepHeader>
 
                 <Box sx={{ display: "flex", flexDirection: "column", width: "400px" }}>

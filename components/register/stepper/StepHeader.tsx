@@ -1,26 +1,28 @@
 import type { FunctionComponent, ReactNode } from "react";
 import Typography from "@mui/material/Typography";
-import styles from "@/sass/mixins.module.sass";
+import mixins from "@/sass/mixins.module.sass";
+import styles from "@/sass/pages/register.module.sass";
 
 interface StepHeaderParams {
     header: string;
-    icon: ReactNode;
+    icon?: ReactNode;
 }
 const StepHeader: FunctionComponent<StepHeaderParams> = (props) => {
     return (
         <Typography
-            variant="h1"
+            variant="h2"
             sx={{
                 color: "text.primary", //
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 fontWeight: "bold",
+                mb: 4,
             }}
-            className={styles.unselectable}
+            className={mixins.unselectable}
         >
             <Typography>{props.icon}</Typography>
-            <span>{props.header}</span>
+            <span className={styles.title}>{props.header}</span>
         </Typography>
     );
 };

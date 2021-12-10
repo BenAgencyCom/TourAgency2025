@@ -1,4 +1,5 @@
 import type { FunctionComponent } from "react";
+import { useState, useEffect } from "react";
 // Material UI components
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -11,7 +12,16 @@ interface RegisterStepperProps {
 }
 
 const RegisterStepper: FunctionComponent<RegisterStepperProps> = (props) => {
-    return (
+    const [display, setDisplay] = useState<boolean>(false);
+    const trackWidth = () => {
+        if (window.innerHeight < 700 || window.innerWidth < 500) setDisplay(false);
+        else setDisplay(true);
+    };
+    useEffect(() => {
+        trackWidth();
+        window.addEventListener("resize", trackWidth);
+    });
+    return display ? (
         <Stepper
             activeStep={props.currentSlideIndex} //
             sx={{ my: 3, maxWidth: "700px", width: "100vw" }}
@@ -25,12 +35,14 @@ const RegisterStepper: FunctionComponent<RegisterStepperProps> = (props) => {
                 <StepLabel>Credentials</StepLabel>
             </Step>
             <Step>
-                <StepLabel>Avatar and cover photo</StepLabel>
+                <StepLabel>Avatar</StepLabel>
             </Step>
             <Step>
                 <StepLabel>Confirmation</StepLabel>
             </Step>
         </Stepper>
+    ) : (
+        <></>
     );
 };
 

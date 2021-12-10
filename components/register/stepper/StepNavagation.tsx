@@ -6,9 +6,10 @@ interface StepNavigationProps {
     currentSlideIndex: number;
     blockContinue: boolean;
     updateSlideIndex: (x: number) => void;
+    continueMsg?: string;
 }
 const StepNavigation: FunctionComponent<StepNavigationProps> = (props) => {
-    const { currentSlideIndex, updateSlideIndex, blockContinue } = props;
+    const { currentSlideIndex, updateSlideIndex, blockContinue, continueMsg } = props;
     const goBack = () => {
         if (currentSlideIndex === 0) return;
         else updateSlideIndex(currentSlideIndex - 1);
@@ -24,7 +25,7 @@ const StepNavigation: FunctionComponent<StepNavigationProps> = (props) => {
                 Go back
             </Button>
             <Button variant="contained" disabled={blockContinue} onClick={goFurther}>
-                Continue
+                {continueMsg ? continueMsg : "Continue"}
             </Button>
         </ButtonGroup>
     );

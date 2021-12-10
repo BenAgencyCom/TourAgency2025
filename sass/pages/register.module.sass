@@ -1,0 +1,80 @@
+@import ../variables.module
+.icon
+    font-size: 12rem
+    @media screen and (max-height: 900px)
+        font-size: 10rem
+        @media screen and (max-height: 870px)
+            font-size: 8rem
+            display: none
+.title
+    @media screen and (max-height: 870px)
+        // display: none
+
+.avatar_badge
+    position: absolute
+    bottom: 5%
+    right: 5%
+    width: 100px
+    height: 100px
+    border-radius: 50%
+    padding: 20px
+    svg
+        font-size: 2.5rem
+    @media screen and (max-height: 800px) 
+        width: 80px
+        height: 80px
+        padding: 10px
+.avatar
+    width: 500px
+    height: 500px
+    padding: 10px
+    position: relative
+    svg
+        font-size: 35rem
+    @media screen and (max-height: 800px) 
+        width: 400px
+        height: 400px
+    @media screen and (max-height: 750px) 
+        width: 350px
+        height: 350px
+        svg
+            font-size: 25rem
+    
+    
+.background
+    background-image: url('/images/register/bgc.jpg')
+    position: relative
+    width: 100vw
+    min-height: 100vh
+    background-size: cover
+    background-repeat: no-repeat
+    transition: background-position-y 1s
+    &::after,
+    &::before
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+
+    &::after
+        backdrop-filter: blur(5px)
+        background-color: rgba(#000,.6)
+    &::before
+        background: linear-gradient(to top,#121212,rgba(#121212,.4),rgba(#121212,.3))
+
+
+.formCard
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)
+    z-index: 1
+    width: 100vw
+    max-width: 700px
+    height: 100vh
+    padding-top: 30px
+    background-color: rgba(#121212,.5)
+    @media screen and (max-height: 870px)
+        padding-top: 20px

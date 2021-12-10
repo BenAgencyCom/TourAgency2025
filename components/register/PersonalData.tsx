@@ -1,5 +1,6 @@
 import type { FunctionComponent } from "react";
 import type { CountryType } from "@/data/countries";
+import type { StatedDataField } from "@/@types/StagedDataField";
 import { useState, useEffect } from "react";
 import joi from "joi";
 // My components
@@ -15,10 +16,8 @@ import Fade from "@mui/material/Fade";
 // Material UI icons
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
-interface StatedDataField<T> {
-    value: T;
-    setValue: (value: T) => void;
-}
+import styles from "@/sass/pages/register.module.sass";
+
 interface PersonalDataAndCredentialsProps {
     // Data
     name: StatedDataField<string>;
@@ -69,7 +68,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <StepHeader
                     header="User Data" //
-                    icon={<AccountCircle sx={{ fontSize: "10rem" }}></AccountCircle>}
+                    icon={<AccountCircle className={styles.icon}></AccountCircle>}
                 ></StepHeader>
 
                 <Box sx={{ display: "flex", flexDirection: "column", width: "400px" }}>
