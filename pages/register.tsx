@@ -6,10 +6,10 @@ import Stepper from "@/components/register/stepper/Stepper";
 import PersonalData from "@/components/register/PersonalData";
 import Credentials from "@/components/register/Credentials";
 import Avatar from "@/components/register/Avatar";
+import Upload from "@/components/register/Upload";
 // Material UI components
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import mixins from "@/sass/mixins.module.sass";
 import styles from "@/sass/pages/register.module.sass";
 
 const Registration: FunctionComponent<{}> = () => {
@@ -79,6 +79,22 @@ const Registration: FunctionComponent<{}> = () => {
                                     currentSlideIndex={currentSlideIndex}
                                     updateSlideIndex={setCurrentSlideIndex}
                                 ></Avatar>
+                            );
+                        case 3:
+                            return (
+                                <Upload
+                                    name={name}
+                                    surname={surname}
+                                    sex={sex}
+                                    born={born}
+                                    country={country}
+                                    password={password}
+                                    passwordRepeatation={passwordRepeatation}
+                                    email={email}
+                                    avatar={avatar}
+                                    //
+                                    buttonStyles={buttonStyles}
+                                ></Upload>
                             );
                     }
                 })()}

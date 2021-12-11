@@ -6,18 +6,5 @@ import { prismaCertainProps } from "@/utils/prismaCertainProps";
 const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    res.status(200).json(
-        await prisma.post.findMany({
-            where: {
-                author: {
-                    name: "Kacper",
-                },
-            },
-            select: {
-                ...prismaCertainProps(["title", "published", "content"], true),
-                author: prismaCertainProps(["name", "email", "occupation"]),
-                categories: prismaCertainProps(["name"]),
-            },
-        })
-    );
+    res.status(200).json(await prisma.user.findMany());
 }
