@@ -1,29 +1,21 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import type { CountryType } from "@/data/countries";
-import { PersistentFile } from "formidable";
-import { PrismaClient } from "@prisma/client";
-import { prismaCertainProps } from "@/utils/prismaCertainProps";
-import formidable from "formidable";
-import { uploadDir } from "@/utils/paths";
-import slugGenerator from "@/utils/slugGenerator";
+// Libraries
 import fse from "fs-extra";
 import path from "path";
 import sharp from "sharp";
+import formidable from "formidable";
+import { PrismaClient } from "@prisma/client";
+// Types
+import type { NextApiResponse } from "next";
+import type { RegisterRequest, RegisterBody } from "@/@types/router/auth/register";
+// My helpers
+import { uploadDir } from "@/utils/paths";
+import slugGenerator from "@/utils/slugGenerator";
+import { InvalidRequestedBody } from "@/utils/Errors";
+import RegisterBodyValidator from "@/validators/registerBodyValidator";
 //
 const prisma = new PrismaClient();
 //
-interface RegisterRequest extends NextApiRequest {
-    body: {
-        name: string;
-        surname: string;
-        email: string;
-        country: CountryType;
-        sex: "MALE" | "FEMALE" | "OTHER";
-        password: string;
-        passwordRepeatation: string;
-        born: Date;
-    };
-}
+
 export const config = {
     api: {
         bodyParser: false,
@@ -32,9 +24,11 @@ export const config = {
 export default async function handler(req: RegisterRequest, res: NextApiResponse) {
     class Register {
         private folderName: string;
-        constructor(private fields: RegisterRequest["body"], private files: Record<string, { originalFilename: string; filepath: string }>) {
+
+        constructor(private fields: RegisterBody, private files: Record<string, { originalFilename: string; filepath: string }>) {
             this.folderName = slugGenerator(`${fields.email}_${fields.name}_${fields.surname}_`).slice(0, 200);
         }
+
         private async uploadAvatar(): Promise<void> {
             const { files, folderName } = this;
             for (const fileName in files) {
@@ -52,8 +46,14 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
             }
         }
 
+        private async validateFileds(): Promise<void> {
+            const validationResult = await RegisterBodyValidator(this.fields);
+            if (validationResult !== true) throw new InvalidRequestedBody(validationResult);
+        }
+
         public async main(): Promise<void> {
-            await this.uploadAvatar();
+            await this.validateFileds();
+            // await this.uploadAvatar();
         }
     }
 
@@ -64,6 +64,14 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
         });
     });
 
-    await new Register(fields, files).main();
-    res.status(201).end();
+    try {
+        await new Register(fields, files).main();
+        res.status(201).end();
+    } catch (e: unknown) {
+        if (e instanceof InvalidRequestedBody) {
+            res.status(400).json(e.joiFeedback);
+        } else {
+            res.status(500).end();
+        }
+    }
 }

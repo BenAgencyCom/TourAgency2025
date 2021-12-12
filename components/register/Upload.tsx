@@ -6,7 +6,7 @@ interface DataToForm {
     name: string;
     surname: string;
     country: CountryType | null;
-    sex: "Male" | "Female" | "Other";
+    sex: "MALE" | "FEMALE" | "OTHER";
     born: Date | null;
     password: string;
     passwordRepeatation: string;

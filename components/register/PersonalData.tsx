@@ -23,7 +23,7 @@ interface PersonalDataAndCredentialsProps {
     name: StatedDataField<string>;
     surname: StatedDataField<string>;
     country: StatedDataField<CountryType | null>;
-    sex: StatedDataField<"Male" | "Female" | "Other">;
+    sex: StatedDataField<"MALE" | "FEMALE" | "OTHER">;
     born: StatedDataField<Date | null>;
     // Auxiliary stuff
     currentSlideIndex: number;
@@ -41,7 +41,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
     const joiScheme = joi.object({
         name: joi.string().min(3).max(30).trim(),
         surname: joi.string().min(3).max(40).trim(),
-        sex: joi.valid("Male", "Female", "Other"),
+        sex: joi.valid("MALE", "FEMALE", "OTHER"),
         born: joi.date(),
         country: joi.object({
             code: joi.string().length(2),
@@ -93,8 +93,8 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                     <Select
                         label="Sex" //
                         value={props.sex.value}
-                        options={["Male", "Female", "Other"]}
-                        updateValue={(val) => props.sex.setValue(val as "Male" | "Female" | "Other")}
+                        options={["MALE", "FEMALE", "OTHER"]}
+                        updateValue={(val) => props.sex.setValue(val as "MALE" | "FEMALE" | "OTHER")}
                         buttonStyles={buttonStyles}
                     ></Select>
                     <DataPicker

@@ -20,7 +20,7 @@ const data = {
     passwordRepeatation: password,
     country: {
         code: "DE",
-        country: "Germany",
+        label: "Germany",
         phone: "49",
     },
 };
