@@ -6,7 +6,7 @@ interface DataToForm {
     name: string;
     surname: string;
     country: CountryType | null;
-    sex: "MALE" | "FEMALE" | "OTHER";
+    gender: "MALE" | "FEMALE" | "OTHER";
     born: Date | null;
     password: string;
     passwordRepeatation: string;
@@ -20,7 +20,7 @@ interface UploadProps extends DataToForm {
 
 const Upload: FunctionComponent<UploadProps> = (props) => {
     const body = new FormData();
-    ["name", "surname", "sex", "born", "password", "passwordRepeatation", "email", "avatar"].forEach((key) => body.append(key, (props as any)[key]));
+    ["name", "surname", "gender", "born", "password", "passwordRepeatation", "email", "avatar"].forEach((key) => body.append(key, (props as any)[key]));
     ["country"].forEach((key) => body.append(key, JSON.stringify((props as any)[key])));
     //
     const upload = async () => {

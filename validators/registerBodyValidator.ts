@@ -35,7 +35,7 @@ const validate = async (data: RegisterBody): Promise<ValidationResult> => {
                 type: "unique",
                 message: "This email is already taken, try another one",
             },
-        ];
+        ] as BetterJoiError[];
     return true;
 };
 

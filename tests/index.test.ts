@@ -1,19 +1,24 @@
+// Libraries
 import axios from "axios";
-import type { AxiosResponse } from "axios";
 import { PrismaClient } from "@prisma/client";
 import faker from "faker/locale/de";
 import FormData from "form-data";
 import fse from "fs-extra";
 import path from "path";
+// Types
+import type { AxiosResponse } from "axios";
+import type { Gender } from "@prisma/client";
+// My helpers
+import { uploadDir } from "../utils/paths";
 
 const prisma = new PrismaClient();
 let response: AxiosResponse | null = null;
-
+let folderName: null | string = null;
 const password = faker.internet.password();
 const data = {
     name: faker.name.firstName(),
     surname: faker.name.lastName(),
-    gender: "MALE",
+    gender: "MALE" as Gender,
     born: String(faker.date.past()),
     email: faker.internet.email(),
     password: password,
@@ -45,14 +50,27 @@ describe("REGISTER TEST", () => {
         });
     });
     test("Should save user in db", async () => {
-        expect(
-            await prisma.user.findFirst({
-                where: {
-                    name: data.name,
-                    surname: data.surname,
-                    email: data.email,
+        const user = await prisma.user.findFirst({
+            where: {
+                name: data.name,
+                surname: data.surname,
+                email: data.email,
+                gender: data.gender,
+                emailVerified: null,
+                NOT: {
+                    password: data.password,
                 },
-            })
-        ).not.toBeNull();
+            },
+        });
+        expect(user).not.toBeNull();
+        folderName = user?.avatar as string;
+    });
+    test("Avatar should be stored in varying sizes", async () => {
+        expect(folderName).not.toBeNull();
+
+        const sizes = ["thumbnail", "small", "medium", "large"];
+        for (const size of sizes) {
+            expect(await fse.pathExists(path.join(uploadDir, "avatars", folderName as string, `${size}.jpg`))).toBeTruthy();
+        }
     });
 });

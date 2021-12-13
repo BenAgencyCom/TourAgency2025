@@ -18,7 +18,7 @@ const Registration: FunctionComponent<{}> = () => {
     // const [surname, setSurname] = useState<string>("");
     // const [email, setEmail] = useState<string>("");
     // const [country, setCountry] = useState<CountryType | null>(null);
-    // const [sex, setSex] = useState<"MALE" | "FEMALE" | "OTHER">("MALE");
+    // const [gender, setGender] = useState<"MALE" | "FEMALE" | "OTHER">("MALE");
     // const [born, setBorn] = useState<Date | null>(null);
     // const [password, setPassword] = useState<string>("");
     // const [passwordRepeatation, setPasswordRepeatation] = useState<string>("");
@@ -27,7 +27,7 @@ const Registration: FunctionComponent<{}> = () => {
     const [surname, setSurname] = useState<string>("Ksiazek");
     const [email, setEmail] = useState<string>("jebac_gorzen@gmail.com");
     const [country, setCountry] = useState<CountryType | null>({ code: "PL", label: "Poland", phone: "48" });
-    const [sex, setSex] = useState<"MALE" | "FEMALE" | "OTHER">("MALE");
+    const [gender, setGender] = useState<"MALE" | "FEMALE" | "OTHER">("MALE");
     const [born, setBorn] = useState<Date | null>(new Date());
     const [password, setPassword] = useState<string>("jebac_gorzen123");
     const [passwordRepeatation, setPasswordRepeatation] = useState<string>("jebac_gorzen123");
@@ -49,7 +49,7 @@ const Registration: FunctionComponent<{}> = () => {
                                     // Data
                                     name={{ value: name, setValue: setName }}
                                     surname={{ value: surname, setValue: setSurname }}
-                                    sex={{ value: sex, setValue: setSex }}
+                                    gender={{ value: gender, setValue: setGender }}
                                     born={{ value: born, setValue: setBorn }}
                                     country={{ value: country, setValue: setCountry }}
                                     //
@@ -85,7 +85,7 @@ const Registration: FunctionComponent<{}> = () => {
                                 <Upload
                                     name={name}
                                     surname={surname}
-                                    sex={sex}
+                                    gender={gender}
                                     born={born}
                                     country={country}
                                     password={password}
