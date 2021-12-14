@@ -1,17 +1,19 @@
 // Libraries
-import fse from "fs-extra";
 import path from "path";
 import sharp from "sharp";
+import fse from "fs-extra";
+import bcrypt from "bcrypt";
 import formidable from "formidable";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
 // Types
+import type { User } from "@prisma/client";
 import type { NextApiResponse } from "next";
-import type { RegisterRequest, RegisterBody } from "@/@types/router/auth/register";
 import type { CountryType } from "@/data/countries";
+import type { RegisterRequest, RegisterBody } from "@/@types/router/auth/register";
 // My helpers
 import { uploadDir } from "@/utils/paths";
 import slugGenerator from "@/utils/slugGenerator";
+import CookieCreator from "@/utils/CookieCreator";
 import { InvalidRequestedBody } from "@/utils/Errors";
 import RegisterBodyValidator from "@/validators/registerBodyValidator";
 //
@@ -24,13 +26,14 @@ export const config = {
     },
 };
 export default async function handler(req: RegisterRequest, res: NextApiResponse) {
-    class Register {
+    class Register extends CookieCreator {
         private folderName: string | null;
         private avatarsFilePath: string | null = null;
 
         constructor(private fields: RegisterBody, files: Record<string, { originalFilename: string; filepath: string }>) {
-            this.folderName = slugGenerator(`${fields.email}_${fields.name}_${fields.surname}_`).slice(0, 200);
+            super(res);
 
+            this.folderName = slugGenerator(`${fields.email}_${fields.name}_${fields.surname}_`).slice(0, 200);
             if (Object.keys(files).length) {
                 this.avatarsFilePath = files[Object.keys(files)[0]].filepath;
             }
@@ -60,11 +63,11 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
             return await bcrypt.hash(this.fields.password, await bcrypt.genSalt());
         }
 
-        private async saveUserInDB(): Promise<void> {
+        private async saveUserInDB(): Promise<User> {
             const { fields, folderName, avatarsFilePath } = this;
             const { label: countryName, code: countryCode } = JSON.parse(this.fields.country as string) as CountryType;
 
-            await prisma.user.create({
+            return await prisma.user.create({
                 data: {
                     avatar: avatarsFilePath !== null ? folderName : null,
                     country: countryName,
@@ -82,7 +85,11 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
         public async main(): Promise<void> {
             await this.validateFileds();
             await this.uploadAvatar();
-            await this.saveUserInDB();
+            const user = await this.saveUserInDB();
+            // Cookie
+            this.createAccessToken(user);
+            this.generateCookieHeader();
+            await this.createSession(user.email as string);
         }
     }
 

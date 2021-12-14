@@ -1,7 +1,8 @@
 // Libraries
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 // Types
+import type { User } from "@prisma/client";
 import type { NextApiResponse, NextApiRequest } from "next";
 // My helpers
 import { CredentialsDoNotMatch, Forbidden } from "@/utils/Errors";
@@ -33,23 +34,11 @@ export default async function handler(req: LoginRequest, res: NextApiResponse) {
             }
             this.user = user as User;
         }
-        private async createSession(): Promise<void> {
-            await prisma.user.update({
-                where: {
-                    email: req.body.email,
-                },
-                data: {
-                    sessions: {
-                        create: this.createUserSession(),
-                    },
-                },
-            });
-        }
 
         public async main() {
             await this.checkCredentials();
             this.createAccessToken(this.user as User);
-            await this.createSession();
+            await this.createSession(req.body.email);
             this.generateCookieHeader();
         }
     }

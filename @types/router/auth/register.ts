@@ -14,3 +14,8 @@ export interface RegisterBody {
 export interface RegisterRequest extends NextApiRequest {
     body: RegisterBody;
 }
+export interface RegisterResponse extends NextApiResponse {
+    headers: {
+        "set-cookie": string[];
+    };
+}

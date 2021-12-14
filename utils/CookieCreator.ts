@@ -1,13 +1,18 @@
 import cookie from "cookie";
-import { User } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 
+import type { User } from "@prisma/client";
 import type { NextApiResponse } from "next";
 // .env variables
 const SESSION_DURATION = Number(process.env.SESSION_DURATION);
 const access_secret = process.env.ACCESS_TOKEN_SECRET as string;
 const access_expiration = process.env.ACCESS_TOKEN_EXPIRATION as string;
-
+//
+const prisma = new PrismaClient();
+//
+//
+//
 export default abstract class CookieCreator {
     private readonly PROPERTIES_TO_TOKEN = ["password", "id", "createdAt"];
     private accessToken: string | null = null;
@@ -32,7 +37,7 @@ export default abstract class CookieCreator {
             "Set-Cookie",
             cookie.serialize("accessToken", this.accessToken as string, {
                 httpOnly: true,
-                secure: false,
+                secure: process.env.NODE_ENV === "production",
                 sameSite: "strict",
                 path: "/",
                 maxAge: 60 * 60 * 24,
@@ -40,10 +45,19 @@ export default abstract class CookieCreator {
         );
     }
 
-    protected createUserSession() {
-        return {
-            accessToken: this.accessToken as string,
-            expires: new Date(Date.now() + SESSION_DURATION),
-        };
+    protected async createSession(email: string) {
+        await prisma.user.update({
+            where: {
+                email,
+            },
+            data: {
+                sessions: {
+                    create: {
+                        accessToken: this.accessToken as string,
+                        expires: new Date(Date.now() + SESSION_DURATION),
+                    },
+                },
+            },
+        });
     }
 }
