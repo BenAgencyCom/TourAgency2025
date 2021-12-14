@@ -16,7 +16,8 @@ import { InvalidRequestedBody } from "@/utils/Errors";
 import RegisterBodyValidator from "@/validators/registerBodyValidator";
 //
 //
-
+const prisma = new PrismaClient();
+//
 export const config = {
     api: {
         bodyParser: false,
@@ -24,27 +25,30 @@ export const config = {
 };
 export default async function handler(req: RegisterRequest, res: NextApiResponse) {
     class Register {
-        private folderName: string;
+        private folderName: string | null;
+        private avatarsFilePath: string | null = null;
 
-        constructor(private fields: RegisterBody, private files: Record<string, { originalFilename: string; filepath: string }>) {
+        constructor(private fields: RegisterBody, files: Record<string, { originalFilename: string; filepath: string }>) {
             this.folderName = slugGenerator(`${fields.email}_${fields.name}_${fields.surname}_`).slice(0, 200);
+
+            if (Object.keys(files).length) {
+                this.avatarsFilePath = files[Object.keys(files)[0]].filepath;
+            }
         }
 
         private async uploadAvatar(): Promise<void> {
-            const { files, folderName } = this;
-            for (const fileName in files) {
-                const file = files[fileName];
-                const dirName = path.join(uploadDir, "avatars", folderName);
-                await fse.ensureDir(dirName);
+            const { avatarsFilePath, folderName } = this;
+            if (avatarsFilePath === null) return;
 
-                const createNewFileName = (type: string): string => path.join(dirName, `${type}.jpg`);
-                await sharp(file.filepath).resize(56, 56).toFile(createNewFileName("thumbnail"));
-                await sharp(file.filepath).resize(168, 168).toFile(createNewFileName("small"));
-                await sharp(file.filepath).resize(360, 360).toFile(createNewFileName("medium"));
-                await sharp(file.filepath).resize(720, 720).toFile(createNewFileName("large"));
+            const dirName = path.join(uploadDir, "avatars", folderName as string);
+            const __createNewFileName = (type: string): string => path.join(dirName, `${type}.jpg`);
 
-                await fse.remove(file.filepath);
-            }
+            await fse.ensureDir(dirName);
+            await sharp(avatarsFilePath).resize(56, 56).toFile(__createNewFileName("thumbnail"));
+            await sharp(avatarsFilePath).resize(168, 168).toFile(__createNewFileName("small"));
+            await sharp(avatarsFilePath).resize(360, 360).toFile(__createNewFileName("medium"));
+            await sharp(avatarsFilePath).resize(720, 720).toFile(__createNewFileName("large"));
+            await fse.remove(avatarsFilePath);
         }
 
         private async validateFileds(): Promise<void> {
@@ -57,13 +61,12 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
         }
 
         private async saveUserInDB(): Promise<void> {
-            const { fields, folderName } = this;
-            const prisma = new PrismaClient();
+            const { fields, folderName, avatarsFilePath } = this;
             const { label: countryName, code: countryCode } = JSON.parse(this.fields.country as string) as CountryType;
 
             await prisma.user.create({
                 data: {
-                    avatar: folderName,
+                    avatar: avatarsFilePath !== null ? folderName : null,
                     country: countryName,
                     countryCode: countryCode,
                     email: fields.email,
@@ -84,10 +87,14 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
     }
 
     const { fields, files } = await new Promise((resolve, reject) => {
-        const form = new formidable.IncomingForm({ uploadDir: path.join(uploadDir, "temp") });
-        form.parse(req, async (err, fields, files) => {
-            resolve({ fields: fields, files: files });
-        });
+        try {
+            const form = new formidable.IncomingForm({ uploadDir: path.join(uploadDir, "temp") });
+            form.parse(req, async (err, fields, files) => {
+                resolve({ fields: fields, files: files });
+            });
+        } catch (e: unknown) {
+            return res.status(400).end();
+        }
     });
 
     try {

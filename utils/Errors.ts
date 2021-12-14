@@ -5,3 +5,12 @@ export class InvalidRequestedBody extends Error {
         super();
     }
 }
+
+export class CredentialsDoNotMatch extends Error {
+    public readonly msg: string = "Credentials do not match any user.";
+    constructor() {
+        super();
+    }
+}
+
+export class Forbidden extends Error {}
