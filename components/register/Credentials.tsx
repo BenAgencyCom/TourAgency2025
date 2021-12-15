@@ -1,8 +1,10 @@
-import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
 import { useState, useEffect } from "react";
 import joi from "joi";
 import PasswordStrengthBar from "react-password-strength-bar";
+import axios from "axios";
+// Types
+import type { FunctionComponent } from "react";
+import type { StatedDataField } from "@/@types/StagedDataField";
 // My components
 import TextInput from "@/components/register/_formFields/TextInput";
 import PasswordInput from "@/components/register/_formFields/PasswordInput";
@@ -29,6 +31,7 @@ interface PersonalDataAndCredentialsProps {
 
 const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsProps> = (props) => {
     const { buttonStyles, password, passwordRepeatation, email } = props;
+    const [emailAvailableness, setEmailAvailableness] = useState<boolean>(true);
     //
     // Validation
     //
@@ -46,7 +49,20 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
         });
         setBlockContinue(Boolean(error));
     };
+    const checkEmail = async () => {
+        try {
+            const { available } = (await axios.get(`./api/is_email_available/${email.value}`)).data as { available: boolean };
+            setEmailAvailableness(Boolean(available));
+        } catch (e: unknown) {
+            setEmailAvailableness(false);
+        }
+    };
     useEffect(test, [password, passwordRepeatation, email, joiScheme]);
+    useEffect(() => {
+        // running this funcion w/o await was on purpose
+        checkEmail();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     //
     //
     //
@@ -64,6 +80,8 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                         value={email.value}
                         updateValue={email.setValue}
                         buttonStyles={buttonStyles}
+                        onBlur={checkEmail}
+                        errorMsg={emailAvailableness ? false : "Email address is not available"}
                     ></TextInput>
                     <PasswordInput
                         label="Password" //
@@ -83,7 +101,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                 <StepNavigaton
                     currentSlideIndex={props.currentSlideIndex} //
                     updateSlideIndex={props.updateSlideIndex}
-                    blockContinue={blockContinue}
+                    blockContinue={blockContinue || !emailAvailableness}
                 ></StepNavigaton>
             </Box>
         </Fade>
