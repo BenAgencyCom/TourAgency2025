@@ -13,6 +13,7 @@ interface InputProps {
     label: string;
     value: Date | null;
     buttonStyles: Record<string, any>;
+    sx?: Record<string, unknown>;
     // Methods
     updateValue: (value: Date | null) => void;
 }
@@ -27,7 +28,7 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
                 label={label} //
                 value={value}
                 onChange={handleChange}
-                renderInput={(params) => <TextField {...params} sx={props.buttonStyles} />}
+                renderInput={(params) => <TextField {...params} sx={{ ...props.buttonStyles, ...props.sx }} />}
                 inputFormat="dd/MM/yyyy"
                 OpenPickerButtonProps={{ tabIndex: -1 }}
             />

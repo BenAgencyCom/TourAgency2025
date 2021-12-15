@@ -52,7 +52,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
     //
     return (
         <Fade in={true}>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1 }}>
                 <StepHeader
                     header="Credentials" //
                     icon={<Key className={styles.icon}></Key>}

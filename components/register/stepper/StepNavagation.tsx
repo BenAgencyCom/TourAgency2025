@@ -7,6 +7,7 @@ interface StepNavigationProps {
     blockContinue: boolean;
     updateSlideIndex: (x: number) => void;
     continueMsg?: string;
+    continueAction?: () => void;
 }
 const StepNavigation: FunctionComponent<StepNavigationProps> = (props) => {
     const { currentSlideIndex, updateSlideIndex, blockContinue, continueMsg } = props;
@@ -24,7 +25,7 @@ const StepNavigation: FunctionComponent<StepNavigationProps> = (props) => {
             <Button variant="contained" color="neutral" sx={{ mr: 1 }} disabled={currentSlideIndex === 0} onClick={goBack}>
                 Go back
             </Button>
-            <Button variant="contained" disabled={blockContinue} onClick={goFurther}>
+            <Button variant="contained" disabled={blockContinue} onClick={props.continueAction ? props.continueAction : goFurther}>
                 {continueMsg ? continueMsg : "Continue"}
             </Button>
         </ButtonGroup>

@@ -1,9 +1,10 @@
 import type { FunctionComponent } from "react";
 import { Home, LocalOffer, EmojiEvents } from "@mui/icons-material";
 import DropDownMenuItem from "./DropDownMenuItem";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-const Navigation: FunctionComponent = () => {
+const Navigation: FunctionComponent<{ buttonStyles: Record<string, unknown> }> = ({ buttonStyles }) => {
     return (
         <Box
             sx={{
@@ -14,34 +15,15 @@ const Navigation: FunctionComponent = () => {
                 mr: 2,
             }}
         >
-            <DropDownMenuItem
-                label="Home"
-                icon={<Home sx={{ mr: 1 }}></Home>}
-                routes={[
-                    { label: "Lorem ipsum", destination: "Essa" },
-                    { label: "Ipsum", destination: "Essa" },
-                    { label: "Dolor", destination: "Essa" },
-                ]}
-            ></DropDownMenuItem>{" "}
-            <DropDownMenuItem
-                label="Offer"
-                icon={<LocalOffer sx={{ mr: 1 }}></LocalOffer>}
-                routes={[
-                    { label: "Lorem ipsum", destination: "Essa" },
-                    { label: "Ipsum", destination: "Essa" },
-                    { label: "Dolor", destination: "Essa" },
-                    { label: "Dolor", destination: "Essa" },
-                ]}
-            ></DropDownMenuItem>{" "}
-            <DropDownMenuItem
-                label="Experience"
-                icon={<EmojiEvents sx={{ mr: 1 }}></EmojiEvents>}
-                routes={[
-                    { label: "Lorem ipsum", destination: "Essa" },
-                    { label: "Ipsum", destination: "Essa" },
-                    { label: "Dolor", destination: "Essa" },
-                ]}
-            ></DropDownMenuItem>
+            <Button sx={buttonStyles} variant="outlined">
+                Lorem
+            </Button>
+            <Button sx={buttonStyles} variant="outlined">
+                Ipsum
+            </Button>
+            <Button sx={buttonStyles} variant="outlined">
+                Gorzen
+            </Button>
         </Box>
     );
 };

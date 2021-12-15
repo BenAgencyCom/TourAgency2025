@@ -11,6 +11,7 @@ interface InputProps {
     value: string;
     options: string[];
     buttonStyles: Record<string, any>;
+    sx?: Record<string, unknown>;
     // Methods
     updateValue: (value: string) => void;
 }
@@ -21,7 +22,7 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
     const handleChange = (e: any) => updateValue(e.target.value);
 
     return (
-        <FormControl variant="outlined">
+        <FormControl variant="outlined" sx={props.sx}>
             <InputLabel htmlFor={id}>{label}</InputLabel>
             <Select
                 id={id} //

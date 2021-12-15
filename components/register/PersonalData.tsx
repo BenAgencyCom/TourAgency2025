@@ -65,7 +65,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
     //
     return (
         <Fade in={true}>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1 }}>
                 <StepHeader
                     header="User Data" //
                     icon={<AccountCircle className={styles.icon}></AccountCircle>}
@@ -90,19 +90,23 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                         updateValue={props.country.setValue}
                         buttonStyles={buttonStyles}
                     ></AutocompleteCountry>
-                    <Select
-                        label="Gender" //
-                        value={props.gender.value}
-                        options={["MALE", "FEMALE", "OTHER"]}
-                        updateValue={(val) => props.gender.setValue(val as "MALE" | "FEMALE" | "OTHER")}
-                        buttonStyles={buttonStyles}
-                    ></Select>
-                    <DataPicker
-                        label="Born" //
-                        value={props.born.value}
-                        updateValue={props.born.setValue}
-                        buttonStyles={buttonStyles}
-                    ></DataPicker>
+                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                        <DataPicker
+                            label="Born" //
+                            value={props.born.value}
+                            updateValue={props.born.setValue}
+                            buttonStyles={buttonStyles}
+                            sx={{ width: "59%" }}
+                        ></DataPicker>
+                        <Select
+                            label="Gender" //
+                            value={props.gender.value}
+                            options={["MALE", "FEMALE", "OTHER"]}
+                            updateValue={(val) => props.gender.setValue(val as "MALE" | "FEMALE" | "OTHER")}
+                            buttonStyles={buttonStyles}
+                            sx={{ width: "38%" }}
+                        ></Select>
+                    </Box>
                 </Box>
 
                 <StepNavigaton

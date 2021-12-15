@@ -7,6 +7,7 @@ import PageLogo from "./PageLogo";
 import LoginAndRegister from "./LoginAndRegister";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import Fade from "@mui/material/Fade";
 // Tools
 import styles from "@/sass/layout.module.sass";
 import { useRouter } from "next/router";
@@ -15,6 +16,8 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const router = useRouter();
     const extraStyles = { backgroundColor: "transparent !important", backgroundImage: "none !important", backdropFilter: "none !important", boxShadow: "none !important" };
     const [displayExtraStyles, setDisplayExtraStyles] = useState<boolean>(false);
+    const [displayAppBar, setDisplayAppBar] = useState<boolean>(true);
+    const buttonStyles = { px: 3, mx: 1 };
 
     useEffect(() => {
         if (router.pathname === "/") {
@@ -24,33 +27,43 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                 else setDisplayExtraStyles(false);
             });
         } else setDisplayExtraStyles(false);
+        // Toogle visibility
+        const routesWithDisabledMenu = ["/register"];
+        if (routesWithDisabledMenu.includes(router.pathname)) setDisplayAppBar(false);
+        else {
+            setDisplayAppBar(true);
+        }
     }, [router.pathname]);
+
+    //
     return (
         <>
-            <AppBar className={styles.wrapper} sx={displayExtraStyles ? extraStyles : {}}>
-                <Container
-                    maxWidth="xl"
-                    sx={{
-                        display: "flex", //
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        p: 1,
-                    }}
-                >
-                    <PageLogo></PageLogo>
-                    <Box
+            <Fade in={displayAppBar} timeout={300}>
+                <AppBar className={styles.wrapper} sx={displayExtraStyles ? extraStyles : {}}>
+                    <Container
+                        maxWidth="xl"
                         sx={{
-                            display: "flex",
+                            display: "flex", //
                             alignItems: "center",
                             justifyContent: "space-between",
+                            p: 1,
                         }}
                     >
-                        <Navigation></Navigation>
-                        <Divider orientation="vertical" flexItem />
-                        <LoginAndRegister></LoginAndRegister>
-                    </Box>
-                </Container>
-            </AppBar>
+                        <PageLogo></PageLogo>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            <Navigation buttonStyles={buttonStyles}></Navigation>
+                            <Divider orientation="vertical" flexItem />
+                            <LoginAndRegister buttonStyles={buttonStyles}></LoginAndRegister>
+                        </Box>
+                    </Container>
+                </AppBar>
+            </Fade>
             {/*  */}
             <Box sx={{ backgroundColor: "background.paper" }}>
                 <main>{children}</main>

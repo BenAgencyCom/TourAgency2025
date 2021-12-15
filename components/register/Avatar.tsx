@@ -46,7 +46,7 @@ const AvatarAndBackground: FunctionComponent<AvatarAndBackgroundProps> = (props)
 
     return (
         <Fade in={true}>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1 }}>
                 <StepHeader
                     header="Avatar" //
                 ></StepHeader>

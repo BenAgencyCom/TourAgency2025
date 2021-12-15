@@ -10,6 +10,11 @@ import Upload from "@/components/register/Upload";
 // Material UI components
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
+import Button from "@mui/material/Button";
+import CardActions from "@mui/material/CardActions";
+import Divider from "@mui/material/Divider";
+import Link from "next/link";
+
 import styles from "@/sass/pages/register.module.sass";
 
 const Registration: FunctionComponent<{}> = () => {
@@ -94,10 +99,25 @@ const Registration: FunctionComponent<{}> = () => {
                                     avatar={avatar}
                                     //
                                     buttonStyles={buttonStyles}
+                                    currentSlideIndex={currentSlideIndex}
+                                    updateSlideIndex={setCurrentSlideIndex}
                                 ></Upload>
                             );
                     }
                 })()}
+                <Divider></Divider>
+                <CardActions sx={{ justifyContent: "center", my: 2 }}>
+                    <Button>
+                        <Link href="/login">
+                            <a>Already have an account</a>
+                        </Link>
+                    </Button>
+                    <Button>
+                        <Link href="/">
+                            <a>Main page</a>
+                        </Link>
+                    </Button>
+                </CardActions>
             </Card>
         </Box>
     );
