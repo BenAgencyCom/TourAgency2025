@@ -1,0 +1,84 @@
+// Libraries
+import { PrismaClient } from "@prisma/client";
+import jwt from "jsonwebtoken";
+// Types
+import type { User } from "@prisma/client";
+import type { NextApiResponse, NextApiRequest } from "next";
+// My helpers
+import { Forbidden, SessionExpired } from "@/utils/api/Errors";
+import CookieCreator from "@/utils/api/CookieCreator";
+//
+//
+//
+const prisma = new PrismaClient();
+//
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== "POST") return res.status(404).end();
+
+    class AuthenticateToken extends CookieCreator {
+        private accessTokenFromCookie: string = "";
+        private userIdFromToken: string = "";
+        private sessionId: string = "";
+        private user: User | null = null;
+
+        public constructor() {
+            super(res);
+        }
+
+        private getAccessTokenFromCookie(): void {
+            this.accessTokenFromCookie = req.cookies.accessToken;
+            if (!this.accessTokenFromCookie) throw new Forbidden();
+        }
+
+        private getUserIdFromToken(): void {
+            this.userIdFromToken = (jwt.decode(this.accessTokenFromCookie) as { id: string }).id;
+            if (!this.userIdFromToken) throw new Forbidden();
+        }
+
+        private async checkIfThisSessionActuallyExists(): Promise<void> {
+            const session = await prisma.session.findFirst({
+                where: {
+                    accessToken: this.accessTokenFromCookie,
+                    userId: this.userIdFromToken,
+                },
+            });
+            if (!session) throw new Forbidden();
+            // Check if session whether had expired
+            if (new Date().getTime() >= new Date(session.expires).getTime()) {
+                await prisma.session.delete({
+                    where: {
+                        id: session.id,
+                    },
+                });
+                this.removeCookieHeader();
+                throw new SessionExpired();
+            }
+            this.sessionId = session.id;
+        }
+
+        private async getUserFromDB(): Promise<void> {
+            this.user = await prisma.user.findUnique({ where: { id: this.userIdFromToken } });
+            if (!this.user) throw new Forbidden();
+        }
+
+        public async main(): Promise<void> {
+            this.getAccessTokenFromCookie();
+            this.getUserIdFromToken();
+            await this.checkIfThisSessionActuallyExists();
+            await this.getUserFromDB();
+            this.createAccessToken(this.user as User);
+            this.generateCookieHeader();
+            await this.updateExistingSession(this.sessionId);
+        }
+    }
+    //
+    try {
+        await new AuthenticateToken().main();
+        return res.status(200).end();
+    } catch (e: unknown) {
+        if (e instanceof Forbidden) return res.status(403).end();
+        if (e instanceof SessionExpired) return res.status(440).end();
+        else return res.status(500).end();
+    }
+}

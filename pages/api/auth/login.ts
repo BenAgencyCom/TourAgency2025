@@ -5,8 +5,8 @@ import bcrypt from "bcrypt";
 import type { User } from "@prisma/client";
 import type { NextApiResponse, NextApiRequest } from "next";
 // My helpers
-import { CredentialsDoNotMatch, Forbidden } from "@/utils/Errors";
-import CookieCreator from "@/utils/CookieCreator";
+import { CredentialsDoNotMatch, Forbidden } from "@/utils/api/Errors";
+import CookieCreator from "@/utils/api/CookieCreator";
 //
 //
 //

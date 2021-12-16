@@ -1,4 +1,4 @@
-import type { BetterJoiError } from "@/utils/betterJoiErrors";
+import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
 
 export class InvalidRequestedBody extends Error {
     constructor(public joiFeedback: BetterJoiError[]) {
@@ -14,3 +14,4 @@ export class CredentialsDoNotMatch extends Error {
 }
 
 export class Forbidden extends Error {}
+export class SessionExpired extends Error {}

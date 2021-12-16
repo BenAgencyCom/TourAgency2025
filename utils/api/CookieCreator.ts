@@ -19,7 +19,7 @@ export default abstract class CookieCreator {
 
     public constructor(public res: NextApiResponse) {}
 
-    protected createAccessToken(user: User) {
+    protected createAccessToken(user: User): void {
         interface JWTUser {
             [key: string]: "password" | "id" | "createdAt";
         }
@@ -45,7 +45,20 @@ export default abstract class CookieCreator {
         );
     }
 
-    protected async createSession(email: string) {
+    protected removeCookieHeader(): void {
+        this.res.setHeader(
+            "Set-Cookie",
+            cookie.serialize("accessToken", "", {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "strict",
+                path: "/",
+                expires: new Date(0),
+            })
+        );
+    }
+
+    protected async createSession(email: string): Promise<void> {
         await prisma.user.update({
             where: {
                 email,
@@ -57,6 +70,17 @@ export default abstract class CookieCreator {
                         expires: new Date(Date.now() + SESSION_DURATION),
                     },
                 },
+            },
+        });
+    }
+
+    protected async updateExistingSession(sessionId: string): Promise<void> {
+        await prisma.session.update({
+            where: {
+                id: sessionId,
+            },
+            data: {
+                accessToken: this.accessToken as string,
             },
         });
     }

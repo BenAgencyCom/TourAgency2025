@@ -1,7 +1,7 @@
 import joi from "joi";
 import validator from "@/validators/_validator";
 import { PrismaClient } from "@prisma/client";
-import type { BetterJoiError } from "@/utils/betterJoiErrors";
+import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
 
 import type { ValidationResult } from "@/validators/_validator";
 import type { RegisterBody } from "@/@types/router/auth/register";

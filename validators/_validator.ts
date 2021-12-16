@@ -1,6 +1,6 @@
-import createBetterJoiErrors from "@/utils/betterJoiErrors";
+import createBetterJoiErrors from "@/utils/api/betterJoiErrors";
 import type { Schema } from "joi";
-import type { BetterJoiError } from "@/utils/betterJoiErrors";
+import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
 
 export type ValidationResult = true | BetterJoiError[];
 

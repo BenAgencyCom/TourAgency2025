@@ -12,9 +12,9 @@ import type { CountryType } from "@/data/countries";
 import type { RegisterRequest, RegisterBody } from "@/@types/router/auth/register";
 // My helpers
 import { uploadDir } from "@/utils/paths";
-import slugGenerator from "@/utils/slugGenerator";
-import CookieCreator from "@/utils/CookieCreator";
-import { InvalidRequestedBody } from "@/utils/Errors";
+import slugGenerator from "@/utils/api/slugGenerator";
+import CookieCreator from "@/utils/api/CookieCreator";
+import { InvalidRequestedBody } from "@/utils/api/Errors";
 import RegisterBodyValidator from "@/validators/registerBodyValidator";
 //
 //
