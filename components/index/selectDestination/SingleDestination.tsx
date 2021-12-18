@@ -20,22 +20,26 @@ interface SingleDestinationParams {
 }
 const SingleDestination: FunctionComponent<SingleDestinationParams> = ({ target, alphaValue, handleOnClick }) => {
     return (
-        <CardActionArea
-            className={styles.selectDestinationSingleItem} //
-            sx={{ backgroundColor: alpha("#000", alphaValue) }}
-            onClick={() => handleOnClick(target.id)}
-        >
-            <Avatar src={target.backgroundSrc} alt="avatar" sx={{ width: 50, height: 50, mr: 2 }}></Avatar>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Typography variant="h6">{target.city}</Typography>
-                <Typography variant="body1" sx={{ display: "flex", alignItems: "center" }}>
-                    <LocationOn className={colors.mainFontColor}></LocationOn>
-                    <span>
-                        {target.continent}, {target.country}
-                    </span>
-                </Typography>
-            </Box>
-        </CardActionArea>
+        <Box sx={{ px: "10px" }}>
+            <CardActionArea
+                className={styles.selectDestinationSingleItem} //
+                sx={{
+                    backgroundColor: (theme) => alpha(theme.palette.neutral.main, alphaValue),
+                }}
+                onClick={() => handleOnClick(target.id)}
+            >
+                <Avatar src={target.backgroundSrc} alt="avatar" sx={{ width: 50, height: 50, mr: 2 }}></Avatar>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Typography variant="h6">{target.city}</Typography>
+                    <Typography variant="body1" sx={{ display: "flex", alignItems: "center" }}>
+                        <LocationOn className={colors.mainFontColor}></LocationOn>
+                        <span>
+                            {target.continent}, {target.country}
+                        </span>
+                    </Typography>
+                </Box>
+            </CardActionArea>
+        </Box>
     );
 };
 

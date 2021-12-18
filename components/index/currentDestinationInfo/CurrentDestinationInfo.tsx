@@ -9,15 +9,20 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
+import Rating from "@mui/material/Rating";
 // Material Icons
 import AccessTime from "@mui/icons-material/AccessTime";
 import StarBorder from "@mui/icons-material/StarBorder";
+import Star from "@mui/icons-material/Star";
 import Euro from "@mui/icons-material/Euro";
 // Styles
 import styles from "@/sass/indexPage/indexPage.module.sass";
 import colors from "@/sass/variables.module.sass";
+// Redux
+import { useAppSelector } from "@/redux/hooks";
 
 const CurrentDestinationInfo: FunctionComponent<{ currentDestination: TravelDestination }> = ({ currentDestination }) => {
+    const width = useAppSelector((state) => state.windowSizes.width);
     const [triggerAnimations, setTriggerAnimations] = useState<number>(0);
     useEffect(() => {
         setTriggerAnimations((t) => t + 1);
@@ -26,16 +31,21 @@ const CurrentDestinationInfo: FunctionComponent<{ currentDestination: TravelDest
     return (
         <Box className={styles.currentDestinationInfo}>
             {/* Country */}
-            <BackgroundCountryName countryName={currentDestination.country} triggerAnimations={triggerAnimations}></BackgroundCountryName>
+            {(() => {
+                if (width > 650) {
+                    return <BackgroundCountryName countryName={currentDestination.country} triggerAnimations={triggerAnimations}></BackgroundCountryName>;
+                }
+            })()}
+
             {/* City */}
-            <Typography variant="h4" className={colors.mainFontColor}>
+            <Typography variant="h4" sx={{ color: "primary.main" }} className={styles["city-header"]}>
                 {currentDestination.city}
             </Typography>
             {/* Description */}
-            <Typography variant="h2" sx={{ color: "#fff", textAlign: "center", my: 3 }}>
+            <Typography variant="h2" className={styles["description-header"]}>
                 {currentDestination.description}
             </Typography>
-            <Box sx={{ display: "flex" }}>
+            <Box className={styles["adventages-list"]}>
                 {/*  */}
                 {/* DURATION */}
                 {/*  */}
@@ -50,19 +60,26 @@ const CurrentDestinationInfo: FunctionComponent<{ currentDestination: TravelDest
                 {/*  */}
                 {/* REVIEWS */}
                 {/*  */}
-                <Divider orientation="vertical" flexItem sx={{ mx: 2 }}></Divider>
+                <Divider orientation="vertical" flexItem sx={{ mx: 2, mb: 1 }}></Divider>
                 <BottomSidePartialInfo logo={<StarBorder></StarBorder>}>
-                    Reviews: <strong>{currentDestination.review.toFixed(2)}</strong>
+                    Reviews:{" "}
+                    <Rating
+                        value={Number(currentDestination.review.toFixed(2))} //
+                        readOnly={true}
+                        precision={0.5}
+                        sx={{ ml: 1 }}
+                        icon={<Star sx={{ color: "primary.main" }}></Star>}
+                    ></Rating>
                 </BottomSidePartialInfo>{" "}
-                <Divider orientation="vertical" flexItem sx={{ mx: 2 }}></Divider>
+                <Divider orientation="vertical" flexItem sx={{ mx: 2, mb: 1 }}></Divider>
                 {/*  */}
                 {/* PRICE */}
                 {/*  */}
                 <BottomSidePartialInfo logo={<Euro></Euro>}>
-                    Starting at <strong>{currentDestination.price.toFixed(2)}</strong>{" "}
+                    Starting at €<strong>{currentDestination.price.toFixed(2)}</strong>{" "}
                 </BottomSidePartialInfo>
             </Box>
-            <Button variant="contained" sx={{ mt: 3, px: 5 }}>
+            <Button variant="contained" sx={{ mt: 3, px: 5 }} className={styles.bookNow}>
                 Book now
             </Button>
         </Box>

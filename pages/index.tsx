@@ -6,8 +6,8 @@ import data from "@/data/destinations";
 import IndexPageSlider from "@/components/index/backgroundImagesSlider/Slider";
 import CurrentDestinationInfo from "@/components/index/currentDestinationInfo/CurrentDestinationInfo";
 import SelectDestination from "@/components/index/selectDestination/SelectDestination";
-import AboutDestination from "@/components/index/AboutDestination";
-
+// Redux
+import { useAppSelector } from "@/redux/hooks";
 import styles from "@/sass/indexPage/indexPage.module.sass";
 
 const IndexPage: FunctionComponent<{}> = () => {
@@ -16,31 +16,18 @@ const IndexPage: FunctionComponent<{}> = () => {
         setCurrentDestinationIndex(data.findIndex((target) => target.id === id));
     };
     const currentDestination = data[currentDestinationIndex];
-    const [sidePanelsDistance, setSidePanelsDistance] = useState<number>(30);
-    useEffect(() => {
-        setSidePanelsDistance(
-            (() => {
-                const w = window.innerWidth;
-                if (w > 2300) return 100;
-                else return 30;
-            })()
-        );
-    }, []);
 
     return (
         <Box sx={{ width: "100%", flexGrow: 1 }} className={styles.sliderWrapper}>
             <IndexPageSlider data={data} index={currentDestinationIndex}></IndexPageSlider>
-            <CurrentDestinationInfo currentDestination={currentDestination}></CurrentDestinationInfo>
-            <AboutDestination
-                currentDestination={currentDestination} //
-                sidePanelsDistance={sidePanelsDistance}
-            ></AboutDestination>
-            <SelectDestination
-                data={data} //
-                sidePanelsDistance={sidePanelsDistance}
-                currentDestination={currentDestination}
-                selectDestination={selectDestination}
-            ></SelectDestination>
+            <Box className={styles.contentWrapper}>
+                <CurrentDestinationInfo currentDestination={currentDestination}></CurrentDestinationInfo>
+                <SelectDestination
+                    data={data} //
+                    currentDestination={currentDestination}
+                    selectDestination={selectDestination}
+                ></SelectDestination>
+            </Box>
         </Box>
     );
 };

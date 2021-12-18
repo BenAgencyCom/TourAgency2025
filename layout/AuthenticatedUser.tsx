@@ -64,7 +64,7 @@ const AuthenticatedUser: FunctionComponent<{ buttonStyles: Record<string, unknow
             </Box>
 
             <Typography variant="h6" sx={{ cursor: "default", mx: 1 }}>
-                <Typography component="span">Singed in as: </Typography>
+                <Typography component="span">Signed in as: </Typography>
                 <Typography component="span" sx={{ fontWeight: "bold", color: "primary.main" }}>
                     {`${userData.name} ${userData.surname}`}
                 </Typography>

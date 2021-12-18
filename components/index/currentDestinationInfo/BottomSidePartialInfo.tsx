@@ -10,7 +10,7 @@ const BottomSidePartialInfo: FunctionComponent<{ logo: ReactNode; children: Reac
             <Typography variant="h5" sx={{ mr: 1, fontSize: "2rem", display: "flex", alignItems: "center" }} className={colors.mainFontColor}>
                 {logo}
             </Typography>
-            <Typography variant="h5" sx={{ color: "#fff", textAlign: "center" }}>
+            <Typography variant="h5" sx={{ color: "#fff", textAlign: "center", display: "flex", alignItems: "center" }}>
                 {children}
             </Typography>
         </Box>

@@ -15,9 +15,10 @@ import Fade from "@mui/material/Fade";
 import styles from "@/sass/layout.module.sass";
 import { useRouter } from "next/router";
 import { authenticateToken, getUserData } from "@/utils/client/authenticate";
-// 😎 Redux 😎
+// Redux
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { setAuthentication, getUserFromLocalStorage, setUserData } from "@/redux/slices/authentication";
+import { resize } from "@/redux/slices/windowSizes";
 
 const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const router = useRouter();
@@ -29,6 +30,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
     const userData = useAppSelector((state) => state.authentication.userData);
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         if (router.pathname === "/") {
             setDisplayExtraStyles(true);
@@ -61,8 +63,12 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                     }
                 }
             }
-            // console.log();
         })();
+        //
+        // Track resize
+        //
+        dispatch(resize());
+        window.addEventListener("resize", () => dispatch(resize()));
     }, [router.pathname, isAuthenticated, dispatch]);
 
     //

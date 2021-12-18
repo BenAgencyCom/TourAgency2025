@@ -24,7 +24,7 @@ const IndexPageSlider: FunctionComponent<{ data: TravelDestination[]; index: num
     return (
         <Slider {...settings} initialSlide={index} ref={slider}>
             {data.map((target, index) => {
-                return <Slide destination={target} key={index}></Slide>;
+                return <Slide destination={target} key={index} priority={index === 0}></Slide>;
             })}
         </Slider>
     );

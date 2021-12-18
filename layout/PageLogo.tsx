@@ -6,7 +6,7 @@ const PageLogo: FunctionComponent<{}> = () => {
     return (
         <Link href="/">
             <a tabIndex={-1}>
-                <Image src="logo.png" width="300" height="60px" alt="logo" unoptimized={true}></Image>
+                <Image src="logo.png" width="200" height="30px" alt="logo" unoptimized={true}></Image>
             </a>
         </Link>
     );
