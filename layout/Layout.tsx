@@ -1,16 +1,23 @@
 import type { FunctionComponent, ReactNode } from "react";
 import { useEffect, useState } from "react";
 // Components
-import { AppBar, Container } from "@mui/material";
-import Navigation from "./navigation/Navigation";
+import Navigation from "./Navigation";
 import PageLogo from "./PageLogo";
 import LoginAndRegister from "./LoginAndRegister";
+import Snackbar from "./Snackbar";
+import AuthenticatedUser from "./AuthenticatedUser";
+// Material UI Components
 import Box from "@mui/material/Box";
+import { AppBar, Container } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Fade from "@mui/material/Fade";
 // Tools
 import styles from "@/sass/layout.module.sass";
 import { useRouter } from "next/router";
+import { authenticateToken, getUserData } from "@/utils/client/authenticate";
+// 😎 Redux 😎
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { setAuthentication, getUserFromLocalStorage, setUserData } from "@/redux/slices/authentication";
 
 const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const router = useRouter();
@@ -19,6 +26,9 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const [displayAppBar, setDisplayAppBar] = useState<boolean>(true);
     const buttonStyles = { px: 3, mx: 1 };
 
+    const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
+    const userData = useAppSelector((state) => state.authentication.userData);
+    const dispatch = useAppDispatch();
     useEffect(() => {
         if (router.pathname === "/") {
             setDisplayExtraStyles(true);
@@ -27,18 +37,38 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                 else setDisplayExtraStyles(false);
             });
         } else setDisplayExtraStyles(false);
+        //
         // Toogle visibility
-        const routesWithDisabledMenu = ["/register"];
+        //
+        const routesWithDisabledMenu = ["/register", "/login"];
         if (routesWithDisabledMenu.includes(router.pathname)) setDisplayAppBar(false);
         else {
             setDisplayAppBar(true);
         }
-    }, [router.pathname]);
+        //
+        // Authenticate user
+        //
+        (async () => {
+            if (isAuthenticated === null) {
+                const authenticationResult = (await authenticateToken()) as boolean;
+                dispatch(setAuthentication(authenticationResult));
+                // Load user's data
+                if (authenticationResult) {
+                    if (localStorage.getItem("userData")) {
+                        dispatch(getUserFromLocalStorage());
+                    } else {
+                        dispatch(setUserData(await getUserData()));
+                    }
+                }
+            }
+            // console.log();
+        })();
+    }, [router.pathname, isAuthenticated, dispatch]);
 
     //
     return (
         <>
-            <Fade in={displayAppBar} timeout={300}>
+            <Fade in={displayAppBar && isAuthenticated !== null} timeout={300}>
                 <AppBar className={styles.wrapper} sx={displayExtraStyles ? extraStyles : {}}>
                     <Container
                         maxWidth="xl"
@@ -59,7 +89,10 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                         >
                             <Navigation buttonStyles={buttonStyles}></Navigation>
                             <Divider orientation="vertical" flexItem />
-                            <LoginAndRegister buttonStyles={buttonStyles}></LoginAndRegister>
+                            {(() => {
+                                if (isAuthenticated && userData) return <AuthenticatedUser buttonStyles={buttonStyles}></AuthenticatedUser>;
+                                else return <LoginAndRegister buttonStyles={buttonStyles}></LoginAndRegister>;
+                            })()}
                         </Box>
                     </Container>
                 </AppBar>
@@ -67,6 +100,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
             {/*  */}
             <Box sx={{ backgroundColor: "background.paper" }}>
                 <main>{children}</main>
+                <Snackbar></Snackbar>
             </Box>
         </>
     );

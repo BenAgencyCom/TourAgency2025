@@ -15,11 +15,13 @@ interface InputProps {
     label: string;
     value: string;
     buttonStyles: Record<string, any>;
+    // Optional
+    disabled?: boolean;
     // Methods
     updateValue: (value: string) => void;
 }
 const PasswordInput: FunctionComponent<InputProps> = (props) => {
-    const { label, value, updateValue, buttonStyles } = props;
+    const { label, value, updateValue, buttonStyles, disabled } = props;
     const id = `password-inp-${label}`;
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateValue(e.target.value);
 
@@ -37,6 +39,7 @@ const PasswordInput: FunctionComponent<InputProps> = (props) => {
                 value={value}
                 onChange={handleChange}
                 type={passwordVisibility ? "text" : "password"}
+                disabled={disabled !== undefined ? disabled : false}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton onClick={togglePasswordVisibility} tabIndex={-1}>

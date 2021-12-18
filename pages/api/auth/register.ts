@@ -4,7 +4,7 @@ import sharp from "sharp";
 import fse from "fs-extra";
 import bcrypt from "bcrypt";
 import formidable from "formidable";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/prisma/db";
 // Types
 import type { User } from "@prisma/client";
 import type { NextApiResponse } from "next";
@@ -18,7 +18,6 @@ import { InvalidRequestedBody } from "@/utils/api/Errors";
 import RegisterBodyValidator from "@/validators/registerBodyValidator";
 //
 //
-const prisma = new PrismaClient();
 //
 export const config = {
     api: {

@@ -12,15 +12,15 @@ interface RegisterStepperProps {
 }
 
 const RegisterStepper: FunctionComponent<RegisterStepperProps> = (props) => {
-    const [display, setDisplay] = useState<boolean>(false);
+    const [display, setDisplay] = useState<boolean>(true);
     const trackWidth = () => {
         if (window.innerHeight < 700 || window.innerWidth < 500) setDisplay(false);
         else setDisplay(true);
     };
-    useEffect(() => {
-        trackWidth();
-        window.addEventListener("resize", trackWidth);
-    });
+    // useEffect(() => {
+    //     trackWidth();
+    //     window.addEventListener("resize", trackWidth);
+    // });
     return display ? (
         <Stepper
             activeStep={props.currentSlideIndex} //

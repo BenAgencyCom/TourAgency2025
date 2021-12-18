@@ -15,7 +15,10 @@ import Link from "next/link";
 import ReCAPTCHA from "react-google-recaptcha";
 // Material UI icons
 import RocketLaunch from "@mui/icons-material/RocketLaunch";
-
+// Redux
+import { setAuthentication } from "@/redux/slices/authentication";
+import { useAppDispatch } from "@/redux/hooks";
+// Styles
 import styles from "@/sass/pages/register.module.sass";
 
 interface DataToForm {
@@ -37,11 +40,13 @@ interface UploadProps extends DataToForm {
 }
 
 const Upload: FunctionComponent<UploadProps> = (props) => {
+    const dispatch = useAppDispatch();
     const recaptchaRef = useRef<ReCAPTCHA | null>(null);
     const [RECAPTCHAVerified, SetRECAPTCHAVerified] = useState<boolean>(false);
     const body = new FormData();
-    ["name", "surname", "gender", "born", "password", "passwordRepeatation", "email", "avatar"].forEach((key) => body.append(key, (props as any)[key]));
+    ["name", "surname", "gender", "born", "password", "passwordRepeatation", "email"].forEach((key) => body.append(key, (props as any)[key]));
     ["country"].forEach((key) => body.append(key, JSON.stringify((props as any)[key])));
+    if (props.avatar instanceof File) body.append("avatar", props.avatar);
     //
     const upload = async () => {
         if (!RECAPTCHAVerified) return;
@@ -51,6 +56,7 @@ const Upload: FunctionComponent<UploadProps> = (props) => {
             },
         });
         Router.push("/");
+        dispatch(setAuthentication(null));
     };
     useEffect(() => (recaptchaRef.current as ReCAPTCHA).reset(), []);
     const onReCAPTCHAChange = (captchaCode: unknown) => {
@@ -62,7 +68,7 @@ const Upload: FunctionComponent<UploadProps> = (props) => {
 
     return (
         <Fade in={true}>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1 }}>
+            <Box className={styles["content-wrapper"]} sx={{ alignItems: "center", maxWidth: "none !important" }}>
                 <StepHeader
                     header="One more step" //
                     icon={<RocketLaunch className={styles.icon}></RocketLaunch>}

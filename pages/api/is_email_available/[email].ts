@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/prisma/db";
 import type { NextApiResponse, NextApiRequest } from "next";
 import joi from "joi";
 //
-const prisma = new PrismaClient();
+//
 //
 interface IsEmailAvailableRequest extends NextApiRequest {
     query: {

@@ -1,18 +1,25 @@
 import "../sass/globals.sass";
 import "nprogress/nprogress.css";
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import Router from "next/router";
 import nprogress from "nprogress";
 import { useState } from "react";
 import colorTheme from "@/colorTheme";
-
+import store from "@/redux/store";
+import { createWrapper } from "next-redux-wrapper";
+// Types
 import type { AppProps } from "next/app";
+import type { Store } from "redux";
+// Components
 import Layout from "@/layout/Layout";
 import { ThemeProvider } from "@mui/material";
 
-function MyApp({ Component, pageProps }: AppProps) {
+interface MyAppProps extends AppProps {
+    store: Store;
+}
+function MyApp({ Component, pageProps }: MyAppProps) {
     //
     // Handle loading panel
     //
@@ -39,5 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </ThemeProvider>
     );
 }
+const makeStore = () => store;
+const wrapper = createWrapper(makeStore);
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

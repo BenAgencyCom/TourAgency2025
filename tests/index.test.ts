@@ -120,10 +120,10 @@ describe("AUTHENTICATION", () => {
                 password: "INVALID_PASSWORD",
             })
             .then(({ status }) => {
-                expect(status).toEqual(400);
+                expect(status).toEqual(401);
             })
             .catch(({ response }) => {
-                expect(response.status).toEqual(400);
+                expect(response.status).toEqual(401);
             });
     });
 

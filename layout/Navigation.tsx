@@ -1,6 +1,4 @@
 import type { FunctionComponent } from "react";
-import { Home, LocalOffer, EmojiEvents } from "@mui/icons-material";
-import DropDownMenuItem from "./DropDownMenuItem";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 

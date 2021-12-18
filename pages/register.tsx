@@ -1,4 +1,6 @@
+import Router from "next/router";
 import { FunctionComponent, useState } from "react";
+//
 import type { CountryType } from "@/data/countries";
 // My components
 import Stepper from "@/components/register/stepper/Stepper";
@@ -13,11 +15,19 @@ import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import Divider from "@mui/material/Divider";
+// NextJS compoennts
+import Image from "next/Image";
 import Link from "next/link";
-
+// Redux
+import { useAppSelector } from "@/redux/hooks";
+// Styles
+import backgroundImage from "@/public/images/register/bgc.jpg";
 import styles from "@/sass/pages/register.module.sass";
 
 const Registration: FunctionComponent<{}> = () => {
+    const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
+    if (isAuthenticated) Router.push("/");
+
     // Form Data
     // const [name, setName] = useState<string>("");
     // const [surname, setSurname] = useState<string>("");
@@ -42,7 +52,18 @@ const Registration: FunctionComponent<{}> = () => {
     const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
     //
     return (
-        <Box className={styles.background} sx={{ backgroundPositionY: `${50 - currentSlideIndex * 15}%` }}>
+        <Box className={styles.background} sx={{ backgroundPositionY: `` }}>
+            <Image
+                className={styles["bg-image"]} //
+                src={backgroundImage}
+                layout="fill"
+                alt="background"
+                objectFit="cover"
+                objectPosition={`center ${50 - currentSlideIndex * 15}%`}
+                priority={true}
+                placeholder="blur"
+                //
+            ></Image>
             <Card className={styles.formCard}>
                 <Stepper currentSlideIndex={currentSlideIndex}></Stepper>
 
@@ -105,8 +126,8 @@ const Registration: FunctionComponent<{}> = () => {
                             );
                     }
                 })()}
-                <Divider></Divider>
-                <CardActions sx={{ justifyContent: "center", my: 2 }}>
+                <Divider sx={{ mt: 4, mb: 1 }}></Divider>
+                <CardActions sx={{ justifyContent: "center", mb: 1 }}>
                     <Button>
                         <Link href="/login">
                             <a>Already have an account</a>

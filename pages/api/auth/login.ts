@@ -1,5 +1,6 @@
 // Libraries
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/prisma/db";
+
 import bcrypt from "bcrypt";
 // Types
 import type { User } from "@prisma/client";
@@ -9,8 +10,7 @@ import { CredentialsDoNotMatch, Forbidden } from "@/utils/api/Errors";
 import CookieCreator from "@/utils/api/CookieCreator";
 //
 //
-//
-const prisma = new PrismaClient();
+//;
 //
 interface LoginRequest extends NextApiRequest {
     body: {
@@ -52,7 +52,7 @@ export default async function handler(req: LoginRequest, res: NextApiResponse) {
         return;
     } catch (e: unknown) {
         if (e instanceof CredentialsDoNotMatch) {
-            return res.status(400).json({ msg: e.msg });
+            return res.status(401).json({ msg: e.msg });
         } else if (e instanceof Forbidden) {
             return res.status(403).end();
         } else {

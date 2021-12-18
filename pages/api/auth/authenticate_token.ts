@@ -1,6 +1,6 @@
 // Libraries
-import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
+import { prisma } from "@/prisma/db";
 // Types
 import type { User } from "@prisma/client";
 import type { NextApiResponse, NextApiRequest } from "next";
@@ -10,7 +10,6 @@ import CookieCreator from "@/utils/api/CookieCreator";
 //
 //
 //
-const prisma = new PrismaClient();
 //
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -75,10 +74,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     //
     try {
         await new AuthenticateToken().main();
-        return res.status(200).end();
+        return res.status(200).json({ accepted: true });
     } catch (e: unknown) {
-        if (e instanceof Forbidden) return res.status(403).end();
-        if (e instanceof SessionExpired) return res.status(440).end();
+        if (e instanceof Forbidden) return res.status(200).json({ accepted: false });
+        if (e instanceof SessionExpired) return res.status(200).json({ accepted: false, sessionExired: true });
         else return res.status(500).end();
     }
 }

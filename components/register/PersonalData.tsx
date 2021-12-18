@@ -71,7 +71,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                     icon={<AccountCircle className={styles.icon}></AccountCircle>}
                 ></StepHeader>
 
-                <Box sx={{ display: "flex", flexDirection: "column", width: "400px" }}>
+                <Box className={styles["content-wrapper"]}>
                     <TextInput
                         label="Name" //
                         value={props.name.value}

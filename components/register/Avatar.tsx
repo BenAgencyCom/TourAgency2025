@@ -51,7 +51,7 @@ const AvatarAndBackground: FunctionComponent<AvatarAndBackgroundProps> = (props)
                     header="Avatar" //
                 ></StepHeader>
 
-                <Box sx={{ display: "flex", flexDirection: "column", position: "relative" }}>
+                <Box className={styles["content-wrapper"]}>
                     {(() => {
                         if (imageURL === null) {
                             return (

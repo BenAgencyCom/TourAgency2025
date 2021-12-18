@@ -1,5 +1,5 @@
 // Libraries
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/prisma/db";
 // Types
 import type { NextApiResponse, NextApiRequest } from "next";
 // My helpers
@@ -7,7 +7,6 @@ import cookie from "cookie";
 //
 //
 //
-const prisma = new PrismaClient();
 //
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
