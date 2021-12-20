@@ -1,3 +1,4 @@
+@import ./mixins.module
 .wrapper
     background-color: rgba(#000, .9)
     left: 0%
@@ -5,3 +6,40 @@
     transition: all 0.3s
     width: calc(100vw)
     padding-right: 0 !important
+
+.navigation-wrapper
+    display: flex
+    align-items: center
+    justify-content: space-between
+    @media screen and (max-width: 1000px)
+        width: 100vw
+        height: 100vh
+        position: fixed
+        left: 0
+        top: 0
+        padding: 20px 0
+        flex-direction: column
+        transition: background-color .3s,backdrop-filter .3s
+        align-items: center
+        padding-top: 100px
+        & .routes-wrapper
+            margin: 0
+        & button 
+            width: 500px
+            max-width: calc(100vw - 20px)
+            margin-top: 20px
+            font-size: 1.3rem
+
+.routes-wrapper
+    display: flex
+    align-items: center
+    justify-content: space-between
+    @media screen and (max-width: 1000px)
+        flex-direction: column
+
+.menuIcon
+    font-size: 3rem
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)

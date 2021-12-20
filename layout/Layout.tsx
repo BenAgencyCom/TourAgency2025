@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 // Components
 import Navigation from "./Navigation";
 import PageLogo from "./PageLogo";
-import LoginAndRegister from "./LoginAndRegister";
 import Snackbar from "./Snackbar";
-import AuthenticatedUser from "./AuthenticatedUser";
 // Material UI Components
 import Box from "@mui/material/Box";
-import { AppBar, Container } from "@mui/material";
-import Divider from "@mui/material/Divider";
+import AppBar from "@mui/material/AppBar";
+import Container from "@mui/material/Container";
 import Fade from "@mui/material/Fade";
 // Tools
 import styles from "@/sass/layout.module.sass";
@@ -28,7 +26,6 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const buttonStyles = { px: 3, mx: 1 };
 
     const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
-    const userData = useAppSelector((state) => state.authentication.userData);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -86,20 +83,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                         }}
                     >
                         <PageLogo></PageLogo>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                            }}
-                        >
-                            <Navigation buttonStyles={buttonStyles}></Navigation>
-                            <Divider orientation="vertical" flexItem />
-                            {(() => {
-                                if (isAuthenticated && userData) return <AuthenticatedUser buttonStyles={buttonStyles}></AuthenticatedUser>;
-                                else return <LoginAndRegister buttonStyles={buttonStyles}></LoginAndRegister>;
-                            })()}
-                        </Box>
+                        <Navigation buttonStyles={buttonStyles}></Navigation>
                     </Container>
                 </AppBar>
             </Fade>

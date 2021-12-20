@@ -1,12 +1,11 @@
 import type { FunctionComponent } from "react";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Login from "@mui/icons-material/Login";
 import Link from "next/link";
 
 const LoginAndRegister: FunctionComponent<{ buttonStyles: Record<string, unknown> }> = ({ buttonStyles }) => {
     return (
-        <Box sx={{ ml: 2 }}>
+        <>
             <Link href="/login">
                 <a tabIndex={-1}>
                     <Button variant="contained" sx={buttonStyles} tabIndex={-1}>
@@ -23,7 +22,7 @@ const LoginAndRegister: FunctionComponent<{ buttonStyles: Record<string, unknown
                     </Button>
                 </a>
             </Link>
-        </Box>
+        </>
     );
 };
 
