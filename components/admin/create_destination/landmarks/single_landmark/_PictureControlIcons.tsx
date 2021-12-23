@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import Settings from "@mui/icons-material/Settings";
 import ZoomIn from "@mui/icons-material/ZoomIn";
 
-interface ControlIconsProps {
+interface PictureControlIconsProps {
     tabIndex: number;
     picture: Landmark["picture"];
     updateData?: (prop: keyof Landmark, value: Landmark[typeof prop]) => void;
@@ -18,7 +18,7 @@ interface ControlIconsProps {
     openFileSelectDialog?: () => void;
 }
 
-const ControlIcons: FunctionComponent<ControlIconsProps> = (props) => {
+const PictureControlIcons: FunctionComponent<PictureControlIconsProps> = (props) => {
     return (
         <ButtonGroup
             sx={{
@@ -54,4 +54,4 @@ const ControlIcons: FunctionComponent<ControlIconsProps> = (props) => {
     );
 };
 
-export default ControlIcons;
+export default PictureControlIcons;

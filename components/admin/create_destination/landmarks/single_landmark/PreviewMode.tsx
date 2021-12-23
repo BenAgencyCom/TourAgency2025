@@ -11,7 +11,7 @@ import Fade from "@mui/material/Fade";
 // Other Components
 import Image from "next/Image";
 import ImageModal from "@/components/_utils/ImageModal";
-import ControlIcons from "@/components/admin/create_destination/landmarks/single_landmark/_ControlIcons";
+import ControlIcons from "@/components/admin/create_destination/landmarks/single_landmark/_PictureControlIcons";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 

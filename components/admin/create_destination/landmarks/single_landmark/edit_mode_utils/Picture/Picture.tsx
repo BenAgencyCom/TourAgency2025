@@ -7,7 +7,7 @@ import type { Landmark } from "@/@types/Landmark";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 // Other components
-import ControlIcons from "@/components/admin/create_destination/landmarks/single_landmark/_ControlIcons";
+import ControlIcons from "@/components/admin/create_destination/landmarks/single_landmark/_PictureControlIcons";
 import SelectPictureButton from "./SelectPictureButton";
 import Image from "next/Image";
 import ImageModal from "@/components/_utils/ImageModal";

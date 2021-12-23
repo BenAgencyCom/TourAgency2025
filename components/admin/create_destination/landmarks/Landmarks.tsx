@@ -30,6 +30,11 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
     const [hideNavigation, setHideNavigation] = useState<boolean>(false);
     const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
     //
+    const selectSlide = (index: number) => {
+        setCurrentSlideIndex(index);
+        swapper.current?.slickGoTo(index);
+    };
+    //
     // Validation
     //
     const validationScheme = joi.object({
@@ -52,18 +57,21 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
     const validationResults = useMemo<boolean[]>(() => {
         return landmarks.map((landmark) => validateSingleLandmark()(landmark));
     }, [landmarks, validateSingleLandmark]);
-
-    const updateLandmark = (indexToModify: number, valueAfterModification: Landmark) => {
-        setLandmarks(
-            landmarks.map((value: Landmark, index: number) => {
-                if (indexToModify === index) return valueAfterModification;
-                else return value;
-            })
-        );
-    };
-    const selectSlide = (index: number) => {
-        setCurrentSlideIndex(index);
-        swapper.current?.slickGoTo(index);
+    //
+    // Update the array of landmarks
+    //
+    const updateLandmark = (indexToModify: number, valueAfterModification: Landmark | "REMOVE_THIS_ELEMENT") => {
+        if (valueAfterModification === "REMOVE_THIS_ELEMENT") {
+            selectSlide(0);
+            setLandmarks(landmarks.filter((_: Landmark, index: number) => index !== indexToModify));
+        } else {
+            setLandmarks(
+                landmarks.map((value: Landmark, index: number) => {
+                    if (indexToModify === index) return valueAfterModification;
+                    else return value;
+                })
+            );
+        }
     };
 
     return (
@@ -89,7 +97,7 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
                                 index={index}
                                 currentSlideIndex={currentSlideIndex}
                                 data={landmark}
-                                updateData={(data: Landmark) => updateLandmark(index, data)}
+                                updateData={(data: Landmark | "REMOVE_THIS_ELEMENT") => updateLandmark(index, data)}
                                 hideNavigation={{ value: hideNavigation, setValue: setHideNavigation }}
                             ></SingleLandmark>
                         );
