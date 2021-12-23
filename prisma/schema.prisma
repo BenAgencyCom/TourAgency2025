@@ -13,6 +13,16 @@ enum Gender {
   OTHER
 }
 
+enum Continent {
+  Asia
+  Europe
+  Africa
+  North_America
+  South_America
+  Australia_Oceania
+  Antarctica
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -40,4 +50,19 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   @@map("sessions")
+}
+
+
+model Destination {
+  id                    String    @id @default(cuid())
+  city                  String?
+  country               String?
+  countryCode           String?
+  population            Int?
+  continent             Continent?
+  quickDescription      String?
+  description           Json?
+  landmarks             Json?
+  folder                String?
+  createdAt             DateTime @default(now())
 }

@@ -93,7 +93,7 @@ const AuthenticatedUser: FunctionComponent<{ buttonStyles: Record<string, unknow
                 ></Box>
             </Box>
 
-            <Typography variant="h6" sx={{ cursor: "default", mx: 1, fontSize: `${fontSize}rem` }}>
+            <Typography variant="h6" sx={{ cursor: "default", mx: 1, fontSize: `${fontSize}rem !important`, mt: width < 1000 ? 2 : 0 }}>
                 <Typography component="span" sx={{ fontSize: "inherit" }}>
                     Signed in as:{" "}
                 </Typography>

@@ -1,4 +1,4 @@
-import type { FunctionComponent, ChangeEvent } from "react";
+import type { FunctionComponent } from "react";
 // Material UI components
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,8 +10,9 @@ interface InputProps {
     label: string;
     value: string;
     options: string[];
-    buttonStyles: Record<string, any>;
+    buttonStyles?: Record<string, any>;
     sx?: Record<string, unknown>;
+    tabIndex?: number;
     // Methods
     updateValue: (value: string) => void;
 }
@@ -30,6 +31,7 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
                 value={value}
                 onChange={handleChange}
                 sx={buttonStyles}
+                inputProps={{ tabIndex: props.tabIndex ? props.tabIndex : 1 }}
             >
                 {options.map((option) => {
                     return (

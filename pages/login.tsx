@@ -2,7 +2,6 @@ import joi from "joi";
 import axios from "axios";
 import Router from "next/router";
 import { useState, useEffect } from "react";
-import backgroundImage from "@/public/images/login/bgc.jpg";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
@@ -22,12 +21,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Fade from "@mui/material/Fade";
 // Material UI Icons
 import Bolt from "@mui/icons-material/Bolt";
-import styles from "@/sass/pages/register.module.sass";
 import ErrorOutline from "@mui/icons-material/ErrorOutline";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setAuthentication } from "@/redux/slices/authentication";
+// Styles
+import styles from "@/sass/pages/register.module.sass";
+import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
+import backgroundImage from "@/public/images/login/bgc.jpg";
 
 const Login: FunctionComponent<{}> = () => {
     const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
@@ -91,9 +93,9 @@ const Login: FunctionComponent<{}> = () => {
     //
     return (
         <Fade in={true}>
-            <Box className={styles.background}>
+            <Box className={bgIMGStyles.background}>
                 <Image
-                    className={styles["bg-image"]} //
+                    className={bgIMGStyles["bg-image"]} //
                     src={backgroundImage}
                     layout="fill"
                     alt="background"

@@ -5,8 +5,6 @@ import type { CountryType } from "@/data/countries";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import Image from "next/image";
-import imageLoader from "@/imageLoader";
 interface AutocompleteProps {
     // Properties
     label: string;
@@ -56,7 +54,7 @@ const AutocompleteCountry: FunctionComponent<AutocompleteProps> = (props) => {
                             ...params.InputProps,
                             ...{
                                 startAdornment: (() => {
-                                    if (props.value === null) return null;
+                                    if (!props.value) return null;
                                     return (
                                         <InputAdornment position="end">
                                             {/* eslint-disable-next-line @next/next/no-img-element */}

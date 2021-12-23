@@ -1,0 +1,51 @@
+@import ../variables.module
+.wrapper
+    background-color: rgba(#121212,.5)
+    max-width: 1200px
+    width: 100vw
+    position: absolute
+    top: 100px
+    left: 50%
+    transform: translateX(-50%)
+    z-index: 1
+    height: calc(100vh - 120px)
+    display: flex
+    flex-direction: column
+    align-items: center
+    padding: 20px
+    user-select: none
+
+.section-content-wrapper
+    display: flex
+    flex-direction: column
+    flex-grow: 1
+    width: 100vw
+    max-width: 650px
+
+.textarea
+    overflow-y: scroll
+    height: 100px
+    position: relative
+    &::-webkit-scrollbar
+        width: 10px
+    &::-webkit-scrollbar-track
+        box-shadow: inset 0 0 2px rgba(0,0,0,0.5)
+            
+    &::-webkit-scrollbar-thumb
+        background-color: $mainColor
+        border-radius: 2px
+
+.landmarks-wrapper
+    flex-grow: 1
+.single-destination
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    height: 100%
+    width: 100%
+.form-fields-wrap
+    width: 100% 
+    display: flex 
+    justify-content: space-between
+    position: relative
+    margin-bottom: 10px

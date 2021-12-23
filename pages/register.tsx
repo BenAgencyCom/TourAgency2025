@@ -23,6 +23,7 @@ import { useAppSelector } from "@/redux/hooks";
 // Styles
 import backgroundImage from "@/public/images/register/bgc.jpg";
 import styles from "@/sass/pages/register.module.sass";
+import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
 
 const Registration: FunctionComponent<{}> = () => {
     const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
@@ -52,9 +53,9 @@ const Registration: FunctionComponent<{}> = () => {
     const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
     //
     return (
-        <Box className={styles.background} sx={{ backgroundPositionY: `` }}>
+        <Box className={bgIMGStyles.background} sx={{ backgroundPositionY: `` }}>
             <Image
-                className={styles["bg-image"]} //
+                className={bgIMGStyles["bg-image"]} //
                 src={backgroundImage}
                 layout="fill"
                 alt="background"

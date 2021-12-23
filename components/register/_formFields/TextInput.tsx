@@ -1,8 +1,6 @@
 import type { FunctionComponent, ChangeEvent } from "react";
 // Material UI components
 import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
 
 interface InputProps {
     // Properties
@@ -14,6 +12,7 @@ interface InputProps {
     errorMsg?: string | false;
     onBlur?: () => void;
     disabled?: boolean;
+    multiline?: boolean;
     // Methods
     updateValue: (value: string) => void;
 }
@@ -29,6 +28,7 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
             onChange={handleChange}
             onBlur={props.onBlur}
             error={Boolean(props.errorMsg)}
+            multiline={props.multiline ? props.multiline : false}
             variant="outlined"
             disabled={disabled !== undefined ? disabled : false}
             sx={{ ...buttonStyles, ...props.sx }}
