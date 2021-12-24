@@ -18,6 +18,7 @@ interface SingleLandmarkProps {
     currentSlideIndex: number;
     index: number;
     data: Landmark;
+    isValid: boolean;
     sx?: Record<string, unknown>;
     updateData: (data: Landmark | "REMOVE_THIS_ELEMENT") => void;
     hideNavigation: StatedDataField<boolean>;
@@ -33,6 +34,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                 <Actions
                     hideNavigation={props.hideNavigation} //
                     tabIndex={tabIndex}
+                    isValid={props.isValid}
                     previewMode={previewMode}
                     updateData={props.updateData}
                     setPreviewMode={setPreviewMode}

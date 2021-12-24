@@ -1,3 +1,4 @@
+// Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StagedDataField";
 import type { Landmark } from "@/@types/Landmark";
@@ -11,6 +12,7 @@ import DeleteLandmark from "@/components/admin/create_destination/landmarks/sing
 interface ActionsProps {
     tabIndex: number;
     previewMode: boolean;
+    isValid: boolean;
     hideNavigation: StatedDataField<boolean>;
     setPreviewMode: (value: boolean) => void;
     updateData: (data: Landmark | "REMOVE_THIS_ELEMENT") => void;
@@ -51,11 +53,12 @@ const Actions: FunctionComponent<ActionsProps> = (props) => {
                         <Switch
                             onChange={(e) => props.setPreviewMode(e.target.checked)} //
                             tabIndex={props.tabIndex}
+                            disabled={!props.isValid}
                         />
                     }
                     label="Preview mode"
                     sx={{
-                        bgcolor: "action.hover",
+                        bgcolor: !props.isValid ? "" : "action.hover",
                         pr: 2,
                         m: 0,
                         borderRadius: "5px",

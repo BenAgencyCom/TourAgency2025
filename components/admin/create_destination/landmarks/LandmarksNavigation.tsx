@@ -1,14 +1,14 @@
-import { useCallback } from "react";
-
+// Types
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { Landmark } from "@/@types/Landmark";
 import type { Theme } from "@mui/material/styles";
-
+// Material UI Components
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-
+import Fade from "@mui/material/Fade";
+// Material UI Icons
 import Done from "@mui/icons-material/Done";
 import Close from "@mui/icons-material/Close";
 
@@ -18,6 +18,7 @@ interface LandmarksNavigationProps {
     hideNavigation: boolean;
     validationResults: boolean[];
     selectSlide: (index: number) => void;
+    addNewLandmark: () => void;
 }
 
 const LandmarksNavigation: FunctionComponent<LandmarksNavigationProps> = (props) => {
@@ -55,28 +56,36 @@ const LandmarksNavigation: FunctionComponent<LandmarksNavigationProps> = (props)
                 width: "100%",
             }}
         >
-            <Select
-                value={props.currentSlideIndex}
-                inputProps={{ sx: { px: 2, py: 1 } }}
-                onChange={(e: any) => selectSlide(e)}
-                sx={{ width: "320px" }} //
-            >
-                {props.landmarks.map((landmark: Landmark, index: number) => {
+            {(() => {
+                if (props.landmarks.length > 1) {
                     return (
-                        <MenuItem value={index} key={index} sx={(theme) => backgroundColor(index, theme)}>
-                            <Box sx={{ display: "flex", alignItems: "center" }}>
-                                {(() => {
-                                    if (landmarkIsValid(index)) return <Done sx={{ mr: 1 }}></Done>;
-                                    else return <Close sx={{ mr: 1 }}></Close>;
-                                })()}
-                                <span>{landmark.title}</span>
-                            </Box>
-                        </MenuItem>
+                        <Fade in={true}>
+                            <Select
+                                value={props.currentSlideIndex}
+                                inputProps={{ sx: { px: 2, py: 1 } }}
+                                onChange={(e: any) => selectSlide(e)}
+                                sx={{ width: "320px" }} //
+                            >
+                                {props.landmarks.map((landmark: Landmark, index: number) => {
+                                    return (
+                                        <MenuItem value={index} key={index} sx={(theme) => backgroundColor(index, theme)}>
+                                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                                                {(() => {
+                                                    if (landmarkIsValid(index)) return <Done sx={{ mr: 1 }}></Done>;
+                                                    else return <Close sx={{ mr: 1 }}></Close>;
+                                                })()}
+                                                <span>{landmark.title}</span>
+                                            </Box>
+                                        </MenuItem>
+                                    );
+                                })}
+                            </Select>
+                        </Fade>
                     );
-                })}
-            </Select>
+                } else return <div></div>;
+            })()}
 
-            <Button variant="contained" sx={{ ml: 1 }}>
+            <Button variant="contained" sx={{ ml: 1 }} onClick={props.addNewLandmark}>
                 Create new landmark
             </Button>
         </Box>

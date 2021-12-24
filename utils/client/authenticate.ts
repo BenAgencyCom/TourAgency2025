@@ -21,7 +21,6 @@ export const authenticateToken = async () => {
 };
 
 export const getUserData = async (): Promise<UserData> => {
-    console.log("fdafas");
     const { data } = await axios.get("/api/current_user_data");
     return data;
 };

@@ -77,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(200).json({ accepted: true });
     } catch (e: unknown) {
         if (e instanceof Forbidden) return res.status(200).json({ accepted: false });
-        if (e instanceof SessionExpired) return res.status(200).json({ accepted: false, sessionExired: true });
+        else if (e instanceof SessionExpired) return res.status(200).json({ accepted: false, sessionExired: true });
         else return res.status(500).end();
     }
 }

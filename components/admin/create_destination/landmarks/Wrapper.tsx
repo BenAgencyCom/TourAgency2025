@@ -2,15 +2,19 @@
 import type { FunctionComponent, ReactNode, MutableRefObject } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
 // Other components
 import Slider from "react-slick";
+import ThereAreNoLandmarks from "./TheraAreNoLandmarks";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 
 interface WrapperProps {
+    thereAreNoLandmarks: boolean;
     children: ReactNode[];
     hideNavigation: boolean;
     swapper: MutableRefObject<Slider | null>;
+    addNewLandmark: () => void;
 }
 
 const Wrapper: FunctionComponent<WrapperProps> = (props) => {
@@ -48,9 +52,21 @@ const Wrapper: FunctionComponent<WrapperProps> = (props) => {
                 },
             }}
         >
-            <Slider {...settings} ref={props.swapper}>
-                {props.children}
-            </Slider>
+            {(() => {
+                if (!props.thereAreNoLandmarks) {
+                    return (
+                        <Slider {...settings} ref={props.swapper}>
+                            {props.children}
+                        </Slider>
+                    );
+                } else {
+                    return (
+                        <ThereAreNoLandmarks
+                            addNewLandmark={props.addNewLandmark} //
+                        ></ThereAreNoLandmarks>
+                    );
+                }
+            })()}
         </Box>
     );
 };
