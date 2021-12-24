@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { Landmark } from "@/@types/Landmark";
@@ -16,12 +17,16 @@ const Title: FunctionComponent<TitleProps> = (props) => {
     const _setNewTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.target.value);
     const updateData = () => props.updateData("title", newTitle);
 
+    const limitLength = CREATE_DESTINATION_RESTRICTIONS.landmark.title.max;
+
     return (
         <TextField
             label="Title" //
             sx={{ width: "100%" }}
             value={newTitle}
-            inputProps={{ tabIndex: props.tabIndex }}
+            inputProps={{ tabIndex: props.tabIndex, maxLength: limitLength }}
+            helperText={`${newTitle.length}/${limitLength}`}
+            FormHelperTextProps={{ sx: { textAlign: "right" } }}
             onChange={_setNewTitle}
             onBlur={updateData}
         ></TextField>

@@ -4,6 +4,7 @@ import type { FunctionComponent, ChangeEvent } from "react";
 import type { Landmark } from "@/@types/Landmark";
 // Material UI Components
 import TextField from "@mui/material/TextField";
+import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
 
 interface DescriptionProps {
     tabIndex: number;
@@ -16,6 +17,8 @@ const Description: FunctionComponent<DescriptionProps> = (props) => {
     const _setNewDescription = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.target.value);
     const updateData = () => props.updateData("description", newDescription);
 
+    const limitLength = CREATE_DESTINATION_RESTRICTIONS.landmark.description.max;
+
     return (
         <TextField
             value={newDescription}
@@ -25,6 +28,7 @@ const Description: FunctionComponent<DescriptionProps> = (props) => {
             onChange={_setNewDescription}
             onBlur={updateData}
             inputProps={{
+                maxLength: limitLength,
                 tabIndex: props.tabIndex,
                 sx: {
                     overflowY: "scroll",
@@ -36,9 +40,12 @@ const Description: FunctionComponent<DescriptionProps> = (props) => {
                     },
                 },
             }}
+            helperText={`${newDescription.length}/${limitLength}`}
+            FormHelperTextProps={{ sx: { textAlign: "right" } }}
             sx={{
                 width: "100%",
             }}
+            error={newDescription.length > limitLength}
         ></TextField>
     );
 };

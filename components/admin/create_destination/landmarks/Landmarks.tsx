@@ -1,6 +1,7 @@
 import joi from "joi";
 import { useState, useRef, useMemo, useCallback } from "react";
 import { landmarksData } from "@/data/landmarks";
+import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
 // Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StagedDataField";
@@ -39,11 +40,12 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
     //
     // Validation
     //
+    const { title, description, tag } = CREATE_DESTINATION_RESTRICTIONS.landmark;
     const validationScheme = joi.object({
-        title: joi.string().min(3).max(50),
-        description: joi.string().min(10).max(1024),
+        title: joi.string().min(title.min).max(title.max),
+        description: joi.string().min(description.min).max(description.max),
         type: joi.valid("RESTAURANT", "MONUMENT", "ANTIQUE BUILDING", "RELIC", "ART", "NATURE"),
-        tags: joi.array().items(joi.string().min(3).max(25)),
+        tags: joi.array().items(joi.string().min(tag.min).max(tag.max)),
     });
     const validateSingleLandmark = useCallback(
         () =>

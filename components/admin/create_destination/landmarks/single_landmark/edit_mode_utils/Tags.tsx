@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { alpha } from "@mui/system";
+import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
 // Types
 import type { FunctionComponent, ChangeEvent, ReactNode } from "react";
 import type { Landmark } from "@/@types/Landmark";
@@ -35,9 +36,11 @@ const Tags: FunctionComponent<TagsProps> = (props) => {
         );
     };
 
+    const limitLength = CREATE_DESTINATION_RESTRICTIONS.landmark.tag.max;
+
     return (
         <>
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, width: "100%" }}>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
                 {props.children}
                 <Box>
                     {props.data.tags.map((tag, index) => {
@@ -60,7 +63,9 @@ const Tags: FunctionComponent<TagsProps> = (props) => {
                     label="New tag"
                     onChange={_setNewTag}
                     disabled={data.tags.length >= 3}
-                    inputProps={{ tabIndex: props.tabIndex }}
+                    inputProps={{ tabIndex: props.tabIndex, maxLength: limitLength }}
+                    FormHelperTextProps={{ sx: { textAlign: "right" } }}
+                    error={newTag.length > limitLength}
                 ></TextField>
                 <Button
                     sx={{

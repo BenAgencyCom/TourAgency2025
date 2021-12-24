@@ -43,7 +43,7 @@ const GeneralInformation: FunctionComponent<GeneralInformationInterface> = (prop
         country: joi.object({
             code: joi.string().length(2),
             label: joi.string().max(60),
-            phone: joi.string().max(10),
+            phone: joi.string().max(7),
         }),
     });
     const test = () => {
