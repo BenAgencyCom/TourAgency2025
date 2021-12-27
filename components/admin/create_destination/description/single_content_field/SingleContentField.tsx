@@ -11,7 +11,6 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import Divider from "@mui/material/Divider";
 // Other components
 import { Draggable } from "react-beautiful-dnd";
@@ -71,12 +70,14 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                             }}
                         >
                             <Typography variant="h4"> {FieldType[props.data.type]}</Typography>
-                            <ButtonGroup>
-                                <Button>Change type</Button>
-                                <Button onClick={deleteField} disabled={props.contentLength < 3}>
+                            <Box>
+                                <Button sx={{ mx: 1 }} variant="outlined">
+                                    Change type
+                                </Button>
+                                <Button onClick={deleteField} disabled={props.contentLength < 3} variant="outlined">
                                     <Delete></Delete>
                                 </Button>
-                            </ButtonGroup>
+                            </Box>
                         </Box>
                         <Divider sx={{ my: 2 }} flexItem></Divider>
                         {(() => {

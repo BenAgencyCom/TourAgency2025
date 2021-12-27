@@ -1,4 +1,5 @@
 import { useState } from "react";
+import stated from "@/utils/client/stated";
 // Types
 import type { StatedDataField } from "@/@types/StagedDataField";
 import type { FunctionComponent } from "react";
@@ -7,18 +8,14 @@ import type { DraggableDestinationContentField } from "@/@types/DestinationDescr
 // Material UI Components
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 // Other Components
+import DescriptionHeader from "./DescriptionHeader";
 import SectionHeader from "@/components/admin/create_destination/SectionHeader";
 import BottomNavigation from "@/components/admin/create_destination/BottomNavigation";
 import SingleContentField from "@/components/admin/create_destination/description/single_content_field/SingleContentField";
 import ContentFieldsWrapper from "@/components/admin/create_destination/description/ContentFieldsWrapper";
-import SelectFromEnum from "@/components/_utils/SelectFromEnum";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
-import stated from "@/utils/client/stated";
 
 interface DescriptionInterface {
     description: StatedDataField<DraggableDestinationContentField[]>;
@@ -28,7 +25,7 @@ interface DescriptionInterface {
 }
 
 const Description: FunctionComponent<DescriptionInterface> = (props) => {
-    const [newContentField, setNewContentField] = useState<FieldType>(FieldType.HEADER);
+    const [newContentFieldType, setNewContentFieldType] = useState<FieldType>(FieldType.HEADER);
     const updateData = (
         indexToModify: number, //
         valueAfterModification: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT" | "ADD_ELEMENT",
@@ -54,30 +51,10 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
             <Box className={styles["section-content-wrapper"]} component="section" sx={{ color: "text.primary" }}>
                 <SectionHeader text="Description"></SectionHeader>
 
-                <Button
-                    variant="outlined" //
-                    onClick={() => updateData(0, "ADD_ELEMENT", newContentField)}
-                >
-                    Add
-                </Button>
-                <SelectFromEnum
-                    enum={FieldType} //
-                    value={stated<FieldType>(newContentField, setNewContentField)}
-                ></SelectFromEnum>
-
-                <FormControlLabel
-                    control={
-                        <Switch
-                        // onChange={(e) => props.setPreviewMode(e.target.checked)} //
-                        />
-                    }
-                    label="Preview mode"
-                    sx={{
-                        pr: 2,
-                        m: 0,
-                        borderRadius: "5px",
-                    }}
-                ></FormControlLabel>
+                <DescriptionHeader
+                    addNewContentField={() => updateData(0, "ADD_ELEMENT", newContentFieldType)}
+                    newContentFieldType={stated<FieldType>(newContentFieldType, setNewContentFieldType)}
+                ></DescriptionHeader>
 
                 <ContentFieldsWrapper description={props.description}>
                     {props.description.value.map((field: DraggableDestinationContentField, index: number) => {
