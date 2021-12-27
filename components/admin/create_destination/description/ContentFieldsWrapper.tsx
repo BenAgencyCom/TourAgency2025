@@ -21,18 +21,17 @@ const ContentFieldsWrapper: FunctionComponent<ContentFieldsWrapperProps> = (prop
     const [scrollable, setScrollable] = useState<boolean>(false);
 
     useLayoutEffect(() => {
-        if (props.description.value.length <= 2 || wrapper.current === null) return setScrollable(false);
+        if (wrapper.current === null) return setScrollable(false);
         const contentItemsTotalHeight = [...(document.querySelectorAll(".description-conent-field" as any) as any)].reduce((a, b) => a + b.getBoundingClientRect().height + 16, 0);
         return setScrollable(contentItemsTotalHeight > wrapper.current.offsetHeight);
     }, [wrapper, props.description.value.length]);
 
     const onDragEnd = (res: DropResult) => {
         const { draggableId, destination, source } = res;
-        console.log(res);
-        if (destination === undefined) return;
+        if (destination === null || destination === undefined || source.index === destination.index) return;
 
         const _clone = (a: any): any => JSON.parse(JSON.stringify(a));
-        // const draggedIndex = props.description.value.findIndex((target) => target.id === draggableId) as number;
+
         const replacing = _clone(props.description.value[destination.index]) as DraggableDestinationContentField;
         const dragged = _clone(props.description.value[source.index]) as DraggableDestinationContentField;
         const dataWithoutDragged = props.description.value.filter((target) => target.id !== draggableId);
@@ -42,22 +41,22 @@ const ContentFieldsWrapper: FunctionComponent<ContentFieldsWrapperProps> = (prop
     };
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="content-fields">
-                {(provided: DroppableProvided) => {
-                    return (
-                        <Box
-                            sx={{
-                                width: "100%",
-                                flexGrow: "1",
-                                overflow: "hidden",
-                                position: "relative",
-                            }}
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                        >
+        <Box
+            sx={{
+                width: "100%",
+                flexGrow: "1",
+                overflow: "hidden",
+                position: "relative",
+            }}
+            ref={wrapper}
+        >
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="content-fields">
+                    {(provided: DroppableProvided) => {
+                        return (
                             <Box
-                                ref={wrapper}
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
                                 sx={{
                                     width: "100%",
                                     height: "100%",
@@ -80,11 +79,11 @@ const ContentFieldsWrapper: FunctionComponent<ContentFieldsWrapperProps> = (prop
                                 {props.children}
                                 {provided.placeholder}
                             </Box>
-                        </Box>
-                    );
-                }}
-            </Droppable>
-        </DragDropContext>
+                        );
+                    }}
+                </Droppable>
+            </DragDropContext>
+        </Box>
     );
 };
 
