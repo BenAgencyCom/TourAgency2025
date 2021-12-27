@@ -20,10 +20,7 @@ const SelectFromEnum: FunctionComponent<SelectFromEnumProps> = (props) => {
     const data: Data[] = [];
     keys.forEach((key) => data.push({ key: key, value: props.enum[key] as Data["value"] }));
 
-    const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        props.value.setValue(e.target.value);
-        console.log("dasda");
-    };
+    const onChange = (e: ChangeEvent<HTMLSelectElement>) => props.value.setValue(e.target.value);
 
     return (
         <Select

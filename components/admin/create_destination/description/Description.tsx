@@ -8,6 +8,8 @@ import type { DraggableDestinationContentField } from "@/@types/DestinationDescr
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 // Other Components
 import SectionHeader from "@/components/admin/create_destination/SectionHeader";
 import BottomNavigation from "@/components/admin/create_destination/BottomNavigation";
@@ -49,14 +51,33 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
 
     return (
         <Fade in={true}>
-            <Box className={styles["section-content-wrapper"]} component="section">
+            <Box className={styles["section-content-wrapper"]} component="section" sx={{ color: "text.primary" }}>
                 <SectionHeader text="Description"></SectionHeader>
 
-                <Button onClick={() => updateData(0, "ADD_ELEMENT", newContentField)}>Add</Button>
+                <Button
+                    variant="outlined" //
+                    onClick={() => updateData(0, "ADD_ELEMENT", newContentField)}
+                >
+                    Add
+                </Button>
                 <SelectFromEnum
                     enum={FieldType} //
                     value={stated<FieldType>(newContentField, setNewContentField)}
                 ></SelectFromEnum>
+
+                <FormControlLabel
+                    control={
+                        <Switch
+                        // onChange={(e) => props.setPreviewMode(e.target.checked)} //
+                        />
+                    }
+                    label="Preview mode"
+                    sx={{
+                        pr: 2,
+                        m: 0,
+                        borderRadius: "5px",
+                    }}
+                ></FormControlLabel>
 
                 <ContentFieldsWrapper description={props.description}>
                     {props.description.value.map((field: DraggableDestinationContentField, index: number) => {
@@ -64,6 +85,7 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
                             <SingleContentField
                                 key={field.id} //
                                 index={index}
+                                contentLength={props.description.value.length}
                                 data={field}
                                 updateData={(value: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT") => updateData(index, value)}
                             ></SingleContentField>

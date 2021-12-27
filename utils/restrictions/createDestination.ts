@@ -10,6 +10,10 @@ interface CREATE_DESTINATION_RESTRICTIONS_TYPE {
         description: Restriction;
         tag: Restriction;
     };
+    description: {
+        header: Restriction;
+        paragraph: Restriction;
+    };
 }
 
 const CREATE_DESTINATION_RESTRICTIONS: CREATE_DESTINATION_RESTRICTIONS_TYPE = {
@@ -19,6 +23,10 @@ const CREATE_DESTINATION_RESTRICTIONS: CREATE_DESTINATION_RESTRICTIONS_TYPE = {
         title: createRestriction(3, 50),
         description: createRestriction(10, 1024),
         tag: createRestriction(3, 25),
+    },
+    description: {
+        header: createRestriction(3, 50),
+        paragraph: createRestriction(10, 1024),
     },
 };
 export default CREATE_DESTINATION_RESTRICTIONS;

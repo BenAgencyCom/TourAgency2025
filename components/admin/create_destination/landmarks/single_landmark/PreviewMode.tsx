@@ -11,7 +11,7 @@ import Fade from "@mui/material/Fade";
 // Other Components
 import Image from "next/Image";
 import ImageModal from "@/components/_utils/ImageModal";
-import ControlIcons from "@/components/admin/create_destination/landmarks/single_landmark/_PictureControlIcons";
+import { ImageControls } from "@/components/_utils/ImageControls";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 
@@ -44,11 +44,11 @@ const PreviewMode: FunctionComponent<PreviewModeProps> = (props) => {
                                 <>
                                     <ImageModal open={{ value: openModal, setValue: setOpenModal }} imageURL={props.data.pictureURL}></ImageModal>
 
-                                    <ControlIcons
-                                        picture={props.data.picture} //
+                                    <ImageControls
+                                        image={props.data.picture} //
                                         tabIndex={props.tabIndex}
                                         openModal={() => setOpenModal(true)}
-                                    ></ControlIcons>
+                                    ></ImageControls>
 
                                     <Image
                                         src={props.data.pictureURL} //

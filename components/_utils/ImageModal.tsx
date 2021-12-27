@@ -1,3 +1,5 @@
+import { alpha } from "@mui/system";
+// Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StagedDataField";
 // Other Components
@@ -20,21 +22,24 @@ const ThumbnailModal: FunctionComponent<ThumbnailModalProps> = (props) => {
             <Fade in={props.open.value}>
                 <Box
                     sx={{
-                        position: "absolute" as "absolute",
+                        position: "relative" as "relative",
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
                         maxWidth: "calc(100vw - 20px)",
                         maxHeight: "calc(100vh - 20px)",
-                        width: "1920px",
                         height: "1020px",
-                        bgcolor: "background.paper",
-                        border: "2px solid #000",
-                        boxShadow: 24,
+                        bgcolor: (theme) => alpha(theme.palette.background.paper, 0.2),
+                        backdropFilter: "blur(5px)",
                         p: 4,
                     }}
                 >
-                    <Image src={props.imageURL} layout="fill" alt="thumbnail"></Image>
+                    <Image
+                        src={props.imageURL} //
+                        layout="fill"
+                        alt="thumbnail"
+                        objectFit="contain"
+                    ></Image>
                     <Button
                         variant="contained"
                         color="error"

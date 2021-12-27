@@ -7,8 +7,7 @@ import type { Landmark } from "@/@types/Landmark";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 // Other components
-import ControlIcons from "@/components/admin/create_destination/landmarks/single_landmark/_PictureControlIcons";
-import SelectPictureButton from "./SelectPictureButton";
+import { ImageControls, SelectImageButton } from "@/components/_utils/ImageControls";
 import Image from "next/Image";
 import ImageModal from "@/components/_utils/ImageModal";
 
@@ -64,22 +63,21 @@ const Picture: FunctionComponent<PictureProps> = (props) => {
                                 variant="rectangular"
                                 sx={{ width: "100%", height: "100%" }}
                             ></Skeleton>
-                            <SelectPictureButton
+                            <SelectImageButton
                                 tabIndex={props.tabIndex} //
                                 onClick={openFileSelectDialog}
-                            ></SelectPictureButton>
+                            ></SelectImageButton>
                         </>
                     );
                 }
             })()}
 
-            <ControlIcons
-                picture={props.picture} //
-                updateData={props.updateData}
+            <ImageControls
+                image={props.picture} //
                 tabIndex={props.tabIndex}
                 openModal={() => setOpenModal(true)}
                 openFileSelectDialog={openFileSelectDialog}
-            ></ControlIcons>
+            ></ImageControls>
         </Box>
     );
 };
