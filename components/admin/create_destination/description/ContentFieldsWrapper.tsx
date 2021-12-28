@@ -61,6 +61,7 @@ const ContentFieldsWrapper: FunctionComponent<ContentFieldsWrapperProps> = (prop
                             <Box
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
+                                id="content-fields-wrapper"
                                 sx={{
                                     width: "100%",
                                     height: "100%",

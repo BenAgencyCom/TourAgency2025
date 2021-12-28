@@ -35,6 +35,10 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
         newFieldType?: FieldType
     ) => {
         if (valueAfterModification === "ADD_ELEMENT") {
+            // Scroll to the bottom of container
+            const wrapper = document.getElementById("content-fields-wrapper");
+            if (wrapper) setTimeout(() => wrapper.scroll({ top: wrapper.scrollHeight, behavior: "smooth" }), 10);
+            //
             const add = (data: DraggableDestinationContentField) => props.description.setValue([...props.description.value, data]);
             switch (newFieldType) {
                 case FieldType.HEADER:
