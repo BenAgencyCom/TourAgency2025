@@ -1,4 +1,6 @@
+import type { Dispatch, SetStateAction } from "react";
+
 export interface StatedDataField<T> {
     value: T;
-    setValue: (value: T) => void;
+    setValue: Dispatch<SetStateAction<T>>;
 }

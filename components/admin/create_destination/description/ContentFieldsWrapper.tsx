@@ -10,13 +10,17 @@ import type { DraggableDestinationContentField } from "@/@types/DestinationDescr
 import Box from "@mui/material/Box";
 // Other components
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+// Redux
+import { useAppSelector } from "@/redux/hooks";
 
 interface ContentFieldsWrapperProps {
     children: ReactNode;
     description: StatedDataField<DraggableDestinationContentField[]>;
+    _scrollableKey: number;
 }
 
 const ContentFieldsWrapper: FunctionComponent<ContentFieldsWrapperProps> = (props) => {
+    const height = useAppSelector((state) => state.windowSizes.height);
     const wrapper = useRef<HTMLElement | null>(null);
     const [scrollable, setScrollable] = useState<boolean>(false);
 
@@ -24,7 +28,7 @@ const ContentFieldsWrapper: FunctionComponent<ContentFieldsWrapperProps> = (prop
         if (wrapper.current === null) return setScrollable(false);
         const contentItemsTotalHeight = [...(document.querySelectorAll(".description-conent-field" as any) as any)].reduce((a, b) => a + b.getBoundingClientRect().height + 16, 0);
         return setScrollable(contentItemsTotalHeight > wrapper.current.offsetHeight);
-    }, [wrapper, props.description.value.length]);
+    }, [wrapper, props.description.value.length, props._scrollableKey, height]);
 
     const onDragEnd = (res: DropResult) => {
         const { draggableId, destination, source } = res;

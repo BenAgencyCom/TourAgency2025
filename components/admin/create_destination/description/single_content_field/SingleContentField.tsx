@@ -3,7 +3,7 @@ import restrictions from "@/utils/restrictions/createDestination";
 import { useState } from "react";
 import { styled } from "@mui/system";
 // Types
-import type { FunctionComponent } from "react";
+import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 import { Theme } from "@mui/system";
 import { FieldType } from "@/@types/DestinationDescription";
 import type { DraggableDestinationContentField, DraggableHeaderContentField, DraggableParagraphContentField, DraggableImageContentField } from "@/@types/DestinationDescription";
@@ -35,13 +35,13 @@ interface SingleContentFieldProps {
     index: number;
     blockDeleting: boolean;
     data: DraggableDestinationContentField;
+    _setScrollableKey: Dispatch<SetStateAction<number>>;
     updateData: (valueAfterModification: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT") => void;
 }
 
 const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) => {
     const dispatch = useAppDispatch();
     const [refreshKey, setRefreshKey] = useState<number>(0);
-    const deleteField = () => props.updateData("REMOVE_THIS_ELEMENT");
 
     const updateSingleProp = <T extends DraggableDestinationContentField>(prop: keyof T, value: T[typeof prop]) => {
         const data = props.data as unknown as T;
@@ -68,11 +68,23 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
             (data as DraggableImageContentField).url = "";
             (data as DraggableImageContentField).src = null;
         }
+        props._setScrollableKey((val) => val + 1);
         props.updateData(data);
 
         dispatch(
             displaySnackbar({
                 msg: "Type has been changed successfully",
+                severity: "success",
+                hideAfter: 3000,
+            })
+        );
+    };
+
+    const deleteThisField = () => {
+        props.updateData("REMOVE_THIS_ELEMENT");
+        dispatch(
+            displaySnackbar({
+                msg: "The field has been deleted successfully",
                 severity: "success",
                 hideAfter: 3000,
             })
@@ -96,7 +108,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                             <ControlHeader
                                 data={props.data}
                                 blockDeleting={props.blockDeleting} //
-                                handleDeletion={deleteField}
+                                handleDeletion={deleteThisField}
                                 updateType={updateType}
                             ></ControlHeader>
 

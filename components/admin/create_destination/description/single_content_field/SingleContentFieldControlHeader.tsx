@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 // Other components
 import ChangeTypeDialog from "./ChangeTypeDialog";
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 // Material UI Icons
 import Delete from "@mui/icons-material/Delete";
 
@@ -30,32 +31,43 @@ interface SingleContentFieldControlHeaderProps {
 }
 
 const SingleContentFieldControlHeader: FunctionComponent<SingleContentFieldControlHeaderProps> = (props) => {
-    const [openDialog, setOpenDialog] = useState<boolean>(false);
+    const [changeTypeDialog, setChangeTypeDialog] = useState<boolean>(false);
+    const [deleteConfirmationDialog, setDeleteConfirmationDialog] = useState<boolean>(false);
 
     return (
-        <Wrapper component="header">
+        <>
+            {/* DIALOGS */}
             <ChangeTypeDialog
-                openDialog={stated<boolean>(openDialog, setOpenDialog)} //
+                openDialog={stated<boolean>(changeTypeDialog, setChangeTypeDialog)} //
                 updateType={props.updateType}
                 currentType={props.data.type}
             ></ChangeTypeDialog>
+            <DeleteConfirmationDialog
+                openDialog={stated<boolean>(deleteConfirmationDialog, setDeleteConfirmationDialog)} //
+                handleDeletion={props.handleDeletion}
+            ></DeleteConfirmationDialog>
 
-            <Typography variant="h6"> {FieldType[props.data.type]}</Typography>
-            <Box>
-                <Button
-                    sx={{ mx: 1 }}
-                    variant="outlined"
-                    onClick={() => {
-                        setOpenDialog(true);
-                    }}
-                >
-                    Change type
-                </Button>
-                <Button onClick={props.handleDeletion} disabled={props.blockDeleting} variant="outlined">
-                    <Delete></Delete>
-                </Button>
-            </Box>
-        </Wrapper>
+            {/* ACTUAL CONTENT */}
+            <Wrapper component="header">
+                <Typography variant="h6"> {FieldType[props.data.type]}</Typography>
+                <Box>
+                    <Button
+                        sx={{ mx: 1 }} //
+                        variant="outlined"
+                        onClick={() => setChangeTypeDialog(true)}
+                    >
+                        Change type
+                    </Button>
+                    <Button
+                        onClick={() => setDeleteConfirmationDialog(true)} //
+                        disabled={props.blockDeleting}
+                        variant="outlined"
+                    >
+                        <Delete></Delete>
+                    </Button>
+                </Box>
+            </Wrapper>
+        </>
     );
 };
 

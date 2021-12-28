@@ -25,6 +25,8 @@ interface DescriptionInterface {
 }
 
 const Description: FunctionComponent<DescriptionInterface> = (props) => {
+    const [_scrollableKey, _setScrollableKey] = useState<number>(0); // For computing `useLayoutEffect` in `ContentFieldsWrapper` component
+
     const [newContentFieldType, setNewContentFieldType] = useState<FieldType>(FieldType.HEADER);
     const blockDeleting = props.description.value.length < 3;
     const updateData = (
@@ -64,7 +66,7 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
                     newContentFieldType={stated<FieldType>(newContentFieldType, setNewContentFieldType)}
                 ></DescriptionHeader>
 
-                <ContentFieldsWrapper description={props.description}>
+                <ContentFieldsWrapper description={props.description} _scrollableKey={_scrollableKey}>
                     {props.description.value.map((field: DraggableDestinationContentField, index: number) => {
                         return (
                             <SingleContentField
@@ -72,6 +74,7 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
                                 index={index}
                                 blockDeleting={blockDeleting}
                                 data={field}
+                                _setScrollableKey={_setScrollableKey}
                                 updateData={(value: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT") => updateData(index, value)}
                             ></SingleContentField>
                         );
