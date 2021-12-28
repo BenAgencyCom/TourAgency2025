@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 interface ParagraphBodyProps {
     data: DraggableParagraphContentField;
     restrictions: Restriction;
-    updateData: (prop: keyof DraggableParagraphContentField, val: DraggableParagraphContentField[typeof prop]) => void;
+    updateSingleProp: (prop: keyof DraggableParagraphContentField, val: DraggableParagraphContentField[typeof prop]) => void;
 }
 
 const ParagraphBody: FunctionComponent<ParagraphBodyProps> = (props) => {
@@ -20,7 +20,7 @@ const ParagraphBody: FunctionComponent<ParagraphBodyProps> = (props) => {
     const [invalid, setInvalid] = useState<boolean>(false);
 
     const onBlur = () => {
-        props.updateData("content", newContent);
+        props.updateSingleProp("content", newContent);
         setInvalid(validateLength(newContent, props.restrictions));
     };
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -7,15 +7,8 @@ import type { StatedDataField } from "@/@types/StagedDataField";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 // Other components
 import SelectFromEnum from "@/components/_utils/SelectFromEnum";
-
-interface DescriptionHeaderProps {
-    newContentFieldType: StatedDataField<FieldType>;
-    addNewContentField: () => void;
-}
 
 const Wrapper = styled(Box)({
     display: "flex",
@@ -28,9 +21,14 @@ const FlexBox = styled(Box)({
     display: "flex",
 });
 
+interface DescriptionHeaderProps {
+    newContentFieldType: StatedDataField<FieldType>;
+    addNewContentField: () => void;
+}
+
 const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => {
     return (
-        <Wrapper sx={{ mb: 2 }}>
+        <Wrapper sx={{ mb: 2 }} component="header">
             <FlexBox>
                 <SelectFromEnum
                     enum={FieldType} //

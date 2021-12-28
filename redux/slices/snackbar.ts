@@ -5,6 +5,7 @@ interface SnackbarState {
     display: boolean;
     msg: string;
     severity: "success" | "error" | "warning" | "info";
+    hideAfter?: number | null;
 }
 
 const snackbarSlice = createSlice({
@@ -13,13 +14,14 @@ const snackbarSlice = createSlice({
         display: false,
         msg: "",
         severity: "info",
+        hideAfter: null,
     } as SnackbarState,
     reducers: {
         displaySnackbar: (state, action: PayloadAction<Omit<SnackbarState, "display">>) => {
-            if (state.display) return;
             state.msg = action.payload.msg;
             state.severity = action.payload.severity;
             state.display = true;
+            state.hideAfter = action.payload.hideAfter ? action.payload.hideAfter : null;
         },
         closeSnackbar: (state) => {
             state.display = false;

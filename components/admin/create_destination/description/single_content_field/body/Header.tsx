@@ -11,7 +11,7 @@ import TextField from "@mui/material/TextField";
 interface HeaderBodyProps {
     data: DraggableHeaderContentField;
     restrictions: Restriction;
-    updateData: (prop: keyof DraggableHeaderContentField, val: DraggableHeaderContentField[typeof prop]) => void;
+    updateSingleProp: (prop: keyof DraggableHeaderContentField, val: DraggableHeaderContentField[typeof prop]) => void;
 }
 
 const HeaderBody: FunctionComponent<HeaderBodyProps> = (props) => {
@@ -19,7 +19,7 @@ const HeaderBody: FunctionComponent<HeaderBodyProps> = (props) => {
     const [invalid, setInvalid] = useState<boolean>(false);
 
     const onBlur = () => {
-        props.updateData("header", newHeader);
+        props.updateSingleProp("header", newHeader);
         setInvalid(validateLength(newHeader, props.restrictions));
     };
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {

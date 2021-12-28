@@ -14,7 +14,7 @@ import ImageModal from "@/components/_utils/ImageModal";
 
 interface ImageBodyProps {
     data: DraggableImageContentField;
-    updateData: (prop: keyof DraggableImageContentField, val: DraggableImageContentField[typeof prop]) => void;
+    updateSingleProp: (prop: keyof DraggableImageContentField, val: DraggableImageContentField[typeof prop]) => void;
 }
 
 const Image = styled("img")({
@@ -33,11 +33,11 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
     const onFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = (e.target.files as FileList)[0];
         if (file) {
-            props.updateData("src", file);
+            props.updateSingleProp("src", file);
 
             const reader = new FileReader();
             reader.onload = (r) => {
-                props.updateData("url", r.target?.result as string);
+                props.updateSingleProp("url", r.target?.result as string);
             };
             reader.readAsDataURL(file);
         }
@@ -75,7 +75,7 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
             })()}
 
             <ImageControls
-                openModal={() => {}} //
+                openModal={() => setOpenModal(true)} //
                 openFileSelectDialog={openFileSelectDialog}
                 image={props.data.src}
             ></ImageControls>

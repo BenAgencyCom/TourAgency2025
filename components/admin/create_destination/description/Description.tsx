@@ -26,6 +26,7 @@ interface DescriptionInterface {
 
 const Description: FunctionComponent<DescriptionInterface> = (props) => {
     const [newContentFieldType, setNewContentFieldType] = useState<FieldType>(FieldType.HEADER);
+    const blockDeleting = props.description.value.length < 3;
     const updateData = (
         indexToModify: number, //
         valueAfterModification: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT" | "ADD_ELEMENT",
@@ -43,6 +44,13 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
             }
         } else if (valueAfterModification === "REMOVE_THIS_ELEMENT") {
             props.description.setValue(props.description.value.filter((_, index: number) => index !== indexToModify));
+        } else {
+            props.description.setValue(
+                props.description.value.map((value: DraggableDestinationContentField, index: number) => {
+                    if (indexToModify === index) return valueAfterModification;
+                    else return value;
+                })
+            );
         }
     };
 
@@ -60,9 +68,9 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
                     {props.description.value.map((field: DraggableDestinationContentField, index: number) => {
                         return (
                             <SingleContentField
-                                key={field.id} //
+                                key={`${field.id}-${field.type}`} //
                                 index={index}
-                                contentLength={props.description.value.length}
+                                blockDeleting={blockDeleting}
                                 data={field}
                                 updateData={(value: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT") => updateData(index, value)}
                             ></SingleContentField>

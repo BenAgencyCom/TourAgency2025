@@ -15,6 +15,13 @@ const AppSnackbar: FunctionComponent<{}> = () => {
     const display = useAppSelector((state) => state.snackbar.display);
     const msg = useAppSelector((state) => state.snackbar.msg);
     const severity = useAppSelector((state) => state.snackbar.severity);
+    const hideAfter = useAppSelector((state) => state.snackbar.hideAfter);
+
+    if (hideAfter) {
+        setTimeout(() => {
+            dispatch(closeSnackbar());
+        }, hideAfter);
+    }
 
     return (
         <Snackbar
