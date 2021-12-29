@@ -11,9 +11,10 @@ import Settings from "@mui/icons-material/Settings";
 import ZoomIn from "@mui/icons-material/ZoomIn";
 
 interface ImageControlsProps {
-    tabIndex?: number;
-    image: File | null;
     openModal: () => void;
+
+    tabIndex?: number;
+    image?: File | null;
     openFileSelectDialog?: () => void;
 }
 

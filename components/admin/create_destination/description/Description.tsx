@@ -14,8 +14,11 @@ import SectionHeader from "@/components/admin/create_destination/SectionHeader";
 import BottomNavigation from "@/components/admin/create_destination/BottomNavigation";
 import SingleContentField from "@/components/admin/create_destination/description/single_content_field/SingleContentField";
 import ContentFieldsWrapper from "@/components/admin/create_destination/description/ContentFieldsWrapper";
+import SectionIsEmpty from "@/components/admin/create_destination/_utils/SectionIsEmpty";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
+// Material UI Icons
+import Newspaper from "@mui/icons-material/Newspaper";
 
 interface DescriptionInterface {
     description: StatedDataField<DraggableDestinationContentField[]>;
@@ -66,23 +69,37 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
                 <SectionHeader text="Description"></SectionHeader>
 
                 <DescriptionHeader
+                    data={props.description.value}
                     addNewContentField={() => updateData(0, "ADD_ELEMENT", newContentFieldType)}
                     newContentFieldType={stated<FieldType>(newContentFieldType, setNewContentFieldType)}
                 ></DescriptionHeader>
 
                 <ContentFieldsWrapper description={props.description} _scrollableKey={_scrollableKey}>
-                    {props.description.value.map((field: DraggableDestinationContentField, index: number) => {
-                        return (
-                            <SingleContentField
-                                key={`${field.id}-${field.type}`} //
-                                index={index}
-                                blockDeleting={blockDeleting}
-                                data={field}
-                                _setScrollableKey={_setScrollableKey}
-                                updateData={(value: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT") => updateData(index, value)}
-                            ></SingleContentField>
-                        );
-                    })}
+                    {(() => {
+                        if (props.description.value.length) {
+                            return props.description.value.map((field: DraggableDestinationContentField, index: number) => {
+                                return (
+                                    <SingleContentField
+                                        key={`${field.id}-${field.type}`} //
+                                        index={index}
+                                        blockDeleting={blockDeleting}
+                                        data={field}
+                                        _setScrollableKey={_setScrollableKey}
+                                        updateData={(value: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT") => updateData(index, value)}
+                                    ></SingleContentField>
+                                );
+                            });
+                        } else {
+                            return (
+                                <SectionIsEmpty
+                                    icon={<Newspaper></Newspaper>} //
+                                    header="There are currently no content fields"
+                                    onClick={() => updateData(0, "ADD_ELEMENT", newContentFieldType)}
+                                    buttonMsg="Add a new field"
+                                ></SectionIsEmpty>
+                            );
+                        }
+                    })()}
                 </ContentFieldsWrapper>
 
                 <BottomNavigation

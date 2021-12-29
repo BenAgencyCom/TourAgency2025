@@ -1,14 +1,18 @@
 // Tools
 import { styled } from "@mui/system";
+import { useState } from "react";
+import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent } from "react";
 import { FieldType } from "@/@types/DestinationDescription";
 import type { StatedDataField } from "@/@types/StagedDataField";
+import type { DestinationContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 // Other components
 import SelectFromEnum from "@/components/_utils/SelectFromEnum";
+import DescriptionPreview from "@/components/admin/create_destination/description/DescriptionPreview";
 
 const Wrapper = styled(Box)({
     display: "flex",
@@ -23,39 +27,55 @@ const FlexBox = styled(Box)({
 
 interface DescriptionHeaderProps {
     newContentFieldType: StatedDataField<FieldType>;
+    data: DestinationContentField[];
     addNewContentField: () => void;
 }
 
 const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => {
-    return (
-        <Wrapper sx={{ mb: 2 }} component="header">
-            <FlexBox>
-                <SelectFromEnum
-                    enum={FieldType} //
-                    value={props.newContentFieldType}
-                    props={{
-                        sx: { width: "250px" },
-                        inputProps: {
-                            sx: { py: 0 },
-                        },
-                    }}
-                ></SelectFromEnum>
-                <Button
-                    variant="contained" //
-                    onClick={props.addNewContentField}
-                    sx={{ ml: 1 }}
-                >
-                    Add
-                </Button>
-            </FlexBox>
+    const [previewOpenDialog, setPreviewOpenDialog] = useState<boolean>(false);
 
-            <FlexBox>
-                <Button variant="outlined">Preview</Button>
-                <Button variant="outlined" sx={{ ml: 1 }}>
-                    Fullscreen
-                </Button>
-            </FlexBox>
-        </Wrapper>
+    return (
+        <>
+            {/* Dialogs: */}
+
+            <DescriptionPreview
+                open={stated<boolean>(previewOpenDialog, setPreviewOpenDialog)} //
+                data={props.data}
+            ></DescriptionPreview>
+
+            {/* Actual Header */}
+
+            <Wrapper sx={{ mb: 2 }} component="header">
+                <FlexBox>
+                    <SelectFromEnum
+                        enum={FieldType} //
+                        value={props.newContentFieldType}
+                        props={{
+                            sx: { width: "250px" },
+                            inputProps: {
+                                sx: { py: 0 },
+                            },
+                        }}
+                    ></SelectFromEnum>
+                    <Button
+                        variant="contained" //
+                        onClick={props.addNewContentField}
+                        sx={{ ml: 1 }}
+                    >
+                        Add
+                    </Button>
+                </FlexBox>
+
+                <FlexBox>
+                    <Button variant="outlined" onClick={() => setPreviewOpenDialog(true)}>
+                        Preview
+                    </Button>
+                    <Button variant="outlined" sx={{ ml: 1 }}>
+                        Fullscreen
+                    </Button>
+                </FlexBox>
+            </Wrapper>
+        </>
     );
 };
 

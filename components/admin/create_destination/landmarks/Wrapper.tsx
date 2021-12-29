@@ -2,12 +2,13 @@
 import type { FunctionComponent, ReactNode, MutableRefObject } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
-import Fade from "@mui/material/Fade";
 // Other components
 import Slider from "react-slick";
-import ThereAreNoLandmarks from "./TheraAreNoLandmarks";
+import SectionIsEmpty from "@/components/admin/create_destination/_utils/SectionIsEmpty";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
+// Material UI Icons
+import Castle from "@mui/icons-material/Castle";
 
 interface WrapperProps {
     thereAreNoLandmarks: boolean;
@@ -61,9 +62,12 @@ const Wrapper: FunctionComponent<WrapperProps> = (props) => {
                     );
                 } else {
                     return (
-                        <ThereAreNoLandmarks
-                            addNewLandmark={props.addNewLandmark} //
-                        ></ThereAreNoLandmarks>
+                        <SectionIsEmpty
+                            icon={<Castle></Castle>} //
+                            header="There are currently no landmarks"
+                            onClick={props.addNewLandmark}
+                            buttonMsg="Add a new landmark"
+                        ></SectionIsEmpty>
                     );
                 }
             })()}

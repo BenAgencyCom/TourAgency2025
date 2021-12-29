@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { Landmark } from "@/@types/Landmark";
@@ -15,6 +16,31 @@ import { ImageControls } from "@/components/_utils/ImageControls";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 
+const Tag = styled(Chip)(({ theme }) => ({
+    fontWeight: "bold",
+    margin: `${theme.spacing(1)} 3px 0 3px`,
+}));
+
+const LandmarkMainTitle = styled(Typography)(({ theme }) => ({
+    textAlign: "left",
+    width: "100%",
+    padding: `0 ${theme.spacing(2)}`,
+}));
+
+const LandmarkDescription = styled(Typography)(({ theme }) => ({
+    height: "35%",
+    textIndent: "10px",
+    paddingRight: "10px",
+    overflowY: "scroll",
+    mx: 2,
+    "&::-webkit-scrollbar": { width: "10px" },
+    "&::-webkit-scrollbar-track": { boxShadow: "inset 0 0 2px rgba(0,0,0,0.5)" },
+    "&::-webkit-scrollbar-thumb": {
+        backgroundColor: theme.palette.primary.main,
+        borderRadius: "2px",
+    },
+}));
+
 interface PreviewModeProps {
     data: Landmark;
     tabIndex: number;
@@ -26,14 +52,13 @@ const PreviewMode: FunctionComponent<PreviewModeProps> = (props) => {
     return (
         <Fade in={true}>
             <Box className={styles["single-destination"]} sx={{ pb: 2 }}>
-                <Typography variant="h4" sx={{ textAlign: "left", width: "100%", px: 2 }}>
-                    {props.data.title}
-                </Typography>
+                <LandmarkMainTitle variant="h4">{props.data.title}</LandmarkMainTitle>
 
                 <Box sx={{ px: 2 }}>
-                    <Chip label={props.data.type} sx={{ mt: 1, fontWeight: "bold", mx: "3px" }} color="primary"></Chip>
+                    <Tag label={props.data.type} color="primary"></Tag>
+
                     {props.data.tags.map((tag, index) => {
-                        return <Chip key={index} label={tag} sx={{ mt: 1, fontWeight: "bold", mx: "3px" }}></Chip>;
+                        return <Tag key={index} label={tag}></Tag>;
                     })}
                 </Box>
 
@@ -65,24 +90,7 @@ const PreviewMode: FunctionComponent<PreviewModeProps> = (props) => {
                     })()}
                 </Box>
 
-                <Typography
-                    variant="body1"
-                    sx={{
-                        height: "35%", //
-                        textIndent: "10px",
-                        paddingRight: "10px",
-                        overflowY: "scroll",
-                        mx: 2,
-                        "&::-webkit-scrollbar": { width: "10px" },
-                        "&::-webkit-scrollbar-track": { boxShadow: "inset 0 0 2px rgba(0,0,0,0.5)" },
-                        "&::-webkit-scrollbar-thumb": {
-                            backgroundColor: (theme) => theme.palette.primary.main,
-                            borderRadius: "2px",
-                        },
-                    }}
-                >
-                    {props.data.description}
-                </Typography>
+                <LandmarkDescription variant="body1">{props.data.description}</LandmarkDescription>
             </Box>
         </Fade>
     );
