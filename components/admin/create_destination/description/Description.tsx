@@ -9,11 +9,11 @@ import type { DraggableDestinationContentField } from "@/@types/DestinationDescr
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 // Other Components
-import DescriptionHeader from "./DescriptionHeader";
+import DescriptionHeader from "@/components/admin/create_destination/description/DescriptionHeader";
+import ContentFieldsWrapper from "@/components/admin/create_destination/description/fields_wrapper/ContentFieldsWrapper";
 import SectionHeader from "@/components/admin/create_destination/SectionHeader";
 import BottomNavigation from "@/components/admin/create_destination/BottomNavigation";
 import SingleContentField from "@/components/admin/create_destination/description/single_content_field/SingleContentField";
-import ContentFieldsWrapper from "@/components/admin/create_destination/description/ContentFieldsWrapper";
 import SectionIsEmpty from "@/components/admin/create_destination/_utils/SectionIsEmpty";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
@@ -30,6 +30,7 @@ interface DescriptionInterface {
 const Description: FunctionComponent<DescriptionInterface> = (props) => {
     const [_scrollableKey, _setScrollableKey] = useState<number>(0); // For computing `useLayoutEffect` in `ContentFieldsWrapper` component
 
+    const [fullscreen, setFullscreen] = useState<boolean>(false);
     const [newContentFieldType, setNewContentFieldType] = useState<FieldType>(FieldType.HEADER);
     const blockDeleting = props.description.value.length < 3;
     const updateData = (
@@ -72,9 +73,18 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
                     data={props.description.value}
                     addNewContentField={() => updateData(0, "ADD_ELEMENT", newContentFieldType)}
                     newContentFieldType={stated<FieldType>(newContentFieldType, setNewContentFieldType)}
+                    setFullscreen={setFullscreen}
                 ></DescriptionHeader>
 
-                <ContentFieldsWrapper description={props.description} _scrollableKey={_scrollableKey}>
+                <ContentFieldsWrapper
+                    description={props.description} //
+                    _scrollableKey={_scrollableKey}
+                    fullscreen={stated(fullscreen, setFullscreen)}
+                    // For fullscreen header
+                    addNewContentField={() => updateData(0, "ADD_ELEMENT", newContentFieldType)}
+                    newContentFieldType={stated<FieldType>(newContentFieldType, setNewContentFieldType)}
+                    setFullscreen={setFullscreen}
+                >
                     {(() => {
                         if (props.description.value.length) {
                             return props.description.value.map((field: DraggableDestinationContentField, index: number) => {
@@ -84,6 +94,7 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
                                         index={index}
                                         blockDeleting={blockDeleting}
                                         data={field}
+                                        fullscreen={fullscreen}
                                         _setScrollableKey={_setScrollableKey}
                                         updateData={(value: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT") => updateData(index, value)}
                                     ></SingleContentField>

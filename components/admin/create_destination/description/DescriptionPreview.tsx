@@ -37,7 +37,7 @@ const DescriptionPreview: FunctionComponent<DescriptionPreviewProps> = (props) =
     return (
         <Dialog open={props.open.value} onClose={closeDialog} maxWidth="lg" fullWidth={true}>
             <CustomDialogTitle>
-                <Button>Preview entire document</Button>
+                <Button variant="outlined">Preview entire document</Button>
                 <Button variant="contained" onClick={closeDialog}>
                     Close
                 </Button>

@@ -23,19 +23,20 @@ const Wrapper = styled(Box)({
     flexDirection: "column",
     alignItems: "flex-start",
     width: "100%",
+    cursor: "default",
 });
 
 const SingleDestinationContent: FunctionComponent<SingleDestinationContentProps> = (props) => {
     return (
         <Wrapper>
-            {props.data.map((element: DestinationContentField) => {
+            {props.data.map((element: DestinationContentField, index: number) => {
                 switch (element.type) {
                     case FieldType.HEADER:
-                        return <Header data={element}></Header>;
+                        return <Header data={element} key={index}></Header>;
                     case FieldType.PARAGRAPH:
-                        return <Paragraph data={element}></Paragraph>;
+                        return <Paragraph data={element} key={index}></Paragraph>;
                     case FieldType.IMAGE:
-                        return <ImageField imageURL={props.imageLoader(element.url as string)}></ImageField>;
+                        return <ImageField imageURL={props.imageLoader(element.url as string)} key={index}></ImageField>;
                 }
             })}
         </Wrapper>

@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 import { useState } from "react";
 import stated from "@/utils/client/stated";
 // Types
-import type { FunctionComponent } from "react";
+import type { FunctionComponent, ReactNode } from "react";
 import { FieldType } from "@/@types/DestinationDescription";
 import type { StatedDataField } from "@/@types/StagedDataField";
 import type { DestinationContentField } from "@/@types/DestinationDescription";
@@ -29,6 +29,8 @@ interface DescriptionHeaderProps {
     newContentFieldType: StatedDataField<FieldType>;
     data: DestinationContentField[];
     addNewContentField: () => void;
+    setFullscreen: StatedDataField<boolean>["setValue"] | false;
+    children?: ReactNode;
 }
 
 const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => {
@@ -67,12 +69,20 @@ const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => 
                 </FlexBox>
 
                 <FlexBox>
-                    <Button variant="outlined" onClick={() => setPreviewOpenDialog(true)}>
+                    <Button variant="outlined" onClick={() => setPreviewOpenDialog(true)} sx={{ mr: 1 }}>
                         Preview
                     </Button>
-                    <Button variant="outlined" sx={{ ml: 1 }}>
-                        Fullscreen
-                    </Button>
+                    {(() => {
+                        if (props.children) {
+                            return props.children;
+                        } else {
+                            return (
+                                <Button variant="outlined" onClick={() => props.setFullscreen !== false && props.setFullscreen(true)}>
+                                    Fullscreen
+                                </Button>
+                            );
+                        }
+                    })()}
                 </FlexBox>
             </Wrapper>
         </>

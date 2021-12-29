@@ -12,7 +12,7 @@ interface HeaderContentFieldProps {
 const HeaderField: FunctionComponent<HeaderContentFieldProps> = (props) => {
     return (
         <>
-            <Typography variant="h2" sx={{ fontWeight: "bold" }}>
+            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
                 {props.data.header}
             </Typography>
             <Divider flexItem sx={{ mt: 1, mb: 2 }}></Divider>

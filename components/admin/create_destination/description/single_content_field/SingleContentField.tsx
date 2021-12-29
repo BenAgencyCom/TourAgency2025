@@ -34,6 +34,7 @@ const CustomCard = styled(Card)(({ theme }: { theme: Theme }) => ({
 interface SingleContentFieldProps {
     index: number;
     blockDeleting: boolean;
+    fullscreen: boolean;
     data: DraggableDestinationContentField;
     _setScrollableKey: Dispatch<SetStateAction<number>>;
     updateData: (valueAfterModification: DraggableDestinationContentField | "REMOVE_THIS_ELEMENT") => void;
@@ -129,6 +130,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                                         return (
                                             <ParagraphBody
                                                 data={props.data}
+                                                fullscreen={props.fullscreen}
                                                 updateSingleProp={(prop: keyof DraggableParagraphContentField, val: DraggableParagraphContentField[typeof prop]) => {
                                                     return updateSingleProp<DraggableParagraphContentField>(prop, val);
                                                 }}
@@ -139,6 +141,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                                         return (
                                             <ImageBody
                                                 data={props.data}
+                                                fullscreen={props.fullscreen}
                                                 updateSingleProp={(prop: keyof DraggableImageContentField, val: DraggableImageContentField[typeof prop]) => {
                                                     return updateSingleProp<DraggableImageContentField>(prop, val);
                                                 }}

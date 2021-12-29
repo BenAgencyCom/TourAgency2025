@@ -10,6 +10,7 @@ import type { DraggableParagraphContentField } from "@/@types/DestinationDescrip
 import TextField from "@mui/material/TextField";
 
 interface ParagraphBodyProps {
+    fullscreen: boolean;
     data: DraggableParagraphContentField;
     restrictions: Restriction;
     updateSingleProp: (prop: keyof DraggableParagraphContentField, val: DraggableParagraphContentField[typeof prop]) => void;
@@ -50,7 +51,7 @@ const ParagraphBody: FunctionComponent<ParagraphBodyProps> = (props) => {
             error={invalid}
             sx={{ width: "100%" }}
             multiline={true}
-            maxRows={5}
+            maxRows={props.fullscreen ? 10 : 5}
         ></TextField>
     );
 };

@@ -13,6 +13,7 @@ import { ImageControls, SelectImageButton } from "@/components/_utils/ImageContr
 import ImageModal from "@/components/_utils/ImageModal";
 
 interface ImageBodyProps {
+    fullscreen: boolean;
     data: DraggableImageContentField;
     updateSingleProp: (prop: keyof DraggableImageContentField, val: DraggableImageContentField[typeof prop]) => void;
 }
@@ -47,7 +48,7 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
         <Box
             sx={{
                 width: "100%", //
-                height: "300px",
+                height: `${props.fullscreen ? 500 : 300}px`,
                 position: "relative",
             }}
         >
