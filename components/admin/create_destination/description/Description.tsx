@@ -1,5 +1,7 @@
-import { useState } from "react";
 import stated from "@/utils/client/stated";
+import { useState, useEffect } from "react";
+import { ValidationError } from "@/utils/api/Errors";
+import { validateDescription } from "@/validators/createDestinationValidator";
 // Types
 import type { StatedDataField } from "@/@types/StagedDataField";
 import type { FunctionComponent } from "react";
@@ -30,6 +32,7 @@ interface DescriptionInterface {
 const Description: FunctionComponent<DescriptionInterface> = (props) => {
     const [_scrollableKey, _setScrollableKey] = useState<number>(0); // For computing `useLayoutEffect` in `ContentFieldsWrapper` component
 
+    const [blockContinue, setBlockContinue] = useState<boolean>(true);
     const [fullscreen, setFullscreen] = useState<boolean>(false);
     const [newContentFieldType, setNewContentFieldType] = useState<FieldType>(FieldType.HEADER);
     const blockDeleting = props.description.value.length < 3;
@@ -63,6 +66,12 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
             );
         }
     };
+    //
+    // Validation
+    //
+    useEffect(() => {
+        setBlockContinue(!validateDescription(props.description.value));
+    }, [props.description.value]);
 
     return (
         <Fade in={true}>
@@ -114,7 +123,7 @@ const Description: FunctionComponent<DescriptionInterface> = (props) => {
                 </ContentFieldsWrapper>
 
                 <BottomNavigation
-                    blockContinue={false} //
+                    blockContinue={blockContinue} //
                     currentSlideIndex={props.stepperIndex.value}
                     updateSlideIndex={props.stepperIndex.setValue}
                 ></BottomNavigation>
