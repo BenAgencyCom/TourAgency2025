@@ -8,6 +8,7 @@ interface SelectFromEnumProps {
     enum: Record<number | string, unknown>;
     value: StatedDataField<any>;
     props?: unknown;
+    excludeFromEnum?: unknown[];
 }
 
 interface Data {
@@ -17,9 +18,12 @@ interface Data {
 
 const SelectFromEnum: FunctionComponent<SelectFromEnumProps> = (props) => {
     const keys = Object.keys(props.enum).filter((el) => isNaN(el as any));
-    const data: Data[] = [];
+    let data: Data[] = [];
     keys.forEach((key) => data.push({ key: key, value: props.enum[key] as Data["value"] }));
 
+    if (props.excludeFromEnum) {
+        data = data.filter(({ value }) => !props.excludeFromEnum?.includes(value));
+    }
     const onChange = (e: ChangeEvent<HTMLSelectElement>) => props.value.setValue(e.target.value);
 
     return (
