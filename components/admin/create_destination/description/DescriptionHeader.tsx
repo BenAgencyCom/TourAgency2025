@@ -27,6 +27,7 @@ const FlexBox = styled(Box)({
 
 interface DescriptionHeaderProps {
     newContentFieldType: StatedDataField<FieldType>;
+    previewDialog?: StatedDataField<boolean>;
     data: DestinationContentField[];
     addNewContentField: () => void;
     setFullscreen: StatedDataField<boolean>["setValue"] | false;
@@ -34,16 +35,20 @@ interface DescriptionHeaderProps {
 }
 
 const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => {
-    const [previewOpenDialog, setPreviewOpenDialog] = useState<boolean>(false);
-
     return (
         <>
             {/* Dialogs: */}
 
-            <DescriptionPreview
-                open={stated<boolean>(previewOpenDialog, setPreviewOpenDialog)} //
-                data={props.data}
-            ></DescriptionPreview>
+            {(() => {
+                if (props.previewDialog !== undefined) {
+                    return (
+                        <DescriptionPreview
+                            open={props.previewDialog} //
+                            data={props.data}
+                        ></DescriptionPreview>
+                    );
+                }
+            })()}
 
             {/* Actual Header */}
 
@@ -69,9 +74,16 @@ const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => 
                 </FlexBox>
 
                 <FlexBox>
-                    <Button variant="outlined" onClick={() => setPreviewOpenDialog(true)} sx={{ mr: 1 }}>
-                        Preview
-                    </Button>
+                    {(() => {
+                        if (props.previewDialog !== undefined) {
+                            return (
+                                <Button variant="outlined" onClick={() => props.previewDialog?.setValue(true)} sx={{ mr: 1 }}>
+                                    Preview
+                                </Button>
+                            );
+                        }
+                    })()}
+
                     {(() => {
                         if (props.children) {
                             return props.children;

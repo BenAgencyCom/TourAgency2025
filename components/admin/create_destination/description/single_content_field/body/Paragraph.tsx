@@ -5,15 +5,16 @@ import { lengthRestrictionMessage, validateLength } from "@/utils/client/lenghRe
 import type { Theme } from "@mui/system";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { Restriction } from "@/@types/Restriction";
-import type { DraggableParagraphContentField } from "@/@types/DestinationDescription";
+import type { ParagraphContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import TextField from "@mui/material/TextField";
 
 interface ParagraphBodyProps {
     fullscreen: boolean;
-    data: DraggableParagraphContentField;
+    data: ParagraphContentField;
     restrictions: Restriction;
-    updateSingleProp: (prop: keyof DraggableParagraphContentField, val: DraggableParagraphContentField[typeof prop]) => void;
+    split?: true;
+    updateSingleProp: (prop: keyof ParagraphContentField, val: ParagraphContentField[typeof prop]) => void;
 }
 
 const ParagraphBody: FunctionComponent<ParagraphBodyProps> = (props) => {
@@ -38,6 +39,7 @@ const ParagraphBody: FunctionComponent<ParagraphBodyProps> = (props) => {
             inputProps={{
                 maxLength: props.restrictions.max,
                 sx: {
+                    rows: "5",
                     pr: "10px",
                     "&::-webkit-scrollbar": { width: "10px" },
                     "&::-webkit-scrollbar-track": { boxShadow: "inset 0 0 2px rgba(0,0,0,0.5)" },
@@ -49,9 +51,9 @@ const ParagraphBody: FunctionComponent<ParagraphBodyProps> = (props) => {
             }}
             FormHelperTextProps={{ sx: { textAlign: "right" } }}
             error={invalid}
-            sx={{ width: "100%" }}
+            sx={{ width: `100%` }}
             multiline={true}
-            maxRows={props.fullscreen ? 10 : 5}
+            rows={props.fullscreen ? (props.split ? 20 : 10) : props.split ? 10 : 5}
         ></TextField>
     );
 };

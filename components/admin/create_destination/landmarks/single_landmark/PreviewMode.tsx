@@ -32,7 +32,7 @@ const LandmarkDescription = styled(Typography)(({ theme }) => ({
     textIndent: "10px",
     paddingRight: "10px",
     overflowY: "scroll",
-    mx: 2,
+    marginLeft: `${theme.spacing(2)}`,
     "&::-webkit-scrollbar": { width: "10px" },
     "&::-webkit-scrollbar-track": { boxShadow: "inset 0 0 2px rgba(0,0,0,0.5)" },
     "&::-webkit-scrollbar-thumb": {
@@ -70,7 +70,7 @@ const PreviewMode: FunctionComponent<PreviewModeProps> = (props) => {
                                     <ImageModal open={{ value: openModal, setValue: setOpenModal }} imageURL={props.data.pictureURL}></ImageModal>
 
                                     <ImageControls
-                                        image={props.data.picture} //
+                                        url={props.data.picture} //
                                         tabIndex={props.tabIndex}
                                         openModal={() => setOpenModal(true)}
                                     ></ImageControls>

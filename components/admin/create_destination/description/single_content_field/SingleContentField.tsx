@@ -6,7 +6,13 @@ import { styled } from "@mui/system";
 import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 import { Theme } from "@mui/system";
 import { FieldType } from "@/@types/DestinationDescription";
-import type { DraggableDestinationContentField, DraggableHeaderContentField, DraggableParagraphContentField, DraggableImageContentField } from "@/@types/DestinationDescription";
+import type {
+    DraggableDestinationContentField,
+    DraggableHeaderContentField,
+    DraggableParagraphContentField,
+    DraggableImageContentField,
+    DraggableSplittedContentField,
+} from "@/@types/DestinationDescription";
 import type { DraggableProvided } from "react-beautiful-dnd";
 // Material UI Components
 import Card from "@mui/material/Card";
@@ -17,6 +23,7 @@ import { Draggable } from "react-beautiful-dnd";
 import HeaderBody from "./body/Header";
 import ParagraphBody from "./body/Paragraph";
 import ImageBody from "./body/Image";
+import Splitted from "./body/Splitted";
 import ControlHeader from "./SingleContentFieldControlHeader";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
@@ -66,8 +73,20 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
         }
         // Change into IMAGE
         else if (newType === FieldType.IMAGE) {
-            (data as DraggableImageContentField).url = "";
+            (data as DraggableImageContentField).url = null;
             (data as DraggableImageContentField).src = null;
+        }
+        // Change into SPLITTED
+        else if (newType === FieldType.SPLITTED) {
+            (data as DraggableSplittedContentField).left = {
+                type: FieldType.PARAGRAPH,
+                content: "",
+            };
+            (data as DraggableSplittedContentField).right = {
+                type: FieldType.IMAGE,
+                url: null,
+                src: null,
+            };
         }
         props._setScrollableKey((val) => val + 1);
         props.updateData(data);
@@ -92,6 +111,19 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
         );
     };
 
+    const swapLeftWithRight = () => {
+        if (props.data.type === FieldType.SPLITTED) {
+            const data = Object.assign({}, props.data) as DraggableSplittedContentField;
+            const oldLeft = Object.assign({}, data.left);
+            const oldRight = Object.assign({}, data.right);
+
+            data.left = oldRight;
+            data.right = oldLeft;
+
+            props.updateData(data);
+        }
+    };
+
     return (
         <Draggable
             draggableId={props.data.id} //
@@ -111,6 +143,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                                 blockDeleting={props.blockDeleting} //
                                 handleDeletion={deleteThisField}
                                 updateType={updateType}
+                                swap={swapLeftWithRight}
                             ></ControlHeader>
 
                             <Divider sx={{ my: 2 }} flexItem></Divider>
@@ -147,6 +180,17 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                                                 }}
                                                 key={refreshKey}
                                             ></ImageBody>
+                                        );
+                                    case FieldType.SPLITTED:
+                                        return (
+                                            <Splitted
+                                                data={props.data}
+                                                fullscreen={props.fullscreen}
+                                                updateSingleProp={(prop: keyof DraggableSplittedContentField, val: DraggableSplittedContentField[typeof prop]) => {
+                                                    return updateSingleProp<DraggableSplittedContentField>(prop, val);
+                                                }}
+                                                restrictions={restrictions.description.paragraph}
+                                            ></Splitted>
                                         );
                                 }
                             })()}

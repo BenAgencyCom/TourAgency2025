@@ -9,7 +9,7 @@ import Select from "@/components/register/_formFields/Select";
 import Tags from "./edit_mode_utils/Tags";
 import Title from "./edit_mode_utils/Title";
 import Description from "./edit_mode_utils/Description";
-import Picture from "./edit_mode_utils/Picture/Picture";
+import Picture from "./edit_mode_utils/Picture";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 

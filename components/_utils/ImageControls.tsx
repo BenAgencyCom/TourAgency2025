@@ -14,7 +14,7 @@ interface ImageControlsProps {
     openModal: () => void;
 
     tabIndex?: number;
-    image?: File | null;
+    url?: string | null | File;
     openFileSelectDialog?: () => void;
 }
 
@@ -36,7 +36,7 @@ export const ImageControls: FunctionComponent<ImageControlsProps> = (props) => {
             {(() => {
                 if (props.openFileSelectDialog) {
                     return (
-                        <Tooltip title={props.image ? "Change" : "Select photo"} placement="top">
+                        <Tooltip title={props.url ? "Change" : "Select photo"} placement="top">
                             <IconButton tabIndex={tabIndex} onClick={props.openFileSelectDialog}>
                                 <Settings></Settings>
                             </IconButton>
@@ -47,7 +47,7 @@ export const ImageControls: FunctionComponent<ImageControlsProps> = (props) => {
 
             <Tooltip title="Preview" placement="top">
                 <span>
-                    <IconButton tabIndex={tabIndex} disabled={!props.image} onClick={props.openModal}>
+                    <IconButton tabIndex={tabIndex} disabled={!props.url} onClick={props.openModal}>
                         <ZoomIn></ZoomIn>
                     </IconButton>
                 </span>

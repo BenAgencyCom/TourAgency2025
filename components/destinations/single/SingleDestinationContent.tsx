@@ -10,9 +10,8 @@ import Box from "@mui/material/Box";
 import Header from "@/components/destinations/single/Header";
 import Paragraph from "@/components/destinations/single/Paragraph";
 import ImageField from "@/components/destinations/single/Image";
-// Material UI Icons
-// Redux
-// Styles
+import Splitted from "@/components/destinations/single/Splitted";
+
 interface SingleDestinationContentProps {
     data: DestinationContentField[];
     imageLoader: (url: string) => string;
@@ -37,6 +36,8 @@ const SingleDestinationContent: FunctionComponent<SingleDestinationContentProps>
                         return <Paragraph data={element} key={index}></Paragraph>;
                     case FieldType.IMAGE:
                         return <ImageField imageURL={props.imageLoader(element.url as string)} key={index}></ImageField>;
+                    case FieldType.SPLITTED:
+                        return <Splitted data={element} imageLoader={props.imageLoader} key={index}></Splitted>;
                 }
             })}
         </Wrapper>

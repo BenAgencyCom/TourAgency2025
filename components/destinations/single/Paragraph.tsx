@@ -13,10 +13,20 @@ const Paragraph = styled(Typography)(({ theme }) => ({
 
 interface ParagraphFieldProps {
     data: ParagraphContentField;
+    split?: true;
 }
 
 const ParagraphField: FunctionComponent<ParagraphFieldProps> = (props) => {
-    return <Paragraph>{props.data.content}</Paragraph>;
+    return (
+        <Paragraph
+            sx={{
+                width: `${props.split ? 49 : 100}%`,
+                mt: props.split ? 0 : 2,
+            }}
+        >
+            {props.data.content}
+        </Paragraph>
+    );
 };
 
 export default ParagraphField;

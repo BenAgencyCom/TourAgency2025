@@ -73,7 +73,7 @@ const Picture: FunctionComponent<PictureProps> = (props) => {
             })()}
 
             <ImageControls
-                image={props.picture} //
+                url={props.picture} //
                 tabIndex={props.tabIndex}
                 openModal={() => setOpenModal(true)}
                 openFileSelectDialog={openFileSelectDialog}

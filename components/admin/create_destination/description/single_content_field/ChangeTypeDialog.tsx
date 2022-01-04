@@ -18,6 +18,7 @@ interface ChangeTypeDialogProps {
     currentType: FieldType;
     openDialog: StatedDataField<boolean>;
     updateType: (newTitle: FieldType) => void;
+    excludeFromTypes?: unknown[];
 }
 
 const ChangeTypeDialog: FunctionComponent<ChangeTypeDialogProps> = (props) => {
@@ -30,6 +31,7 @@ const ChangeTypeDialog: FunctionComponent<ChangeTypeDialogProps> = (props) => {
             <DialogContent>
                 <SelectFromEnum
                     enum={FieldType} //
+                    excludeFromEnum={props.excludeFromTypes}
                     value={stated<FieldType>(newType, setNewType)}
                     props={{ sx: { width: "300px", my: 1 } }}
                 ></SelectFromEnum>

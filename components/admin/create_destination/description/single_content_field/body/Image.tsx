@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { DraggableImageContentField } from "@/@types/DestinationDescription";
+import type { ImageContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
@@ -14,8 +14,9 @@ import ImageModal from "@/components/_utils/ImageModal";
 
 interface ImageBodyProps {
     fullscreen: boolean;
-    data: DraggableImageContentField;
-    updateSingleProp: (prop: keyof DraggableImageContentField, val: DraggableImageContentField[typeof prop]) => void;
+    data: ImageContentField;
+    split?: true;
+    updateSingleProp: (prop: keyof ImageContentField, val: ImageContentField[typeof prop]) => void;
 }
 
 const Image = styled("img")({
@@ -48,7 +49,7 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
         <Box
             sx={{
                 width: "100%", //
-                height: `${props.fullscreen ? 500 : 300}px`,
+                height: `${props.fullscreen ? (props.split ? 400 : 500) : 280}px`,
                 position: "relative",
             }}
         >
@@ -78,7 +79,7 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
             <ImageControls
                 openModal={() => setOpenModal(true)} //
                 openFileSelectDialog={openFileSelectDialog}
-                image={props.data.src}
+                url={props.data.url}
             ></ImageControls>
         </Box>
     );

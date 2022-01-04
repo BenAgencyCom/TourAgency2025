@@ -10,11 +10,10 @@ import Skeleton from "@mui/material/Skeleton";
 import Image from "next/Image";
 import { ImageControls } from "@/components/_utils/ImageControls";
 import ImageModal from "@/components/_utils/ImageModal";
-// Styles
-import styles from "@/sass/destinations/single_destination.module.sass";
 
 interface ImageFieldProps {
     imageURL: string;
+    split?: true;
 }
 
 const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
@@ -23,7 +22,14 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
     const handleOpenModal = () => setOpenModal(true);
 
     return (
-        <Box className={styles["content-image-wrapper"]} sx={{ mb: 2 }}>
+        <Box
+            sx={{
+                width: `${props.split ? 49 : 100}% !important`, //
+                position: "relative",
+                height: `${props.split ? "auto" : "500px"}`,
+                mb: props.split ? 0 : 2,
+            }}
+        >
             {(() => {
                 if (props.imageURL) {
                     return (
@@ -35,7 +41,7 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
                                 objectPosition="center"
                                 alt="image"
                             ></Image>
-                            <ImageControls openModal={handleOpenModal}></ImageControls>
+                            <ImageControls openModal={handleOpenModal} url={props.imageURL}></ImageControls>
                         </>
                     );
                 } else {

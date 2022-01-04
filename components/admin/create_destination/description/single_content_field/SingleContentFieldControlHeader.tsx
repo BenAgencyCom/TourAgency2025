@@ -11,8 +11,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 // Other components
-import ChangeTypeDialog from "./ChangeTypeDialog";
-import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
+import ChangeTypeDialog from "@/components/admin/create_destination/description/single_content_field/ChangeTypeDialog";
+import DeleteConfirmationDialog from "@/components/admin/create_destination/description/single_content_field/DeleteConfirmationDialog";
 // Material UI Icons
 import Delete from "@mui/icons-material/Delete";
 
@@ -28,6 +28,7 @@ interface SingleContentFieldControlHeaderProps {
     blockDeleting: boolean;
     handleDeletion: () => void;
     updateType: (newType: FieldType) => void;
+    swap: () => void;
 }
 
 const SingleContentFieldControlHeader: FunctionComponent<SingleContentFieldControlHeaderProps> = (props) => {
@@ -51,6 +52,19 @@ const SingleContentFieldControlHeader: FunctionComponent<SingleContentFieldContr
             <Wrapper component="header">
                 <Typography variant="h6"> {FieldType[props.data.type]}</Typography>
                 <Box>
+                    {(() => {
+                        if (props.data.type === FieldType.SPLITTED) {
+                            return (
+                                <Button
+                                    sx={{ mx: 1 }} //
+                                    variant="outlined"
+                                    onClick={props.swap}
+                                >
+                                    Swap
+                                </Button>
+                            );
+                        }
+                    })()}
                     <Button
                         sx={{ mx: 1 }} //
                         variant="outlined"
