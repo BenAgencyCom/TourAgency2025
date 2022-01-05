@@ -2,7 +2,7 @@
 # prisma migrates
 /prisma/migrations
 # uploaded
-# /public/upload/avatars
+/public/upload/avatars
 # dependencies
 /node_modules
 /.pnp
