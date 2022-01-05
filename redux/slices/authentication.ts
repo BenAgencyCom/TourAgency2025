@@ -10,12 +10,17 @@ export interface UserData {
         name: string;
         code: string;
     };
+    isAdmin?: true;
 }
 
 export interface AuthenticationState {
     isAuthenticated: boolean | null;
     userData: UserData | null;
 }
+
+export class ThereIsNoUserDataInLocalStorage extends Error {}
+export class UserDataStructureIsInvalid extends Error {}
+export class StoredUserIsAdmin extends Error {}
 
 const authenticationSlice = createSlice({
     name: "authentication",
@@ -34,14 +39,20 @@ const authenticationSlice = createSlice({
             state.userData = action.payload;
         },
         getUserFromLocalStorage: (state) => {
-            const userFormLocalStorage = localStorage.getItem("userData");
-            if (userFormLocalStorage) {
-                const parsedLocalStorage = JSON.parse(userFormLocalStorage);
-                const { name, surname, gender, country } = parsedLocalStorage;
-                const { name: countryName, code } = country;
-                if (name && surname && gender && countryName && code) {
-                    state.userData = parsedLocalStorage as AuthenticationState["userData"];
+            const data = localStorage.getItem("userData");
+            if (data === null) throw new ThereIsNoUserDataInLocalStorage();
+
+            const userFormLocalStorage = JSON.parse(data);
+            const { name, surname, gender, country, isAdmin } = userFormLocalStorage;
+            const { name: countryName, code } = country;
+
+            if (name && surname && gender && countryName && code) {
+                state.userData = userFormLocalStorage as AuthenticationState["userData"];
+                if (isAdmin) {
+                    throw new StoredUserIsAdmin();
                 }
+            } else {
+                throw new UserDataStructureIsInvalid();
             }
         },
     },

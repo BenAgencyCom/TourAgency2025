@@ -156,7 +156,7 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
                 </LandmarksWrapper>
                 <Hiddable hide={hideNavigation} height={80}>
                     <BottomNavigation
-                        blockContinue={true} //
+                        blockContinue={validationResults.findIndex((el) => el === false) !== -1} //
                         currentSlideIndex={props.stepperIndex.value}
                         updateSlideIndex={props.stepperIndex.setValue}
                     ></BottomNavigation>

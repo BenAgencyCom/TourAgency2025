@@ -24,3 +24,12 @@ export const getUserData = async (): Promise<UserData> => {
     const { data } = await axios.get("/api/current_user_data");
     return data;
 };
+
+export const checkWhetherUserIsAdmin = async (): Promise<boolean> => {
+    try {
+        const { data } = await axios.get("/api/current_user_data");
+        return data.isAdmin;
+    } catch (e: unknown) {
+        return false;
+    }
+};

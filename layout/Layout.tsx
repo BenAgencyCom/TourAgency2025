@@ -52,11 +52,12 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                 const authenticationResult = (await authenticateToken()) as boolean;
                 dispatch(setAuthentication(authenticationResult));
                 // Load user's data
+                const setUserDataFromAPIRequest = async () => dispatch(setUserData(await getUserData()));
                 if (authenticationResult) {
-                    if (localStorage.getItem("userData")) {
+                    try {
                         dispatch(getUserFromLocalStorage());
-                    } else {
-                        dispatch(setUserData(await getUserData()));
+                    } catch (e: unknown) {
+                        await setUserDataFromAPIRequest();
                     }
                 }
             }

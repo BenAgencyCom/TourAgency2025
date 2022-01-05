@@ -42,6 +42,7 @@ describe("AUTHENTICATION", () => {
                 email: data.email,
                 gender: data.gender,
                 emailVerified: null,
+                isAdmin: false,
                 NOT: {
                     password: data.password,
                 },

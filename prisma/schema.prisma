@@ -1,10 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider        = "prisma-client-js"
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  avatar        String?
+  country       String?
+  countryCode   String?
+  gender        Gender    @default(MALE)
+  surname       String?
+  password      String?
+  createdAt     DateTime  @default(now())
+  isAdmin       Boolean   @default(false)
+  sessions      Session[]
+}
+
+model Session {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  accessToken String   @unique
+  expires     DateTime
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Destination {
+  id               String     @id @default(cuid())
+  city             String?
+  country          String?
+  countryCode      String?
+  population       Int?
+  continent        Continent?
+  quickDescription String?
+  description      Json?
+  landmarks        Json?
+  folder           String?
+  createdAt        DateTime   @default(now())
 }
 
 enum Gender {
@@ -21,48 +62,4 @@ enum Continent {
   South_America
   Australia_Oceania
   Antarctica
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  surname       String?
-  gender        Gender    @default(MALE)
-  country       String?
-  countryCode   String?
-  email         String?   @unique
-  emailVerified DateTime?
-  avatar        String?
-  password      String?
-  createdAt     DateTime @default(now())
-
-  sessions      Session[]
-}
-
-
-model Session {
-  id           String   @id @default(cuid())
-  userId       String   @map("user_id")
-  accessToken  String   @unique
-  expires      DateTime
-  createdAt    DateTime @default(now())
-
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  @@map("sessions")
-}
-
-
-model Destination {
-  id                    String    @id @default(cuid())
-  city                  String?
-  country               String?
-  countryCode           String?
-  population            Int?
-  continent             Continent?
-  quickDescription      String?
-  description           Json?
-  landmarks             Json?
-  folder                String?
-  createdAt             DateTime @default(now())
 }
