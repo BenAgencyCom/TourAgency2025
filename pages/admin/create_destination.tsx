@@ -1,16 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import stated from "@/utils/client/stated";
 import dynamic from "next/dynamic";
-import { checkWhetherUserIsAdmin } from "@/utils/client/authenticate";
-import Router from "next/router";
+import GuardedRoute from "@/utils/client/GuardedRoute";
 // Types
 import type { Continent } from "@prisma/client";
 import type { FunctionComponent } from "react";
 import type { CountryType } from "@/data/countries";
 import type { DraggableDestinationContentField } from "@/@types/DestinationDescription";
+import type { GetServerSideProps } from "next";
 // Material UI Components
 import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
 // Other Components
 import Image from "next/Image";
 import Stepper from "@/components/admin/create_destination/Stepper";
@@ -25,19 +24,6 @@ import styles from "@/sass/admin/create_destination.module.sass";
 
 const CreateDestinatinon: FunctionComponent<{}> = () => {
     const [stepperIndex, setStepperIndex] = useState<number>(3);
-    const [loaded, setLoaded] = useState<boolean>(false);
-
-    // Ensure that current user is accually admin
-
-    useEffect(() => {
-        (async () => {
-            if (await checkWhetherUserIsAdmin()) {
-                setLoaded(true);
-            } else {
-                Router.push("/");
-            }
-        })();
-    }, []);
 
     const [city, setCity] = useState<string>("Warsaw");
     const [country, setCountry] = useState<CountryType | null>({ code: "PL", label: "Poland", phone: "48" });
@@ -80,62 +66,54 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
             ></Image>
             {/* CONTENT */}
             <Box className={styles.wrapper}>
+                <Stepper activeStep={stepperIndex}></Stepper>
                 {(() => {
-                    if (loaded) {
+                    if (stepperIndex === 0) {
                         return (
-                            <>
-                                <Stepper activeStep={stepperIndex}></Stepper>
-                                {(() => {
-                                    if (stepperIndex === 0) {
-                                        return (
-                                            <GeneralInformation
-                                                country={stated<CountryType | null>(country, setCountry)}
-                                                city={stated<string>(city, setCity)}
-                                                continent={stated<Continent>(continent, setContinent)}
-                                                population={stated<string>(population, setPopulation)}
-                                                quickDescriptions={stated<string>(quickDescriptions, setQuickDescriptions)}
-                                                // Auxiliary
-                                                buttonStyles={buttonStyles}
-                                                stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
-                                            ></GeneralInformation>
-                                        );
-                                    } else if (stepperIndex === 1) {
-                                        return (
-                                            <Thumbnail
-                                                thumbnail={{ value: thumbnail, setValue: setThumbnail }}
-                                                // Auxiliary
-                                                buttonStyles={buttonStyles}
-                                                stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
-                                            ></Thumbnail>
-                                        );
-                                    } else if (stepperIndex === 2) {
-                                        return (
-                                            <Landmarks
-                                                // Auxiliary
-                                                buttonStyles={buttonStyles}
-                                                stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
-                                            ></Landmarks>
-                                        );
-                                    } else if (stepperIndex === 3) {
-                                        return (
-                                            <Description
-                                                description={stated<DraggableDestinationContentField[]>(description, setDescription)}
-                                                // Auxiliary
-                                                buttonStyles={buttonStyles}
-                                                stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
-                                            ></Description>
-                                        );
-                                    }
-                                })()}
-                            </>
+                            <GeneralInformation
+                                country={stated<CountryType | null>(country, setCountry)}
+                                city={stated<string>(city, setCity)}
+                                continent={stated<Continent>(continent, setContinent)}
+                                population={stated<string>(population, setPopulation)}
+                                quickDescriptions={stated<string>(quickDescriptions, setQuickDescriptions)}
+                                // Auxiliary
+                                buttonStyles={buttonStyles}
+                                stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
+                            ></GeneralInformation>
                         );
-                    } else {
-                        return <CircularProgress sx={{ position: "absolute", top: "50%", transform: "translateY(-50%)" }}></CircularProgress>;
+                    } else if (stepperIndex === 1) {
+                        return (
+                            <Thumbnail
+                                thumbnail={{ value: thumbnail, setValue: setThumbnail }}
+                                // Auxiliary
+                                buttonStyles={buttonStyles}
+                                stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
+                            ></Thumbnail>
+                        );
+                    } else if (stepperIndex === 2) {
+                        return (
+                            <Landmarks
+                                // Auxiliary
+                                buttonStyles={buttonStyles}
+                                stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
+                            ></Landmarks>
+                        );
+                    } else if (stepperIndex === 3) {
+                        return (
+                            <Description
+                                description={stated<DraggableDestinationContentField[]>(description, setDescription)}
+                                // Auxiliary
+                                buttonStyles={buttonStyles}
+                                stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
+                            ></Description>
+                        );
                     }
                 })()}
             </Box>
         </Box>
     );
 };
+
+export const getServerSideProps: GetServerSideProps = (ctx) => GuardedRoute("user", ctx);
 
 export default CreateDestinatinon;

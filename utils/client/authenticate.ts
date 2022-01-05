@@ -7,7 +7,7 @@ interface AuthenticateTokenResponseData {
     sessionExired?: boolean;
 }
 
-export const authenticateToken = async () => {
+export const authenticateToken = async (): Promise<boolean> => {
     try {
         const { data }: { data: AuthenticateTokenResponseData } = await axios.post("/api/auth/authenticate_token");
         if (data.sessionExired) {
