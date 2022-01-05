@@ -1,6 +1,8 @@
-import Router from "next/router";
+// Tools
 import { FunctionComponent, useState } from "react";
-//
+import GuardedRoute from "@/utils/client/GuardedRoute";
+// Types
+import type { GetServerSideProps } from "next";
 import type { CountryType } from "@/data/countries";
 // My components
 import Stepper from "@/components/register/stepper/Stepper";
@@ -18,17 +20,12 @@ import Divider from "@mui/material/Divider";
 // NextJS compoennts
 import Image from "next/Image";
 import Link from "next/link";
-// Redux
-import { useAppSelector } from "@/redux/hooks";
 // Styles
 import backgroundImage from "@/public/images/register/bgc.jpg";
 import styles from "@/sass/pages/register.module.sass";
 import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
 
 const Registration: FunctionComponent<{}> = () => {
-    const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
-    if (isAuthenticated) Router.push("/");
-
     // Form Data
     // const [name, setName] = useState<string>("");
     // const [surname, setSurname] = useState<string>("");
@@ -144,5 +141,6 @@ const Registration: FunctionComponent<{}> = () => {
         </Box>
     );
 };
+export const getServerSideProps: GetServerSideProps = (ctx) => GuardedRoute("anonymous", ctx);
 
 export default Registration;

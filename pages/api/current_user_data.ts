@@ -12,7 +12,6 @@ export default async function handler(req: IsEmailAvailableRequest, res: NextApi
     if (req.method !== "GET") return res.status(404).end();
     try {
         const { accessToken } = req.cookies;
-        console.log(accessToken);
         const { avatar, name, surname, gender, country, countryCode, isAdmin } = (
             await prisma.session.findUnique({
                 where: {

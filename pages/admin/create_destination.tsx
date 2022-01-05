@@ -115,6 +115,6 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = (ctx) => GuardedRoute("user", ctx);
+export const getServerSideProps: GetServerSideProps = (ctx) => GuardedRoute("admin", ctx);
 
 export default CreateDestinatinon;

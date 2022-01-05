@@ -1,9 +1,12 @@
+// Tools
 import joi from "joi";
 import axios from "axios";
 import Router from "next/router";
 import { useState, useEffect } from "react";
+import GuardedRoute from "@/utils/client/GuardedRoute";
 // Types
 import type { FunctionComponent } from "react";
+import type { GetServerSideProps } from "next";
 // Other components
 import Link from "next/link";
 import Image from "next/Image";
@@ -24,7 +27,7 @@ import Bolt from "@mui/icons-material/Bolt";
 import ErrorOutline from "@mui/icons-material/ErrorOutline";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import { setAuthentication } from "@/redux/slices/authentication";
 // Styles
 import styles from "@/sass/pages/register.module.sass";
@@ -32,9 +35,6 @@ import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
 import backgroundImage from "@/public/images/login/bgc.jpg";
 
 const Login: FunctionComponent<{}> = () => {
-    const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
-    if (isAuthenticated) Router.push("/");
-
     const [email, setEmail] = useState<string>("jebac_gorzen@gmail.com");
     const [password, setPassword] = useState<string>("jebac_gorzen123");
     const [blockContinue, setBlockContinue] = useState<boolean>(true);
@@ -71,7 +71,7 @@ const Login: FunctionComponent<{}> = () => {
                     })
                 );
                 dispatch(setAuthentication(null));
-                Router.push("/");
+                Router.back();
             })
             .catch((e) => {
                 const { status } = e.toJSON();
@@ -176,5 +176,7 @@ const Login: FunctionComponent<{}> = () => {
         // /
     );
 };
+
+export const getServerSideProps: GetServerSideProps = (ctx) => GuardedRoute("anonymous", ctx);
 
 export default Login;
