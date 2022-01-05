@@ -1,7 +1,10 @@
-import type { FunctionComponent } from "react";
+// Tools
 import { useState, useEffect } from "react";
 import { alpha } from "@mui/system";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+// Types
+import type { FunctionComponent } from "react";
 // Material UI Components
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -12,8 +15,8 @@ import Fade from "@mui/material/Fade";
 import MenuIcon from "@mui/icons-material/Menu";
 import Close from "@mui/icons-material/Close";
 // My Components
-import LoginAndRegister from "./LoginAndRegister";
-import AuthenticatedUser from "./AuthenticatedUser";
+const LoginAndRegister = dynamic(() => import("./LoginAndRegister"));
+const AuthenticatedUser = dynamic(() => import("./AuthenticatedUser"));
 // Redux
 import { useAppSelector } from "@/redux/hooks";
 // Styles

@@ -1,8 +1,9 @@
+// Styles
 import "../sass/globals.sass";
 import "nprogress/nprogress.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+// Tools
 import Router from "next/router";
 import nprogress from "nprogress";
 import { useState } from "react";
@@ -11,11 +12,14 @@ import store from "@/redux/store";
 import { createWrapper } from "next-redux-wrapper";
 // Types
 import type { AppProps } from "next/app";
-import type { Store } from "redux";
-// Components
-import Layout from "@/layout/Layout";
+// Material UI Components
 import { ThemeProvider } from "@mui/material";
-
+// Other components
+import Layout from "@/layout/Layout";
+import Loading from "@/components/_utils/Loading";
+// Redux
+import type { Store } from "redux";
+// Styled components
 interface MyAppProps extends AppProps {
     store: Store;
 }
@@ -37,7 +41,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
             <Layout>
                 {(() => {
                     if (loading) {
-                        return <h1>Loading...</h1>;
+                        return <Loading />;
                     } else {
                         return <Component {...pageProps} />;
                     }

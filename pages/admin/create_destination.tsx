@@ -13,10 +13,11 @@ import Box from "@mui/material/Box";
 // Other Components
 import Image from "next/Image";
 import Stepper from "@/components/admin/create_destination/Stepper";
-import GeneralInformation from "@/components/admin/create_destination/GeneralInformations";
-import Thumbnail from "@/components/admin/create_destination/Thumbnail";
-import Landmarks from "@/components/admin/create_destination/landmarks/Landmarks";
-const Description = dynamic(() => import("@/components/admin/create_destination/description/Description"), { ssr: false });
+import Loading from "@/components/_utils/Loading";
+const GeneralInformation = dynamic(() => import("@/components/admin/create_destination/GeneralInformations"), { loading: () => <Loading /> });
+const Thumbnail = dynamic(() => import("@/components/admin/create_destination/Thumbnail"), { loading: () => <Loading /> });
+const Landmarks = dynamic(() => import("@/components/admin/create_destination/landmarks/Landmarks"), { loading: () => <Loading /> });
+const Description = dynamic(() => import("@/components/admin/create_destination/description/Description"), { ssr: false, loading: () => <Loading /> });
 // Styles
 import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
 import backgroundImage from "@/public/images/admin/add_destination/bgc.jpg";
