@@ -1,11 +1,10 @@
 import joi from "joi";
 import { useState, useRef, useMemo, useCallback } from "react";
-import { landmarksData } from "@/data/landmarks";
 import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
 // Types
 import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
 import type { Landmark } from "@/@types/Landmark";
+import type { StatedDataField } from "@/@types/StagedDataField";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
@@ -22,13 +21,14 @@ import Slider from "react-slick";
 import styles from "@/sass/admin/create_destination.module.sass";
 
 interface LandmarksInterface {
+    landmarks: StatedDataField<Landmark[]>;
     // Auxiliary
     buttonStyles: Record<string, unknown>;
     stepperIndex: StatedDataField<number>;
 }
 const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
+    const { value: landmarks, setValue: setLandmarks } = props.landmarks;
     const swapper = useRef<Slider | null>(null);
-    const [landmarks, setLandmarks] = useState<Landmark[]>(landmarksData);
     const [hideNavigation, setHideNavigation] = useState<boolean>(false);
     const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
     const [openCreateLandmarkDialog, setOpenCreateLandmarkDialog] = useState<boolean>(false);

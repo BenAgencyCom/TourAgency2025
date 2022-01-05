@@ -2,7 +2,9 @@ import { useState } from "react";
 import stated from "@/utils/client/stated";
 import dynamic from "next/dynamic";
 import GuardedRoute from "@/utils/client/GuardedRoute";
+import { landmarksData } from "@/data/landmarks";
 // Types
+import type { Landmark } from "@/@types/Landmark";
 import type { Continent } from "@prisma/client";
 import type { FunctionComponent } from "react";
 import type { CountryType } from "@/data/countries";
@@ -50,6 +52,7 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
             content: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore illo quos minus sequi inventore, maxime vitae suscipit, rerum iure qui optio in numquam praesentium magni aliquid libero magnam, nulla vero. A, reiciendis! Non deserunt assumenda dolor! Sunt eius quae consequatur laborum ratione non explicabo quis, delectus totam assumenda sequi vel obcaecati beatae ipsum repudiandae quisquam rerum expedita nam quidem provident! Adipisci consequuntur nobis dicta deleniti rem, voluptatem cum dignissimos autem eius aspernatur similique ducimus distinctio laudantium ullam quibusdam est voluptates repellat accusantium! Quos non ea cum alias deleniti neque dolore? Ipsum obcaecati laborum incidunt eaque ratione neque facere aliquam, reprehenderit consectetur dicta expedita explicabo dignissimos? Vel illum, voluptatem accusamus laboriosam aut neque assumenda inventore incidunt, placeat vero id recusandae ipsam!`,
         },
     ]);
+    const [landmarks, setLandmarks] = useState<Landmark[]>(landmarksData);
 
     const buttonStyles = { my: 1 };
 
@@ -94,6 +97,7 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                     } else if (stepperIndex === 2) {
                         return (
                             <Landmarks
+                                landmarks={stated(landmarks, setLandmarks)}
                                 // Auxiliary
                                 buttonStyles={buttonStyles}
                                 stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
