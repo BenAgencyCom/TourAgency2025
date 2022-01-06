@@ -8,19 +8,21 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String
-  surname       String
-  email         String    @unique
-  emailVerified DateTime?
-  avatar        String?
-  country       String
-  countryCode   String
-  gender        Gender    @default(MALE)
-  password      String
-  createdAt     DateTime  @default(now())
-  isAdmin       Boolean   @default(false)
-  sessions      Session[]
+  id                    String        @id @default(cuid())
+  name                  String
+  surname               String
+  email                 String        @unique
+  emailVerified         DateTime?
+  avatar                String?
+  country               String
+  countryCode           String        
+  gender                Gender        @default(MALE)
+  password              String
+  createdAt             DateTime      @default(now())
+  isAdmin               Boolean       @default(false)
+
+  sessions              Session[]
+  createdDestinations   Destination[]
 }
 
 model Session {
@@ -29,23 +31,39 @@ model Session {
   accessToken String   @unique
   expires     DateTime
   createdAt   DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@map("sessions")
 }
 
 model Destination {
   id               String     @id @default(cuid())
+  creatorId        String     @map("creator_id")
   city             String
   country          String
-  countryCode      String
+  countryCode      String     
   population       Int
   continent        Continent
-  quickDescription String
+  shortDescription String     
   description      Json
-  landmarks        Json
   folder           String
   createdAt        DateTime   @default(now())
+  
+  landmarks        Landmark[]
+  creator          User       @relation(fields:[creatorId], references: [id], onDelete: SetNull)
+}
+
+model Landmark {
+  id                  String        @id @default(cuid())
+  destinationId       String        @map("destination_id")
+  title               String
+  description         String
+  picture             String
+  type                LandmarkType
+  tags                String[]
+  createdAt           DateTime      @default(now())
+
+  destination         Destination   @relation(fields: [destinationId], references: [id], onDelete: Cascade)
 }
 
 enum Gender {
@@ -62,4 +80,14 @@ enum Continent {
   South_America
   Australia_Oceania
   Antarctica
+}
+
+enum LandmarkType {
+  RESTAURANT  
+  MONUMENT 
+  ANTIQUE 
+  BUILDING  
+  RELIC  
+  ART 
+  NATURE
 }
