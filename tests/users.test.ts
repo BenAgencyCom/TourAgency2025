@@ -10,7 +10,7 @@ import type { RegisterResponse } from "@/@types/router/auth/register";
 import type { User } from "@prisma/client";
 // My helpers
 import { uploadDir } from "../utils/paths";
-import { data, formData } from "./data/authentication";
+import { data, formData } from "./data/users";
 //
 interface TokenContent {
     password: string;
