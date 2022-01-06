@@ -4,7 +4,7 @@ import { uploadDir } from "../../utils/paths";
 
 (async () => {
     console.clear();
-    const foldersToRefresh = ["avatars"];
+    const foldersToRefresh = ["avatars", "temp", "destinations", "landmarks"];
     //
     for (const folder of foldersToRefresh) {
         await fse.remove(path.join(uploadDir, folder));

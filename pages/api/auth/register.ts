@@ -10,6 +10,7 @@ import type { User } from "@prisma/client";
 import type { NextApiResponse } from "next";
 import type { CountryType } from "@/data/countries";
 import type { RegisterRequest, RegisterBody } from "@/@types/router/auth/register";
+import type { FilesFromMultipartFormData } from "@/utils/api/HandleMultipartFormDataRequest";
 // My helpers
 import { uploadDir } from "@/utils/paths";
 import slugGenerator from "@/utils/api/slugGenerator";
@@ -17,6 +18,7 @@ import CookieCreator from "@/utils/api/CookieCreator";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
 import RegisterBodyValidator from "@/validators/registerBodyValidator";
 import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
+import HandleMultipartFormDataRequest from "@/utils/api/HandleMultipartFormDataRequest";
 //
 //
 //
@@ -30,7 +32,7 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
         private folderName: string | null;
         private avatarsFilePath: string | null = null;
 
-        constructor(private fields: RegisterBody, files: Record<string, { originalFilename: string; filepath: string }>) {
+        constructor(private fields: RegisterBody, files: FilesFromMultipartFormData) {
             super(res);
 
             this.folderName = slugGenerator(`${fields.email}_${fields.name}_${fields.surname}_`).slice(0, 200);
@@ -93,20 +95,11 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
         }
     }
 
-    const { fields, files } = await new Promise((resolve, reject) => {
-        try {
-            const form = new formidable.IncomingForm({ uploadDir: path.join(uploadDir, "temp") });
-            form.parse(req, async (err, fields, files) => {
-                resolve({ fields: fields, files: files });
-            });
-        } catch (e: unknown) {
-            return res.status(400).end();
-        }
-    });
-
     try {
+        const { fields, files } = await HandleMultipartFormDataRequest<RegisterBody>(req);
         await GuardedAPIEndpoint(req, "POST", "anonymous");
         await new Register(fields, files).main();
+
         res.status(201).end();
     } catch (e: unknown) {
         if (e instanceof InvalidRequestedBody) {

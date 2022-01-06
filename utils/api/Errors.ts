@@ -1,7 +1,7 @@
 import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
 
 export class InvalidRequestedBody extends Error {
-    constructor(public joiFeedback: BetterJoiError[]) {
+    constructor(public joiFeedback?: BetterJoiError[]) {
         super();
     }
 }

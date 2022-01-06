@@ -1,4 +1,4 @@
-export type LandmarkType = "RESTAURANT" | "MONUMENT" | "ANTIQUE BUILDING" | "RELIC" | "ART" | "NATURE";
+import type { LandmarkType } from "@prisma/client";
 
 export interface Landmark {
     title: string;
