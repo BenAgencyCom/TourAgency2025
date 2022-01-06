@@ -8,6 +8,7 @@ import type { NextApiResponse, NextApiRequest } from "next";
 // My helpers
 import { CredentialsDoNotMatch, Forbidden } from "@/utils/api/Errors";
 import CookieCreator from "@/utils/api/CookieCreator";
+import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
 //
 //
 //;
@@ -20,7 +21,6 @@ interface LoginRequest extends NextApiRequest {
 }
 
 export default async function handler(req: LoginRequest, res: NextApiResponse) {
-    if (req.method !== "POST") return res.status(404).end();
     class Login extends CookieCreator {
         private user: User | null = null;
         public constructor() {
@@ -44,6 +44,7 @@ export default async function handler(req: LoginRequest, res: NextApiResponse) {
     }
 
     try {
+        await GuardedAPIEndpoint(req, "POST", "anonymous");
         if (req.cookies.accessToken) {
             throw new Forbidden();
         }

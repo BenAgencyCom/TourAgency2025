@@ -16,6 +16,7 @@ import slugGenerator from "@/utils/api/slugGenerator";
 import CookieCreator from "@/utils/api/CookieCreator";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
 import RegisterBodyValidator from "@/validators/registerBodyValidator";
+import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
 //
 //
 //
@@ -104,6 +105,7 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
     });
 
     try {
+        await GuardedAPIEndpoint(req, "POST", "anonymous");
         await new Register(fields, files).main();
         res.status(201).end();
     } catch (e: unknown) {
