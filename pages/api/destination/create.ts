@@ -3,7 +3,6 @@ import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
 import HandleMultipartFormDataRequest from "@/utils/api/HandleMultipartFormDataRequest";
 // Types
 import { prisma } from "@/prisma/db";
-import type { User } from "@prisma/client";
 import type { NextApiResponse } from "next";
 import { CreateDestinationRequest, CreateDestinationRequestPardesBody } from "@/@types/router/destination";
 import type { SubmittedFilesCollection, SubmittedFile } from "@/utils/api/HandleMultipartFormDataRequest";
