@@ -7,7 +7,7 @@ import type { User } from "@prisma/client";
 import type { NextApiResponse, NextApiRequest } from "next";
 // My helpers
 import { CredentialsDoNotMatch, Forbidden } from "@/utils/api/Errors";
-import CookieCreator from "@/utils/api/CookieCreator";
+import CookieCreator from "@/utils/api/abstracts/CookieCreator";
 import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
 //
 //

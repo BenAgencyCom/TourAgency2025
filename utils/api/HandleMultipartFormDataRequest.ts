@@ -8,10 +8,12 @@ import type { NextApiRequest } from "next";
 import { uploadDir } from "@/utils/paths";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
 
-export type FilesFromMultipartFormData = Record<string, { originalFilename: string; filepath: string }>;
+export type SubmittedFile = { originalFilename: string; filepath: string };
+export type SubmittedFilesCollection = Record<string, SubmittedFile>;
+
 interface MultipartFormData<T> {
     fields: T;
-    files: FilesFromMultipartFormData;
+    files: SubmittedFilesCollection;
 }
 
 const handle = async <T>(req: NextApiRequest): Promise<MultipartFormData<T>> =>
@@ -21,7 +23,7 @@ const handle = async <T>(req: NextApiRequest): Promise<MultipartFormData<T>> =>
             form.parse(req, async (err, fields, files) => {
                 resolve({
                     fields: fields as unknown as T, //
-                    files: files as unknown as FilesFromMultipartFormData,
+                    files: files as unknown as SubmittedFilesCollection,
                 });
             });
         } catch (e: unknown) {

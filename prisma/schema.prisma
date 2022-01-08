@@ -38,7 +38,7 @@ model Session {
 
 model Destination {
   id               String     @id @default(cuid())
-  creatorId        String     @map("creator_id")
+  creatorId        String?    @map("creator_id")
   city             String
   country          String
   countryCode      String     
@@ -50,7 +50,7 @@ model Destination {
   createdAt        DateTime   @default(now())
   
   landmarks        Landmark[]
-  creator          User       @relation(fields:[creatorId], references: [id], onDelete: SetNull)
+  creator          User?      @relation(fields:[creatorId], references: [id], onDelete: SetNull)
 }
 
 model Landmark {

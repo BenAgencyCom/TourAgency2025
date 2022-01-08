@@ -3,18 +3,17 @@ import path from "path";
 import sharp from "sharp";
 import fse from "fs-extra";
 import bcrypt from "bcrypt";
-import formidable from "formidable";
 import { prisma } from "@/prisma/db";
 // Types
 import type { User } from "@prisma/client";
 import type { NextApiResponse } from "next";
 import type { CountryType } from "@/data/countries";
 import type { RegisterRequest, RegisterBody } from "@/@types/router/auth/register";
-import type { FilesFromMultipartFormData } from "@/utils/api/HandleMultipartFormDataRequest";
+import type { SubmittedFilesCollection } from "@/utils/api/HandleMultipartFormDataRequest";
 // My helpers
 import { uploadDir } from "@/utils/paths";
 import slugGenerator from "@/utils/api/slugGenerator";
-import CookieCreator from "@/utils/api/CookieCreator";
+import CookieCreator from "@/utils/api/abstracts/CookieCreator";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
 import RegisterBodyValidator from "@/validators/registerBodyValidator";
 import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
@@ -32,7 +31,7 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
         private folderName: string | null;
         private avatarsFilePath: string | null = null;
 
-        constructor(private fields: RegisterBody, files: FilesFromMultipartFormData) {
+        constructor(private fields: RegisterBody, files: SubmittedFilesCollection) {
             super(res);
 
             this.folderName = slugGenerator(`${fields.email}_${fields.name}_${fields.surname}_`).slice(0, 200);

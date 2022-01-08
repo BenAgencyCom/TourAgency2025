@@ -5,7 +5,6 @@ import path from "path";
 import FormData from "form-data";
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
-import cookie from "cookie";
 import bcrypt from "bcrypt";
 // Types
 import type { Gender, User } from "@prisma/client";
