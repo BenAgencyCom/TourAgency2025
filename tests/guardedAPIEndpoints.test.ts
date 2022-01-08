@@ -1,15 +1,12 @@
 // Tools
-import axios from "axios";
+import { testGETRequestStatus } from "./helpers/testStatus";
+import prisma from "./helpers/db";
 // Types
-import { PrismaClient } from "@prisma/client";
 import type { UserHelper } from "./data/users";
 // helpers
 import { prepareUser } from "./data/users";
-const API_ADDRESS = "http://localhost:3000";
 //
-const prisma = new PrismaClient();
 //
-
 describe("Guarded API endpoints", () => {
     const users: string[] = []; // Array of User's ID which will be used after all tests to remove created Users from the DB
     let adminUser: UserHelper = {
@@ -20,18 +17,8 @@ describe("Guarded API endpoints", () => {
         userData: null,
         accessToken: null,
     };
-
     type Endpoint = "admin" | "user" | "anonymous";
-    const testStatus = async (endpoint: Endpoint, expectedStatus: number, Cookie: string = "") => {
-        await axios
-            .get(`${API_ADDRESS}/api/_tests/${endpoint}`, { headers: { Cookie } })
-            .then(({ status }) => {
-                expect(status).toEqual(expectedStatus);
-            })
-            .catch(({ response }) => {
-                expect(response.status).toEqual(expectedStatus);
-            });
-    };
+    const _enpoint = (endpoint: Endpoint) => `/api/_tests/${endpoint}`;
 
     beforeAll(async () => {
         const _prepareUser = async (isAdmin: boolean = false): Promise<UserHelper> => {
@@ -48,35 +35,35 @@ describe("Guarded API endpoints", () => {
 
     describe("ADMIN", () => {
         test("Admin should have access to **admin** restricted API", async () => {
-            await testStatus("admin", 200, adminUser.accessToken as string);
+            await testGETRequestStatus(_enpoint("admin"), 200, adminUser.accessToken as string);
         });
         test("Admin should have access to **user** restricted API", async () => {
-            await testStatus("user", 200, adminUser.accessToken as string);
+            await testGETRequestStatus(_enpoint("user"), 200, adminUser.accessToken as string);
         });
         test("Admin should NOT have access to **anonymous** restricted API", async () => {
-            await testStatus("anonymous", 401, adminUser.accessToken as string);
+            await testGETRequestStatus(_enpoint("anonymous"), 403, adminUser.accessToken as string);
         });
     });
     describe("USER", () => {
         test("User should NOT have access to **admin** restricted API", async () => {
-            await testStatus("admin", 401, notAdminUser.accessToken as string);
+            await testGETRequestStatus(_enpoint("admin"), 403, notAdminUser.accessToken as string);
         });
         test("User should have access to **user** restricted API", async () => {
-            await testStatus("user", 200, notAdminUser.accessToken as string);
+            await testGETRequestStatus(_enpoint("user"), 200, notAdminUser.accessToken as string);
         });
         test("User should NOT have access to **anonymous** restricted API", async () => {
-            await testStatus("anonymous", 401, notAdminUser.accessToken as string);
+            await testGETRequestStatus(_enpoint("anonymous"), 403, notAdminUser.accessToken as string);
         });
     });
     describe("ANONYMOUS", () => {
         test("Anonymous should NOT have access to **admin** restricted API", async () => {
-            await testStatus("admin", 401);
+            await testGETRequestStatus(_enpoint("admin"), 403);
         });
         test("Anonymous should NOT have access to **user** restricted API", async () => {
-            await testStatus("user", 401);
+            await testGETRequestStatus(_enpoint("user"), 403);
         });
         test("Anonymous should have access to **anonymous** restricted API", async () => {
-            await testStatus("anonymous", 200);
+            await testGETRequestStatus(_enpoint("anonymous"), 200);
         });
     });
 });
