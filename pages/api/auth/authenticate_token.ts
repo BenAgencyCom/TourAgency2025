@@ -25,14 +25,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             super(res);
         }
 
+        private throwForbidden(): void {
+            if (this.accessTokenFromCookie) this.removeCookieHeader();
+            throw new Forbidden();
+        }
+
         private getAccessTokenFromCookie(): void {
             this.accessTokenFromCookie = req.cookies.accessToken;
-            if (!this.accessTokenFromCookie) throw new Forbidden();
+            if (!this.accessTokenFromCookie) return this.throwForbidden();
         }
 
         private getUserIdFromToken(): void {
             this.userIdFromToken = (jwt.decode(this.accessTokenFromCookie) as { id: string }).id;
-            if (!this.userIdFromToken) throw new Forbidden();
+            if (!this.userIdFromToken) return this.throwForbidden();
         }
 
         private async checkIfThisSessionActuallyExists(): Promise<void> {
@@ -42,7 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     userId: this.userIdFromToken,
                 },
             });
-            if (!session) throw new Forbidden();
+            if (!session) return this.throwForbidden();
             // Check if session whether had expired
             if (new Date().getTime() >= new Date(session.expires).getTime()) {
                 await prisma.session.delete({
@@ -58,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         private async getUserFromDB(): Promise<void> {
             this.user = await prisma.user.findUnique({ where: { id: this.userIdFromToken } });
-            if (!this.user) throw new Forbidden();
+            if (!this.user) return this.throwForbidden();
         }
 
         public async main(): Promise<void> {

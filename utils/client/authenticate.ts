@@ -7,7 +7,7 @@ interface AuthenticateTokenResponseData {
     sessionExired?: boolean;
 }
 
-export const authenticateToken = async (): Promise<boolean> => {
+const authenticateTokenBroker = async (): Promise<boolean> => {
     try {
         const { data }: { data: AuthenticateTokenResponseData } = await axios.post("/api/auth/authenticate_token");
         if (data.sessionExired) {
@@ -18,6 +18,12 @@ export const authenticateToken = async (): Promise<boolean> => {
     } catch (e: unknown) {
         return false;
     }
+};
+export const authenticateToken = async (): Promise<boolean> => {
+    const result = await authenticateTokenBroker();
+    if (!result) localStorage.removeItem("userData");
+
+    return result;
 };
 
 export const getUserData = async (): Promise<UserData> => {
