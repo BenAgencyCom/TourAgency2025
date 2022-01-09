@@ -9,7 +9,7 @@ type JSON<T> = T | string;
 export interface CreateDestinationRequestPardesBody {
     city: string;
     country: CountryType;
-    population: string;
+    population: number;
     continent: Continent;
     quickDescription: string;
     description: DestinationContentField[];
@@ -19,7 +19,7 @@ export interface CreateDestinationRequest extends NextApiRequest {
     body: {
         city: string;
         country: JSON<CountryType>;
-        population: string;
+        population: number;
         continent: Continent;
         quickDescription: string;
         description: JSON<DestinationContentField[]>;

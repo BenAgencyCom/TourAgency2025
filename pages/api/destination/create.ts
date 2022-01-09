@@ -1,6 +1,6 @@
 // Libraries
 import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
-import HandleMultipartFormDataRequest from "@/utils/api/HandleMultipartFormDataRequest";
+import ValidateCreateDesinationBody from "@/validators/createDestinationBodyValidator";
 // Types
 import { prisma } from "@/prisma/db";
 import type { NextApiResponse } from "next";
@@ -8,7 +8,7 @@ import { CreateDestinationRequest, CreateDestinationRequestPardesBody } from "@/
 import type { SubmittedFilesCollection, SubmittedFile } from "@/utils/api/HandleMultipartFormDataRequest";
 // Helpers
 import FileUploader from "@/utils/api/abstracts/FileUploader";
-import { Forbidden } from "@/utils/api/Errors";
+import { Forbidden, InvalidRequestedBody } from "@/utils/api/Errors";
 import slugGenerator from "@/utils/api/slugGenerator";
 //
 class CreateNewDestination extends FileUploader {
@@ -98,17 +98,17 @@ export const config = {
 export default async function handler(req: CreateDestinationRequest, res: NextApiResponse) {
     try {
         const userId = (await GuardedAPIEndpoint(req, "POST", "admin")) as string;
-        const { files, fields } = await HandleMultipartFormDataRequest<CreateDestinationRequest["body"]>(req);
-
-        fields.country = JSON.parse(fields.country as string);
-        fields.description = JSON.parse(fields.description as string);
-        fields.landmarks = JSON.parse(fields.landmarks as string);
+        const { files, fields } = await ValidateCreateDesinationBody(req);
 
         await new CreateNewDestination(fields as CreateDestinationRequestPardesBody, files, userId).main();
 
         return res.status(201).end();
     } catch (e: unknown) {
         if (e instanceof Forbidden) return res.status(403).end();
+        else if (e instanceof InvalidRequestedBody) {
+            return res.status(400).json(e.joiFeedback);
+        }
+
         return res.status(500).end();
     }
 }

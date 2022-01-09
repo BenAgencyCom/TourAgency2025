@@ -1,6 +1,6 @@
-import joi from "joi";
 import { useState, useRef, useMemo, useCallback } from "react";
-import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
+import SingleLandmarkJoiSchema from "@/validators/helpers/create_destination/singleLandmarkJoiSchema";
+
 // Types
 import type { FunctionComponent } from "react";
 import type { Landmark } from "@/@types/Landmark";
@@ -40,22 +40,15 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
     //
     // Validation
     //
-    const { title, description, tag } = CREATE_DESTINATION_RESTRICTIONS.landmark;
-    const validationScheme = joi.object({
-        title: joi.string().min(title.min).max(title.max),
-        description: joi.string().min(description.min).max(description.max),
-        type: joi.valid("RESTAURANT", "MONUMENT", "ANTIQUE BUILDING", "RELIC", "ART", "NATURE"),
-        tags: joi.array().items(joi.string().min(tag.min).max(tag.max)),
-    });
     const validateSingleLandmark = useCallback(
         () =>
             (landmark: Landmark): boolean => {
                 const { title, description, picture, type, tags } = landmark;
                 if (picture === null) return false;
-                const { error } = validationScheme.validate({ title, description, type, tags });
+                const { error } = SingleLandmarkJoiSchema.validate({ title, description, type, tags });
                 return !Boolean(error);
             },
-        [validationScheme]
+        []
     );
 
     const validationResults = useMemo<boolean[]>(() => {
