@@ -100,7 +100,6 @@ describe("DESTINATIONS", () => {
                 })
                 .catch(({ response }) => {
                     expect(response.status).toEqual(400);
-                    console.log(response.data);
                     (response.data as BetterJoiError[]).forEach((occuredError) => {
                         expect(occuredError.type).toEqual(expectedErrors[occuredError.element]);
                     });

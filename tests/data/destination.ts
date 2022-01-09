@@ -48,19 +48,19 @@ export const data = {
             url: "description_3",
         },
     ],
-    quickDescription: faker.lorem.words(20),
+    quickDescription: faker.lorem.words(20).slice(0, 150),
     population: 10000,
     landmarks: [
         {
             type: "ANTIQUE",
-            description: faker.lorem.words(100),
+            description: faker.lorem.words(100).slice(0, 1000),
             title: faker.lorem.words(6).slice(0, 49),
             tags: [faker.lorem.words(2).slice(0, 20), faker.lorem.words(2).slice(0, 20), faker.lorem.words(2).slice(0, 20)],
             pictureURL: "landmark_1",
         },
         {
             type: "RESTAURANT",
-            description: faker.lorem.words(100),
+            description: faker.lorem.words(100).slice(0, 1000),
             title: faker.lorem.words(6).slice(0, 49),
             tags: [faker.lorem.words(2).slice(0, 20), faker.lorem.words(2).slice(0, 20), faker.lorem.words(2).slice(0, 20)],
             pictureURL: "landmark_2",
