@@ -1,5 +1,5 @@
-import joi from "joi";
 import { useState, useEffect } from "react";
+import GeneralInformationSchema from "@/validators/helpers/create_destination/generalInformationJoiSchema";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { StatedDataField } from "@/@types/StagedDataField";
@@ -23,40 +23,31 @@ interface GeneralInformationInterface {
     country: StatedDataField<CountryType | null>;
     population: StatedDataField<string>;
     continent: StatedDataField<Continent>;
-    quickDescriptions: StatedDataField<string>;
+    quickDescription: StatedDataField<string>;
     // Auxiliary
     buttonStyles: Record<string, unknown>;
     stepperIndex: StatedDataField<number>;
 }
 
 const GeneralInformation: FunctionComponent<GeneralInformationInterface> = (props) => {
-    const { city, country, population, continent, quickDescriptions, buttonStyles } = props;
+    const { city, country, population, continent, quickDescription, buttonStyles } = props;
     //
     // Validation
     //
     const [blockContinue, setBlockContinue] = useState<boolean>(true);
-    const joiScheme = joi.object({
-        city: joi.string().min(3).max(60).trim(),
-        population: joi.number().min(0).max(1000000000),
-        continent: joi.valid("Africa", "Antarctica", "Asia", "Australia_Oceania", "Europe", "North_America", "South_America"),
-        quickDescriptions: joi.string().min(10).max(150),
-        country: joi.object({
-            code: joi.string().length(2),
-            label: joi.string().max(60),
-            phone: joi.string().max(7),
-        }),
-    });
+
     const test = () => {
-        const { error } = joiScheme.validate({
+        const { error } = GeneralInformationSchema.validate({
             city: city.value,
             population: Number(population.value.replaceAll(" ", "")),
             country: country.value,
             continent: continent.value,
-            quickDescriptions: quickDescriptions.value,
+            quickDescription: quickDescription.value,
         });
+        console.log(error);
         setBlockContinue(Boolean(error));
     };
-    useEffect(test, [city, population, country, continent, quickDescriptions, joiScheme]);
+    useEffect(test, [city, population, country, continent, quickDescription]);
     //
     //
     //
@@ -77,11 +68,11 @@ const GeneralInformation: FunctionComponent<GeneralInformationInterface> = (prop
                 <TextField
                     label="Description" //
                     sx={{ width: "100%", ...buttonStyles }}
-                    value={quickDescriptions.value}
-                    onChange={(e: { target: { value: string } }) => quickDescriptions.setValue(e.target.value)}
+                    value={quickDescription.value}
+                    onChange={(e: { target: { value: string } }) => quickDescription.setValue(e.target.value)}
                     multiline={true}
                     maxRows={2}
-                    helperText={`${quickDescriptions.value.length}/128`}
+                    helperText={`${quickDescription.value.length}/128`}
                 ></TextField>
 
                 <Box className={styles["form-fields-wrap"]}>

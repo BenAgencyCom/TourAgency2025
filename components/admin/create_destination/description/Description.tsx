@@ -1,6 +1,6 @@
 import stated from "@/utils/client/stated";
 import { useState, useEffect } from "react";
-import { validateDescription } from "@/validators/createDestinationValidator";
+import { validateDescription } from "@/validators/helpers/create_destination/descriptionValidators";
 // Types
 import type { StatedDataField } from "@/@types/StagedDataField";
 import type { FunctionComponent } from "react";

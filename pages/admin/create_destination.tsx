@@ -26,12 +26,12 @@ import backgroundImage from "@/public/images/admin/add_destination/bgc.jpg";
 import styles from "@/sass/admin/create_destination.module.sass";
 
 const CreateDestinatinon: FunctionComponent<{}> = () => {
-    const [stepperIndex, setStepperIndex] = useState<number>(3);
+    const [stepperIndex, setStepperIndex] = useState<number>(0);
 
     const [city, setCity] = useState<string>("Warsaw");
     const [country, setCountry] = useState<CountryType | null>({ code: "PL", label: "Poland", phone: "48" });
     const [continent, setContinent] = useState<Continent>("Europe");
-    const [quickDescriptions, setQuickDescriptions] = useState<string>("Lorem ipsum – tekst składający się z łacińskich i quasi-łacińskich wyrazów, mający korzenie w klasycznej łacinie");
+    const [quickDescription, setQuickDescription] = useState<string>("Lorem ipsum – tekst składający się z łacińskich i quasi-łacińskich wyrazów, mający korzenie w klasycznej łacinie");
     const [population, setPopulation] = useState<string>("1 200 000");
     const [thumbnail, setThumbnail] = useState<File | null>(null);
     const [description, setDescription] = useState<DraggableDestinationContentField[]>([
@@ -79,7 +79,7 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                                 city={stated<string>(city, setCity)}
                                 continent={stated<Continent>(continent, setContinent)}
                                 population={stated<string>(population, setPopulation)}
-                                quickDescriptions={stated<string>(quickDescriptions, setQuickDescriptions)}
+                                quickDescription={stated<string>(quickDescription, setQuickDescription)}
                                 // Auxiliary
                                 buttonStyles={buttonStyles}
                                 stepperIndex={stated<number>(stepperIndex, setStepperIndex)}

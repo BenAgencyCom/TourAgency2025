@@ -10,10 +10,7 @@ const { header, paragraph } = restrictions.description;
 // Schemas
 const _headerSchema = joi.string().min(header.min).max(header.max);
 const _paragraphSchema = joi.string().min(paragraph.min).max(paragraph.max);
-// Validators
-const _throwError = (condition: boolean) => {
-    if (!condition) throw new ValidationError();
-};
+// Description validators
 const validateHeader = (header: string) => {
     const { error } = _headerSchema.validate(header);
     return !Boolean(error);
@@ -28,17 +25,19 @@ const validateImage = (img: unknown): boolean => {
     } else return false;
 };
 export const validateDescription = (description: DestinationContentField[]): boolean => {
+    const ensure = (condition: boolean) => {
+        if (!condition) throw new ValidationError();
+    };
     try {
         description.forEach((field) => {
-            if (field.type === FieldType.HEADER) _throwError(validateHeader(field.header));
-            else if (field.type === FieldType.PARAGRAPH) _throwError(validateParagraph(field.content));
-            else if (field.type === FieldType.IMAGE) _throwError(validateImage(field.src));
+            if (field.type === FieldType.HEADER) ensure(validateHeader(field.header));
+            else if (field.type === FieldType.PARAGRAPH) ensure(validateParagraph(field.content));
+            else if (field.type === FieldType.IMAGE) ensure(validateImage(field.src));
         });
         return true;
     } catch (e: unknown) {
         if (e instanceof ValidationError) return false;
         else {
-            console.error(e);
             return false;
         }
     }
