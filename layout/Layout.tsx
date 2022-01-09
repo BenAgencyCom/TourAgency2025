@@ -39,7 +39,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         //
         // Toogle visibility
         //
-        const routesWithDisabledMenu = ["/register", "/login"];
+        const routesWithDisabledMenu = ["/register", "/login", "/admin/create_destination"];
         if (routesWithDisabledMenu.includes(router.pathname)) setDisplayAppBar(false);
         else {
             setDisplayAppBar(true);

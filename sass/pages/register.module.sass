@@ -29,14 +29,19 @@
     position: relative
     svg
         font-size: 35rem
-    @media screen and (max-height: 800px) 
+    @media screen and (max-height: 800px), (max-width: 570px)
         width: 400px
         height: 400px
-    @media screen and (max-height: 750px) 
+    @media screen and (max-height: 750px), (max-width: 450px)
         width: 300px
         height: 300px
         svg
-            font-size: 25rem
+            font-size: 25rem 
+    @media screen and (max-height: 630px)
+        width: 250px
+        height: 250px
+        svg
+            font-size: 20rem
     
 .formCard
     position: absolute
@@ -53,6 +58,8 @@
     flex-direction: column
     @media screen and (max-height: 870px)
         padding-top: 20px
+    @media screen and (max-height: 700px)
+        padding-top: 0px
 
 .content-wrapper
     display: flex

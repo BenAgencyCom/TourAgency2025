@@ -21,7 +21,7 @@ const StepNavigation: FunctionComponent<StepNavigationProps> = (props) => {
     };
 
     return (
-        <ButtonGroup sx={{ mt: 5 }}>
+        <ButtonGroup sx={{ mt: 1 }}>
             <Button variant="contained" color="neutral" sx={{ mr: 1 }} disabled={currentSlideIndex === 0} onClick={goBack}>
                 Go back
             </Button>

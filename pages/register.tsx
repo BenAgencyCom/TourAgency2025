@@ -124,7 +124,7 @@ const Registration: FunctionComponent<{}> = () => {
                             );
                     }
                 })()}
-                <Divider sx={{ mt: 4, mb: 1 }}></Divider>
+                <Divider sx={{ mt: 3, mb: 0 }}></Divider>
                 <CardActions sx={{ justifyContent: "center", mb: 1 }}>
                     <Button>
                         <Link href="/login">

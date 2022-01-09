@@ -110,7 +110,25 @@ const Login: FunctionComponent<{}> = () => {
                     })()}
 
                     <Box className={styles["content-wrapper"]}>
-                        <StepHeader header="Login" icon={<Bolt sx={{ fontSize: "20rem" }}></Bolt>}></StepHeader>
+                        <StepHeader
+                            header="Login"
+                            icon={
+                                <Bolt
+                                    sx={{
+                                        fontSize: "20rem",
+                                        ["@media (max-height:820px)"]: {
+                                            fontSize: "15rem",
+                                        },
+                                        ["@media (max-height:760px)"]: {
+                                            fontSize: "10rem",
+                                        },
+                                        ["@media (max-height:660px)"]: {
+                                            fontSize: "7rem",
+                                        },
+                                    }}
+                                ></Bolt>
+                            }
+                        ></StepHeader>
                         <TextInput
                             label="Email" //
                             value={email}
@@ -134,7 +152,7 @@ const Login: FunctionComponent<{}> = () => {
                                     <Typography
                                         color="error.main"
                                         sx={{
-                                            my: 1, //
+                                            mt: 3, //
                                             fontWeight: "bold",
                                             display: "flex",
                                             alignItems: "center",
@@ -149,15 +167,23 @@ const Login: FunctionComponent<{}> = () => {
                                 );
                             else
                                 return (
-                                    <Typography sx={{ my: 1 }} variant="h6">
+                                    <Typography sx={{ mt: 3 }} variant="h6">
                                         <br />
                                     </Typography>
                                 );
                         })()}
                     </Box>
 
-                    <Divider sx={{ mt: 4, mb: 1, width: "100%" }}></Divider>
-                    <CardActions sx={{ justifyContent: "center", mb: 1 }}>
+                    <Divider sx={{ my: 1, width: "100%" }}></Divider>
+                    <CardActions
+                        sx={{
+                            justifyContent: "center", //
+                            mb: 1,
+                            ["@media (max-width:470px)"]: {
+                                flexDirection: "column",
+                            },
+                        }}
+                    >
                         <Button>
                             <Link href="/register">
                                 <a>Don&apos;t have an account? Create one</a>

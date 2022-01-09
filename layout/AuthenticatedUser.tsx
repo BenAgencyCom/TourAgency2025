@@ -19,7 +19,6 @@ const AuthenticatedUser: FunctionComponent<{ buttonStyles: Record<string, unknow
     const userData = useAppSelector((state) => state.authentication.userData) as UserData;
     const dispatch = useAppDispatch();
     const width = useAppSelector((state) => state.windowSizes.width);
-    const height = useAppSelector((state) => state.windowSizes.height);
 
     const logout = async () => {
         axios
@@ -39,68 +38,54 @@ const AuthenticatedUser: FunctionComponent<{ buttonStyles: Record<string, unknow
             });
     };
 
-    const avatarSize = useMemo<number>((): number => {
-        if (width > 1000) return 40;
-
-        if (height > 750) return 250;
-        else if (height > 650) return 200;
-        else if (height > 630) return 150;
-        return 130;
-    }, [width, height]);
-
-    const imageSize = useMemo<"small" | "medium" | "thumbnail">((): "small" | "medium" | "thumbnail" => {
-        if (width > 1000) return "thumbnail";
-        else if (height > 750) return "medium";
-        else return "small";
-    }, [width, height]);
-
-    const greenBadgeSize = useMemo<number>((): number => {
-        if (width > 1000) return 10;
-
-        if (height > 750) return 30;
-        else if (height > 700) return 25;
-        return 20;
-    }, [width, height]);
-
-    const fontSize = useMemo<number>((): number => {
-        if (width > 1000) return 1;
-        return 1.3;
-    }, [width]);
-
     return (
         <>
-            <Box sx={{ position: "relative" }}>
-                {(() => {
-                    if (userData.avatar)
-                        return (
-                            <Avatar
-                                src={`/upload/avatars/${userData.avatar}/${imageSize}.jpg`} //
-                                sx={{ width: `${avatarSize}px`, height: `${avatarSize}px` }}
-                            ></Avatar>
-                        );
-                    else return <Avatar sx={{ width: `${avatarSize}px`, height: `${avatarSize}px`, bgcolor: "primary.main" }}>K</Avatar>;
-                })()}
-                <Box
-                    sx={{
-                        position: "absolute",
-                        right: `${greenBadgeSize / 2}px`,
-                        bottom: `${greenBadgeSize / 2}px`,
-                        bgcolor: "success.main",
-                        borderRadius: "50%",
-                        width: `${greenBadgeSize}px`,
-                        height: `${greenBadgeSize}px`,
-                    }}
-                ></Box>
-            </Box>
+            {(() => {
+                if (width > 1000) {
+                    return (
+                        <>
+                            <Box sx={{ position: "relative" }}>
+                                {(() => {
+                                    if (userData.avatar)
+                                        return (
+                                            <Avatar
+                                                src={`/upload/avatars/${userData.avatar}/thumbnail.jpg`} //
+                                                sx={{ width: `40px`, height: `40px` }}
+                                            ></Avatar>
+                                        );
+                                    else return <Avatar sx={{ width: `40px`, height: `40px`, bgcolor: "primary.main" }}>K</Avatar>;
+                                })()}
+                                <Box
+                                    sx={{
+                                        position: "absolute",
+                                        right: `0px`,
+                                        bottom: `0px`,
+                                        bgcolor: "success.main",
+                                        borderRadius: "50%",
+                                        width: `10px`,
+                                        height: `10px`,
+                                    }}
+                                ></Box>
+                            </Box>
 
-            <Typography variant="h6" sx={{ cursor: "default", mx: 1, fontSize: `${fontSize}rem !important`, mt: width < 1000 ? 2 : 0 }}>
-                <Typography component="span" sx={{ fontSize: "inherit" }}>
-                    Signed in as:{" "}
-                </Typography>
-                <Typography component="span" sx={{ fontSize: "inherit", fontWeight: "bold", color: "primary.main" }}>
-                    {`${userData.name} ${userData.surname}`}
-                </Typography>
-            </Typography>
+                            <Typography variant="h6" sx={{ cursor: "default", mx: 1, fontSize: `1rem !important`, mt: width < 1000 ? 2 : 0 }}>
+                                {(() => {
+                                    if (width > 1200 || width <= 1000) {
+                                        return (
+                                            <Typography component="span" sx={{ fontSize: "inherit" }}>
+                                                Signed in as:{" "}
+                                            </Typography>
+                                        );
+                                    }
+                                })()}
+                                <Typography component="span" sx={{ fontSize: "inherit", fontWeight: "bold", color: "primary.main" }}>
+                                    {`${userData.name} ${userData.surname}`}
+                                </Typography>
+                            </Typography>
+                        </>
+                    );
+                }
+            })()}
             <Button variant="contained" sx={buttonStyles} tabIndex={-1} onClick={logout}>
                 <Logout></Logout>
                 Logout

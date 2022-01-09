@@ -85,7 +85,7 @@ const Navigation: FunctionComponent<{ buttonStyles: Record<string, unknown> }> =
                             })()}
                             {/*  */}
                             <Fade in={displayMenu || width > 1000}>
-                                <Box className={styles["routes-wrapper"]} sx={{ p: 1, mr: 2, order: width <= 1000 && isAuthenticated ? -1 : 1 }}>
+                                <Box className={styles["routes-wrapper"]} sx={{ p: 1, mr: 2 }}>
                                     {(() => {
                                         if (isAuthenticated && userData) return <AuthenticatedUser buttonStyles={buttonStyles}></AuthenticatedUser>;
                                         else return <LoginAndRegister buttonStyles={buttonStyles}></LoginAndRegister>;
