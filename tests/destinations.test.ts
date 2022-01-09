@@ -3,16 +3,30 @@ import axios from "axios";
 import { testPOSTRequestStatus } from "./helpers/testStatus";
 import prisma from "./helpers/db";
 import path from "path";
+import FormData from "form-data";
 import fse from "fs-extra";
 // Types
 import type { Destination, Landmark } from "@prisma/client";
 import type { UserHelper } from "./data/users";
 import { FieldType } from "../@types/DestinationDescription";
 import type { DestinationContentField } from "../@types/DestinationDescription";
+import type { BetterJoiError } from "../utils/api/betterJoiErrors";
 // helpers
 import { uploadDir } from "../utils/paths";
 import { prepareUser } from "./data/users";
-import { formData } from "./data/destination";
+import {
+    formData, //
+    formDataWithoutThumbnail,
+    formDataWithoutLandmarkImage,
+    formDataWithoutDescriptionImage,
+    formWithInvalidGeneralInformation,
+    formDataWithInvalidLandmarks,
+    formDataWithInvalidDescription__NoTypeProvided,
+    formDataWithInvalidDescription__NoImageProvided,
+    formDataWithInvalidDescription__UnexpectedType,
+    formDataWithInvalidDescription__InvalidHeaderLength,
+    formDataWithInvalidDescription__InvalidParagraphLengthInSplittedField,
+} from "./data/destination";
 
 const API_ADDRESS = "http://localhost:3000";
 //
@@ -55,7 +69,7 @@ describe("DESTINATIONS", () => {
     });
 
     describe("Authentication", () => {
-        test("Admin should be able to create an destination", async () => {
+        test("Admin should be able to create a destination", async () => {
             const { status } = await axios.post(`${API_ADDRESS}/api/destination/create`, formData, {
                 headers: {
                     Cookie: adminUser.accessToken as string,
@@ -69,6 +83,69 @@ describe("DESTINATIONS", () => {
         });
         test("Anonymous should NOT be able to create an destinatnion", async () => {
             await testPOSTRequestStatus("/api/destination/create", 403);
+        });
+    });
+
+    describe("Handle invalid body requests", () => {
+        const testRequestWithInvalidBody = async (data: FormData, expectedErrors: Record<string, string>) => {
+            await axios
+                .post(`${API_ADDRESS}/api/destination/create`, data, {
+                    headers: {
+                        Cookie: adminUser.accessToken as string,
+                        ...data.getHeaders(),
+                    },
+                })
+                .then((response) => {
+                    expect(response.status).toEqual(400);
+                })
+                .catch(({ response }) => {
+                    expect(response.status).toEqual(400);
+                    console.log(response.data);
+                    (response.data as BetterJoiError[]).forEach((occuredError) => {
+                        expect(occuredError.type).toEqual(expectedErrors[occuredError.element]);
+                    });
+                });
+        };
+        describe("An error should be detected while attempting to create a destination with invalid body", () => {
+            test("Without a thumbnail", async () => {
+                await testRequestWithInvalidBody(formDataWithoutThumbnail, { thumbnail: "required" });
+            });
+            test("Without a certain description image", async () => {
+                await testRequestWithInvalidBody(formDataWithoutDescriptionImage, { description_3: "required" });
+            });
+            test("Without a certain landmark image", async () => {
+                await testRequestWithInvalidBody(formDataWithoutLandmarkImage, { landmark_2: "required" });
+            });
+            test("With invalid general information", async () => {
+                await testRequestWithInvalidBody(formWithInvalidGeneralInformation, {
+                    city: "max",
+                    continent: "only",
+                    country: "required",
+                    population: "required",
+                });
+            });
+
+            test("With general invalid landmarks", async () => {
+                await testRequestWithInvalidBody(formDataWithInvalidLandmarks, { "Landmark with index 0": "description-max" });
+            });
+
+            describe("Invalid description's single field", () => {
+                test("No type provided", async () => {
+                    await testRequestWithInvalidBody(formDataWithInvalidDescription__NoTypeProvided, { "Description field with index 0": "no-type-defined" });
+                });
+                test("Invalid type provided", async () => {
+                    await testRequestWithInvalidBody(formDataWithInvalidDescription__UnexpectedType, { "Description field with index 1": "unexpected-type" });
+                });
+                test("No image provided in IMAGE type field", async () => {
+                    await testRequestWithInvalidBody(formDataWithInvalidDescription__NoImageProvided, { "Description field with index 1, subfield- LEFT": "required" });
+                });
+                test("Invalid header length", async () => {
+                    await testRequestWithInvalidBody(formDataWithInvalidDescription__InvalidHeaderLength, { "Description field with index 0": "max" });
+                });
+                test("Invalid paragraph length in splitted field", async () => {
+                    await testRequestWithInvalidBody(formDataWithInvalidDescription__InvalidParagraphLengthInSplittedField, { "Description field with index 1, subfield- RIGHT": "min" });
+                });
+            });
         });
     });
 
@@ -94,7 +171,7 @@ describe("DESTINATIONS", () => {
                 }
             });
         });
-        test("After successfully creation a new destiantnion should be stored in database", () => {
+        test("Destination stored in the DB", () => {
             expect(createdDestination).not.toBeNull();
         });
         test("Thumbnail should be stored in all proper resolutions", async () => {
@@ -124,12 +201,12 @@ describe("DESTINATIONS", () => {
             });
         });
 
-        test("After successfully creation of a new destination all related to them landmarks should be stored in the database", async () => {
+        test("Landmarks should be stored in the database", async () => {
             for (const id of landmarksId) {
                 expect(await prisma.landmark.findUnique({ where: { id } })).not.toBeNull();
             }
         });
-        test("All landmarks pictures should be stored in all proper resolutions", async () => {
+        test("All landmarks images should be stored in all proper resolutions", async () => {
             for (const directory of landmarksDirectories) {
                 for (const size of RESOLUTIONS) {
                     expect(await fse.pathExists(path.join(directory, `${size}.jpg`))).toBeTruthy();
