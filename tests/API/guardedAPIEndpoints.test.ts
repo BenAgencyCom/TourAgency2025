@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 // Tools
 import { testGETRequestStatus } from "./helpers/testStatus";
 import prisma from "./helpers/db";
