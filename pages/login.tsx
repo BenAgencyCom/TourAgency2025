@@ -8,23 +8,18 @@ import GuardedRoute from "@/utils/client/GuardedRoute";
 import type { FunctionComponent } from "react";
 import type { GetServerSideProps } from "next";
 // Other components
-import Link from "next/link";
 import Image from "next/Image";
-import StepHeader from "@/components/register/stepper/StepHeader";
+import Head from "next/Head";
+import LoginHeader from "@/components/login/LoginHeader";
+import CredentialsDoNotMatch from "@/components/login/CredentialsDoNotMatch";
+import Redirects from "@/components/login/Redirects";
 import TextInput from "@/components/register/_formFields/TextInput";
 import PasswordInput from "@/components/register/_formFields/PasswordInput";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
-import CardActions from "@mui/material/CardActions";
-import CircularProgress from "@mui/material/CircularProgress";
 import Fade from "@mui/material/Fade";
-// Material UI Icons
-import Bolt from "@mui/icons-material/Bolt";
-import ErrorOutline from "@mui/icons-material/ErrorOutline";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
 import { useAppDispatch } from "@/redux/hooks";
@@ -57,10 +52,11 @@ const Login: FunctionComponent<{}> = () => {
     //
     //
     //
-    const continueClick = () => {
+    const continueClick = async () => {
         if (blockContinue) return;
         setPending(true);
         setCredentialsDoNotMatch(false);
+
         axios
             .post("/api/auth/login", { email, password })
             .then(() => {
@@ -81,6 +77,7 @@ const Login: FunctionComponent<{}> = () => {
                         displaySnackbar({
                             msg: "Unknown error has occured! ",
                             severity: "error",
+                            hideAfter: 6000,
                         })
                     );
                 }
@@ -92,113 +89,50 @@ const Login: FunctionComponent<{}> = () => {
     //
     //
     return (
-        <Fade in={true}>
-            <Box className={bgIMGStyles.background}>
-                <Image
-                    className={bgIMGStyles["bg-image"]} //
-                    src={backgroundImage}
-                    layout="fill"
-                    alt="background"
-                    objectFit="cover"
-                    objectPosition="center"
-                    priority={true}
-                    placeholder="blur"
-                ></Image>
-                <Card className={styles.formCard} sx={{ alignItems: "center", justifyContent: "center" }}>
-                    {(() => {
-                        if (pending) return <CircularProgress sx={{ position: "absolute", top: "20px", right: "20px" }}></CircularProgress>;
-                    })()}
+        <>
+            <Head>
+                <title>Login</title>
+            </Head>
 
-                    <Box className={styles["content-wrapper"]}>
-                        <StepHeader
-                            header="Login"
-                            icon={
-                                <Bolt
-                                    sx={{
-                                        fontSize: "20rem",
-                                        ["@media (max-height:820px)"]: {
-                                            fontSize: "15rem",
-                                        },
-                                        ["@media (max-height:760px)"]: {
-                                            fontSize: "10rem",
-                                        },
-                                        ["@media (max-height:660px)"]: {
-                                            fontSize: "7rem",
-                                        },
-                                    }}
-                                ></Bolt>
-                            }
-                        ></StepHeader>
-                        <TextInput
-                            label="Email" //
-                            value={email}
-                            updateValue={setEmail}
-                            disabled={pending}
-                        ></TextInput>
-                        <PasswordInput
-                            label="Password" //
-                            value={password}
-                            updateValue={setPassword}
-                            buttonStyles={{ my: 1 }}
-                            disabled={pending}
-                        ></PasswordInput>
-                        <Button variant="contained" sx={{ mt: 5 }} disabled={blockContinue || pending} onClick={continueClick}>
-                            Continue
-                        </Button>
-                        {(() => {
-                            if (credentialsDoNotMatch)
-                                return (
-                                    <Typography
-                                        color="error.main"
-                                        sx={{
-                                            mt: 3, //
-                                            fontWeight: "bold",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            cursor: "default",
-                                        }}
-                                        variant="h6"
-                                    >
-                                        <ErrorOutline sx={{ mr: 1 }}></ErrorOutline>
-                                        <span>Given credentials do not match</span>
-                                    </Typography>
-                                );
-                            else
-                                return (
-                                    <Typography sx={{ mt: 3 }} variant="h6">
-                                        <br />
-                                    </Typography>
-                                );
-                        })()}
-                    </Box>
+            <Fade in={true}>
+                <Box className={bgIMGStyles.background}>
+                    <Image
+                        className={bgIMGStyles["bg-image"]} //
+                        src={backgroundImage}
+                        layout="fill"
+                        alt="background"
+                        objectFit="cover"
+                        objectPosition="center"
+                        placeholder="blur"
+                    ></Image>
+                    <Card className={styles.formCard} sx={{ alignItems: "center", justifyContent: "center" }}>
+                        <Box className={styles["content-wrapper"]} component="form">
+                            <LoginHeader pending={pending}></LoginHeader>
+                            <TextInput
+                                label="Email" //
+                                value={email}
+                                updateValue={setEmail}
+                                disabled={pending}
+                            ></TextInput>
+                            <PasswordInput
+                                label="Password" //
+                                value={password}
+                                updateValue={setPassword}
+                                buttonStyles={{ my: 1 }}
+                                disabled={pending}
+                            ></PasswordInput>
+                            <CredentialsDoNotMatch credentialsDoNotMatch={credentialsDoNotMatch}></CredentialsDoNotMatch>
 
-                    <Divider sx={{ my: 1, width: "100%" }}></Divider>
-                    <CardActions
-                        sx={{
-                            justifyContent: "center", //
-                            mb: 1,
-                            ["@media (max-width:470px)"]: {
-                                flexDirection: "column",
-                            },
-                        }}
-                    >
-                        <Button>
-                            <Link href="/register">
-                                <a>Don&apos;t have an account? Create one</a>
-                            </Link>
-                        </Button>
-                        <Button>
-                            <Link href="/">
-                                <a>Main page</a>
-                            </Link>
-                        </Button>
-                    </CardActions>
-                </Card>
-            </Box>
-        </Fade>
+                            <Button variant="contained" sx={{ mt: 5 }} disabled={blockContinue || pending} onClick={continueClick}>
+                                Continue
+                            </Button>
+                        </Box>
 
-        // /
+                        <Redirects></Redirects>
+                    </Card>
+                </Box>
+            </Fade>
+        </>
     );
 };
 
