@@ -12,7 +12,7 @@ const scheme = joi.object({
         label: joi.string().max(60).required(),
         phone: joi.string().max(10),
     }),
-    population: joi.number().min(1).max(10000000000).required(),
+    population: joi.number().min(restrictions.population.min).max(restrictions.population.max).required(),
     quickDescription: joi.string().min(restrictions.quickDescription.min).max(restrictions.quickDescription.max),
 } as Record<keyof CreateDestinationRequestPardesBody, Schema>);
 

@@ -6,7 +6,6 @@ interface InputProps {
     // Properties
     label: string;
     value: string;
-    buttonStyles: Record<string, any>;
     // Optional
     sx?: Record<string, unknown>;
     errorMsg?: string | false;
@@ -18,7 +17,7 @@ interface InputProps {
 }
 
 const TextInput: FunctionComponent<InputProps> = (props) => {
-    const { label, value, updateValue, buttonStyles, disabled } = props;
+    const { label, value, updateValue, disabled } = props;
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateValue(e.target.value);
 
     return (
@@ -31,7 +30,7 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
             multiline={props.multiline ? props.multiline : false}
             variant="outlined"
             disabled={disabled !== undefined ? disabled : false}
-            sx={{ ...buttonStyles, ...props.sx }}
+            sx={{ ...props.sx }}
             helperText={props.errorMsg}
         ></TextField>
     );

@@ -1,5 +1,8 @@
 import type { Restriction } from "@/@types/Restriction";
-
+/**
+ * - **If any occurred** return its explanation message with customisable filed name (prop `field`)
+ * - Else return syntax alike: `text.length` / `restrictions.max`
+ */
 export const lengthRestrictionMessage = (text: string, restrictions: Restriction, field: string = "field"): string => {
     const { length } = text;
     const { min, max } = restrictions;
@@ -9,8 +12,11 @@ export const lengthRestrictionMessage = (text: string, restrictions: Restriction
     else return `${length} / ${max}`;
 };
 
-export const validateLength = (text: string, restrictions: Restriction): boolean => {
-    const { length } = text;
+/**
+ * Returns `true` if any error occurred
+ */
+export const validateLength = (text: number | string, restrictions: Restriction, isNumber: boolean = false): boolean => {
+    const length = isNumber ? (text as number) : (text as string).length;
     const { min, max } = restrictions;
 
     return length > max || length < min;

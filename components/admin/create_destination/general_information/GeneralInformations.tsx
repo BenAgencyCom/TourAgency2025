@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import GeneralInformationSchema from "@/validators/helpers/create_destination/generalInformationJoiSchema";
+import restrictions from "@/utils/restrictions/createDestination";
+import { styled } from "@mui/system";
 // Types
-import type { FunctionComponent, ChangeEvent } from "react";
+import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StagedDataField";
 import type { Continent } from "@prisma/client";
 import type { CountryType } from "@/data/countries";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
-import TextField from "@mui/material/TextField";
 // Other Components
-import TextInput from "@/components/register/_formFields/TextInput";
+import QuickDescription from "./QuickDescription";
+import Population from "./Population";
+import City from "./City";
+
 import Select from "@/components/register/_formFields/Select";
 import AutocompleteCountry from "@/components/register/_formFields/AutocompleteCountry";
 import Image from "next/Image";
@@ -18,6 +22,14 @@ import BottomNavigation from "@/components/admin/create_destination/BottomNaviga
 import SectionHeader from "@/components/admin/create_destination/SectionHeader";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
+// Styled components
+const FormFieldsWrap = styled(Box)({
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    position: "relative",
+});
+
 interface GeneralInformationInterface {
     city: StatedDataField<string>;
     country: StatedDataField<CountryType | null>;
@@ -44,71 +56,71 @@ const GeneralInformation: FunctionComponent<GeneralInformationInterface> = (prop
             continent: continent.value,
             quickDescription: quickDescription.value,
         });
-        console.log(error);
         setBlockContinue(Boolean(error));
     };
     useEffect(test, [city, population, country, continent, quickDescription]);
     //
     //
     //
-    const updatePopulation = (e: ChangeEvent<HTMLInputElement>) => {
-        let res = "";
-        e.target.value
-            .replaceAll(" ", "")
-            .split("")
-            .reverse()
-            .forEach((a, i) => (!(i % 3) ? (res += ` ${a}`) : (res += a)));
-        population.setValue(res.split("").reverse().join("").trim());
-        //
-    };
     return (
         <Fade in={true}>
             <Box className={styles["section-content-wrapper"]} component="section">
                 <SectionHeader text="General information"></SectionHeader>
-                <TextField
-                    label="Description" //
-                    sx={{ width: "100%", ...buttonStyles }}
-                    value={quickDescription.value}
-                    onChange={(e: { target: { value: string } }) => quickDescription.setValue(e.target.value)}
-                    multiline={true}
-                    maxRows={2}
-                    helperText={`${quickDescription.value.length}/128`}
-                ></TextField>
 
-                <Box className={styles["form-fields-wrap"]}>
-                    <TextInput
-                        label="City" //
-                        value={city.value}
-                        updateValue={city.setValue}
-                        buttonStyles={buttonStyles}
+                <QuickDescription
+                    quickDescription={quickDescription} //
+                    restrictions={restrictions.quickDescription}
+                ></QuickDescription>
+
+                <FormFieldsWrap>
+                    <City
+                        city={city} //
+                        restrictions={restrictions.city}
                         sx={{ width: "60%" }}
-                    ></TextInput>
-                    <TextField
-                        label="Population" //
-                        value={population.value}
-                        onChange={updatePopulation}
-                        sx={{ width: "38%", ...buttonStyles }}
-                    ></TextField>
-                </Box>
-                <Box className={styles["form-fields-wrap"]}>
+                    ></City>
+                    <Population
+                        population={population} //
+                        restrictions={restrictions.population}
+                        sx={{ width: "38%" }}
+                    ></Population>
+                </FormFieldsWrap>
+
+                <FormFieldsWrap>
                     <AutocompleteCountry
                         label="Country" //
                         value={country.value}
                         updateValue={country.setValue}
-                        buttonStyles={{ ...buttonStyles, width: "60%" }}
+                        buttonStyles={{ width: "60%" }}
                     ></AutocompleteCountry>
                     <Select
                         label="Continent" //
                         value={continent.value}
-                        options={["Africa", "Antarctica", "Asia", "Australia_Oceania", "Europe", "North_America", "South_America"] as Continent[]}
+                        options={
+                            [
+                                "Africa", //
+                                "Antarctica",
+                                "Asia",
+                                "Australia_Oceania",
+                                "Europe",
+                                "North_America",
+                                "South_America",
+                            ] as Continent[]
+                        }
                         updateValue={(val) => continent.setValue(val as Continent)}
-                        buttonStyles={buttonStyles}
                         sx={{ width: "38%" }}
                     ></Select>
-                </Box>
-                <Box className={styles["form-fields-wrap"]} sx={{ flexGrow: 1, width: "100%", zIndex: -1 }}>
-                    <Image src={`/images/continents/${continent.value}.png`} layout="fill" alt="continent"></Image>
-                </Box>
+                </FormFieldsWrap>
+
+                <FormFieldsWrap sx={{ flexGrow: 1, width: "100%", zIndex: -1, mt: 2 }}>
+                    <Image
+                        src={`/images/continents/${continent.value}.png`} //
+                        placeholder="blur"
+                        blurDataURL="/images/continents/blank.png"
+                        layout="fill"
+                        alt="continent"
+                    ></Image>
+                </FormFieldsWrap>
+
                 <BottomNavigation
                     blockContinue={blockContinue} //
                     currentSlideIndex={props.stepperIndex.value}

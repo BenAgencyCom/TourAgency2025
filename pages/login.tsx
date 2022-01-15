@@ -133,7 +133,6 @@ const Login: FunctionComponent<{}> = () => {
                             label="Email" //
                             value={email}
                             updateValue={setEmail}
-                            buttonStyles={{ my: 1 }}
                             disabled={pending}
                         ></TextInput>
                         <PasswordInput

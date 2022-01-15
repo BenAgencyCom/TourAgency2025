@@ -16,7 +16,7 @@ import Box from "@mui/material/Box";
 import Image from "next/Image";
 import Stepper from "@/components/admin/create_destination/Stepper";
 import Loading from "@/components/_utils/Loading";
-const GeneralInformation = dynamic(() => import("@/components/admin/create_destination/GeneralInformations"), { loading: () => <Loading /> });
+const GeneralInformation = dynamic(() => import("@/components/admin/create_destination/general_information/GeneralInformations"), { loading: () => <Loading /> });
 const Thumbnail = dynamic(() => import("@/components/admin/create_destination/Thumbnail"), { loading: () => <Loading /> });
 const Landmarks = dynamic(() => import("@/components/admin/create_destination/landmarks/Landmarks"), { loading: () => <Loading /> });
 const Description = dynamic(() => import("@/components/admin/create_destination/description/Description"), { ssr: false, loading: () => <Loading /> });
@@ -65,7 +65,6 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                 alt="background"
                 objectFit="cover"
                 objectPosition="center"
-                priority={true}
                 placeholder="blur"
             ></Image>
             {/* CONTENT */}
