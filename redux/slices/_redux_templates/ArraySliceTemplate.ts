@@ -32,16 +32,25 @@ interface Reducers<State, ArrayItem> extends SliceCaseReducers<State> {
 interface Params<ArrayItem> {
     name: string;
     blankItem: ArrayItem;
+    initialState?: ArrayItem[];
 }
 type Returns<ArrayItem> = Slice<State<ArrayItem>, Reducers<State<ArrayItem>, ArrayItem>>;
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default <ArrayItem>(params: Params<ArrayItem>): Returns<ArrayItem> => {
     type SliceState = State<ArrayItem>;
+
+    const initialList = params.initialState
+        ? params.initialState.map((target, index) => {
+              (target as any).id = `init-${params.name}-${index}`;
+              return target;
+          })
+        : [];
+
     const slice = createSlice<SliceState, Reducers<SliceState, ArrayItem>>({
         name: params.name,
         initialState: {
-            list: [],
+            list: initialList as ListItem<ArrayItem>[],
         },
         reducers: {
             addItem: (state, action) => {
