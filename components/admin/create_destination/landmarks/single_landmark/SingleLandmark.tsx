@@ -23,6 +23,7 @@ interface SingleLandmarkProps {
     isValid: boolean;
     sx?: Record<string, unknown>;
     hideNavigation: StatedDataField<boolean>;
+    goToPreviousSlide: () => void;
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
@@ -30,7 +31,10 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
     const [previewMode, setPreviewMode] = useState<boolean>(false);
     const tabIndex = props.currentSlideIndex === props.index ? 1 : -1;
 
-    const deleteThisLandmark = () => dispatch(deleteItem({ itemToDelete: props.data }));
+    const deleteThisLandmark = () => {
+        dispatch(deleteItem({ itemToDelete: props.data }));
+        props.goToPreviousSlide();
+    };
 
     return (
         <Box sx={{ ...props.sx, height: "100%" }}>

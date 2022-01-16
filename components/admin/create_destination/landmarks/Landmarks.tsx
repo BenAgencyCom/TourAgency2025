@@ -30,11 +30,11 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
 
     const swapper = useRef<Slider | null>(null);
     const [hideNavigation, setHideNavigation] = useState<boolean>(false);
-    const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
+    const [currentSlideIndex, _setCurrentSlideIndex] = useState<number>(0); // DO NOT USE `_setCurrentSlideIndex` DIRECTLY!
     const [openCreateLandmarkDialog, setOpenCreateLandmarkDialog] = useState<boolean>(false);
     //
     const selectSlide = (index: number) => {
-        setCurrentSlideIndex(index);
+        _setCurrentSlideIndex(index);
         swapper.current?.slickGoTo(index);
     };
     //
@@ -62,6 +62,7 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
             <Box className={styles["section-content-wrapper"]} component="section">
                 <CreateNewLandmarkDialog
                     openDialog={stated(openCreateLandmarkDialog, setOpenCreateLandmarkDialog)} //
+                    goToTheLatestSlide={() => selectSlide(landmarks.length)}
                 ></CreateNewLandmarkDialog>
 
                 <Hiddable hide={hideNavigation} height={120}>
@@ -97,6 +98,7 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
                                 isValid={validationResults[index]}
                                 data={landmark}
                                 hideNavigation={{ value: hideNavigation, setValue: setHideNavigation }}
+                                goToPreviousSlide={() => selectSlide(currentSlideIndex - 1)}
                             ></SingleLandmark>
                         );
                     })}

@@ -12,29 +12,37 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 // Redux
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { addItem } from "@/redux/slices/landmarks";
 
 interface AddNewLandmarkDialogProps {
     openDialog: StatedDataField<boolean>;
+    goToTheLatestSlide: () => void;
 }
 
 const AddNewLandmarkDialog: FunctionComponent<AddNewLandmarkDialogProps> = (props) => {
+    const landmarks = useAppSelector((state) => state.landmarks.list);
     const dispatch = useAppDispatch();
+
     const [landmarkTitle, setLandmarkTitle] = useState<string>("");
 
     const closeDialog = () => props.openDialog.setValue(false);
     const updateTitle = (e: ChangeEvent<HTMLInputElement>) => setLandmarkTitle(e.target.value);
 
     const titleIsValid = useMemo<boolean>(() => {
+        if (props.openDialog.value === false) return false;
+
+        if (landmarks.map((target) => target.title).includes(landmarkTitle)) return false;
         return landmarkTitle.length >= 3 && landmarkTitle.length <= 50;
-    }, [landmarkTitle]);
+    }, [landmarkTitle, landmarks, props.openDialog.value]);
 
     const addNewLandmark = () => {
         if (!titleIsValid) return;
         dispatch(addItem({ title: landmarkTitle }));
+
         setLandmarkTitle("");
         closeDialog();
+        props.goToTheLatestSlide();
     };
 
     return (
