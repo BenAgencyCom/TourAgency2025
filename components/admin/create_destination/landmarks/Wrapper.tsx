@@ -15,7 +15,7 @@ interface WrapperProps {
     children: ReactNode[];
     hideNavigation: boolean;
     swapper: MutableRefObject<Slider | null>;
-    addNewLandmark: () => void;
+    openCreateLandmarkDialog: () => void;
 }
 
 const Wrapper: FunctionComponent<WrapperProps> = (props) => {
@@ -65,7 +65,7 @@ const Wrapper: FunctionComponent<WrapperProps> = (props) => {
                         <SectionIsEmpty
                             icon={<Castle></Castle>} //
                             header="There are currently no landmarks"
-                            onClick={props.addNewLandmark}
+                            onClick={props.openCreateLandmarkDialog}
                             buttonMsg="Add a new landmark"
                         ></SectionIsEmpty>
                     );

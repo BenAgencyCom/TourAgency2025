@@ -10,23 +10,27 @@ import Card from "@mui/material/Card";
 import PreviewMode from "./PreviewMode";
 import EditMode from "./EditMode";
 import Actions from "./action/Actions";
-// Material UI Icons
+// Redux
+import { useAppDispatch } from "@/redux/hooks";
+import { deleteItem } from "@/redux/slices/landmarks";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 
 interface SingleLandmarkProps {
     currentSlideIndex: number;
     index: number;
-    data: Landmark;
+    data: { id: string } & Landmark;
     isValid: boolean;
     sx?: Record<string, unknown>;
-    updateData: (data: Landmark | "REMOVE_THIS_ELEMENT") => void;
     hideNavigation: StatedDataField<boolean>;
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
+    const dispatch = useAppDispatch();
     const [previewMode, setPreviewMode] = useState<boolean>(false);
     const tabIndex = props.currentSlideIndex === props.index ? 1 : -1;
+
+    const deleteThisLandmark = () => dispatch(deleteItem({ itemToDelete: props.data }));
 
     return (
         <Box sx={{ ...props.sx, height: "100%" }}>
@@ -36,7 +40,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                     tabIndex={tabIndex}
                     isValid={props.isValid}
                     previewMode={previewMode}
-                    updateData={props.updateData}
+                    deleteThisLandmark={deleteThisLandmark}
                     setPreviewMode={setPreviewMode}
                 ></Actions>
 
@@ -52,7 +56,6 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                         return (
                             <EditMode
                                 data={props.data} //
-                                updateData={props.updateData}
                                 tabIndex={tabIndex}
                             ></EditMode>
                         );

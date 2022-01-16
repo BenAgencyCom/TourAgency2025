@@ -1,6 +1,7 @@
 // Types
 import type { FunctionComponent } from "react";
-import type { Landmark, LandmarkType } from "@/@types/Landmark";
+import type { Landmark } from "@/@types/Landmark";
+import type { LandmarkType } from "@prisma/client";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
@@ -10,20 +11,28 @@ import Tags from "./edit_mode_utils/Tags";
 import Title from "./edit_mode_utils/Title";
 import Description from "./edit_mode_utils/Description";
 import Picture from "./edit_mode_utils/Picture";
+// Redux
+import { useAppDispatch } from "@/redux/hooks";
+import { changeItem } from "@/redux/slices/landmarks";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 
 interface EditModeProps {
     tabIndex: number;
-    data: Landmark;
-    updateData: (data: Landmark) => void;
+    data: { id: string } & Landmark;
 }
 
 const EditMode: FunctionComponent<EditModeProps> = (props) => {
+    const dispatch = useAppDispatch();
     const { data } = props;
     const updateData = (prop: keyof Landmark, value: Landmark[typeof prop]) => {
-        data[prop] = value as any;
-        props.updateData(data);
+        dispatch(
+            changeItem({
+                itemToUpdate: props.data,
+                valueToUpdate: prop,
+                newValue: value,
+            })
+        );
     };
 
     const updateType = (type: LandmarkType) => updateData("type", type);
@@ -39,7 +48,7 @@ const EditMode: FunctionComponent<EditModeProps> = (props) => {
                         value={data.type}
                         tabIndex={props.tabIndex}
                         sx={{ width: "280px", mr: 1 }}
-                        options={["RESTAURANT", "MONUMENT", "ANTIQUE BUILDING", "RELIC", "ART", "NATURE"]}
+                        options={["RESTAURANT", "MONUMENT", "ANTIQUE", "RELIC", "ART", "NATURE"]}
                         updateValue={(val) => updateType(val as LandmarkType)}
                     ></Select>
                 </Tags>

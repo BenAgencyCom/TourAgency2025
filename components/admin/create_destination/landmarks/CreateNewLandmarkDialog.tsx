@@ -11,17 +11,16 @@ import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
+// Redux
+import { useAppDispatch } from "@/redux/hooks";
+import { addItem } from "@/redux/slices/landmarks";
 
 interface AddNewLandmarkDialogProps {
     openDialog: StatedDataField<boolean>;
-    updateLandmark: (
-        index: number, //
-        valueAfterModification: Landmark | "REMOVE_THIS_ELEMENT" | "ADD_ELEMENT",
-        newLandmarkTitle?: string
-    ) => void;
 }
 
 const AddNewLandmarkDialog: FunctionComponent<AddNewLandmarkDialogProps> = (props) => {
+    const dispatch = useAppDispatch();
     const [landmarkTitle, setLandmarkTitle] = useState<string>("");
 
     const closeDialog = () => props.openDialog.setValue(false);
@@ -33,7 +32,7 @@ const AddNewLandmarkDialog: FunctionComponent<AddNewLandmarkDialogProps> = (prop
 
     const addNewLandmark = () => {
         if (!titleIsValid) return;
-        props.updateLandmark(0, "ADD_ELEMENT", landmarkTitle);
+        dispatch(addItem({ title: landmarkTitle }));
         setLandmarkTitle("");
         closeDialog();
     };

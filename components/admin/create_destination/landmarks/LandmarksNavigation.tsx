@@ -11,17 +11,20 @@ import Fade from "@mui/material/Fade";
 // Material UI Icons
 import Done from "@mui/icons-material/Done";
 import Close from "@mui/icons-material/Close";
+// Redux
+import { useAppSelector } from "@/redux/hooks";
 
 interface LandmarksNavigationProps {
-    landmarks: Landmark[];
     currentSlideIndex: number;
     hideNavigation: boolean;
     validationResults: boolean[];
     selectSlide: (index: number) => void;
-    addNewLandmark: () => void;
+    openCreateLandmarkDialog: () => void;
 }
 
 const LandmarksNavigation: FunctionComponent<LandmarksNavigationProps> = (props) => {
+    const landmarks = useAppSelector((state) => state.landmarks.list);
+
     const selectSlide = (e: ChangeEvent<HTMLSelectElement>) => props.selectSlide(Number(e.target.value));
 
     const landmarkIsValid = (index: number): boolean => {
@@ -57,7 +60,7 @@ const LandmarksNavigation: FunctionComponent<LandmarksNavigationProps> = (props)
             }}
         >
             {(() => {
-                if (props.landmarks.length > 1) {
+                if (landmarks.length > 1) {
                     return (
                         <Fade in={true}>
                             <Select
@@ -66,7 +69,7 @@ const LandmarksNavigation: FunctionComponent<LandmarksNavigationProps> = (props)
                                 onChange={(e: any) => selectSlide(e)}
                                 sx={{ width: "320px" }} //
                             >
-                                {props.landmarks.map((landmark: Landmark, index: number) => {
+                                {landmarks.map((landmark: Landmark, index: number) => {
                                     return (
                                         <MenuItem value={index} key={index} sx={(theme) => backgroundColor(index, theme)}>
                                             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -85,7 +88,7 @@ const LandmarksNavigation: FunctionComponent<LandmarksNavigationProps> = (props)
                 } else return <div></div>;
             })()}
 
-            <Button variant="contained" sx={{ ml: 1 }} onClick={props.addNewLandmark}>
+            <Button variant="contained" sx={{ ml: 1 }} onClick={props.openCreateLandmarkDialog}>
                 Create new landmark
             </Button>
         </Box>

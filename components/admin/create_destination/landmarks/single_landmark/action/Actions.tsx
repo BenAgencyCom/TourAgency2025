@@ -15,18 +15,16 @@ interface ActionsProps {
     isValid: boolean;
     hideNavigation: StatedDataField<boolean>;
     setPreviewMode: (value: boolean) => void;
-    updateData: (data: Landmark | "REMOVE_THIS_ELEMENT") => void;
+    deleteThisLandmark: () => void;
 }
 
 const Actions: FunctionComponent<ActionsProps> = (props) => {
-    const deleteThisLandmark = () => props.updateData("REMOVE_THIS_ELEMENT");
-
     return (
         <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
             <DeleteLandmark
+                deleteThisLandmark={props.deleteThisLandmark}
                 previewMode={props.previewMode} //
                 tabIndex={props.tabIndex}
-                deleteThisLandmark={deleteThisLandmark}
             ></DeleteLandmark>
 
             <Box>
