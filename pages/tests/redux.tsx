@@ -62,7 +62,7 @@ const Tests: FunctionComponent = (props) => {
     return (
         <>
             <Head>
-                <title>Tests</title>
+                <title>Tests- redux</title>
             </Head>
             <Container sx={{ mt: "150px", py: 2, color: "white" }}>
                 <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>

@@ -58,7 +58,6 @@ const Registration: FunctionComponent<{}> = () => {
                 alt="background"
                 objectFit="cover"
                 objectPosition={`center ${50 - currentSlideIndex * 15}%`}
-                priority={true}
                 placeholder="blur"
                 //
             ></Image>
