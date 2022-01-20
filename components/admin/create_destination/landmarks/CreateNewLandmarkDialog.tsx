@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
-import { helpers } from "@/redux/slices/landmarks";
+import { helpers } from "@/redux/slices/create_destination/landmarks";
 
 interface AddNewLandmarkDialogProps {
     openDialog: StatedDataField<boolean>;

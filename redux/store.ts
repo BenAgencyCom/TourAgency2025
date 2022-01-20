@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import authenticationSlice from "./slices/authentication";
 import snackbarSlice from "./slices/snackbar";
-import landmarksReducer from "./slices/landmarks";
+import landmarksReducer from "./slices/create_destination/landmarks";
 import windowSizes from "./slices/windowSizes";
 import testsReducer from "./slices/tests";
 

@@ -1,4 +1,4 @@
-import createBetterSlice from "./_redux_templates/createSliceWithListManagement";
+import createBetterSlice from "@/redux/slices/_redux_templates/createSliceWithListManagement";
 import { Landmark } from "@/@types/Landmark";
 
 const { reducer, actions, helpers } = createBetterSlice<Landmark>({
