@@ -4,6 +4,7 @@ import authenticationSlice from "./slices/authentication";
 import snackbarSlice from "./slices/snackbar";
 import landmarks from "./slices/landmarks";
 import windowSizes from "./slices/windowSizes";
+import testsReducer from "./slices/tests";
 
 const store = configureStore({
     middleware: (getDefaultMiddleware) =>
@@ -15,6 +16,7 @@ const store = configureStore({
         snackbar: snackbarSlice.reducer,
         windowSizes: windowSizes.reducer,
         landmarks: landmarks.reducer,
+        tests: testsReducer,
     },
 });
 
