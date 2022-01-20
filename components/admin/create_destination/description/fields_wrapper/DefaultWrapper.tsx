@@ -1,6 +1,6 @@
 // Tools
 import { useState, useEffect } from "react";
-import useLayoutEffect from "@/utils/client/useLayoutEffect";
+import useLayoutEffect from "@/hooks/useLayoutEffect";
 // Types
 import type { FunctionComponent, ReactNode, MutableRefObject } from "react";
 import type { DroppableProvided, DropResult } from "react-beautiful-dnd";
@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 // Other components
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 // Redux
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface DefaultWrapperProps {
     wrapper: MutableRefObject<HTMLElement | null>;
