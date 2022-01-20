@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { alpha } from "@mui/system";
 import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
 // Types
+import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ChangeEvent, ReactNode } from "react";
 import type { Landmark } from "@/@types/Landmark";
 // Material UI Components
@@ -11,28 +12,26 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 interface TagsProps {
-    data: Landmark;
+    landmark: ListItem<Landmark>;
     children: ReactNode;
     tabIndex: number;
-    updateData: (prop: keyof Landmark, value: Landmark[typeof prop]) => void;
 }
 
 const Tags: FunctionComponent<TagsProps> = (props) => {
-    const { data, updateData } = props;
-
+    const { tags: currentTags } = props.landmark.data;
     const [newTag, setNewTag] = useState<string>("");
-    const _setNewTag = (e: ChangeEvent<HTMLInputElement>) => setNewTag(e.target.value);
     const blockAddButton = useMemo<boolean>(() => newTag.length < 3, [newTag]);
 
+    const _setNewTag = (e: ChangeEvent<HTMLInputElement>) => setNewTag(e.target.value);
     const addNewTag = () => {
         if (blockAddButton) return;
-        updateData("tags", [...data.tags, newTag]);
+        props.landmark.changeProperty("tags", [...currentTags, newTag]);
         setNewTag("");
     };
     const deleteTag = (indexToDelete: number) => {
-        updateData(
+        props.landmark.changeProperty(
             "tags",
-            data.tags.filter((_, index: number) => index !== indexToDelete)
+            currentTags.filter((_, index: number) => index !== indexToDelete)
         );
     };
 
@@ -43,7 +42,7 @@ const Tags: FunctionComponent<TagsProps> = (props) => {
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
                 {props.children}
                 <Box>
-                    {props.data.tags.map((tag, index) => {
+                    {currentTags.map((tag, index) => {
                         return (
                             <Chip
                                 key={index} //
@@ -62,7 +61,7 @@ const Tags: FunctionComponent<TagsProps> = (props) => {
                     value={newTag}
                     label="New tag"
                     onChange={_setNewTag}
-                    disabled={data.tags.length >= 3}
+                    disabled={currentTags.length >= 3}
                     inputProps={{ tabIndex: props.tabIndex, maxLength: limitLength }}
                     FormHelperTextProps={{ sx: { textAlign: "right" } }}
                     error={newTag.length > limitLength}

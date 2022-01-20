@@ -42,7 +42,7 @@ const LandmarkDescription = styled(Typography)(({ theme }) => ({
 }));
 
 interface PreviewModeProps {
-    data: Landmark;
+    landmark: Landmark;
     tabIndex: number;
 }
 
@@ -52,31 +52,31 @@ const PreviewMode: FunctionComponent<PreviewModeProps> = (props) => {
     return (
         <Fade in={true}>
             <Box className={styles["single-destination"]} sx={{ pb: 2 }}>
-                <LandmarkMainTitle variant="h4">{props.data.title}</LandmarkMainTitle>
+                <LandmarkMainTitle variant="h4">{props.landmark.title}</LandmarkMainTitle>
 
                 <Box sx={{ px: 2 }}>
-                    <Tag label={props.data.type} color="primary"></Tag>
+                    <Tag label={props.landmark.type} color="primary"></Tag>
 
-                    {props.data.tags.map((tag, index) => {
+                    {props.landmark.tags.map((tag, index) => {
                         return <Tag key={index} label={tag}></Tag>;
                     })}
                 </Box>
 
                 <Box sx={{ width: "100%", flexGrow: 1, my: 2, position: "relative" }}>
                     {(() => {
-                        if (props.data.pictureURL) {
+                        if (props.landmark.pictureURL) {
                             return (
                                 <>
-                                    <ImageModal open={{ value: openModal, setValue: setOpenModal }} imageURL={props.data.pictureURL}></ImageModal>
+                                    <ImageModal open={{ value: openModal, setValue: setOpenModal }} imageURL={props.landmark.pictureURL}></ImageModal>
 
                                     <ImageControls
-                                        url={props.data.picture} //
+                                        url={props.landmark.picture} //
                                         tabIndex={props.tabIndex}
                                         openModal={() => setOpenModal(true)}
                                     ></ImageControls>
 
                                     <Image
-                                        src={props.data.pictureURL} //
+                                        src={props.landmark.pictureURL} //
                                         alt="picture"
                                         layout="fill"
                                         objectFit="cover"
@@ -90,7 +90,7 @@ const PreviewMode: FunctionComponent<PreviewModeProps> = (props) => {
                     })()}
                 </Box>
 
-                <LandmarkDescription variant="body1">{props.data.description}</LandmarkDescription>
+                <LandmarkDescription variant="body1">{props.landmark.description}</LandmarkDescription>
             </Box>
         </Fade>
     );

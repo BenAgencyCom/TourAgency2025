@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { FunctionComponent } from "react";
 import type { Landmark } from "@/@types/Landmark";
 import type { StatedDataField } from "@/@types/StagedDataField";
+import { ListItem } from "@/@types/redux";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -10,16 +11,13 @@ import Card from "@mui/material/Card";
 import PreviewMode from "./PreviewMode";
 import EditMode from "./EditMode";
 import Actions from "./action/Actions";
-// Redux
-import { useAppDispatch } from "@/redux/hooks";
-import { deleteItem } from "@/redux/slices/landmarks";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 
 interface SingleLandmarkProps {
     currentSlideIndex: number;
     index: number;
-    data: { id: string } & Landmark;
+    landmark: ListItem<Landmark>;
     isValid: boolean;
     sx?: Record<string, unknown>;
     hideNavigation: StatedDataField<boolean>;
@@ -27,12 +25,11 @@ interface SingleLandmarkProps {
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
-    const dispatch = useAppDispatch();
     const [previewMode, setPreviewMode] = useState<boolean>(false);
     const tabIndex = props.currentSlideIndex === props.index ? 1 : -1;
 
     const deleteThisLandmark = () => {
-        dispatch(deleteItem({ itemToDelete: props.data }));
+        props.landmark.remove();
         props.goToPreviousSlide();
     };
 
@@ -52,14 +49,14 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                     if (previewMode) {
                         return (
                             <PreviewMode
-                                data={props.data} //
+                                landmark={props.landmark.data} //
                                 tabIndex={tabIndex}
                             ></PreviewMode>
                         );
                     } else {
                         return (
                             <EditMode
-                                data={props.data} //
+                                landmark={props.landmark} //
                                 tabIndex={tabIndex}
                             ></EditMode>
                         );

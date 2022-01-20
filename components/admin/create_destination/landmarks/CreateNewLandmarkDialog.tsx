@@ -12,8 +12,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 // Redux
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { addItem } from "@/redux/slices/landmarks";
+import { useAppSelector } from "@/redux/hooks";
+import { helpers } from "@/redux/slices/landmarks";
 
 interface AddNewLandmarkDialogProps {
     openDialog: StatedDataField<boolean>;
@@ -22,7 +22,7 @@ interface AddNewLandmarkDialogProps {
 
 const AddNewLandmarkDialog: FunctionComponent<AddNewLandmarkDialogProps> = (props) => {
     const landmarks = useAppSelector((state) => state.landmarks.list);
-    const dispatch = useAppDispatch();
+    const { addItem } = helpers;
 
     const [landmarkTitle, setLandmarkTitle] = useState<string>("");
 
@@ -32,13 +32,13 @@ const AddNewLandmarkDialog: FunctionComponent<AddNewLandmarkDialogProps> = (prop
     const titleIsValid = useMemo<boolean>(() => {
         if (props.openDialog.value === false) return false;
 
-        if (landmarks.map((target) => target.title).includes(landmarkTitle)) return false;
+        if (landmarks.map((target) => target.data.title).includes(landmarkTitle)) return false;
         return landmarkTitle.length >= 3 && landmarkTitle.length <= 50;
     }, [landmarkTitle, landmarks, props.openDialog.value]);
 
     const addNewLandmark = () => {
         if (!titleIsValid) return;
-        dispatch(addItem({ title: landmarkTitle }));
+        addItem({ title: landmarkTitle });
 
         setLandmarkTitle("");
         closeDialog();

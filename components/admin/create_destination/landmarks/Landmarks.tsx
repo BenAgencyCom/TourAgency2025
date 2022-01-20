@@ -52,7 +52,7 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
     );
 
     const validationResults = useMemo<boolean[]>(() => {
-        return landmarks.map((landmark) => validateSingleLandmark()(landmark));
+        return landmarks.map((landmark) => validateSingleLandmark()(landmark.data));
     }, [landmarks, validateSingleLandmark]);
     //
     // Update the array of landmarks
@@ -96,7 +96,7 @@ const Landmarks: FunctionComponent<LandmarksInterface> = (props) => {
                                 index={index}
                                 currentSlideIndex={currentSlideIndex}
                                 isValid={validationResults[index]}
-                                data={landmark}
+                                landmark={landmark}
                                 hideNavigation={{ value: hideNavigation, setValue: setHideNavigation }}
                                 goToPreviousSlide={() => selectSlide(currentSlideIndex - 1)}
                             ></SingleLandmark>

@@ -16,8 +16,8 @@ interface CreateSliceParams<ArrayItem, CustomState> {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default <
     ArrayItem, //
-    CustomState extends Record<string, unknown>,
-    CustomActions extends Record<string, unknown>
+    CustomState extends Record<string, unknown> = {},
+    CustomActions extends Record<string, unknown> = {}
 >(
     sliceParams: CreateSliceParams<ArrayItem, CustomState>
 ) => {
