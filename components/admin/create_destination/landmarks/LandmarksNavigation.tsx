@@ -12,7 +12,7 @@ import Fade from "@mui/material/Fade";
 import Done from "@mui/icons-material/Done";
 import Close from "@mui/icons-material/Close";
 // Redux
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface LandmarksNavigationProps {
     currentSlideIndex: number;
@@ -69,7 +69,7 @@ const LandmarksNavigation: FunctionComponent<LandmarksNavigationProps> = (props)
                                 onChange={(e: any) => selectSlide(e)}
                                 sx={{ width: "320px" }} //
                             >
-                                {landmarks.map((landmark: Landmark, index: number) => {
+                                {landmarks.map((landmark, index: number) => {
                                     return (
                                         <MenuItem value={index} key={index} sx={(theme) => backgroundColor(index, theme)}>
                                             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -77,7 +77,7 @@ const LandmarksNavigation: FunctionComponent<LandmarksNavigationProps> = (props)
                                                     if (landmarkIsValid(index)) return <Done sx={{ mr: 1 }}></Done>;
                                                     else return <Close sx={{ mr: 1 }}></Close>;
                                                 })()}
-                                                <span>{landmark.title}</span>
+                                                <span>{landmark.data.title}</span>
                                             </Box>
                                         </MenuItem>
                                     );

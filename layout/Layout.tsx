@@ -14,7 +14,7 @@ import styles from "@/sass/layout.module.sass";
 import { useRouter } from "next/router";
 import { authenticateToken, getUserData } from "@/utils/client/authenticate";
 // Redux
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { setAuthentication, getUserFromLocalStorage, setUserData } from "@/redux/slices/authentication";
 import { resize } from "@/redux/slices/windowSizes";
 

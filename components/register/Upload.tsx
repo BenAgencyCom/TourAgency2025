@@ -17,7 +17,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import RocketLaunch from "@mui/icons-material/RocketLaunch";
 // Redux
 import { setAuthentication } from "@/redux/slices/authentication";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch } from "@/hooks/useRedux";
 // Styles
 import styles from "@/sass/pages/register.module.sass";
 

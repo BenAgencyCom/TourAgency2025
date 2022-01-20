@@ -3,7 +3,6 @@ import { useState, useMemo } from "react";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { StatedDataField } from "@/@types/StagedDataField";
-import type { Landmark } from "@/@types/Landmark";
 // Material UI Components
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -12,7 +11,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 // Redux
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/hooks/useRedux";
 import { helpers } from "@/redux/slices/landmarks";
 
 interface AddNewLandmarkDialogProps {

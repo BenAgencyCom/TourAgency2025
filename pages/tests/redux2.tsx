@@ -8,7 +8,7 @@ import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 // Redux
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { actions, helpers } from "@/redux/slices/tests";
 
 const Redux2: FunctionComponent = () => {

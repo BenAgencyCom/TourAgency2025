@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
 
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface BackgroundCountryNameParams {
     countryName: string;

@@ -19,7 +19,7 @@ import Euro from "@mui/icons-material/Euro";
 import styles from "@/sass/indexPage/indexPage.module.sass";
 import colors from "@/sass/variables.module.sass";
 // Redux
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/hooks/useRedux";
 
 const CurrentDestinationInfo: FunctionComponent<{ currentDestination: TravelDestination }> = ({ currentDestination }) => {
     const width = useAppSelector((state) => state.windowSizes.width);

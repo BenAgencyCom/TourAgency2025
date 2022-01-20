@@ -18,7 +18,7 @@ import LandmarksNavigation from "@/components/admin/create_destination/landmarks
 import CreateNewLandmarkDialog from "@/components/admin/create_destination/landmarks/CreateNewLandmarkDialog";
 import Slider from "react-slick";
 // Redux
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/hooks/useRedux";
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 

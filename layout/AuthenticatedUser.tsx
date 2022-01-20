@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useMemo } from "react";
 // Types
 import type { FunctionComponent } from "react";
 import type { UserData } from "@/redux/slices/authentication";
@@ -13,7 +12,7 @@ import Logout from "@mui/icons-material/Logout";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
 import { setUserData, setAuthentication } from "@/redux/slices/authentication";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 
 const AuthenticatedUser: FunctionComponent<{ buttonStyles: Record<string, unknown> }> = ({ buttonStyles }) => {
     const userData = useAppSelector((state) => state.authentication.userData) as UserData;

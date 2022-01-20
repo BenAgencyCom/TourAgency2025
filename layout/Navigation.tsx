@@ -18,7 +18,7 @@ import Close from "@mui/icons-material/Close";
 const LoginAndRegister = dynamic(() => import("./LoginAndRegister"));
 const AuthenticatedUser = dynamic(() => import("./AuthenticatedUser"));
 // Redux
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/hooks/useRedux";
 // Styles
 import styles from "@/sass/layout.module.sass";
 

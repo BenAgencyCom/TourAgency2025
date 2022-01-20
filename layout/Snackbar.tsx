@@ -7,7 +7,7 @@ import Tooltip from "@mui/material/Tooltip";
 // Material UI Icons
 import Close from "@mui/icons-material/Close";
 // Redux
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { closeSnackbar } from "@/redux/slices/snackbar";
 
 const AppSnackbar: FunctionComponent<{}> = () => {

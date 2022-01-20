@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 // Material UI Icons
 
 // Redux
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/hooks/useRedux";
 // Styles
 import styles from "@/sass/indexPage/indexPage.module.sass";
 

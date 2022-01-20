@@ -27,7 +27,7 @@ import Splitted from "./body/Splitted";
 import ControlHeader from "./SingleContentFieldControlHeader";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch } from "@/hooks/useRedux";
 
 const CustomCard = styled(Card)(({ theme }: { theme: Theme }) => ({
     color: "text.primary", //

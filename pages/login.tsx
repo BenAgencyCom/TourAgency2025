@@ -22,7 +22,7 @@ import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch } from "@/hooks/useRedux";
 import { setAuthentication } from "@/redux/slices/authentication";
 // Styles
 import styles from "@/sass/pages/register.module.sass";
