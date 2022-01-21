@@ -59,8 +59,9 @@ export interface ListActions<ArrayItem> extends SliceCaseReducers<ListState<Arra
     _addItem: CaseReducer<
         ListState<ArrayItem>,
         PayloadAction<{
-            newItemData: Partial<Draft<Partial<ArrayItem>>>;
+            newItemData: Partial<ArrayItem> | ArrayItem;
             actions: CreatedActions<ArrayItem>;
+            explicit?: boolean;
         }>
     >;
 }

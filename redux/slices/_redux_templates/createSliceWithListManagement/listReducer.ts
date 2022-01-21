@@ -23,15 +23,18 @@ export default <ArrayItem>(
         },
         actions: {
             _addItem: (state, action) => {
-                const { newItemData, actions } = action.payload;
-                const newArrayItem: ArrayItem = Object.assign({}, blankItem);
-                // Distinguish and extract all optionally provided properties and then apply them
-                const blankItemKeys = Object.keys(newArrayItem);
-                for (const key in newItemData) {
-                    if (blankItemKeys.includes(key)) (newArrayItem as any)[key] = newItemData[key];
+                const { newItemData, actions, explicit } = action.payload;
+                if (!explicit) {
+                    const newArrayItem: ArrayItem = Object.assign({}, blankItem);
+                    // Distinguish and extract all optionally provided properties and then apply them
+                    const blankItemKeys = Object.keys(newArrayItem);
+                    for (const key in newItemData as Partial<ArrayItem>) {
+                        if (blankItemKeys.includes(key)) (newArrayItem as any)[key] = newItemData[key];
+                    }
+                    state.list.push(new ListItem(newArrayItem, actions) as unknown as Draft<ListItem<ArrayItem>>);
+                } else {
+                    state.list.push(new ListItem(newItemData as ArrayItem, actions) as unknown as Draft<ListItem<ArrayItem>>);
                 }
-
-                state.list.push(new ListItem(newArrayItem, actions) as unknown as Draft<ListItem<ArrayItem>>);
             },
             replaceItemInList: (state, action) => {
                 const { newData, itemToReplace } = action.payload;
