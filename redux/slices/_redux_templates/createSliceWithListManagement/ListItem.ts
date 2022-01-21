@@ -8,7 +8,7 @@ export interface ListItemInterface<T> {
     changeProperty: (propertyToUpdate: keyof T, newValue: T[typeof propertyToUpdate]) => void;
     replace: (newData: T) => void;
     remove: () => void;
-    swapWith: (elementToBeSwapped: ListItem<T>) => void;
+    swapWith: (elementToBeSwappedWith: ListItem<T>) => void;
 }
 
 class ListItem<T extends Record<string, any>> implements ListItemInterface<T> {
@@ -40,19 +40,11 @@ class ListItem<T extends Record<string, any>> implements ListItemInterface<T> {
     public remove() {
         store.dispatch(this.actions.deleteItemFromList(this));
     }
-    public swapWith(elementToBeSwapped: ListItem<T>) {
-        const swappedData = JSON.parse(JSON.stringify(elementToBeSwapped.data));
-        const originalData = JSON.parse(JSON.stringify(this.data));
+    public swapWith(elementToBeSwappedWith: ListItem<T>) {
         store.dispatch(
-            this.actions.replaceItemInList({
-                itemToReplace: elementToBeSwapped,
-                newData: originalData,
-            })
-        );
-        store.dispatch(
-            this.actions.replaceItemInList({
-                itemToReplace: this,
-                newData: swappedData,
+            this.actions.swapTwoItemsInList({
+                first: this,
+                second: elementToBeSwappedWith,
             })
         );
     }

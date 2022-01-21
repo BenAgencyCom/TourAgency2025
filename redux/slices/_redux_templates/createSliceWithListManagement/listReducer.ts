@@ -5,6 +5,10 @@ import type { Draft } from "@reduxjs/toolkit";
 export interface ListState<ArrayItem> {
     list: ListItem<ArrayItem>[];
 }
+type NeccessaryInformationToHandleSwap<ArrayItem> = {
+    id: string;
+    data: ArrayItem;
+};
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default <ArrayItem>(
@@ -50,6 +54,28 @@ export default <ArrayItem>(
                 const { id } = action.payload;
                 state.list = state.list.filter((item) => {
                     return id !== item.id;
+                });
+            },
+            swapTwoItemsInList: (state, action) => {
+                const { first, second } = action.payload;
+                const firstObject: NeccessaryInformationToHandleSwap<ArrayItem> = {
+                    data: Object.assign({}, second.data),
+                    id: first.id,
+                };
+                const secondObject: NeccessaryInformationToHandleSwap<ArrayItem> = {
+                    data: Object.assign({}, first.data),
+                    id: second.id,
+                };
+                state.list = state.list.map((target) => {
+                    if (target.id === firstObject.id) {
+                        target.data = secondObject.data as Draft<ArrayItem>;
+                        target.id = secondObject.id;
+                    } else if (target.id === secondObject.id) {
+                        target.data = firstObject.data as Draft<ArrayItem>;
+                        target.id = firstObject.id;
+                    }
+
+                    return target;
                 });
             },
         },

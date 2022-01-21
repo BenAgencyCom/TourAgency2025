@@ -37,15 +37,13 @@ export default <
             ...sliceParams.customActions,
         } as any,
     });
-    // Actions for export:
-    const { updateMsg } = slice.actions;
     // Actions for helpers:
-    const { changeItemInList, replaceItemInList, deleteItemFromList, _addItem } = slice.actions;
+    const { changeItemInList, replaceItemInList, deleteItemFromList, swapTwoItemsInList, _addItem, ...rest } = slice.actions;
 
     const addItem = (newItemData: Partial<ArrayItem>) => {
         store.dispatch(
             (_addItem as any)({
-                actions: { changeItemInList, deleteItemFromList, replaceItemInList },
+                actions: { changeItemInList, deleteItemFromList, replaceItemInList, swapTwoItemsInList },
                 newItemData: newItemData,
             })
         );
@@ -53,7 +51,7 @@ export default <
 
     return {
         reducer: slice.reducer,
-        actions: { updateMsg },
+        actions: rest,
         helpers: { addItem },
     };
 };

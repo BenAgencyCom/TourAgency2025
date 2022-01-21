@@ -22,6 +22,10 @@ export interface CreatedActions<ArrayItem> {
         newData: ArrayItem;
     }>;
     deleteItemFromList: ActionCreatorWithPayload<ListItem<ArrayItem>>;
+    swapTwoItemsInList: ActionCreatorWithPayload<{
+        first: ListItem<ArrayItem>; //
+        second: ListItem<ArrayItem>;
+    }>;
 }
 //
 export interface ListActions<ArrayItem> extends SliceCaseReducers<ListState<ArrayItem>> {
@@ -43,6 +47,13 @@ export interface ListActions<ArrayItem> extends SliceCaseReducers<ListState<Arra
     deleteItemFromList: CaseReducer<
         ListState<ArrayItem>, //
         PayloadAction<ListItem<ArrayItem>>
+    >;
+    swapTwoItemsInList: CaseReducer<
+        ListState<ArrayItem>, //
+        PayloadAction<{
+            first: ListItem<ArrayItem>;
+            second: ListItem<ArrayItem>;
+        }>
     >;
     //
     _addItem: CaseReducer<
