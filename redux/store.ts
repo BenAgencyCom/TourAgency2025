@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import authenticationSlice from "./slices/authentication";
-import snackbarSlice from "./slices/snackbar";
-import landmarksReducer from "./slices/create_destination/landmarks";
-import windowSizes from "./slices/windowSizes";
-import testsReducer from "./slices/tests";
+import authenticationSlice from "@/redux/slices/authentication";
+import snackbarSlice from "@/redux/slices/snackbar";
+import windowSizes from "@/redux/slices/windowSizes";
+import testsReducer from "@/redux/slices/tests";
+// Create destination
+import landmarksReducer from "@/redux/slices/create_destination/landmarks";
+import destinationReducer from "@/redux/slices/create_destination/description";
 
 const store = configureStore({
     middleware: (getDefaultMiddleware) =>
@@ -17,6 +19,7 @@ const store = configureStore({
         windowSizes: windowSizes.reducer,
         landmarks: landmarksReducer,
         tests: testsReducer,
+        description: destinationReducer,
     },
 });
 

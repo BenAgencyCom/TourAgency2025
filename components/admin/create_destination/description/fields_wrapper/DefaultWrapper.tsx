@@ -2,10 +2,11 @@
 import { useState, useEffect } from "react";
 import useLayoutEffect from "@/hooks/useLayoutEffect";
 // Types
+import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ReactNode, MutableRefObject } from "react";
 import type { DroppableProvided, DropResult } from "react-beautiful-dnd";
 import type { StatedDataField } from "@/@types/StagedDataField";
-import type { DraggableDestinationContentField } from "@/@types/DestinationDescription";
+import type { DestinationContentField } from "@/@types/DestinationDescription";
 // Material UI Icons
 import Box from "@mui/material/Box";
 // Other components
@@ -16,7 +17,7 @@ import { useAppSelector } from "@/hooks/useRedux";
 interface DefaultWrapperProps {
     wrapper: MutableRefObject<HTMLElement | null>;
     children: ReactNode;
-    description: StatedDataField<DraggableDestinationContentField[]>;
+    amountOfContentFields: number;
     _scrollableKey: number;
     onDragEnd: (res: DropResult) => void;
 }
@@ -31,7 +32,7 @@ const DefaultWrapper: FunctionComponent<DefaultWrapperProps> = (props) => {
         setScrollable(contentItemsTotalHeight > props.wrapper.current.offsetHeight);
     };
     useEffect(() => handleScrollableSetting());
-    useLayoutEffect(handleScrollableSetting, [props.wrapper, props.description.value.length, props._scrollableKey, height]);
+    useLayoutEffect(handleScrollableSetting, [props.wrapper, props.amountOfContentFields, props._scrollableKey, height]);
 
     return (
         <DragDropContext onDragEnd={props.onDragEnd}>

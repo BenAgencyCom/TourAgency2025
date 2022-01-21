@@ -62,11 +62,11 @@ export default <ArrayItem>(
             swapTwoItemsInList: (state, action) => {
                 const { first, second } = action.payload;
                 const firstObject: NeccessaryInformationToHandleSwap<ArrayItem> = {
-                    data: Object.assign({}, second.data),
+                    data: Object.assign({}, first.data),
                     id: first.id,
                 };
                 const secondObject: NeccessaryInformationToHandleSwap<ArrayItem> = {
-                    data: Object.assign({}, first.data),
+                    data: Object.assign({}, second.data),
                     id: second.id,
                 };
                 state.list = state.list.map((target) => {

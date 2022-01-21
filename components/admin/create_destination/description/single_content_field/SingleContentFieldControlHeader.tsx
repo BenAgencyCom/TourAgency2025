@@ -3,9 +3,10 @@ import { styled } from "@mui/system";
 import { useState } from "react";
 import stated from "@/utils/client/stated";
 // Types
+import { ListItem } from "@/@types/redux";
 import type { FunctionComponent } from "react";
 import { FieldType } from "@/@types/DestinationDescription";
-import type { DraggableDestinationContentField } from "@/@types/DestinationDescription";
+import type { DestinationContentField, SplittedContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -24,16 +25,30 @@ const Wrapper = styled(Box)({
 });
 
 interface SingleContentFieldControlHeaderProps {
-    data: DraggableDestinationContentField;
+    field: ListItem<DestinationContentField>;
     blockDeleting: boolean;
     handleDeletion: () => void;
     updateType: (newType: FieldType) => void;
-    swap: () => void;
+    refresh: () => void;
 }
 
 const SingleContentFieldControlHeader: FunctionComponent<SingleContentFieldControlHeaderProps> = (props) => {
     const [changeTypeDialog, setChangeTypeDialog] = useState<boolean>(false);
     const [deleteConfirmationDialog, setDeleteConfirmationDialog] = useState<boolean>(false);
+
+    const { type: currentType } = props.field.data;
+
+    const swapLeftWithRight = () => {
+        if (currentType === FieldType.SPLITTED) {
+            const { left, right, ...rest } = props.field.data as SplittedContentField;
+            props.field.replace({
+                left: right,
+                right: left,
+                ...rest,
+            });
+            props.refresh();
+        }
+    };
 
     return (
         <>
@@ -41,7 +56,7 @@ const SingleContentFieldControlHeader: FunctionComponent<SingleContentFieldContr
             <ChangeTypeDialog
                 openDialog={stated<boolean>(changeTypeDialog, setChangeTypeDialog)} //
                 updateType={props.updateType}
-                currentType={props.data.type}
+                currentType={currentType}
             ></ChangeTypeDialog>
             <DeleteConfirmationDialog
                 openDialog={stated<boolean>(deleteConfirmationDialog, setDeleteConfirmationDialog)} //
@@ -50,15 +65,15 @@ const SingleContentFieldControlHeader: FunctionComponent<SingleContentFieldContr
 
             {/* ACTUAL CONTENT */}
             <Wrapper component="header">
-                <Typography variant="h6"> {FieldType[props.data.type]}</Typography>
+                <Typography variant="h6"> {FieldType[currentType]}</Typography>
                 <Box>
                     {(() => {
-                        if (props.data.type === FieldType.SPLITTED) {
+                        if (currentType === FieldType.SPLITTED) {
                             return (
                                 <Button
                                     sx={{ mx: 1 }} //
                                     variant="outlined"
-                                    onClick={props.swap}
+                                    onClick={swapLeftWithRight}
                                 >
                                     Swap
                                 </Button>

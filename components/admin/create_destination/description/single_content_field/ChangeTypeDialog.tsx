@@ -17,7 +17,7 @@ import SelectFromEnum from "@/components/_utils/SelectFromEnum";
 interface ChangeTypeDialogProps {
     currentType: FieldType;
     openDialog: StatedDataField<boolean>;
-    updateType: (newTitle: FieldType) => void;
+    updateType: (newTitle: FieldType.PARAGRAPH | FieldType.IMAGE) => void;
     excludeFromTypes?: unknown[];
 }
 
@@ -41,7 +41,7 @@ const ChangeTypeDialog: FunctionComponent<ChangeTypeDialogProps> = (props) => {
                 <Button
                     variant="contained"
                     disabled={props.currentType === newType} //
-                    onClick={() => props.updateType(newType)}
+                    onClick={() => props.updateType(newType as FieldType.PARAGRAPH | FieldType.IMAGE)}
                 >
                     Confirm
                 </Button>

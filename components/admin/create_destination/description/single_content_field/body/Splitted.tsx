@@ -1,50 +1,49 @@
 // Tools
-import { useState } from "react";
 import { styled } from "@mui/system";
 // Types
+import { ListItem } from "@/@types/redux";
 import type { Restriction } from "@/@types/Restriction";
 import type { FunctionComponent } from "react";
-import type { DraggableSplittedContentField, SplittedSubfieldField } from "@/@types/DestinationDescription";
+import type { SplittedContentField } from "@/@types/DestinationDescription";
 // Material UI Icons
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 // Other components
 import SpliitedSubField from "./_SplittedSubField";
 // Styled components
-const SplittedContentField = styled(Box)({
+const SplittedContentFieldBox = styled(Box)({
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
 });
 
 interface SplittedBodyProps {
-    data: DraggableSplittedContentField;
+    field: ListItem<SplittedContentField>;
     fullscreen: boolean;
     restrictions: Restriction;
-    updateSingleProp: (prop: keyof DraggableSplittedContentField, val: DraggableSplittedContentField[typeof prop]) => void;
 }
 
 const SplittedBody: FunctionComponent<SplittedBodyProps> = (props) => {
-    const updateSubField = (subfield: "left" | "right", data: DraggableSplittedContentField[typeof subfield]) => {
-        props.updateSingleProp(subfield, data);
+    const updateSubField = (subfield: "left" | "right", data: SplittedContentField[typeof subfield]) => {
+        props.field.changeProperty(subfield, data);
     };
 
     return (
-        <SplittedContentField>
+        <SplittedContentFieldBox>
             <SpliitedSubField
-                data={props.data["left"]} //
+                data={props.field.data["left"]} //
                 fullscreen={props.fullscreen}
-                updateSubField={(data: DraggableSplittedContentField["left"]) => updateSubField("left", data)}
+                updateSubField={(data: SplittedContentField["left"]) => updateSubField("left", data)}
             ></SpliitedSubField>
 
             <Divider flexItem sx={{ mx: 2 }} orientation="vertical"></Divider>
 
             <SpliitedSubField
-                data={props.data["right"]} //
+                data={props.field.data["right"]} //
                 fullscreen={props.fullscreen}
-                updateSubField={(data: DraggableSplittedContentField["right"]) => updateSubField("right", data)}
+                updateSubField={(data: SplittedContentField["right"]) => updateSubField("right", data)}
             ></SpliitedSubField>
-        </SplittedContentField>
+        </SplittedContentFieldBox>
     );
 };
 

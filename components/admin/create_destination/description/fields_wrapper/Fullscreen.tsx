@@ -1,11 +1,9 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
-import { FieldType } from "@/@types/DestinationDescription";
 import type { FunctionComponent, ReactNode } from "react";
 import type { DroppableProvided, DropResult } from "react-beautiful-dnd";
 import type { StatedDataField } from "@/@types/StagedDataField";
-import type { DraggableDestinationContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -30,13 +28,8 @@ const CustomDialogContent = styled(DialogContent)(({ theme }) => ({
 
 interface FullscreenWrapperProps {
     children: ReactNode;
-    description: StatedDataField<DraggableDestinationContentField[]>;
-    _scrollableKey: number;
     fullscreen: StatedDataField<boolean>;
     onDragEnd: (res: DropResult) => void;
-    // For header
-    newContentFieldType: StatedDataField<FieldType>;
-    addNewContentField: () => void;
 }
 
 const FullscreenWrapper: FunctionComponent<FullscreenWrapperProps> = (props) => {
@@ -45,7 +38,7 @@ const FullscreenWrapper: FunctionComponent<FullscreenWrapperProps> = (props) => 
     return (
         <Dialog open={props.fullscreen.value} onClose={closeDialog} maxWidth="lg" fullWidth={true}>
             <CustomDialogTitle>
-                <DescriptionHeader data={props.description.value} addNewContentField={props.addNewContentField} newContentFieldType={props.newContentFieldType} setFullscreen={false}>
+                <DescriptionHeader setFullscreen={false}>
                     <Button variant="contained" onClick={() => props.fullscreen.setValue(false)}>
                         Close
                     </Button>

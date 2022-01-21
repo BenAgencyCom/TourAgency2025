@@ -18,6 +18,8 @@ import ImageBody from "./Image";
 import ChangeTypeDialog from "@/components/admin/create_destination/description/single_content_field/ChangeTypeDialog";
 // Material UI Icons
 import Settings from "@mui/icons-material/Settings";
+// Redux
+import { helpers } from "@/redux/slices/create_destination/description";
 
 const SplittedSubfieldHeader = styled(Box)({
     display: "flex", //
@@ -42,20 +44,9 @@ const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
         props.updateSubField(newData);
     };
 
-    const updateType = (newType: FieldType) => {
+    const updateType = (newType: FieldType.PARAGRAPH | FieldType.IMAGE) => {
         setOpenChangeTypeDialog(false);
-        if (newType === FieldType.PARAGRAPH) {
-            props.updateSubField({
-                type: newType,
-                content: "",
-            });
-        } else if (newType === FieldType.IMAGE) {
-            props.updateSubField({
-                type: newType,
-                src: null,
-                url: null,
-            });
-        }
+        props.updateSubField(helpers.createContentField(newType) as SplittedSubfieldField);
     };
 
     return (
@@ -84,7 +75,7 @@ const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
                             return (
                                 <ParagraphBody
                                     split
-                                    data={props.data as ParagraphContentField}
+                                    content={props.data.content}
                                     fullscreen={props.fullscreen}
                                     updateSingleProp={(prop: keyof ParagraphContentField, val: ParagraphContentField[typeof prop]) => {
                                         return updateSinglePropOfSubfield<ParagraphContentField>(prop, val);
@@ -95,7 +86,7 @@ const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
                         case FieldType.IMAGE:
                             return (
                                 <ImageBody
-                                    data={props.data as ImageContentField}
+                                    url={props.data.url as string}
                                     fullscreen={props.fullscreen}
                                     updateSingleProp={(prop: keyof ImageContentField, val: ImageContentField[typeof prop]) => {
                                         return updateSinglePropOfSubfield<ImageContentField>(prop, val);

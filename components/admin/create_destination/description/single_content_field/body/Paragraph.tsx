@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { lengthRestrictionMessage, validateLength } from "@/utils/client/lenghRestrictionHelpers";
 // Types
+import { ListItem } from "@/@types/redux";
 import type { Theme } from "@mui/system";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { Restriction } from "@/@types/Restriction";
@@ -11,18 +12,22 @@ import TextField from "@mui/material/TextField";
 
 interface ParagraphBodyProps {
     fullscreen: boolean;
-    data: ParagraphContentField;
+    field?: ListItem<ParagraphContentField>;
     restrictions: Restriction;
+    // Only for splitted subfields
     split?: true;
-    updateSingleProp: (prop: keyof ParagraphContentField, val: ParagraphContentField[typeof prop]) => void;
+    updateSingleProp?: (prop: keyof ParagraphContentField, val: ParagraphContentField[typeof prop]) => void;
+    content?: string;
 }
 
 const ParagraphBody: FunctionComponent<ParagraphBodyProps> = (props) => {
-    const [newContent, setNewContent] = useState<string>(props.data.content);
+    const [newContent, setNewContent] = useState<string>(props.field ? props.field.data.content : (props.content as string));
     const [invalid, setInvalid] = useState<boolean>(false);
 
     const onBlur = () => {
-        props.updateSingleProp("content", newContent);
+        if (props.field) props.field.changeProperty("content", newContent);
+        else if (props.updateSingleProp) props.updateSingleProp("content", newContent);
+
         setInvalid(validateLength(newContent, props.restrictions));
     };
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {

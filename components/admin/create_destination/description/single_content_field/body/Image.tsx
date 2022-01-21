@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { styled } from "@mui/system";
 // Types
+import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { ImageContentField } from "@/@types/DestinationDescription";
 // Material UI Components
@@ -14,9 +15,9 @@ import ImageModal from "@/components/_utils/ImageModal";
 
 interface ImageBodyProps {
     fullscreen: boolean;
-    data: ImageContentField;
-    split?: true;
+    url: string | null;
     updateSingleProp: (prop: keyof ImageContentField, val: ImageContentField[typeof prop]) => void;
+    split?: true;
 }
 
 const Image = styled("img")({
@@ -56,12 +57,12 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
             <input type="file" ref={fileInput} style={{ display: "none" }} accept="image/*" onChange={onFileInputChange} />
 
             {(() => {
-                if (props.data.url) {
+                if (props.url) {
                     return (
                         <>
-                            <ImageModal open={{ value: openModal, setValue: setOpenModal }} imageURL={props.data.url}></ImageModal>
+                            <ImageModal open={{ value: openModal, setValue: setOpenModal }} imageURL={props.url}></ImageModal>
                             <Image
-                                src={props.data.url} //
+                                src={props.url} //
                                 alt="image"
                             ></Image>
                         </>
@@ -79,7 +80,7 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
             <ImageControls
                 openModal={() => setOpenModal(true)} //
                 openFileSelectDialog={openFileSelectDialog}
-                url={props.data.url}
+                url={props.url}
             ></ImageControls>
         </Box>
     );

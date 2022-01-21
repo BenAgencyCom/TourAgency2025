@@ -2,7 +2,7 @@ import createBetterSlice from "@/redux/slices/_redux_templates/createSliceWithLi
 import { Landmark } from "@/@types/Landmark";
 
 const { reducer, actions, helpers } = createBetterSlice<Landmark>({
-    name: "test",
+    name: "landmarks",
     listBlankItem: {
         title: "",
         description: "",

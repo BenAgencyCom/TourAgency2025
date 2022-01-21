@@ -7,7 +7,6 @@ import type { GetServerSideProps } from "next";
 import type { FunctionComponent } from "react";
 import type { Continent } from "@prisma/client";
 import type { CountryType } from "@/data/countries";
-import type { DraggableDestinationContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other Components
@@ -25,7 +24,7 @@ import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
 import backgroundImage from "@/public/images/admin/add_destination/bgc.jpg";
 
 const CreateDestinatinon: FunctionComponent<{}> = () => {
-    const [stepperIndex, setStepperIndex] = useState<number>(2);
+    const [stepperIndex, setStepperIndex] = useState<number>(3);
 
     const [city, setCity] = useState<string>("Warsaw");
     const [country, setCountry] = useState<CountryType | null>({ code: "PL", label: "Poland", phone: "48" });
@@ -33,24 +32,6 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
     const [quickDescription, setQuickDescription] = useState<string>("Lorem ipsum – tekst składający się z łacińskich i quasi-łacińskich wyrazów, mający korzenie w klasycznej łacinie");
     const [population, setPopulation] = useState<string>("1 200 000");
     const [thumbnail, setThumbnail] = useState<File | null>(null);
-    const [description, setDescription] = useState<DraggableDestinationContentField[]>([
-        {
-            id: "3",
-            type: 2,
-            src: null,
-            url: "",
-        },
-        {
-            id: "1",
-            type: 0,
-            header: "Lorem, ipsum dolor sit amet consectetur adipisicin",
-        },
-        {
-            id: "2",
-            type: 1,
-            content: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore illo quos minus sequi inventore, maxime vitae suscipit, rerum iure qui optio in numquam praesentium magni aliquid libero magnam, nulla vero. A, reiciendis! Non deserunt assumenda dolor! Sunt eius quae consequatur laborum ratione non explicabo quis, delectus totam assumenda sequi vel obcaecati beatae ipsum repudiandae quisquam rerum expedita nam quidem provident! Adipisci consequuntur nobis dicta deleniti rem, voluptatem cum dignissimos autem eius aspernatur similique ducimus distinctio laudantium ullam quibusdam est voluptates repellat accusantium! Quos non ea cum alias deleniti neque dolore? Ipsum obcaecati laborum incidunt eaque ratione neque facere aliquam, reprehenderit consectetur dicta expedita explicabo dignissimos? Vel illum, voluptatem accusamus laboriosam aut neque assumenda inventore incidunt, placeat vero id recusandae ipsam!`,
-        },
-    ]);
 
     const buttonStyles = { my: 1 };
 
@@ -104,9 +85,7 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                         } else if (stepperIndex === 3) {
                             return (
                                 <Description
-                                    description={stated<DraggableDestinationContentField[]>(description, setDescription)}
-                                    // Auxiliary
-                                    buttonStyles={buttonStyles}
+                                    buttonStyles={buttonStyles} //
                                     stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
                                 ></Description>
                             );

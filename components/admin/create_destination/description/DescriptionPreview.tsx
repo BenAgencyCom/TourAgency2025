@@ -1,5 +1,4 @@
 // Tools
-import stated from "@/utils/client/stated";
 import { styled } from "@mui/system";
 // Types
 import type { DestinationContentField } from "@/@types/DestinationDescription";

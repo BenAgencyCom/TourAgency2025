@@ -1,18 +1,18 @@
 // Tools
 import { styled } from "@mui/system";
-import { useState } from "react";
-import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent, ReactNode } from "react";
 import { FieldType } from "@/@types/DestinationDescription";
 import type { StatedDataField } from "@/@types/StagedDataField";
-import type { DestinationContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 // Other components
 import SelectFromEnum from "@/components/_utils/SelectFromEnum";
 import DescriptionPreview from "@/components/admin/create_destination/description/DescriptionPreview";
+// Redux
+import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
+import { actions, helpers } from "@/redux/slices/create_destination/description";
 
 const Wrapper = styled(Box)({
     display: "flex",
@@ -26,15 +26,20 @@ const FlexBox = styled(Box)({
 });
 
 interface DescriptionHeaderProps {
-    newContentFieldType: StatedDataField<FieldType>;
     previewDialog?: StatedDataField<boolean>;
-    data: DestinationContentField[];
-    addNewContentField: () => void;
     setFullscreen: StatedDataField<boolean>["setValue"] | false;
     children?: ReactNode;
 }
 
 const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => {
+    const description = useAppSelector((state) => state.description.list);
+    const newFieldType = useAppSelector((store) => store.description.newFieldType);
+    const { updateNewFieldType } = actions;
+    const { addItemWithAutomaticType } = helpers;
+    const dispatch = useAppDispatch();
+
+    const updateType = (type: FieldType) => dispatch(updateNewFieldType(type));
+
     return (
         <>
             {/* Dialogs: */}
@@ -44,7 +49,7 @@ const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => 
                     return (
                         <DescriptionPreview
                             open={props.previewDialog} //
-                            data={props.data}
+                            data={description.map((target) => target.data)}
                         ></DescriptionPreview>
                     );
                 }
@@ -56,7 +61,7 @@ const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => 
                 <FlexBox>
                     <SelectFromEnum
                         enum={FieldType} //
-                        value={props.newContentFieldType}
+                        value={{ value: newFieldType, setValue: updateType }}
                         props={{
                             sx: { width: "250px" },
                             inputProps: {
@@ -66,7 +71,7 @@ const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => 
                     ></SelectFromEnum>
                     <Button
                         variant="contained" //
-                        onClick={props.addNewContentField}
+                        onClick={() => addItemWithAutomaticType()}
                         sx={{ ml: 1 }}
                     >
                         Add

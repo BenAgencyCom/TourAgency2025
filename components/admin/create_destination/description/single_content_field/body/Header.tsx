@@ -2,24 +2,24 @@
 import { useState } from "react";
 import { lengthRestrictionMessage, validateLength } from "@/utils/client/lenghRestrictionHelpers";
 // Types
+import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { Restriction } from "@/@types/Restriction";
-import type { DraggableHeaderContentField } from "@/@types/DestinationDescription";
+import type { HeaderContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import TextField from "@mui/material/TextField";
 
 interface HeaderBodyProps {
-    data: DraggableHeaderContentField;
+    field: ListItem<HeaderContentField>;
     restrictions: Restriction;
-    updateSingleProp: (prop: keyof DraggableHeaderContentField, val: DraggableHeaderContentField[typeof prop]) => void;
 }
 
 const HeaderBody: FunctionComponent<HeaderBodyProps> = (props) => {
-    const [newHeader, setNewHeader] = useState<string>(props.data.header);
+    const [newHeader, setNewHeader] = useState<string>(props.field.data.header);
     const [invalid, setInvalid] = useState<boolean>(false);
 
     const onBlur = () => {
-        props.updateSingleProp("header", newHeader);
+        props.field.changeProperty("header", newHeader);
         setInvalid(validateLength(newHeader, props.restrictions));
     };
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
