@@ -40,11 +40,12 @@ export default <
     // Actions for helpers:
     const { changeItemInList, replaceItemInList, deleteItemFromList, swapTwoItemsInList, _addItem, ...rest } = slice.actions;
 
-    const addItem = (newItemData: Partial<ArrayItem>) => {
+    const addItem = (newItemData: Partial<ArrayItem>, explicit: boolean = false) => {
         store.dispatch(
             (_addItem as any)({
                 actions: { changeItemInList, deleteItemFromList, replaceItemInList, swapTwoItemsInList },
                 newItemData: newItemData,
+                explicit,
             })
         );
     };
