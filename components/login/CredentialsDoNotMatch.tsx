@@ -25,7 +25,7 @@ interface CredentialsDoNotMatchProps {
 const CredentialsDoNotMatch: FunctionComponent<CredentialsDoNotMatchProps> = (props) => {
     if (props.credentialsDoNotMatch)
         return (
-            <Communique variant="h6">
+            <Communique variant="h6" data-cy="credentials-do-not-match">
                 <ErrorOutline sx={{ mr: 1 }}></ErrorOutline>
                 <span>Credentials do not match</span>
             </Communique>

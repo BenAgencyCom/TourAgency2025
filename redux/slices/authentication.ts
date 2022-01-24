@@ -1,21 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-export interface UserData {
-    name: string;
-    surname: string;
-    avatar: string;
-    gender: "MALE" | "FEMALE" | "OTHER";
-    country: {
-        name: string;
-        code: string;
-    };
-    isAdmin?: true;
-}
+import LocalStorageUserData from "@/@types/LocalStorageUserData";
 
 export interface AuthenticationState {
     isAuthenticated: boolean | null;
-    userData: UserData | null;
+    userData: LocalStorageUserData | null;
 }
 
 export class ThereIsNoUserDataInLocalStorage extends Error {}
@@ -32,7 +21,7 @@ const authenticationSlice = createSlice({
         setAuthentication: (state, action: PayloadAction<AuthenticationState["isAuthenticated"]>) => {
             state.isAuthenticated = action.payload;
         },
-        setUserData: (state, action: PayloadAction<UserData | null>) => {
+        setUserData: (state, action: PayloadAction<LocalStorageUserData | null>) => {
             if (action.payload === null) localStorage.removeItem("userData");
             else localStorage.setItem("userData", JSON.stringify(action.payload));
 

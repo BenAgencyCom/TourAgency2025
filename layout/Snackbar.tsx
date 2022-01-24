@@ -28,6 +28,7 @@ const AppSnackbar: FunctionComponent<{}> = () => {
             open={display} //
             sx={{ zIndex: 2000 }}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            data-cy="snackbar"
         >
             <Alert
                 severity={severity} //
@@ -46,7 +47,10 @@ const AppSnackbar: FunctionComponent<{}> = () => {
             >
                 <span>{msg}</span>
                 <Tooltip title="Close">
-                    <IconButton onClick={() => dispatch(closeSnackbar())}>
+                    <IconButton
+                        data-cy="snackbar-close" //
+                        onClick={() => dispatch(closeSnackbar())}
+                    >
                         <Close></Close>
                     </IconButton>
                 </Tooltip>

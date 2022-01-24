@@ -67,7 +67,7 @@ const Login: FunctionComponent<{}> = () => {
                     })
                 );
                 dispatch(setAuthentication(null));
-                Router.back();
+                Router.push("/");
             })
             .catch((e) => {
                 const { status } = e.toJSON();
@@ -113,6 +113,7 @@ const Login: FunctionComponent<{}> = () => {
                                 value={email}
                                 updateValue={setEmail}
                                 disabled={pending}
+                                _cypressTag="email"
                             ></TextInput>
                             <PasswordInput
                                 label="Password" //
@@ -120,10 +121,11 @@ const Login: FunctionComponent<{}> = () => {
                                 updateValue={setPassword}
                                 buttonStyles={{ my: 1 }}
                                 disabled={pending}
+                                _cypressTag="password"
                             ></PasswordInput>
                             <CredentialsDoNotMatch credentialsDoNotMatch={credentialsDoNotMatch}></CredentialsDoNotMatch>
 
-                            <Button variant="contained" sx={{ mt: 5 }} disabled={blockContinue || pending} onClick={continueClick}>
+                            <Button variant="contained" sx={{ mt: 5 }} disabled={blockContinue || pending} onClick={continueClick} data-cy="continue">
                                 Continue
                             </Button>
                         </Box>

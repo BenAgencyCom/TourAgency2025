@@ -1,7 +1,7 @@
 import axios from "axios";
 // Types
 import type { FunctionComponent } from "react";
-import type { UserData } from "@/redux/slices/authentication";
+import LocalStorageUserData from "@/@types/LocalStorageUserData";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -15,7 +15,7 @@ import { setUserData, setAuthentication } from "@/redux/slices/authentication";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 
 const AuthenticatedUser: FunctionComponent<{ buttonStyles: Record<string, unknown> }> = ({ buttonStyles }) => {
-    const userData = useAppSelector((state) => state.authentication.userData) as UserData;
+    const userData = useAppSelector((state) => state.authentication.userData) as LocalStorageUserData;
     const dispatch = useAppDispatch();
     const width = useAppSelector((state) => state.windowSizes.width);
 
@@ -85,7 +85,13 @@ const AuthenticatedUser: FunctionComponent<{ buttonStyles: Record<string, unknow
                     );
                 }
             })()}
-            <Button variant="contained" sx={buttonStyles} tabIndex={-1} onClick={logout}>
+            <Button
+                data-cy="logout"
+                variant="contained" //
+                sx={buttonStyles}
+                tabIndex={-1}
+                onClick={logout}
+            >
                 <Logout></Logout>
                 Logout
             </Button>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import Router from "next/router";
-import type { UserData } from "@/redux/slices/authentication";
+import LocalStorageUserData from "@/@types/LocalStorageUserData";
 
 interface AuthenticateTokenResponseData {
     accepted: boolean;
@@ -26,7 +26,7 @@ export const authenticateToken = async (): Promise<boolean> => {
     return result;
 };
 
-export const getUserData = async (): Promise<UserData> => {
+export const getUserData = async (): Promise<LocalStorageUserData> => {
     const { data } = await axios.get("/api/current_user_data");
     return data;
 };

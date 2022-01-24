@@ -20,12 +20,12 @@ const Redirects: FunctionComponent = () => {
                     },
                 }}
             >
-                <Button>
+                <Button data-cy="redirect-register">
                     <Link href="/register">
                         <a>Don&apos;t have an account? Create one</a>
                     </Link>
                 </Button>
-                <Button>
+                <Button data-cy="redirect-main-page">
                     <Link href="/">
                         <a>Main page</a>
                     </Link>

@@ -12,6 +12,7 @@ interface InputProps {
     onBlur?: () => void;
     disabled?: boolean;
     multiline?: boolean;
+    _cypressTag?: string;
     // Methods
     updateValue: (value: string) => void;
 }
@@ -32,6 +33,9 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
             disabled={disabled !== undefined ? disabled : false}
             sx={{ ...props.sx }}
             helperText={props.errorMsg}
+            inputProps={{
+                "data-cy": props._cypressTag,
+            }}
         ></TextField>
     );
 };
