@@ -7,7 +7,7 @@
         "start": "next start",
         "lint": "next lint",
         "test": "jest",
-        "clear-uploaded": "ts-node ./utils/NPMscripts/clear_uploaded_images.ts",
+        "seed": "ts-node ./prisma/seed.ts",
         "cypress": "./node_modules/.bin/cypress open"
     },
     "dependencies": {
@@ -28,6 +28,7 @@
         "@types/superagent": "^4.1.13",
         "axios": "^0.24.0",
         "bcrypt": "^5.0.1",
+        "colors": "^1.4.0",
         "cookie": "^0.4.1",
         "date-fns": "^2.27.0",
         "formidable": "^2.0.1",
