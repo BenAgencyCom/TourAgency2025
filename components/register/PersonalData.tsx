@@ -11,6 +11,7 @@ import AutocompleteCountry from "@/components/register/_formFields/AutocompleteC
 import StepHeader from "@/components/register/stepper/StepHeader";
 import StepNavigaton from "@/components/register/stepper/StepNavagation";
 // Material UI components
+import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 // Material UI icons
@@ -28,11 +29,9 @@ interface PersonalDataAndCredentialsProps {
     // Auxiliary stuff
     currentSlideIndex: number;
     updateSlideIndex: (x: number) => void;
-    buttonStyles: Record<string, any>;
 }
 
 const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsProps> = (props) => {
-    const { buttonStyles } = props;
     const { name, surname, country, gender, born } = props;
     //
     // Validation
@@ -76,35 +75,37 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                         label="Name" //
                         value={props.name.value}
                         updateValue={props.name.setValue}
-                        buttonStyles={buttonStyles}
+                        sx={{ mb: 2 }}
+                        _cypressTag="name"
                     ></TextInput>
                     <TextInput
                         label="Surame" //
                         value={props.surname.value}
                         updateValue={props.surname.setValue}
-                        buttonStyles={buttonStyles}
+                        sx={{ mb: 2 }}
+                        _cypressTag="surname"
                     ></TextInput>
                     <AutocompleteCountry
                         label="Country" //
                         value={props.country.value}
                         updateValue={props.country.setValue}
-                        buttonStyles={buttonStyles}
+                        _cypressTag="country"
                     ></AutocompleteCountry>
-                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
                         <DataPicker
                             label="Born" //
                             value={props.born.value}
                             updateValue={props.born.setValue}
-                            buttonStyles={buttonStyles}
-                            sx={{ width: "59%" }}
+                            sx={{ width: "59%", mb: 2 }}
+                            _cypressTag="born"
                         ></DataPicker>
                         <Select
                             label="Gender" //
                             value={props.gender.value}
                             options={["MALE", "FEMALE", "OTHER"]}
                             updateValue={(val) => props.gender.setValue(val as "MALE" | "FEMALE" | "OTHER")}
-                            buttonStyles={buttonStyles}
                             sx={{ width: "38%" }}
+                            _cypressTag="gender"
                         ></Select>
                     </Box>
                 </Box>

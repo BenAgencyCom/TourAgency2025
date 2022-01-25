@@ -3,8 +3,12 @@
 export default interface CypressEnvFile {
     urls: Urls;
     data: {
+        textOver255Chars: string;
         email: Field;
         password: Field;
+        name: Field;
+        surname: Field;
+        born: Field;
     };
     credentials: {
         admin: Credentials;

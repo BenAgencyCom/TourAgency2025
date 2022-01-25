@@ -9,7 +9,7 @@ interface AutocompleteProps {
     // Properties
     label: string;
     value: CountryType | null;
-    buttonStyles: Record<string, any>;
+    _cypressTag?: string;
     // Methods
     updateValue: (value: CountryType | null) => void;
 }
@@ -19,16 +19,16 @@ const AutocompleteCountry: FunctionComponent<AutocompleteProps> = (props) => {
             autoHighlight //
             options={countries}
             getOptionLabel={(option: CountryType) => option.label}
-            sx={props.buttonStyles}
             onChange={(_: any, newValue: CountryType | null) => props.updateValue(newValue)}
             value={props.value}
             isOptionEqualToValue={(option: CountryType, value: CountryType) => option.label === value.label && option.code === value.code && option.phone === value.phone}
-            renderOption={(props, option: CountryType) => {
+            renderOption={(optionProps, option: CountryType) => {
                 return (
                     <Box
                         component="li" //
-                        {...props}
+                        {...optionProps}
                         sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                        data-cy={`${props._cypressTag}-${option.label}`}
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
@@ -49,6 +49,7 @@ const AutocompleteCountry: FunctionComponent<AutocompleteProps> = (props) => {
                         inputProps={{
                             ...params.inputProps,
                             autoComplete: "new-password",
+                            "data-cy": props._cypressTag,
                         }}
                         InputProps={{
                             ...params.InputProps,

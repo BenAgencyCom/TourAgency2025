@@ -13,6 +13,8 @@ interface InputProps {
     buttonStyles?: Record<string, any>;
     sx?: Record<string, unknown>;
     tabIndex?: number;
+    _cypressTag?: string;
+
     // Methods
     updateValue: (value: string) => void;
 }
@@ -32,10 +34,15 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
                 onChange={handleChange}
                 sx={buttonStyles}
                 inputProps={{ tabIndex: props.tabIndex ? props.tabIndex : 1 }}
+                data-cy={props._cypressTag}
             >
                 {options.map((option) => {
                     return (
-                        <MenuItem key={option} value={option}>
+                        <MenuItem
+                            key={option} //
+                            value={option}
+                            data-cy={`${props._cypressTag}-${option}`}
+                        >
                             {option}
                         </MenuItem>
                     );

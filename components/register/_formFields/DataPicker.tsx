@@ -1,19 +1,16 @@
 import type { FunctionComponent } from "react";
 // Material UI components
-import Box from "@mui/material/Box";
 import DatePicker from "@mui/lab/DatePicker";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
-import styles from "@/sass/mixins.module.sass";
-
 interface InputProps {
     // Properties
     label: string;
     value: Date | null;
-    buttonStyles: Record<string, any>;
     sx?: Record<string, unknown>;
+    _cypressTag?: string;
     // Methods
     updateValue: (value: Date | null) => void;
 }
@@ -28,7 +25,13 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
                 label={label} //
                 value={value}
                 onChange={handleChange}
-                renderInput={(params) => <TextField {...params} sx={{ ...props.buttonStyles, ...props.sx }} />}
+                renderInput={(params) => (
+                    <TextField
+                        {...params} //
+                        sx={{ ...props.sx }}
+                        data-cy={props._cypressTag}
+                    />
+                )}
                 inputFormat="dd/MM/yyyy"
                 OpenPickerButtonProps={{ tabIndex: -1 }}
             />

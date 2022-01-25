@@ -22,10 +22,22 @@ const StepNavigation: FunctionComponent<StepNavigationProps> = (props) => {
 
     return (
         <ButtonGroup sx={{ mt: 1 }}>
-            <Button variant="contained" color="neutral" sx={{ mr: 1 }} disabled={currentSlideIndex === 0} onClick={goBack}>
+            <Button
+                variant="contained" //
+                color="neutral"
+                sx={{ mr: 1 }}
+                disabled={currentSlideIndex === 0}
+                onClick={goBack}
+                data-cy="step-nav-go-back"
+            >
                 Go back
             </Button>
-            <Button variant="contained" disabled={blockContinue} onClick={props.continueAction ? props.continueAction : goFurther}>
+            <Button
+                variant="contained" //
+                disabled={blockContinue}
+                onClick={props.continueAction ? props.continueAction : goFurther}
+                data-cy="step-nav-go-further"
+            >
                 {continueMsg ? continueMsg : "Continue"}
             </Button>
         </ButtonGroup>

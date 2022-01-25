@@ -50,7 +50,12 @@ const Registration: FunctionComponent<{}> = () => {
     const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
     //
     return (
-        <Box className={bgIMGStyles.background} sx={{ backgroundPositionY: `` }}>
+        <Box
+            className={bgIMGStyles.background}
+            sx={{
+                backgroundPositionY: ``,
+            }}
+        >
             <Image
                 className={bgIMGStyles["bg-image"]} //
                 src={backgroundImage}
@@ -76,7 +81,6 @@ const Registration: FunctionComponent<{}> = () => {
                                     born={{ value: born, setValue: setBorn }}
                                     country={{ value: country, setValue: setCountry }}
                                     //
-                                    buttonStyles={buttonStyles}
                                     currentSlideIndex={currentSlideIndex}
                                     updateSlideIndex={setCurrentSlideIndex}
                                 ></PersonalData>
@@ -125,12 +129,12 @@ const Registration: FunctionComponent<{}> = () => {
                 })()}
                 <Divider sx={{ mt: 3, mb: 0 }}></Divider>
                 <CardActions sx={{ justifyContent: "center", mb: 1 }}>
-                    <Button>
+                    <Button data-cy="redirect-login">
                         <Link href="/login">
                             <a>Already have an account</a>
                         </Link>
                     </Button>
-                    <Button>
+                    <Button data-cy="redirect-main-page">
                         <Link href="/">
                             <a>Main page</a>
                         </Link>
