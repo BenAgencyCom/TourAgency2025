@@ -14,15 +14,15 @@ interface InputProps {
     // Properties
     label: string;
     value: string;
-    buttonStyles: Record<string, any>;
     // Optional
     disabled?: boolean;
+    sx?: Record<string, unknown>;
     _cypressTag?: string;
     // Methods
     updateValue: (value: string) => void;
 }
 const PasswordInput: FunctionComponent<InputProps> = (props) => {
-    const { label, value, updateValue, buttonStyles, disabled } = props;
+    const { label, value, updateValue, disabled } = props;
     const id = `password-inp-${label}`;
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateValue(e.target.value);
 
@@ -32,7 +32,7 @@ const PasswordInput: FunctionComponent<InputProps> = (props) => {
     const icon = !passwordVisibility ? <Visiblity></Visiblity> : <VisibilityOff></VisibilityOff>;
 
     return (
-        <FormControl variant="outlined" sx={buttonStyles}>
+        <FormControl variant="outlined" sx={props.sx}>
             <InputLabel htmlFor={id}>{label}</InputLabel>
             <OutlinedInput
                 id={id}

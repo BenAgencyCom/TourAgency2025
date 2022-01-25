@@ -22,7 +22,9 @@ const StepHeader: FunctionComponent<StepHeaderParams> = (props) => {
             className={mixins.unselectable}
         >
             <Typography>{props.icon}</Typography>
-            <span className={styles.title}>{props.header}</span>
+            <span className={styles.title} data-cy="register-step">
+                {props.header}
+            </span>
         </Typography>
     );
 };

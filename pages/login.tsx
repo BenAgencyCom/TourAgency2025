@@ -119,7 +119,7 @@ const Login: FunctionComponent<{}> = () => {
                                 label="Password" //
                                 value={password}
                                 updateValue={setPassword}
-                                buttonStyles={{ my: 1 }}
+                                sx={{ mb: 2 }}
                                 disabled={pending}
                                 _cypressTag="password"
                             ></PasswordInput>

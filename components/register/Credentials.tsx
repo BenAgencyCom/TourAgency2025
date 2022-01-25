@@ -79,22 +79,24 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                         label="Email" //
                         value={email.value}
                         updateValue={email.setValue}
-                        buttonStyles={buttonStyles}
                         onBlur={checkEmail}
                         errorMsg={emailAvailableness ? false : "Email address is not available"}
+                        sx={{ mb: 2 }}
+                        _cypressTag="email"
                     ></TextInput>
                     <PasswordInput
                         label="Password" //
                         value={password.value}
                         updateValue={password.setValue}
-                        buttonStyles={buttonStyles}
+                        sx={{ mb: 2 }}
+                        _cypressTag="password"
                     ></PasswordInput>
                     <PasswordStrengthBar password={password.value}></PasswordStrengthBar>
                     <PasswordInput
                         label="Repeat password" //
                         value={passwordRepeatation.value}
                         updateValue={passwordRepeatation.setValue}
-                        buttonStyles={buttonStyles}
+                        _cypressTag="repeat-password"
                     ></PasswordInput>
                 </Box>
 

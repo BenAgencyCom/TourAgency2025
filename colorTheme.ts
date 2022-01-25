@@ -13,6 +13,13 @@ declare module "@mui/material/Button" {
         neutral: true;
     }
 }
+declare module "@mui/material/FormHelperText" {
+    namespace FormHelperTextProps {
+        export interface DatasetAttr {
+            "data-cy": string;
+        }
+    }
+}
 
 export default responsiveFontSizes(
     createTheme({

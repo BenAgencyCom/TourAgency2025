@@ -5,12 +5,8 @@ import fse from "fs-extra";
 import FormData from "form-data";
 import path from "path";
 // Types
-import type { LandmarkType, Continent, User } from "@prisma/client";
-import type { CreateDestinationRequest } from "../../@types/router/destination";
-import { FieldType } from "../../@types/DestinationDescription";
-
-const prisma = new PrismaClient();
-const API_ADDRESS = "http://localhost:3000";
+import type { CreateDestinationRequest } from "@/@types/router/destination";
+import { FieldType } from "@/@types/DestinationDescription";
 
 export const data = {
     city: faker.address.cityName(),

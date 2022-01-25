@@ -9,7 +9,6 @@ describe("Register Page", () => {
         if (disabled) cy.getByCyTag("step-nav-go-further").should("have.attr", "disabled", "disabled");
         else cy.getByCyTag("step-nav-go-further").should("not.have.attr", "disabled");
     };
-    /*
     describe("Redirections", () => {
         beforeEach(() => {
             cy.visit(env().urls.register);
@@ -26,7 +25,7 @@ describe("Register Page", () => {
             cy.location("pathname").should("equal", env().urls.login);
         });
     });
-    describe("STEP 1- Personal data", () => {
+    describe("STEP 1- Personal Information", () => {
         const pickTheCountry = () => {
             return cy
                 .getByCyTag("country")
@@ -57,9 +56,6 @@ describe("Register Page", () => {
                 pickTheCountry();
                 testWhetherButtonIsDisabled(true);
 
-                cy.getByCyTag("name").clear().type(env().data.textOver255Chars);
-                testWhetherButtonIsDisabled(true);
-
                 cy.getByCyTag("name").clear().type(env().data.name.valid);
                 testWhetherButtonIsDisabled(false);
             });
@@ -68,9 +64,6 @@ describe("Register Page", () => {
                 cy.getByCyTag("surname").type(env().data.surname.invalid);
                 cy.get(`[data-cy="born"] input`).type(env().data.born.valid);
                 pickTheCountry();
-                testWhetherButtonIsDisabled(true);
-
-                cy.getByCyTag("surname").clear().type(env().data.textOver255Chars);
                 testWhetherButtonIsDisabled(true);
 
                 cy.getByCyTag("surname").clear().type(env().data.name.valid);
@@ -90,9 +83,6 @@ describe("Register Page", () => {
                 cy.getByCyTag("name").type(env().data.name.valid);
                 cy.get(`[data-cy="born"] input`).type(env().data.born.invalid);
                 pickTheCountry();
-                testWhetherButtonIsDisabled(true);
-
-                cy.get(`[data-cy="born"] input`).clear().type(env().data.textOver255Chars);
                 testWhetherButtonIsDisabled(true);
 
                 cy.get(`[data-cy="born"] input`).type(env().data.born.valid);
@@ -122,7 +112,6 @@ describe("Register Page", () => {
             });
         });
     });
-    */
 
     describe("STEP 2- Credentials", () => {
         before(() => {
@@ -139,11 +128,46 @@ describe("Register Page", () => {
                 });
             cy.getByCyTag("step-nav-go-further").click();
         });
-        it("User should be able to change visibility of password", () => {});
-        it("User should be able to change visibility of password's repetition", () => {});
+        beforeEach(() => {
+            cy.getByCyTag("email").clear();
+            cy.getByCyTag("password").clear();
+            cy.getByCyTag("repeat-password").clear();
+        });
+        it("User should be able to return to STEP 1- Personal Information and vice versa", () => {
+            cy.getByCyTag("step-nav-go-back")
+                .click()
+                .then(() => {
+                    cy.getByCyTag("register-step").should("have.text", "User Data");
+                    cy.getByCyTag("step-nav-go-further")
+                        .click()
+                        .then(() => {
+                            cy.getByCyTag("register-step").should("have.text", "Credentials");
+                            cy.getByCyTag;
+                        });
+                });
+        });
+        it("User should be able to change visibility of password", () => {
+            cy.checkPasswordElementVisibility("password");
+        });
+        it("User should be able to change visibility of password's repetition", () => {
+            cy.checkPasswordElementVisibility("password");
+        });
+        it("User should be notified when email address is not available", () => {
+            cy.getByCyTag("email").type(env().credentials.admin.email);
+            cy.getByCyTag("email-error").should("have.text", "Email address is not available");
+            cy.getByCyTag("email").clear().type("cypress_is_fking_awasome6@gmail.com").blur();
+            cy.getByCyTag("email-error").should("not.exist");
+        });
         //
         describe("Continue button should remain blocked", () => {
-            //
+            testLengthOfAllProperitesInList({
+                list: {
+                    email: env().data.email,
+                    password: env().data.password,
+                    "repeat-password": env().data.password,
+                },
+                assertion: (state: boolean) => testWhetherButtonIsDisabled(state),
+            });
         });
     });
 

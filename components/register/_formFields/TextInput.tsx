@@ -33,6 +33,9 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
             disabled={disabled !== undefined ? disabled : false}
             sx={{ ...props.sx }}
             helperText={props.errorMsg}
+            FormHelperTextProps={{
+                "data-cy": `${props._cypressTag}-error`,
+            }}
             inputProps={{
                 "data-cy": props._cypressTag,
             }}
