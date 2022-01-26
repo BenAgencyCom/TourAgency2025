@@ -1,6 +1,9 @@
+// Tools
+import { useRef, useState } from "react";
+// Types
+import { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { StatedDataField } from "@/@types/StagedDataField";
-import { useRef, useState } from "react";
 // My components
 import StepHeader from "@/components/register/stepper/StepHeader";
 import StepNavigaton from "@/components/register/stepper/StepNavagation";
@@ -12,7 +15,10 @@ import IconButton from "@mui/material/IconButton";
 // Material UI icons
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Settings from "@mui/icons-material/Settings";
-
+// Redux
+import { displaySnackbar } from "@/redux/slices/snackbar";
+import { useAppDispatch } from "@/hooks/useRedux";
+// Styles
 import styles from "@/sass/pages/register.module.sass";
 
 interface AvatarAndBackgroundProps {
@@ -21,6 +27,8 @@ interface AvatarAndBackgroundProps {
     updateSlideIndex: (x: number) => void;
 }
 const AvatarAndBackground: FunctionComponent<AvatarAndBackgroundProps> = (props) => {
+    const dispatch = useAppDispatch();
+    const [blockContinue, setBlockContinue] = useState<boolean>(false);
     const fileInput = useRef<null | HTMLInputElement>(null);
     const [imageURL, setImageUrl] = useState<string | null>(null);
 
@@ -38,9 +46,20 @@ const AvatarAndBackground: FunctionComponent<AvatarAndBackgroundProps> = (props)
 
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = (e.target.files as FileList)[0];
-        if (file) {
-            props.avatar.setValue(file);
+        if (ImageFileMimetypes.includes(file.type)) {
+            if (file.type) props.avatar.setValue(file);
             loadImageURL(file);
+        } else {
+            props.avatar.setValue(null);
+            setBlockContinue(false);
+            setImageUrl(null);
+            dispatch(
+                displaySnackbar({
+                    severity: "error",
+                    hideAfter: 30000,
+                    msg: "Unexpected extension of the avater provided",
+                })
+            );
         }
     };
 
@@ -68,6 +87,7 @@ const AvatarAndBackground: FunctionComponent<AvatarAndBackgroundProps> = (props)
                                         border: "5px solid", //
                                         borderColor: "primary.main",
                                     }}
+                                    data-cy="avatar-preview"
                                 ></Avatar>
                             );
                         }
@@ -79,12 +99,12 @@ const AvatarAndBackground: FunctionComponent<AvatarAndBackgroundProps> = (props)
                     </IconButton>
                 </Box>
 
-                <input type="file" style={{ display: "none" }} ref={fileInput} accept="image/*" onChange={onInputChange} />
+                <input type="file" style={{ display: "none" }} ref={fileInput} accept="image/*" onChange={onInputChange} data-cy="avatar" />
 
                 <StepNavigaton
                     currentSlideIndex={props.currentSlideIndex} //
                     updateSlideIndex={props.updateSlideIndex}
-                    blockContinue={false}
+                    blockContinue={blockContinue}
                     continueMsg={imageURL ? "Continue" : "Skip"}
                 ></StepNavigaton>
             </Box>

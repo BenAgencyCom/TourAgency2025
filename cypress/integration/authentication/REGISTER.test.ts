@@ -9,6 +9,22 @@ describe("Register Page", () => {
         if (disabled) cy.getByCyTag("step-nav-go-further").should("have.attr", "disabled", "disabled");
         else cy.getByCyTag("step-nav-go-further").should("not.have.attr", "disabled");
     };
+
+    const fillPersonalDataWithRightData = () => {
+        cy.getByCyTag("name").clear().type(env().data.name.valid);
+        cy.getByCyTag("surname").clear().type(env().data.surname.valid);
+        cy.get(`[data-cy="born"] input`).clear().type(env().data.born.valid);
+        cy.getByCyTag("country")
+            .click()
+            .then(() => cy.getByCyTag("country-Pakistan").click());
+    };
+
+    const fillCredentialsWithRightData = () => {
+        cy.getByCyTag("email").clear().type(env().data.email.valid);
+        cy.getByCyTag("password").clear().type(env().data.password.valid);
+        cy.getByCyTag("repeat-password").clear().type(env().data.password.valid);
+    };
+
     describe("Redirections", () => {
         beforeEach(() => {
             cy.visit(env().urls.register);
@@ -115,17 +131,7 @@ describe("Register Page", () => {
 
     describe("STEP 2- Credentials", () => {
         before(() => {
-            cy.getByCyTag("name").clear().type(env().data.name.valid);
-            cy.getByCyTag("surname").clear().type(env().data.surname.valid);
-            cy.get(`[data-cy="born"] input`).clear().type(env().data.born.valid);
-            cy.getByCyTag("country")
-                .click()
-                .then(() => cy.getByCyTag("country-Pakistan").click());
-            cy.getByCyTag("gender")
-                .click()
-                .then(() => {
-                    cy.getByCyTag(`gender-OTHER`).click();
-                });
+            fillPersonalDataWithRightData();
             cy.getByCyTag("step-nav-go-further").click();
         });
         beforeEach(() => {
@@ -158,7 +164,12 @@ describe("Register Page", () => {
             cy.getByCyTag("email").clear().type("cypress_is_fking_awasome6@gmail.com").blur();
             cy.getByCyTag("email-error").should("not.exist");
         });
+        it("User should be able to go futher when all credentials would be valid", () => {
+            fillCredentialsWithRightData();
+            testWhetherButtonIsDisabled(false);
+        });
         //
+
         describe("Continue button should remain blocked", () => {
             testLengthOfAllProperitesInList({
                 list: {
@@ -172,7 +183,41 @@ describe("Register Page", () => {
     });
 
     describe("STEP 3- Avatar", () => {
-        //
+        before(() => {
+            cy.reload();
+            fillPersonalDataWithRightData();
+            cy.getByCyTag("step-nav-go-further").click();
+            fillCredentialsWithRightData();
+            cy.getByCyTag("step-nav-go-further").click();
+        });
+        it("User should be able to return to STEP 2- Credentials and vice versa", () => {
+            cy.getByCyTag("step-nav-go-back")
+                .click()
+                .then(() => {
+                    cy.getByCyTag("register-step").should("have.text", "Credentials");
+                    cy.getByCyTag("step-nav-go-further")
+                        .click()
+                        .then(() => {
+                            cy.getByCyTag("register-step").should("have.text", "Avatar");
+                        });
+                });
+        });
+        it("User should be able to skip this part", () => {
+            testWhetherButtonIsDisabled(false);
+        });
+        it("User should be able to attach a proper avatar", () => {
+            cy.getByCyTag("avatar-preview").should("not.exist");
+            cy.getByCyTag("avatar").attachFile("example.jpg");
+            cy.getByCyTag("avatar-preview").should("exist");
+            testWhetherButtonIsDisabled(false);
+        });
+        it("While trying to attach avatar with invalid extension snackbar should be fired", () => {
+            cy.getByCyTag("avatar").attachFile("example.json");
+            cy.getByCyTag("avatar-preview").should("not.exist");
+            testWhetherButtonIsDisabled(false);
+            cy.get("[data-cy='snackbar']").should("have.attr", "data-cy-severity", "error");
+            cy.get("[data-cy='snackbar-close']").click();
+        });
     });
 
     describe("STEP 4- Confirmation", () => {

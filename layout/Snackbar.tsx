@@ -29,6 +29,7 @@ const AppSnackbar: FunctionComponent<{}> = () => {
             sx={{ zIndex: 2000 }}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             data-cy="snackbar"
+            data-cy-severity={severity}
         >
             <Alert
                 severity={severity} //
