@@ -1,10 +1,15 @@
+import LocalStorageUserData from "@/@types/LocalStorageUserData";
 import { Gender } from "@prisma/client";
-// import restrictons from '@/utils/restrictions/'
 
 describe("Register Page", () => {
     before(() => {
         cy.visit(env().urls.register);
+        cy.task("deleteRegisteredUser", env().data.email.valid);
     });
+    after(() => {
+        cy.task("deleteRegisteredUser", env().data.email.valid);
+    });
+
     const testWhetherButtonIsDisabled = (disabled: boolean) => {
         if (disabled) cy.getByCyTag("step-nav-go-further").should("have.attr", "disabled", "disabled");
         else cy.getByCyTag("step-nav-go-further").should("not.have.attr", "disabled");
@@ -24,7 +29,6 @@ describe("Register Page", () => {
         cy.getByCyTag("password").clear().type(env().data.password.valid);
         cy.getByCyTag("repeat-password").clear().type(env().data.password.valid);
     };
-    /*
     describe("Redirections", () => {
         beforeEach(() => {
             cy.visit(env().urls.register);
@@ -219,7 +223,6 @@ describe("Register Page", () => {
             cy.get("[data-cy='snackbar-close']").click();
         });
     });
-    */
     describe("STEP 4- Confirmation", () => {
         before(() => {
             cy.reload();
@@ -248,12 +251,61 @@ describe("Register Page", () => {
 
         it("After acceptation captacha button should turn into clickable", () => {
             testWhetherButtonIsDisabled(true);
+            cy.wait(500).then(() => {
+                cy.get("iframe[src*=recaptcha]")
+                    .its("0.contentDocument")
+                    .should((d) => d.getElementById("recaptcha-token").click())
+                    .then(() => {
+                        testWhetherButtonIsDisabled(false);
+                    });
+            });
+        });
+    });
+    describe("STEP 5- API Request and creating an account", () => {
+        before(() => {
+            cy.reload();
+            fillPersonalDataWithRightData();
+            cy.getByCyTag("step-nav-go-further").click();
+            fillCredentialsWithRightData();
+            cy.getByCyTag("step-nav-go-further").click();
+            cy.getByCyTag("avatar").attachFile("example.jpg");
+            cy.getByCyTag("step-nav-go-further").click();
             cy.get("iframe[src*=recaptcha]")
                 .its("0.contentDocument")
-                .should((d) => d.getElementById("recaptcha-token").click())
-                .then(() => {
-                    testWhetherButtonIsDisabled(false);
-                });
+                .should((d) => d.getElementById("recaptcha-token").click());
+            cy.getByCyTag("step-nav-go-further").click();
+            cy.wait(100);
+        });
+
+        beforeEach(() => {
+            Cypress.Cookies.preserveOnce("accessToken");
+            cy.reload();
+        });
+
+        it("Access token should be recived as a cookie", () => {
+            cy.getCookie("accessToken").should("have.property", "value");
+        });
+
+        it("An account should be created", () => {
+            cy.location("pathname").should("equal", "/");
+        });
+
+        it("User data should be stored in local storage", () => {
+            cy.window().then(() => {
+                cy.get("[data-cy='logout']")
+                    .should("exist")
+                    .then(() => {
+                        cy.wait(100).then(() => {
+                            const rawLocalStorage = localStorage.getItem("userData");
+                            expect(rawLocalStorage).not.equal(null);
+
+                            const userData = JSON.parse(rawLocalStorage as string) as LocalStorageUserData;
+                            ["name", "surname", "gender", "country"].forEach((prop) => {
+                                expect(userData).ownProperty(prop);
+                            });
+                        });
+                    });
+            });
         });
     });
 });

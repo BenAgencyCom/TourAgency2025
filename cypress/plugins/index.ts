@@ -1,21 +1,17 @@
-// ***********************************************************
-// This example plugins/index.js can be used to load plugins
-//
-// You can change the location of this file or turn off loading
-// the plugins file with the 'pluginsFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/plugins-guide
-// ***********************************************************
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-// This function is called when a project is opened or re-opened (e.g. due to
-// the project's config changing)
-
-/**
- * @type {Cypress.PluginConfig}
- */
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (on: any, config: any) => {
-    // `on` is used to hook into various events Cypress emits
-    // `config` is the resolved Cypress config
+    on("task", {
+        async deleteRegisteredUser(email: string) {
+            return await prisma.user.deleteMany({
+                where: {
+                    email: {
+                        in: [email],
+                    },
+                },
+            });
+        },
+    });
 };
