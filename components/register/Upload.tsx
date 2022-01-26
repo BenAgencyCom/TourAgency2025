@@ -66,6 +66,10 @@ const Upload: FunctionComponent<UploadProps> = (props) => {
         SetRECAPTCHAVerified(true);
     };
 
+    const siteKey = (): string => {
+        return (window as any).Cypress ? "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" : (process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string);
+    };
+
     return (
         <Fade in={true}>
             <Box className={styles["content-wrapper"]} sx={{ alignItems: "center", maxWidth: "none !important" }}>
@@ -85,7 +89,7 @@ const Upload: FunctionComponent<UploadProps> = (props) => {
 
                 <ReCAPTCHA
                     ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                    sitekey={siteKey()}
                     onChange={onReCAPTCHAChange} //
                     theme="dark"
                 />

@@ -24,7 +24,7 @@ describe("Register Page", () => {
         cy.getByCyTag("password").clear().type(env().data.password.valid);
         cy.getByCyTag("repeat-password").clear().type(env().data.password.valid);
     };
-
+    /*
     describe("Redirections", () => {
         beforeEach(() => {
             cy.visit(env().urls.register);
@@ -219,8 +219,41 @@ describe("Register Page", () => {
             cy.get("[data-cy='snackbar-close']").click();
         });
     });
-
+    */
     describe("STEP 4- Confirmation", () => {
-        //
+        before(() => {
+            cy.reload();
+            fillPersonalDataWithRightData();
+            cy.getByCyTag("step-nav-go-further").click();
+            fillCredentialsWithRightData();
+            cy.getByCyTag("step-nav-go-further").click();
+            cy.getByCyTag("step-nav-go-further").click();
+        });
+
+        it("User should be able to return to STEP 3- Avatar", () => {
+            cy.getByCyTag("step-nav-go-back")
+                .click()
+                .then(() => {
+                    cy.getByCyTag("register-step").should("have.text", "Avatar");
+                    cy.getByCyTag("step-nav-go-further")
+                        .click()
+                        .then(() => {
+                            cy.getByCyTag("register-step").should("have.text", "One more step");
+                        });
+                });
+        });
+        it("Continue button should be initially blocked", () => {
+            testWhetherButtonIsDisabled(true);
+        });
+
+        it("After acceptation captacha button should turn into clickable", () => {
+            testWhetherButtonIsDisabled(true);
+            cy.get("iframe[src*=recaptcha]")
+                .its("0.contentDocument")
+                .should((d) => d.getElementById("recaptcha-token").click())
+                .then(() => {
+                    testWhetherButtonIsDisabled(false);
+                });
+        });
     });
 });
