@@ -8,6 +8,7 @@ import { prisma } from "@/prisma/db";
 import type { User } from "@prisma/client";
 import type { NextApiResponse } from "next";
 import type { CountryType } from "@/data/countries";
+import { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
 import type { RegisterRequest, RegisterBody } from "@/@types/router/auth/register";
 import type { SubmittedFilesCollection } from "@/utils/api/HandleMultipartFormDataRequest";
 // My helpers
@@ -35,8 +36,8 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
             super(res);
 
             this.folderName = slugGenerator(`${fields.email}_${fields.name}_${fields.surname}_`).slice(0, 200);
-            if (Object.keys(files).length) {
-                this.avatarsFilePath = files[Object.keys(files)[0]].filepath;
+            if (files.avatar && ImageFileMimetypes.includes(files.avatar.mimetype)) {
+                this.avatarsFilePath = files.avatar.filepath;
             }
         }
 

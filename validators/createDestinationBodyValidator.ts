@@ -9,6 +9,7 @@ import SingleLandmarkJoiSchema from "@/validators/helpers/create_destination/sin
 import HandleMultipartFormDataRequest from "@/utils/api/HandleMultipartFormDataRequest";
 // Types
 import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
+import { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
 import type { SubmittedFilesCollection } from "@/utils/api/HandleMultipartFormDataRequest";
 import type { CreateDestinationRequest, CreateDestinationRequestPardesBody } from "@/@types/router/destination";
 import type { DestinationContentField, SplittedContentField, SplittedSubfieldField } from "@/@types/DestinationDescription";
@@ -59,6 +60,14 @@ class CreateDestinationRequestBodyValidator {
                         element: imageName,
                         message: "Image has not been provided",
                         type: "required",
+                    },
+                ]);
+            } else if (this.files[imageName] && !ImageFileMimetypes.includes(this.files[imageName].mimetype)) {
+                throw new InvalidRequestedBody([
+                    {
+                        element: imageName,
+                        message: "Image has unexpected extension",
+                        type: "extension",
                     },
                 ]);
             }

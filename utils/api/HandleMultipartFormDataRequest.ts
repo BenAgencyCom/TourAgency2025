@@ -1,14 +1,13 @@
 // Libraries
 import path from "path";
 import formidable from "formidable";
-import type { Fields, Files } from "formidable";
 // Types
 import type { NextApiRequest } from "next";
 // My helpers
 import { uploadDir } from "@/utils/paths";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
 
-export type SubmittedFile = { originalFilename: string; filepath: string };
+export type SubmittedFile = { originalFilename: string; filepath: string; mimetype: string };
 export type SubmittedFilesCollection = Record<string, SubmittedFile>;
 
 interface MultipartFormData<T> {
