@@ -30,7 +30,7 @@ const {
         },
     } as CustomActions,
 });
-
+// Define own helpers
 const createContentField = (newFieldType: FieldType): DestinationContentField => {
     const createField = <T extends DestinationContentField>(data: Omit<T, "type">, propType?: FieldType): T => {
         const type = propType ? propType : (newFieldType as FieldType);

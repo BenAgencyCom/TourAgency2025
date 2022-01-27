@@ -52,7 +52,7 @@ export default <
 
     return {
         reducer: slice.reducer,
-        actions: rest,
+        actions: slice.actions,
         helpers: { addItem },
     };
 };
