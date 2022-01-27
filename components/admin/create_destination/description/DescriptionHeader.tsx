@@ -82,7 +82,12 @@ const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => 
                     {(() => {
                         if (props.previewDialog !== undefined) {
                             return (
-                                <Button variant="outlined" onClick={() => props.previewDialog?.setValue(true)} sx={{ mr: 1 }}>
+                                <Button
+                                    variant="outlined" //
+                                    onClick={() => props.previewDialog?.setValue(true)}
+                                    sx={{ mr: 1 }}
+                                    disabled={description.length === 0}
+                                >
                                     Preview
                                 </Button>
                             );
@@ -94,7 +99,11 @@ const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => 
                             return props.children;
                         } else {
                             return (
-                                <Button variant="outlined" onClick={() => props.setFullscreen !== false && props.setFullscreen(true)}>
+                                <Button
+                                    variant="outlined" //
+                                    onClick={() => props.setFullscreen !== false && props.setFullscreen(true)}
+                                    disabled={description.length === 0}
+                                >
                                     Fullscreen
                                 </Button>
                             );

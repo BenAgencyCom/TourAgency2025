@@ -23,13 +23,13 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
 
     return (
         <TextField
+            variant="outlined"
             label={label}
             value={value}
             onChange={handleChange}
             onBlur={props.onBlur}
             error={Boolean(props.errorMsg)}
             multiline={props.multiline ? props.multiline : false}
-            variant="outlined"
             disabled={disabled !== undefined ? disabled : false}
             sx={{ ...props.sx }}
             helperText={props.errorMsg}
