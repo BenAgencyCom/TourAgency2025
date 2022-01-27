@@ -18,13 +18,15 @@ const Thumbnail = dynamic(() => import("@/components/admin/create_destination/Th
 const Landmarks = dynamic(() => import("@/components/admin/create_destination/landmarks/Landmarks"), { loading: () => <Loading /> });
 const Description = dynamic(() => import("@/components/admin/create_destination/description/Description"), { ssr: false, loading: () => <Loading /> });
 const GeneralInformation = dynamic(() => import("@/components/admin/create_destination/general_information/GeneralInformations"), { loading: () => <Loading /> });
+const Confirmation = dynamic(() => import("@/components/admin/create_destination/confirmation/Confirmation"), { loading: () => <Loading /> });
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
 import backgroundImage from "@/public/images/admin/add_destination/bgc.jpg";
 
 const CreateDestinatinon: FunctionComponent<{}> = () => {
-    const [stepperIndex, setStepperIndex] = useState<number>(3);
+    const [stepperIndex, setStepperIndex] = useState<number>(4);
+    const [thumbnailURL, setThumbnailUrl] = useState<string | null>(null);
 
     const [city, setCity] = useState<string>("Warsaw");
     const [country, setCountry] = useState<CountryType | null>({ code: "PL", label: "Poland", phone: "48" });
@@ -63,7 +65,6 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                                     population={stated<string>(population, setPopulation)}
                                     quickDescription={stated<string>(quickDescription, setQuickDescription)}
                                     // Auxiliary
-                                    buttonStyles={buttonStyles}
                                     stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
                                 ></GeneralInformation>
                             );
@@ -71,6 +72,7 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                             return (
                                 <Thumbnail
                                     thumbnail={{ value: thumbnail, setValue: setThumbnail }}
+                                    url={stated(thumbnailURL, setThumbnailUrl)}
                                     // Auxiliary
                                     buttonStyles={buttonStyles}
                                     stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
@@ -85,9 +87,14 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                         } else if (stepperIndex === 3) {
                             return (
                                 <Description
-                                    buttonStyles={buttonStyles} //
-                                    stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
+                                    stepperIndex={stated<number>(stepperIndex, setStepperIndex)} //
                                 ></Description>
+                            );
+                        } else if (stepperIndex === 4) {
+                            return (
+                                <Confirmation
+                                    stepperIndex={stated<number>(stepperIndex, setStepperIndex)} //
+                                ></Confirmation>
                             );
                         }
                     })()}

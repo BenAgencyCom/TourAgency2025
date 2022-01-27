@@ -17,7 +17,10 @@ const CreateDestinationStepper: FunctionComponent<{ activeStep: number }> = ({ a
                 <StepLabel>Landmarks</StepLabel>
             </Step>
             <Step>
-                <StepLabel>Wide description</StepLabel>
+                <StepLabel>Description</StepLabel>
+            </Step>
+            <Step>
+                <StepLabel>Confirmation</StepLabel>
             </Step>
         </Stepper>
     );

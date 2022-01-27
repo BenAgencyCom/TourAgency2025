@@ -11,8 +11,8 @@ import Fade from "@mui/material/Fade";
 // Other Components
 import DescriptionHeader from "@/components/admin/create_destination/description/DescriptionHeader";
 import ContentFieldsWrapper from "@/components/admin/create_destination/description/fields_wrapper/ContentFieldsWrapper";
-import SectionHeader from "@/components/admin/create_destination/SectionHeader";
-import BottomNavigation from "@/components/admin/create_destination/BottomNavigation";
+import SectionHeader from "@/components/admin/create_destination/_utils/layout/SectionHeader";
+import BottomNavigation from "@/components/admin/create_destination/_utils/layout/BottomNavigation";
 import SingleContentField from "@/components/admin/create_destination/description/single_content_field/SingleContentField";
 import SectionIsEmpty from "@/components/admin/create_destination/_utils/SectionIsEmpty";
 // Styles
@@ -23,7 +23,6 @@ import Newspaper from "@mui/icons-material/Newspaper";
 import { useAppSelector } from "@/hooks/useRedux";
 
 interface DescriptionInterface {
-    buttonStyles: Record<string, unknown>;
     stepperIndex: StatedDataField<number>;
 }
 

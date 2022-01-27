@@ -9,8 +9,8 @@ import type { StatedDataField } from "@/@types/StagedDataField";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 // Other Components
-import SectionHeader from "@/components/admin/create_destination/SectionHeader";
-import BottomNavigation from "@/components/admin/create_destination/BottomNavigation";
+import SectionHeader from "@/components/admin/create_destination/_utils/layout/SectionHeader";
+import BottomNavigation from "@/components/admin/create_destination/_utils/layout/BottomNavigation";
 import SingleLandmark from "./single_landmark/SingleLandmark";
 import LandmarksWrapper from "@/components/admin/create_destination/landmarks/Wrapper";
 import Hiddable from "@/components/_utils/Hiddable";
