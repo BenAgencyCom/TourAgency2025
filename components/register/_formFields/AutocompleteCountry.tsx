@@ -10,6 +10,7 @@ interface AutocompleteProps {
     label: string;
     value: CountryType | null;
     _cypressTag?: string;
+    sx?: Record<string, unknown>;
     // Methods
     updateValue: (value: CountryType | null) => void;
 }
@@ -22,6 +23,7 @@ const AutocompleteCountry: FunctionComponent<AutocompleteProps> = (props) => {
             onChange={(_: any, newValue: CountryType | null) => props.updateValue(newValue)}
             value={props.value}
             isOptionEqualToValue={(option: CountryType, value: CountryType) => option.label === value.label && option.code === value.code && option.phone === value.phone}
+            sx={props.sx}
             renderOption={(optionProps, option: CountryType) => {
                 return (
                     <Box
@@ -48,7 +50,6 @@ const AutocompleteCountry: FunctionComponent<AutocompleteProps> = (props) => {
                         label={props.label}
                         inputProps={{
                             ...params.inputProps,
-                            autoComplete: "new-password",
                             "data-cy": props._cypressTag,
                         }}
                         InputProps={{

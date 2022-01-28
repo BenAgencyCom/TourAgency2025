@@ -18,7 +18,7 @@ import Head from "next/Head";
 import Image from "next/Image";
 import Loading from "@/components/_utils/Loading";
 import Stepper from "@/components/admin/create_destination/Stepper";
-const Thumbnail = dynamic(() => import("@/components/admin/create_destination/Thumbnail"), { loading: () => <Loading /> });
+const Thumbnail = dynamic(() => import("@/components/admin/create_destination/thumbnail/Thumbnail"), { loading: () => <Loading /> });
 const Landmarks = dynamic(() => import("@/components/admin/create_destination/landmarks/Landmarks"), { loading: () => <Loading /> });
 const Description = dynamic(() => import("@/components/admin/create_destination/description/Description"), { ssr: false, loading: () => <Loading /> });
 const GeneralInformation = dynamic(() => import("@/components/admin/create_destination/general_information/GeneralInformations"), { loading: () => <Loading /> });
@@ -34,7 +34,7 @@ import backgroundImage from "@/public/images/admin/add_destination/bgc.jpg";
 import { useAppSelector } from "@/hooks/useRedux";
 
 const CreateDestinatinon: FunctionComponent<{}> = () => {
-    const [stepperIndex, setStepperIndex] = useState<number>(4);
+    const [stepperIndex, setStepperIndex] = useState<number>(0);
     const [thumbnailURL, setThumbnailUrl] = useState<string | null>(null);
     const [requestResult, setRequestResult] = useState<"POSITIVE" | "NEGATIVE" | "PENDING" | null>(null);
     const [slug, setSlug] = useState<string>("");

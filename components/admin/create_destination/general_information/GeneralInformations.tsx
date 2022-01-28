@@ -85,6 +85,8 @@ const GeneralInformation: FunctionComponent<GeneralInformationInterface> = (prop
                     label="Country" //
                     value={country.value}
                     updateValue={country.setValue}
+                    _cypressTag="country"
+                    sx={{ width: "60%" }}
                 ></AutocompleteCountry>
                 <Select
                     label="Continent" //
