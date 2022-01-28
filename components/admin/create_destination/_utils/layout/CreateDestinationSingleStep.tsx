@@ -36,6 +36,7 @@ interface CreateDestinationSingleStepProps {
     disableNavigationButtons?: boolean;
     // Auxiliary
     stepperIndex: StatedDataField<number>;
+    continueAction?: () => void;
 }
 
 const CreateDestinationSingleStep: FunctionComponent<CreateDestinationSingleStepProps> = (props) => {
@@ -52,6 +53,7 @@ const CreateDestinationSingleStep: FunctionComponent<CreateDestinationSingleStep
                     currentSlideIndex={props.stepperIndex.value}
                     updateSlideIndex={props.stepperIndex.setValue}
                     disableNavigationButtons={props.disableNavigationButtons}
+                    continueAction={props.continueAction}
                 ></BottomNavigation>
             </SingleStepWrapper>
         </Fade>

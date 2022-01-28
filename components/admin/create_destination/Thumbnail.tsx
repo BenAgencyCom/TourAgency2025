@@ -24,7 +24,6 @@ interface ThumbnailInterface {
     thumbnail: StatedDataField<File | null>;
     url: StatedDataField<string | null>;
     // Auxiliary
-    buttonStyles: Record<string, unknown>;
     stepperIndex: StatedDataField<number>;
 }
 

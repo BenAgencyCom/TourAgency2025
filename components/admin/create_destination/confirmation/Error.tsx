@@ -52,15 +52,14 @@ const Background = styled(Box)(({ theme }) => ({
     opacity: 0.5,
     filter: "blur(10px)",
 }));
-interface SuccessProps {
-    imgUrl: string;
-    slug: string;
+interface ErrorProps {
+    goBack: () => void;
 }
 
-const Success: FunctionComponent<SuccessProps> = (props) => {
+const Error: FunctionComponent<ErrorProps> = (props) => {
     return (
         <Wrapper>
-            <Background sx={{ backgroundImage: `url(${props.imgUrl ? props.imgUrl : "/images/admin/add_destination/error.jpg"})` }}></Background>
+            <Background sx={{ backgroundImage: `url("/images/admin/add_destination/error.jpg")` }}></Background>
             <Content>
                 <Fade in={true} timeout={1000}>
                     <Icon>
@@ -79,6 +78,7 @@ const Success: FunctionComponent<SuccessProps> = (props) => {
                             variant="contained" //
                             color="error"
                             sx={{ width: "200px", color: "#fff" }}
+                            onClick={props.goBack}
                         >
                             Go back
                         </Button>
@@ -89,4 +89,4 @@ const Success: FunctionComponent<SuccessProps> = (props) => {
     );
 };
 
-export default Success;
+export default Error;

@@ -39,6 +39,7 @@ model Session {
 model Destination {
   id               String     @id @default(cuid())
   creatorId        String?    @map("creator_id")
+  slug             String     @unique
   city             String
   country          String
   countryCode      String     
@@ -56,6 +57,7 @@ model Destination {
 model Landmark {
   id                  String        @id @default(cuid())
   destinationId       String        @map("destination_id")
+  slug                String        @unique
   title               String
   description         String
   picture             String

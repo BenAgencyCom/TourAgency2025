@@ -81,7 +81,7 @@ class CreateDestinationRequestBodyValidator {
                 city: fields.city,
                 continent: fields.continent,
                 country: fields.country,
-                population: fields.population,
+                population: Number(fields.population),
                 quickDescription: fields.quickDescription,
             } as CreateDestinationRequestPardesBody,
             { abortEarly: false }

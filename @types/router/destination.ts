@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest } from "next";
 import type { CountryType } from "@/data/countries";
 import { Continent } from "@prisma/client";
 import { Landmark } from "@/@types/Landmark";

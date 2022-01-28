@@ -53,14 +53,13 @@ const Background = styled(Box)(({ theme }) => ({
     filter: "blur(10px)",
 }));
 interface SuccessProps {
-    imgUrl: string;
     slug: string;
 }
 
 const Success: FunctionComponent<SuccessProps> = (props) => {
     return (
         <Wrapper>
-            <Background sx={{ backgroundImage: `url(${props.imgUrl ? props.imgUrl : "/images/admin/add_destination/success.jpg"})` }}></Background>
+            <Background sx={{ backgroundImage: `url("/images/admin/add_destination/success.jpg")` }}></Background>
             <Content>
                 <Fade in={true} timeout={1000}>
                     <Icon>

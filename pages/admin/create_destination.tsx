@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import stated from "@/utils/client/stated";
@@ -6,6 +7,9 @@ import GuardedRoute from "@/utils/client/GuardedRoute";
 import type { GetServerSideProps } from "next";
 import type { FunctionComponent } from "react";
 import type { Continent } from "@prisma/client";
+import { FieldType } from "@/@types/DestinationDescription";
+import type { ImageContentField } from "@/@types/DestinationDescription";
+import type { Landmark } from "@/@types/Landmark";
 import type { CountryType } from "@/data/countries";
 // Material UI Components
 import Box from "@mui/material/Box";
@@ -19,14 +23,24 @@ const Landmarks = dynamic(() => import("@/components/admin/create_destination/la
 const Description = dynamic(() => import("@/components/admin/create_destination/description/Description"), { ssr: false, loading: () => <Loading /> });
 const GeneralInformation = dynamic(() => import("@/components/admin/create_destination/general_information/GeneralInformations"), { loading: () => <Loading /> });
 const Confirmation = dynamic(() => import("@/components/admin/create_destination/confirmation/Confirmation"), { loading: () => <Loading /> });
+// Upload Results:
+const Error = dynamic(() => import("@/components/admin/create_destination/confirmation/Error"), { loading: () => <Loading /> });
+const Success = dynamic(() => import("@/components/admin/create_destination/confirmation/Success"), { loading: () => <Loading /> });
 // Styles
 import styles from "@/sass/admin/create_destination.module.sass";
 import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
 import backgroundImage from "@/public/images/admin/add_destination/bgc.jpg";
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 
 const CreateDestinatinon: FunctionComponent<{}> = () => {
     const [stepperIndex, setStepperIndex] = useState<number>(4);
     const [thumbnailURL, setThumbnailUrl] = useState<string | null>(null);
+    const [requestResult, setRequestResult] = useState<"POSITIVE" | "NEGATIVE" | "PENDING" | null>(null);
+    const [slug, setSlug] = useState<string>("");
+
+    const description = useAppSelector((state) => state.description.list);
+    const landmarks = useAppSelector((state) => state.landmarks.list);
 
     const [city, setCity] = useState<string>("Warsaw");
     const [country, setCountry] = useState<CountryType | null>({ code: "PL", label: "Poland", phone: "48" });
@@ -35,7 +49,65 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
     const [population, setPopulation] = useState<string>("1 200 000");
     const [thumbnail, setThumbnail] = useState<File | null>(null);
 
-    const buttonStyles = { my: 1 };
+    const makeAPIRequest = async () => {
+        setRequestResult("PENDING");
+        const body = new FormData();
+        // Images
+        body.append("thumbnail", thumbnail as File);
+        // Data
+        body.append("city", city);
+        body.append("continent", continent);
+        body.append("country", JSON.stringify(country));
+        body.append("quickDescription", quickDescription);
+        body.append("population", population.replaceAll(" ", ""));
+
+        let descriptionCounter = 0;
+        body.append(
+            "description",
+            JSON.stringify(
+                description.map((target) => {
+                    const copy = Object.assign({}, target.data);
+                    // HANDLE DESCRIPTION'S IMAGES
+                    const handleImageField = (field: ImageContentField): ImageContentField => {
+                        const fieldsCopy = Object.assign({}, field);
+                        const imageName = `description_${++descriptionCounter}`;
+                        body.append(imageName, fieldsCopy.src as File);
+                        fieldsCopy.url = imageName;
+                        fieldsCopy.src = null;
+                        return fieldsCopy;
+                    };
+
+                    if (copy.type === FieldType.IMAGE) return handleImageField(copy);
+                    else if (copy.type === FieldType.SPLITTED) {
+                        if (copy.left.type === FieldType.IMAGE) copy.left = handleImageField(copy.left);
+                        if (copy.right.type === FieldType.IMAGE) copy.right = handleImageField(copy.right);
+                    }
+                    return copy;
+                })
+            )
+        );
+        body.append(
+            "landmarks",
+            JSON.stringify(
+                landmarks.map((target, index) => {
+                    const copy: Landmark = Object.assign({}, target.data);
+                    // HANDLE LANDMARK'S IMAGES
+                    const imageName = `landmark_${index + 1}`;
+                    body.append(imageName, copy.picture as File);
+                    copy.pictureURL = imageName;
+                    return copy;
+                })
+            )
+        );
+
+        try {
+            const { data } = await axios.post("/api/destination/create", body);
+            setSlug(data.slug);
+            setRequestResult("POSITIVE");
+        } catch (e) {
+            setRequestResult("NEGATIVE");
+        }
+    };
 
     return (
         <>
@@ -54,7 +126,23 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                 ></Image>
                 {/* CONTENT */}
                 <Box className={styles.wrapper}>
+                    {(() => {
+                        if (requestResult === "NEGATIVE") {
+                            return (
+                                <Error
+                                    goBack={() => {
+                                        setRequestResult(null);
+                                        setStepperIndex(0);
+                                    }}
+                                ></Error>
+                            );
+                        } else if (requestResult === "POSITIVE") {
+                            return <Success slug={slug}></Success>;
+                        }
+                    })()}
+                    {/*  */}
                     <Stepper activeStep={stepperIndex}></Stepper>
+                    {/*  */}
                     {(() => {
                         if (stepperIndex === 0) {
                             return (
@@ -74,7 +162,6 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                                     thumbnail={{ value: thumbnail, setValue: setThumbnail }}
                                     url={stated(thumbnailURL, setThumbnailUrl)}
                                     // Auxiliary
-                                    buttonStyles={buttonStyles}
                                     stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
                                 ></Thumbnail>
                             );
@@ -93,7 +180,9 @@ const CreateDestinatinon: FunctionComponent<{}> = () => {
                         } else if (stepperIndex === 4) {
                             return (
                                 <Confirmation
-                                    stepperIndex={stated<number>(stepperIndex, setStepperIndex)} //
+                                    makeAPIRequest={makeAPIRequest} //
+                                    isPending={requestResult === "PENDING"}
+                                    stepperIndex={stated<number>(stepperIndex, setStepperIndex)}
                                 ></Confirmation>
                             );
                         }

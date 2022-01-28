@@ -18,6 +18,7 @@ interface ImageBodyProps {
     url: string | null;
     updateSingleProp: (prop: keyof ImageContentField, val: ImageContentField[typeof prop]) => void;
     split?: true;
+    splittedFieldUpdate?: (data: { src: File; url: string }) => void;
 }
 
 const Image = styled("img")({
@@ -36,11 +37,17 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
     const onFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = (e.target.files as FileList)[0];
         if (file) {
-            props.updateSingleProp("src", file);
-
             const reader = new FileReader();
             reader.onload = (r) => {
-                props.updateSingleProp("url", r.target?.result as string);
+                if (props.splittedFieldUpdate) {
+                    props.splittedFieldUpdate({
+                        src: file,
+                        url: r.target?.result as string,
+                    });
+                } else {
+                    props.updateSingleProp("src", file);
+                    props.updateSingleProp("url", r.target?.result as string);
+                }
             };
             reader.readAsDataURL(file);
         }

@@ -7,9 +7,9 @@ import type { NextApiResponse } from "next";
 import { CreateDestinationRequest, CreateDestinationRequestPardesBody } from "@/@types/router/destination";
 import type { SubmittedFilesCollection, SubmittedFile } from "@/utils/api/HandleMultipartFormDataRequest";
 // Helpers
+import slugGenerator from "@/utils/api/slugGenerator";
 import FileUploader from "@/utils/api/abstracts/FileUploader";
 import { Forbidden, InvalidRequestedBody } from "@/utils/api/Errors";
-import slugGenerator from "@/utils/api/slugGenerator";
 //
 class CreateNewDestination extends FileUploader {
     private readonly folderName: string;
@@ -57,12 +57,13 @@ class CreateNewDestination extends FileUploader {
         }
     }
 
-    public async main() {
+    public async main(): Promise<string> {
         await this.uploadThumbnails();
         await this.uploadDescriptionImages();
         await this.uploadLandmarksImages();
 
         const { fields } = this;
+        const slug = slugGenerator(`${fields.city}_${fields.country.label}`, false);
         await prisma.destination.create({
             data: {
                 city: fields.city,
@@ -73,11 +74,13 @@ class CreateNewDestination extends FileUploader {
                 folder: this.folderName,
                 population: Number(fields.population),
                 shortDescription: fields.quickDescription,
+                slug,
                 creatorId: this.userId,
                 landmarks: {
                     createMany: {
                         data: fields.landmarks.map((landmark) => ({
                             description: landmark.description,
+                            slug: slugGenerator(`${fields.city}_${landmark.title}`, false),
                             picture: landmark.pictureURL,
                             title: landmark.title,
                             type: landmark.type,
@@ -87,6 +90,8 @@ class CreateNewDestination extends FileUploader {
                 },
             },
         });
+
+        return slug;
     }
 }
 
@@ -100,9 +105,9 @@ export default async function handler(req: CreateDestinationRequest, res: NextAp
         const userId = (await GuardedAPIEndpoint(req, "POST", "admin")) as string;
         const { files, fields } = await ValidateCreateDesinationBody(req);
 
-        await new CreateNewDestination(fields as CreateDestinationRequestPardesBody, files, userId).main();
+        const slug = await new CreateNewDestination(fields as CreateDestinationRequestPardesBody, files, userId).main();
 
-        return res.status(201).end();
+        return res.status(201).send({ slug });
     } catch (e: unknown) {
         if (e instanceof Forbidden) return res.status(403).end();
         else if (e instanceof InvalidRequestedBody) {

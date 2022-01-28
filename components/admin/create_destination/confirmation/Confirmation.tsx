@@ -30,13 +30,14 @@ const PendingScreen = styled(Box)({
     zIndex: "1",
 });
 interface ConfirmationProps {
+    makeAPIRequest: () => Promise<void>;
+    isPending: boolean;
     // Auxiliary
     stepperIndex: StatedDataField<number>;
 }
 
 const Confirmation: FunctionComponent<ConfirmationProps> = (props) => {
     const recaptchaRef = useRef<ReCAPTCHA | null>(null);
-    const [pending, setPending] = useState<boolean>(false);
     const [RECAPTCHAVerified, SetRECAPTCHAVerified] = useState<boolean>(false);
 
     useEffect(() => {
@@ -49,7 +50,6 @@ const Confirmation: FunctionComponent<ConfirmationProps> = (props) => {
             return SetRECAPTCHAVerified(false);
         }
         SetRECAPTCHAVerified(true);
-        setPending(true);
     };
 
     const siteKey = (): string => {
@@ -63,17 +63,18 @@ const Confirmation: FunctionComponent<ConfirmationProps> = (props) => {
     return (
         <CreateDestinationSingleStep
             stepperIndex={props.stepperIndex} //
-            header="One more step"
+            header="One more step..."
             blockGoingForward={!RECAPTCHAVerified}
             continueMsg="Create!"
             contentSX={{
                 alignItems: "center",
             }}
-            disableNavigationButtons={pending}
+            continueAction={props.makeAPIRequest}
+            disableNavigationButtons={props.isPending}
         >
             <ImageWrapper
                 sx={
-                    pending
+                    props.isPending
                         ? {
                               width: "500px",
                               maxHeight: "500px",
@@ -85,7 +86,7 @@ const Confirmation: FunctionComponent<ConfirmationProps> = (props) => {
             </ImageWrapper>
 
             {(() => {
-                if (pending) {
+                if (props.isPending) {
                     return (
                         <>
                             <PendingScreen>
@@ -104,16 +105,16 @@ const Confirmation: FunctionComponent<ConfirmationProps> = (props) => {
                     return (
                         <>
                             <Divider flexItem sx={{ my: 2 }}></Divider>
-                            <Typography variant="body1" align="center">
-                                Before creating a new destination and related to them landmarks you have to confirm, that you are actually a human
+                            <Typography variant="h5" align="center" sx={{ mb: 5 }}>
+                                Before creating a new destination and related to them landmarks you have to prove, that you are actually a human
                             </Typography>
-                            <Divider flexItem sx={{ my: 2 }}></Divider>
                             <ReCAPTCHA
                                 ref={recaptchaRef}
                                 sitekey={siteKey()}
                                 onChange={onReCAPTCHAChange} //
                                 theme="dark"
                             />
+                            <Divider flexItem sx={{ my: 2 }}></Divider>
                         </>
                     );
             })()}

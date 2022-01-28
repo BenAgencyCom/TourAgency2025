@@ -38,9 +38,21 @@ interface SplittedSubfiledProps {
 const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
     const [openChangeTypeDialog, setOpenChangeTypeDialog] = useState<boolean>(false);
 
+    const updateImage = (data: { src: File; url: string }) => {
+        if (props.data.type === FieldType.IMAGE) {
+            props.updateSubField({
+                type: FieldType.IMAGE,
+                ...data,
+            });
+        }
+    };
+
     const updateSinglePropOfSubfield = <T extends SplittedSubfieldField>(prop: keyof T, val: T[typeof prop]) => {
         const newData = Object.assign({}, props.data) as T;
         newData[prop] = val;
+        if (props.data.type === FieldType.IMAGE && prop !== "src") {
+            (newData as ImageContentField).src = props.data.src;
+        }
         props.updateSubField(newData);
     };
 
@@ -88,6 +100,7 @@ const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
                                 <ImageBody
                                     url={props.data.url as string}
                                     fullscreen={props.fullscreen}
+                                    splittedFieldUpdate={updateImage}
                                     updateSingleProp={(prop: keyof ImageContentField, val: ImageContentField[typeof prop]) => {
                                         return updateSinglePropOfSubfield<ImageContentField>(prop, val);
                                     }}
