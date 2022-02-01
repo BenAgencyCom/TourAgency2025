@@ -5,15 +5,21 @@ import path from "path";
 import ConsolePrettier from "../utils/ConsolePrettier";
 // Data
 import userData from "./data/users";
+import destinationsData from "./data/destinations";
+import landmarksData from "./data/landmarks";
 // Types
-import { SeederDataList, User } from "./data/@types";
+import { SeederDataList, User, Destination, Landmark } from "./data/@types";
 import { uploadDir } from "../utils/paths";
 
 const prisma = new PrismaClient();
 
 class PrismaSeeder extends ConsolePrettier {
     protected imagesToUpload: string[] = [];
-    public constructor(protected userData: SeederDataList<User>) {
+    public constructor(
+        protected userData: SeederDataList<User>, //
+        protected destinationsData: SeederDataList<Destination>,
+        protected landmarksData: SeederDataList<Landmark>
+    ) {
         super();
     }
 
@@ -27,7 +33,9 @@ class PrismaSeeder extends ConsolePrettier {
             this.consoleMsg(`${folder}- folder has been revamped`, "SUCCESS");
         }
     }
+
     protected async seedUsers() {
+        await prisma.user.deleteMany();
         this.consoleMsg("Store user data");
         const data = this.userData.map((el) => {
             const { _imagesDir, ...rest } = el;
@@ -36,6 +44,36 @@ class PrismaSeeder extends ConsolePrettier {
         });
 
         await prisma.user.createMany({
+            data: data as any,
+        });
+        this.consoleMsg(`${data.length} records have been added`, "SUCCESS");
+    }
+
+    protected async seedDestinations() {
+        await prisma.destination.deleteMany();
+        this.consoleMsg("Store destinations data");
+        const data = this.destinationsData.map((el) => {
+            const { _imagesDir, ...rest } = el;
+            if (_imagesDir) this.imagesToUpload.push(_imagesDir);
+            return rest;
+        });
+
+        await prisma.destination.createMany({
+            data: data as any,
+        });
+        this.consoleMsg(`${data.length} records have been added`, "SUCCESS");
+    }
+
+    protected async seedLandmarks() {
+        await prisma.landmark.deleteMany();
+        this.consoleMsg("Store destinations data");
+        const data = this.landmarksData.map((el) => {
+            const { _imagesDir, ...rest } = el;
+            if (_imagesDir) this.imagesToUpload.push(_imagesDir);
+            return rest;
+        });
+
+        await prisma.landmark.createMany({
             data: data as any,
         });
         this.consoleMsg(`${data.length} records have been added`, "SUCCESS");
@@ -60,6 +98,8 @@ class PrismaSeeder extends ConsolePrettier {
         await this.deleteCurrentImages();
         await prisma.user.deleteMany();
         await this.seedUsers();
+        await this.seedDestinations();
+        await this.seedLandmarks();
 
         await this.uploadAllImages();
     }
@@ -67,7 +107,7 @@ class PrismaSeeder extends ConsolePrettier {
 
 const main = async () => {
     console.clear();
-    await new PrismaSeeder(userData).main();
+    await new PrismaSeeder(userData, destinationsData, landmarksData).main();
 };
 
 main();
