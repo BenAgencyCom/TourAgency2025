@@ -14,6 +14,8 @@ import Fade from "@mui/material/Fade";
 // MAterial UI Icons
 import MenuIcon from "@mui/icons-material/Menu";
 import Close from "@mui/icons-material/Close";
+// Other components
+import Link from "next/link";
 // My Components
 const LoginAndRegister = dynamic(() => import("./LoginAndRegister"));
 const AuthenticatedUser = dynamic(() => import("./AuthenticatedUser"));
@@ -69,7 +71,9 @@ const Navigation: FunctionComponent<{ buttonStyles: Record<string, unknown> }> =
                             <Fade in={displayMenu || width > 1000}>
                                 <Box className={styles["routes-wrapper"]} sx={{ p: 1, mr: 2 }}>
                                     <Button sx={buttonStyles} variant="outlined">
-                                        Lorem
+                                        <Link href="/destinations">
+                                            <a>Cities</a>
+                                        </Link>
                                     </Button>
                                     <Button sx={buttonStyles} variant="outlined">
                                         Ipsum
