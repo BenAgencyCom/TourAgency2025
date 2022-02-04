@@ -4,6 +4,7 @@ import { styled, alpha } from "@mui/system";
 import type { FunctionComponent } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
 // Other Components
 import Image from "next/Image";
 // Redux
@@ -13,6 +14,8 @@ const BackgroundImageWrapper = styled(Box)({
     width: "100%",
     height: "100%",
     position: "relative",
+    transitionDelay: "500ms !important",
+    transitionDuration: "1000ms !important",
 });
 const GradientMask = styled(Box)({
     position: "absolute",
@@ -25,30 +28,32 @@ const GradientMask = styled(Box)({
 });
 const LoadingHiddingMask = styled(Box)({
     position: "absolute",
-    zIndex: 1,
     top: 0,
     width: "100%",
     height: "100%",
     background: "#000",
+    zIndex: -1,
 });
 
 const BackgroundImage: FunctionComponent = (props) => {
     const { folder } = useAppSelector((state) => state.singleDestination.data);
     return (
         <>
-            <BackgroundImageWrapper>
-                <Image
-                    alt="background" //
-                    src={`/upload/destinations/${folder}/thumbnail/1080p.jpg`}
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="center"
-                    placeholder="blur"
-                    blurDataURL={`/upload/destinations/${folder}/thumbnail/360p.jpg`}
-                ></Image>
-            </BackgroundImageWrapper>
-            <GradientMask></GradientMask>
+            <Fade in={true}>
+                <BackgroundImageWrapper>
+                    <Image
+                        alt="background" //
+                        src={`/upload/destinations/${folder}/thumbnail/1080p.jpg`}
+                        layout="fill"
+                        objectFit="cover"
+                        objectPosition="center"
+                        placeholder="blur"
+                        blurDataURL={`/upload/destinations/${folder}/thumbnail/360p.jpg`}
+                    ></Image>
+                </BackgroundImageWrapper>
+            </Fade>
             <LoadingHiddingMask></LoadingHiddingMask>
+            <GradientMask></GradientMask>
         </>
     );
 };
