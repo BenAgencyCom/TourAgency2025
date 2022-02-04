@@ -7,10 +7,10 @@ import type { DestinationContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
-import Header from "@/components/destinations/single/Header";
-import Paragraph from "@/components/destinations/single/Paragraph";
-import ImageField from "@/components/destinations/single/Image";
-import Splitted from "@/components/destinations/single/Splitted";
+import Header from "@/components/destinations/single/description/Header";
+import Paragraph from "@/components/destinations/single/description/Paragraph";
+import ImageField from "@/components/destinations/single/description/Image";
+import Splitted from "@/components/destinations/single/description/Splitted";
 
 interface SingleDestinationContentProps {
     data: DestinationContentField[];

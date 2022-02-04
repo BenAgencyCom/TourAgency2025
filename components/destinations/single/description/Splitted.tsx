@@ -7,7 +7,7 @@ import type { SplittedContentField } from "@/@types/DestinationDescription";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 // Other components
-import SplittedSubfieldField from "@/components/destinations/single/_SplittedSubfield";
+import SplittedSubfieldField from "@/components/destinations/single/description/_SplittedSubfield";
 
 // Styled components
 const SplittedFieldWrapper = styled(Box)(({ theme }) => ({

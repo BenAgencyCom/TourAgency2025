@@ -29,13 +29,11 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (router.pathname === "/") {
-            setDisplayExtraStyles(true);
-            window.addEventListener("scroll", () => {
-                if (window.scrollY < 100) setDisplayExtraStyles(true);
-                else setDisplayExtraStyles(false);
-            });
-        } else setDisplayExtraStyles(false);
+        setDisplayExtraStyles(true);
+        window.addEventListener("scroll", () => {
+            if (window.scrollY < 100) setDisplayExtraStyles(true);
+            else setDisplayExtraStyles(false);
+        });
         //
         // Toogle visibility
         //

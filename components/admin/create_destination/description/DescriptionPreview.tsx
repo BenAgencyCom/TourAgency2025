@@ -10,7 +10,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
 // Other components
-import SingleDestinationContent from "@/components/destinations/single/SingleDestinationContent";
+import SingleDestinationContent from "@/components/destinations/single/description/SingleDestinationContent";
 
 const CustomDialogContent = styled(DialogContent)(({ theme }) => ({
     "&::-webkit-scrollbar": { width: "10px" },

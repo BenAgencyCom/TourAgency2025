@@ -1,24 +1,37 @@
 // Tools
 import { prisma } from "@/prisma/db";
+import { styled } from "@mui/system";
 // Types
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/SingleDestination";
 // Material UI Components
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 // Other components
+import Landing from "@/components/destinations/single/landing/Landing";
+// Redux
+import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
+import { setData } from "@/redux/slices/singleDestination";
 // Styled components
+const Wrapper = styled(Box)(({ theme }) => ({
+    width: "100vw",
+    position: "relative",
+}));
 
 interface SingleDestinationProps {
     destination: Destination;
 }
 
 const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => {
+    const dispatch = useAppDispatch();
+    dispatch(setData(props.destination));
+    const destination = useAppSelector((state) => state.singleDestination.data);
+
     return (
-        <Container sx={{ mt: "100px", color: "text.primary" }}>
-            <Typography variant="h3">{props.destination.city}</Typography>
-        </Container>
+        <Wrapper sx={{ color: "text.primary" }}>
+            <Landing></Landing>
+        </Wrapper>
     );
 };
 

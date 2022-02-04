@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authenticationSlice from "@/redux/slices/authentication";
 import snackbarSlice from "@/redux/slices/snackbar";
 import windowSizes from "@/redux/slices/windowSizes";
-import testsReducer from "@/redux/slices/tests";
+import singleDestination from "@/redux/slices/singleDestination";
 // Create destination
 import landmarksReducer from "@/redux/slices/create_destination/landmarks";
 import destinationReducer from "@/redux/slices/create_destination/description";
@@ -14,11 +14,14 @@ const store = configureStore({
             serializableCheck: false,
         }),
     reducer: {
+        // General purposes:
+        windowSizes: windowSizes.reducer,
         authentication: authenticationSlice.reducer,
         snackbar: snackbarSlice.reducer,
-        windowSizes: windowSizes.reducer,
+        // /destinations/:slug
+        singleDestination: singleDestination.reducer,
+        // ADMIN/create new destination
         landmarks: landmarksReducer,
-        tests: testsReducer,
         description: destinationReducer,
     },
 });
