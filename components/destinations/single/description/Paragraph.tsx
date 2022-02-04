@@ -16,7 +16,7 @@ const Paragraph = styled(Typography)(({ theme }) => ({
 interface ParagraphFieldProps {
     data: ParagraphContentField;
     split?: true;
-    shrink: boolean;
+    shrink?: boolean;
 }
 
 const ParagraphField: FunctionComponent<ParagraphFieldProps> = (props) => {

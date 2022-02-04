@@ -20,7 +20,7 @@ const LandingWrapper = styled(Box)(({ theme }) => ({
 
 const Landing: FunctionComponent = () => {
     return (
-        <LandingWrapper>
+        <LandingWrapper id="landing-wrapper" component="section">
             <BackgroundImage></BackgroundImage>
             <Information></Information>
             <Explore></Explore>

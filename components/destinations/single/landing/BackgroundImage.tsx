@@ -1,5 +1,6 @@
 // Tools
 import { styled, alpha } from "@mui/system";
+import { useRef, useEffect, useState } from "react";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
@@ -34,11 +35,40 @@ const LoadingHiddingMask = styled(Box)({
     background: "#000",
     zIndex: -1,
 });
+const ScrollingMask = styled(Box)(({ theme }) => ({
+    position: "absolute",
+    top: 0,
+    width: "100%",
+    height: "100%",
+    background: theme.palette.background.paper,
+    zIndex: 3,
+    opacity: 0,
+}));
 
 const BackgroundImage: FunctionComponent = () => {
     const { folder } = useAppSelector((state) => state.singleDestination.data);
+
+    const scrollingMaskElement = useRef<HTMLElement | null>(null);
+    const [renderLoadingHiddingMask, setRenderLoadingHiddingMask] = useState<boolean>(true);
+
+    useEffect(() => {
+        setTimeout(() => setRenderLoadingHiddingMask(false), 2000);
+        window.addEventListener("scroll", () => {
+            if (scrollingMaskElement.current) {
+                const height = scrollingMaskElement.current.getBoundingClientRect().height;
+                const ratio = Math.min(((scrollY - 100) * 1.6) / height, 1);
+                const zIndex = ratio < 0.15 ? -1 : 3;
+                scrollingMaskElement.current.style.zIndex = `${zIndex}`;
+                scrollingMaskElement.current.style.opacity = `${zIndex === -1 ? 0 : ratio}`;
+            }
+        });
+    }, []);
     return (
         <>
+            {(() => {
+                if (renderLoadingHiddingMask) return <LoadingHiddingMask></LoadingHiddingMask>;
+            })()}
+
             <Fade in={true}>
                 <BackgroundImageWrapper>
                     <Image
@@ -52,8 +82,9 @@ const BackgroundImage: FunctionComponent = () => {
                     ></Image>
                 </BackgroundImageWrapper>
             </Fade>
-            <LoadingHiddingMask></LoadingHiddingMask>
+
             <GradientMask></GradientMask>
+            <ScrollingMask ref={scrollingMaskElement}></ScrollingMask>
         </>
     );
 };

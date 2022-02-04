@@ -31,7 +31,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     useEffect(() => {
         setDisplayExtraStyles(true);
         window.addEventListener("scroll", () => {
-            if (window.scrollY < 100) setDisplayExtraStyles(true);
+            if (window.scrollY < 1080) setDisplayExtraStyles(true);
             else setDisplayExtraStyles(false);
         });
         //

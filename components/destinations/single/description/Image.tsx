@@ -14,7 +14,7 @@ import ImageModal from "@/components/_utils/ImageModal";
 interface ImageFieldProps {
     imageURL: string;
     split?: true;
-    extend: boolean;
+    extend?: boolean;
 }
 
 const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
