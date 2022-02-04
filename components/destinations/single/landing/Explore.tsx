@@ -24,7 +24,7 @@ const ExploreButton = styled(Button)(({ theme }) => ({
     transitionDelay: "500ms !important",
 }));
 
-const Explore: FunctionComponent = (props) => {
+const Explore: FunctionComponent = () => {
     return (
         <Fade in={true}>
             <ExploreButton variant="outlined" color="inherit">

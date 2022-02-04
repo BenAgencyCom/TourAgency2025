@@ -35,7 +35,7 @@ const LoadingHiddingMask = styled(Box)({
     zIndex: -1,
 });
 
-const BackgroundImage: FunctionComponent = (props) => {
+const BackgroundImage: FunctionComponent = () => {
     const { folder } = useAppSelector((state) => state.singleDestination.data);
     return (
         <>

@@ -58,7 +58,7 @@ const Description = styled(Typography)({
     fontSize: "1.5rem",
 });
 
-const Information: FunctionComponent = (props) => {
+const Information: FunctionComponent = () => {
     const { country, continent, city, shortDescription } = useAppSelector((state) => state.singleDestination.data);
     return (
         <InformationWrapper>

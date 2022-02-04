@@ -9,19 +9,28 @@ const Paragraph = styled(Typography)(({ theme }) => ({
     textIndent: "20px",
     marginBottom: theme.spacing(1),
     fontSize: "1.1rem",
+    textAlign: "justify",
+    letterSpacing: "1px",
 }));
 
 interface ParagraphFieldProps {
     data: ParagraphContentField;
     split?: true;
+    shrink: boolean;
 }
 
 const ParagraphField: FunctionComponent<ParagraphFieldProps> = (props) => {
+    const width: number = (() => {
+        if (props.split) {
+            return props.shrink ? 39 : 49;
+        }
+        return 100;
+    })();
+
     return (
         <Paragraph
             sx={{
-                width: `${props.split ? 49 : 100}%`,
-                mt: props.split ? 0 : 2,
+                width: `${width}%`,
             }}
         >
             {props.data.content}

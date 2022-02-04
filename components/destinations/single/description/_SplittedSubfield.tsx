@@ -9,6 +9,7 @@ import ImageField from "@/components/destinations/single/description/Image";
 interface SplittedSubfiledProps {
     data: SplittedSubfieldField;
     imageLoader: (url: string) => string;
+    typeOfSecondSubfield: FieldType;
 }
 
 const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
@@ -18,6 +19,7 @@ const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
                 <Paragraph
                     split //
                     data={props.data}
+                    shrink={props.typeOfSecondSubfield === FieldType.IMAGE}
                 ></Paragraph>
             );
         case FieldType.IMAGE:
@@ -25,6 +27,7 @@ const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
                 <ImageField
                     split //
                     imageURL={props.imageLoader(props.data.url as string)}
+                    extend={props.typeOfSecondSubfield === FieldType.PARAGRAPH}
                 ></ImageField>
             );
     }

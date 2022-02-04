@@ -18,7 +18,7 @@ const LandingWrapper = styled(Box)(({ theme }) => ({
     userSelect: "none",
 }));
 
-const Landing: FunctionComponent = (props) => {
+const Landing: FunctionComponent = () => {
     return (
         <LandingWrapper>
             <BackgroundImage></BackgroundImage>

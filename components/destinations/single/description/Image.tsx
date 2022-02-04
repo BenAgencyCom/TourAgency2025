@@ -14,20 +14,27 @@ import ImageModal from "@/components/_utils/ImageModal";
 interface ImageFieldProps {
     imageURL: string;
     split?: true;
+    extend: boolean;
 }
 
 const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
     const [openModal, setOpenModal] = useState<boolean>(false);
-
     const handleOpenModal = () => setOpenModal(true);
+
+    const width: number = (() => {
+        if (props.split) {
+            return props.extend ? 59 : 49;
+        }
+        return 100;
+    })();
 
     return (
         <Box
             sx={{
-                width: `${props.split ? 49 : 100}% !important`, //
+                width: `${width}% !important`, //
                 position: "relative",
-                height: `${props.split ? "auto" : "500px"}`,
-                mb: props.split ? 0 : 2,
+                height: `${props.split ? "300px" : "600px"}`,
+                my: props.split ? 0 : 2,
             }}
         >
             {(() => {

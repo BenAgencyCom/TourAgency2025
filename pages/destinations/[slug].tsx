@@ -7,17 +7,22 @@ import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/SingleDestination";
 // Material UI Components
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 // Other components
 import Landing from "@/components/destinations/single/landing/Landing";
+import Description from "@/components/destinations/single/DescriptionWrapper";
 // Redux
-import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
+import { useAppDispatch } from "@/hooks/useRedux";
 import { setData } from "@/redux/slices/singleDestination";
 // Styled components
 const Wrapper = styled(Box)(({ theme }) => ({
     width: "100vw",
     position: "relative",
 }));
+const Content = styled(Box)({
+    width: "100vw",
+    position: "relative",
+    marginTop: "100vh",
+});
 
 interface SingleDestinationProps {
     destination: Destination;
@@ -26,11 +31,13 @@ interface SingleDestinationProps {
 const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => {
     const dispatch = useAppDispatch();
     dispatch(setData(props.destination));
-    const destination = useAppSelector((state) => state.singleDestination.data);
 
     return (
         <Wrapper sx={{ color: "text.primary" }}>
             <Landing></Landing>
+            <Content>
+                <Description></Description>
+            </Content>
         </Wrapper>
     );
 };
