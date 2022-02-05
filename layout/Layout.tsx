@@ -16,7 +16,7 @@ import { authenticateToken, getUserData } from "@/utils/client/authenticate";
 // Redux
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { setAuthentication, getUserFromLocalStorage, setUserData } from "@/redux/slices/authentication";
-import { resize } from "@/redux/slices/windowSizes";
+import { resize, setScroll } from "@/redux/slices/windowSizes";
 
 const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const router = useRouter();
@@ -65,6 +65,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         //
         dispatch(resize());
         window.addEventListener("resize", () => dispatch(resize()));
+        window.addEventListener("scroll", () => dispatch(setScroll()));
     }, [router.pathname, isAuthenticated, dispatch]);
 
     //

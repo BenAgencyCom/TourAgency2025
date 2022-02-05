@@ -10,32 +10,47 @@ import Box from "@mui/material/Box";
 // Other components
 import Landing from "@/components/destinations/single/landing/Landing";
 import Description from "@/components/destinations/single/DescriptionWrapper";
+import Stats from "@/components/destinations/single/stats/Stats";
 // Redux
-import { useAppDispatch } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { setData } from "@/redux/slices/singleDestination";
 // Styled components
 const Wrapper = styled(Box)(({ theme }) => ({
     width: "100vw",
     position: "relative",
 }));
-const Content = styled(Box)({
+const Content = styled(Box)(({ theme }) => ({
     width: "100vw",
     position: "relative",
     marginTop: "100vh",
-});
+    paddingTop: "1px",
+    background: theme.palette.background.paper,
+    "&::before": {
+        content: "''",
+        position: "absolute",
+        top: "-20px",
+        width: "100%",
+        height: "50px",
+        background: theme.palette.background.paper,
+        transform: "rotate(-.5deg)",
+    },
+}));
 
 interface SingleDestinationProps {
     destination: Destination;
 }
 
 const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => {
+    const { scrollY } = useAppSelector((state) => state.windowSizes);
+
     const dispatch = useAppDispatch();
     dispatch(setData(props.destination));
 
     return (
         <Wrapper sx={{ color: "text.primary" }}>
             <Landing></Landing>
-            <Content>
+            <Content sx={{ "&::before": { opacity: scrollY ? 1 : 0 } }}>
+                <Stats></Stats>
                 <Description></Description>
             </Content>
         </Wrapper>

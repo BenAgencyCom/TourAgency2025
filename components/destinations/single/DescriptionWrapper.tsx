@@ -15,30 +15,27 @@ const Wrapper = styled(Box)({
     background: `linear-gradient(180deg, #121212 0%, #1B2134 100%);`,
     paddingBottom: "100px",
 });
-const Container = styled(Box)({
-    paddingTop: "100px",
+const Container = styled(Box)(({ theme }) => ({
     width: "100vw",
-    maxWidth: "1200px",
+    maxWidth: theme.breakpoints.values.lg,
     margin: "0 auto",
-});
+}));
 const DestinationWrapper: FunctionComponent = () => {
     const { description, folder } = useAppSelector((state) => state.singleDestination.data);
-    const { height } = useAppSelector((state) => state.windowSizes);
+    const { height, scrollY } = useAppSelector((state) => state.windowSizes);
 
     const containerElement = useRef<HTMLElement | null>(null);
     const imageLoader = (url: string): string => `/upload/destinations/${folder}/description/${url}/1080p.jpg`;
 
-    useEffect(() => {
-        const height34th = (height * 3) / 4; // three forthth
-        const height13td = height / 3; // one third
+    const height34th = (height * 3) / 2; // three forthth
+    const height13td = height * 0.5; // one third
 
-        window.addEventListener("scroll", () => {
-            if (containerElement.current) {
-                const ratio = Math.min(((scrollY - height13td) * 2) / height34th, 1);
-                containerElement.current.style.opacity = `${ratio}`;
-            }
-        });
-    });
+    useEffect(() => {
+        if (containerElement.current) {
+            const ratio = Math.min(((scrollY - height13td) * 2) / height34th, 1);
+            containerElement.current.style.opacity = `${ratio}`;
+        }
+    }, [scrollY, height34th, height13td]);
 
     return (
         <Wrapper component="section">
