@@ -30,8 +30,8 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
                         <Typography variant="h5">{`Landmarks: ${item._count.landmarks}`}</Typography>
 
                         <Button variant="contained" sx={{ width: 300, mt: 2 }}>
-                            <Link href={`/destinations/${item.slug}`}>
-                                <a>Visit</a>
+                            <Link href={`./destinations/${item.slug}`} passHref>
+                                Visit
                             </Link>
                         </Button>
                     </SingleDestinaion>

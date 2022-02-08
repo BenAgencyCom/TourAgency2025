@@ -12,6 +12,7 @@ interface UnfadeOnScrollProps {
     children: ReactNode;
     sx?: Record<string, unknown>;
     animationRatio?: number;
+    duration?: number;
 }
 
 const UnfadeOnScroll: FunctionComponent<UnfadeOnScrollProps> = (props) => {
@@ -31,7 +32,15 @@ const UnfadeOnScroll: FunctionComponent<UnfadeOnScrollProps> = (props) => {
 
     return (
         <Fade in={fade}>
-            <Box sx={props.sx} ref={element}>
+            <Box
+                sx={{
+                    ...props.sx,
+                    ...{
+                        transitionDuration: `${props.duration ?? 500}ms !important`,
+                    },
+                }}
+                ref={element}
+            >
                 {props.children}
             </Box>
         </Fade>

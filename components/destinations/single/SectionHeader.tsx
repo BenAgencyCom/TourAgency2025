@@ -34,7 +34,7 @@ interface SectionHeaderProps {
 }
 const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
     return (
-        <UnfadeOnScroll animationRatio={0.5}>
+        <UnfadeOnScroll duration={700}>
             <Wrapper>
                 <Header variant="h2">{props.header}</Header>
                 {(() => {

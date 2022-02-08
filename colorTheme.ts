@@ -27,10 +27,19 @@ export default responsiveFontSizes(
             mode: "dark",
             primary: {
                 main: "#FDA7DF",
+                dark: "#B1749C",
+            },
+            secondary: {
+                main: "#90F3FF",
+                dark: "#64AAB2",
+                contrastText: "#fff",
             },
             neutral: {
                 main: "#222f3e",
                 contrastText: "#fff",
+            },
+            error: {
+                main: "#D62246",
             },
         },
     })

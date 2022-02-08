@@ -1,9 +1,10 @@
 import type { FunctionComponent, ReactNode } from "react";
 import { useEffect, useState } from "react";
 // Components
-import Navigation from "./Navigation";
-import PageLogo from "./PageLogo";
-import Snackbar from "./Snackbar";
+import Navigation from "@/layout//Navigation";
+import PageLogo from "@/layout//PageLogo";
+import Snackbar from "@/layout//Snackbar";
+import ScrollButton from "@/layout/ScrollButton";
 // Material UI Components
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
@@ -29,43 +30,49 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        setDisplayExtraStyles(true);
-        window.addEventListener("scroll", () => {
-            if (window.scrollY < 1080) setDisplayExtraStyles(true);
-            else setDisplayExtraStyles(false);
-        });
-        //
-        // Toogle visibility
-        //
-        const routesWithDisabledMenu = ["/register", "/login", "/admin/create_destination"];
-        if (routesWithDisabledMenu.includes(router.pathname)) setDisplayAppBar(false);
-        else {
-            setDisplayAppBar(true);
-        }
-        //
-        // Authenticate user
-        //
-        (async () => {
-            if (isAuthenticated === null) {
-                const authenticationResult = (await authenticateToken()) as boolean;
-                dispatch(setAuthentication(authenticationResult));
-                // Load user's data
-                const setUserDataFromAPIRequest = async () => dispatch(setUserData(await getUserData()));
-                if (authenticationResult) {
-                    try {
-                        dispatch(getUserFromLocalStorage());
-                    } catch (e: unknown) {
-                        await setUserDataFromAPIRequest();
+        let isMounted = true;
+        if (isMounted) {
+            setDisplayExtraStyles(true);
+            window.addEventListener("scroll", () => {
+                if (window.scrollY < 1080) setDisplayExtraStyles(true);
+                else setDisplayExtraStyles(false);
+            });
+            //
+            // Toogle visibility
+            //
+            const routesWithDisabledMenu = ["/register", "/login", "/admin/create_destination"];
+            if (routesWithDisabledMenu.includes(router.pathname)) setDisplayAppBar(false);
+            else {
+                setDisplayAppBar(true);
+            }
+            //
+            // Authenticate user
+            //
+            (async () => {
+                if (isAuthenticated === null) {
+                    const authenticationResult = (await authenticateToken()) as boolean;
+                    dispatch(setAuthentication(authenticationResult));
+                    // Load user's data
+                    const setUserDataFromAPIRequest = async () => dispatch(setUserData(await getUserData()));
+                    if (authenticationResult) {
+                        try {
+                            dispatch(getUserFromLocalStorage());
+                        } catch (e: unknown) {
+                            await setUserDataFromAPIRequest();
+                        }
                     }
                 }
-            }
-        })();
-        //
-        // Track resize
-        //
-        dispatch(resize());
-        window.addEventListener("resize", () => dispatch(resize()));
-        window.addEventListener("scroll", () => dispatch(setScroll()));
+            })();
+            //
+            // Track resize
+            //
+            dispatch(resize());
+            window.addEventListener("resize", () => dispatch(resize()));
+            window.addEventListener("scroll", () => dispatch(setScroll()));
+        }
+        return () => {
+            isMounted = false;
+        };
     }, [router.pathname, isAuthenticated, dispatch]);
 
     //
@@ -92,6 +99,8 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                 <main>{children}</main>
                 <Snackbar></Snackbar>
             </Box>
+
+            <ScrollButton></ScrollButton>
         </>
     );
 };
