@@ -33,7 +33,8 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
             sx={{
                 width: `${width}% !important`, //
                 position: "relative",
-                height: `${props.split ? "300px" : "600px"}`,
+                minHeight: "300px",
+                height: `${props.split ? "auto" : "600px"}`,
                 my: props.split ? 0 : 2,
             }}
         >

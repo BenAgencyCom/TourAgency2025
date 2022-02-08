@@ -5,6 +5,7 @@ import type { FunctionComponent } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
+import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import SingleStat from "./SingleStat";
 // Styled components
 const Wrapper = styled(Box)(({ theme }) => ({
@@ -50,19 +51,21 @@ const Stats: FunctionComponent = () => {
     ];
 
     return (
-        <Wrapper>
-            {stats.map((item, index) => {
-                return (
-                    <SingleStat
-                        key={index} //
-                        top={item.top}
-                        middle={item.middle}
-                        bottom={item.bottom}
-                        hideDivider={item?.hideDivider}
-                    ></SingleStat>
-                );
-            })}
-        </Wrapper>
+        <UnfadeOnScroll>
+            <Wrapper>
+                {stats.map((item, index) => {
+                    return (
+                        <SingleStat
+                            key={index} //
+                            top={item.top}
+                            middle={item.middle}
+                            bottom={item.bottom}
+                            hideDivider={item?.hideDivider}
+                        ></SingleStat>
+                    );
+                })}
+            </Wrapper>
+        </UnfadeOnScroll>
     );
 };
 

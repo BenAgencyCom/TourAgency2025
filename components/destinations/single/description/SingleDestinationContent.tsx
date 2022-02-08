@@ -11,6 +11,7 @@ import Header from "@/components/destinations/single/description/Header";
 import Paragraph from "@/components/destinations/single/description/Paragraph";
 import ImageField from "@/components/destinations/single/description/Image";
 import Splitted from "@/components/destinations/single/description/Splitted";
+import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 
 interface SingleDestinationContentProps {
     data: DestinationContentField[];
@@ -28,18 +29,22 @@ const Wrapper = styled(Box)({
 const SingleDestinationContent: FunctionComponent<SingleDestinationContentProps> = (props) => {
     return (
         <Wrapper>
-            {props.data.map((element: DestinationContentField, index: number) => {
-                switch (element.type) {
-                    case FieldType.HEADER:
-                        return <Header data={element} key={index}></Header>;
-                    case FieldType.PARAGRAPH:
-                        return <Paragraph data={element} key={index}></Paragraph>;
-                    case FieldType.IMAGE:
-                        return <ImageField imageURL={props.imageLoader(element.url as string)} key={index}></ImageField>;
-                    case FieldType.SPLITTED:
-                        return <Splitted data={element} imageLoader={props.imageLoader} key={index}></Splitted>;
-                }
-            })}
+            {props.data.map((element: DestinationContentField, index: number) => (
+                <UnfadeOnScroll sx={{ width: "100%" }} key={index}>
+                    {(() => {
+                        switch (element.type) {
+                            case FieldType.HEADER:
+                                return <Header data={element}></Header>;
+                            case FieldType.PARAGRAPH:
+                                return <Paragraph data={element}></Paragraph>;
+                            case FieldType.IMAGE:
+                                return <ImageField imageURL={props.imageLoader(element.url as string)}></ImageField>;
+                            case FieldType.SPLITTED:
+                                return <Splitted data={element} imageLoader={props.imageLoader}></Splitted>;
+                        }
+                    })()}
+                </UnfadeOnScroll>
+            ))}
         </Wrapper>
     );
 };

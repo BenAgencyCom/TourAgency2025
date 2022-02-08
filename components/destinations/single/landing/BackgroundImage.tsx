@@ -51,9 +51,18 @@ const BackgroundImage: FunctionComponent = () => {
 
     const scrollingMaskElement = useRef<HTMLElement | null>(null);
     const [renderLoadingHiddingMask, setRenderLoadingHiddingMask] = useState<boolean>(true);
-
+    // After component mount
     useEffect(() => {
-        setTimeout(() => setRenderLoadingHiddingMask(false), 2000);
+        let isMounted = true;
+        setTimeout(() => {
+            if (isMounted) setRenderLoadingHiddingMask(false);
+        }, 2000);
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+    // Watch te scroll property and update the opacity
+    useEffect(() => {
         if (scrollingMaskElement.current) {
             const height = scrollingMaskElement.current.getBoundingClientRect().height;
             const ratio = Math.min(((scrollY - 100) * 1.6) / height, 1);
@@ -65,7 +74,7 @@ const BackgroundImage: FunctionComponent = () => {
     return (
         <>
             {(() => {
-                if (renderLoadingHiddingMask) return <LoadingHiddingMask></LoadingHiddingMask>;
+                if (renderLoadingHiddingMask) return <LoadingHiddingMask id="loading-mask"></LoadingHiddingMask>;
             })()}
 
             <Fade in={true}>

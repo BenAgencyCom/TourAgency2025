@@ -1,12 +1,13 @@
 // Tools
 import { styled } from "@mui/system";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
 import SingleDestinationContent from "@/components/destinations/single/description/SingleDestinationContent";
+import SectionHeader from "@/components/destinations/single/SectionHeader";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
@@ -21,25 +22,20 @@ const Container = styled(Box)(({ theme }) => ({
     margin: "0 auto",
 }));
 const DestinationWrapper: FunctionComponent = () => {
-    const { description, folder } = useAppSelector((state) => state.singleDestination.data);
-    const { height, scrollY } = useAppSelector((state) => state.windowSizes);
+    const { description, folder, country } = useAppSelector((state) => state.singleDestination.data);
 
     const containerElement = useRef<HTMLElement | null>(null);
     const imageLoader = (url: string): string => `/upload/destinations/${folder}/description/${url}/1080p.jpg`;
 
-    const height34th = (height * 3) / 2; // three forthth
-    const height13td = height * 0.5; // one third
-
-    useEffect(() => {
-        if (containerElement.current) {
-            const ratio = Math.min(((scrollY - height13td) * 2) / height34th, 1);
-            containerElement.current.style.opacity = `${ratio}`;
-        }
-    }, [scrollY, height34th, height13td]);
-
     return (
         <Wrapper component="section">
             <Container ref={containerElement}>
+                <SectionHeader
+                    header="WORDS OF INTRODUCTION" //
+                    buttonMsg={`More in ${country}`}
+                    onClick={() => {}}
+                ></SectionHeader>
+
                 <SingleDestinationContent
                     data={description} //
                     imageLoader={imageLoader}

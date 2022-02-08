@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Landing from "@/components/destinations/single/landing/Landing";
 import Description from "@/components/destinations/single/DescriptionWrapper";
 import Stats from "@/components/destinations/single/stats/Stats";
+import Stepper from "@/components/destinations/single/stepper/Stepper";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { setData } from "@/redux/slices/singleDestination";
@@ -32,7 +33,7 @@ const Content = styled(Box)(({ theme }) => ({
         width: "100%",
         height: "50px",
         background: theme.palette.background.paper,
-        transform: "rotate(-.5deg)",
+        transform: "rotate(-1deg)",
     },
 }));
 
@@ -49,6 +50,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
     return (
         <Wrapper sx={{ color: "text.primary" }}>
             <Landing></Landing>
+            <Stepper></Stepper>
             <Content sx={{ "&::before": { opacity: scrollY ? 1 : 0 } }}>
                 <Stats></Stats>
                 <Description></Description>

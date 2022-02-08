@@ -7,26 +7,53 @@ import type { HeaderContentField } from "@/@types/DestinationDescription";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-const Divider = styled(Box)(({ theme }) => ({
-    width: "100%",
-    height: "1px",
-    background: theme.palette.primary.main,
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+const Header = styled(Typography)(({ theme }) => ({
+    margin: `${theme.spacing(2)} 0`,
+    fontWeight: 700,
+    letterSpacing: "-2px",
+    paddingLeft: "40px",
+    position: "relative",
+}));
+const Dot = styled(Box)(({ theme }) => ({
+    position: "absolute",
+    top: "50%",
+    left: "0",
+    transform: "translateY(-50%)",
+    width: "20px",
+    height: "20px",
+    border: `3px solid ${theme.palette.primary.main}`,
+    boxSizing: "border-box",
+    "&::after": {
+        content: "''",
+        position: "absolute",
+        top: "-75%",
+        right: "-75%",
+        width: "15px",
+        height: "15px",
+        border: `3px solid ${theme.palette.primary.main}`,
+        boxSizing: "border-box",
+    },
+    "&::before": {
+        content: "''",
+        position: "absolute",
+        bottom: "-75%",
+        left: "-75%",
+        width: "15px",
+        height: "15px",
+        border: `3px solid ${theme.palette.primary.main}`,
+        boxSizing: "border-box",
+    },
 }));
 
 interface HeaderContentFieldProps {
     data: HeaderContentField;
 }
-
 const HeaderField: FunctionComponent<HeaderContentFieldProps> = (props) => {
     return (
-        <>
-            <Typography variant="h3" sx={{ fontWeight: "bold", mt: 5 }}>
-                {props.data.header}
-            </Typography>
-            <Divider></Divider>
-        </>
+        <Header variant="h3">
+            <Dot></Dot>
+            <span>{props.data.header}</span>
+        </Header>
     );
 };
 
