@@ -9,9 +9,10 @@ import type { Destination } from "@/@types/pages/SingleDestination";
 import Box from "@mui/material/Box";
 // Other components
 import Landing from "@/components/destinations/single/landing/Landing";
-import Description from "@/components/destinations/single/DescriptionWrapper";
+import Description from "@/components/destinations/single/description/Description";
 import Stats from "@/components/destinations/single/stats/Stats";
 import Stepper from "@/components/destinations/single/stepper/Stepper";
+import Landmarks from "@/components/destinations/single/landmarks/Landmarks";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { setData } from "@/redux/slices/singleDestination";
@@ -26,6 +27,8 @@ const Content = styled(Box)(({ theme }) => ({
     marginTop: "100vh",
     paddingTop: "1px",
     background: theme.palette.background.paper,
+    display: "flex",
+    flexDirection: "column",
     "&::before": {
         content: "''",
         position: "absolute",
@@ -54,6 +57,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
             <Content sx={{ "&::before": { opacity: scrollY ? 1 : 0 } }}>
                 <Stats></Stats>
                 <Description></Description>
+                <Landmarks></Landmarks>
             </Content>
         </Wrapper>
     );

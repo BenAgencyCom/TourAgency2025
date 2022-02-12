@@ -20,7 +20,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    margin: "100px 0",
+    margin: "200px 0 100px 0",
 }));
 const ContinueButton = styled(Button)(({ theme }) => ({
     padding: "5px",
