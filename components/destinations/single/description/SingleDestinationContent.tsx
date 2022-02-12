@@ -30,7 +30,20 @@ const SingleDestinationContent: FunctionComponent<SingleDestinationContentProps>
     return (
         <Wrapper>
             {props.data.map((element: DestinationContentField, index: number) => (
-                <UnfadeOnScroll sx={{ width: "100%" }} key={index}>
+                <UnfadeOnScroll
+                    sx={{ width: "100%" }} //
+                    key={index}
+                    stylesOnUnfold={{
+                        "div.image-with-shape::before": {
+                            transform: `translate(-50%,-50%) rotate(2deg)`,
+                            opacity: 1,
+                        },
+                        "div.image-with-reversed-shape::before": {
+                            transform: `translate(-50%,-50%) rotate(-2deg)`,
+                            opacity: 1,
+                        },
+                    }}
+                >
                     {(() => {
                         switch (element.type) {
                             case FieldType.HEADER:

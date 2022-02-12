@@ -1,4 +1,5 @@
 // Tools
+import { styled, alpha } from "@mui/system";
 import { useState } from "react";
 import stated from "@/utils/client/stated";
 // Types
@@ -10,11 +11,29 @@ import Skeleton from "@mui/material/Skeleton";
 import Image from "next/Image";
 import { ImageControls } from "@/components/_utils/ImageControls";
 import ImageModal from "@/components/_utils/ImageModal";
+// Styled Components
+const ImageFieldWrapper = styled(Box)(({ theme }) => ({
+    position: "relative",
+    minHeight: "300px",
+    "&::before": {
+        content: "''",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        width: "95%",
+        height: "103%",
+        background: alpha(theme.palette.primary.main, 0.8),
+        transform: `translate(-50%,-50%)`,
+        transition: "opacity 1s .3s, transform 1s 1.3s",
+        opacity: 0,
+    },
+}));
 
 interface ImageFieldProps {
     imageURL: string;
     split?: true;
     extend?: boolean;
+    side?: "left" | "right";
 }
 
 const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
@@ -29,14 +48,13 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
     })();
 
     return (
-        <Box
+        <ImageFieldWrapper
             sx={{
                 width: `${width}% !important`, //
-                position: "relative",
-                minHeight: "300px",
                 height: `${props.split ? "auto" : "600px"}`,
                 my: props.split ? 0 : 2,
             }}
+            className={props.side === "right" ? "image-with-reversed-shape" : "image-with-shape"}
         >
             {(() => {
                 if (props.imageURL) {
@@ -61,7 +79,7 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
                 open={stated<boolean>(openModal, setOpenModal)} //
                 imageURL={props.imageURL}
             ></ImageModal>
-        </Box>
+        </ImageFieldWrapper>
     );
 };
 

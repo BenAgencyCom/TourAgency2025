@@ -10,6 +10,7 @@ interface SplittedSubfiledProps {
     data: SplittedSubfieldField;
     imageLoader: (url: string) => string;
     typeOfSecondSubfield: FieldType;
+    side: "left" | "right";
 }
 
 const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
@@ -28,6 +29,7 @@ const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
                     split //
                     imageURL={props.imageLoader(props.data.url as string)}
                     extend={props.typeOfSecondSubfield === FieldType.PARAGRAPH}
+                    side={props.side}
                 ></ImageField>
             );
     }

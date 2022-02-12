@@ -10,9 +10,11 @@ import { useAppSelector } from "@/hooks/useRedux";
 
 interface UnfadeOnScrollProps {
     children: ReactNode;
+    // Optional
     sx?: Record<string, unknown>;
     animationRatio?: number;
     duration?: number;
+    stylesOnUnfold?: Record<string, unknown>;
 }
 
 const UnfadeOnScroll: FunctionComponent<UnfadeOnScrollProps> = (props) => {
@@ -38,6 +40,7 @@ const UnfadeOnScroll: FunctionComponent<UnfadeOnScrollProps> = (props) => {
                     ...{
                         transitionDuration: `${props.duration ?? 500}ms !important`,
                     },
+                    ...(fade && props.stylesOnUnfold),
                 }}
                 ref={element}
             >

@@ -28,12 +28,14 @@ const SplittedField: FunctionComponent<SplittedFieldProps> = (props) => {
                 data={props.data.left} //
                 imageLoader={props.imageLoader}
                 typeOfSecondSubfield={props.data.right.type}
+                side="left"
             ></SplittedSubfieldField>
 
             <SplittedSubfieldField
                 data={props.data.right} //
                 imageLoader={props.imageLoader}
                 typeOfSecondSubfield={props.data.left.type}
+                side="right"
             ></SplittedSubfieldField>
         </SplittedFieldWrapper>
     );
