@@ -1,5 +1,5 @@
 // Tools
-import { styled } from "@mui/system";
+import { styled, alpha } from "@mui/system";
 import { useState, useEffect, useRef } from "react";
 // Types
 import type { FunctionComponent, ReactNode } from "react";
@@ -13,11 +13,36 @@ import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
 const Wrapper = styled(Box)({
     width: "100%",
+    position: "relative",
+    overflow: "hidden",
 });
 const Container = styled(Box)(({ theme }) => ({
     width: "100vw",
     maxWidth: theme.breakpoints.values.lg,
     margin: "0 auto",
+    position: "relative",
+    zIndex: 2,
+}));
+const SecondBackground = styled(Box)(({ theme }) => ({
+    zIndex: 1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    transition: "background .5s , opacity 1s !important",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    "&::after": {
+        content: "''",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backdropFilter: "blur(3px)",
+        background: alpha("#121212", 0.9),
+    },
 }));
 
 interface SectionProps {
@@ -29,7 +54,11 @@ interface SectionProps {
         buttonMsg: string;
         onClick: () => void;
     };
+    // Optional
     fadeThresholdRatio?: number;
+    // Second background
+    displaySecondBackground?: boolean;
+    secondBackground?: string;
 }
 const Section: FunctionComponent<SectionProps> = (props) => {
     const { scrollY, height } = useAppSelector((state) => state.windowSizes);
@@ -54,6 +83,15 @@ const Section: FunctionComponent<SectionProps> = (props) => {
             ref={element}
             sx={{ background: props.background }}
         >
+            {(() => {
+                if (props.displaySecondBackground !== undefined) {
+                    return (
+                        <Fade in={props.displaySecondBackground} timeout={1000}>
+                            <SecondBackground sx={{ backgroundImage: props.secondBackground }}></SecondBackground>
+                        </Fade>
+                    );
+                }
+            })()}
             <Fade in={fade}>
                 <Container>
                     <SectionHeader

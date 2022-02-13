@@ -1,6 +1,8 @@
 import type { Destination as _Destination, Landmark as _Landmark } from "@prisma/client";
 import type { DestinationContentField } from "@/@types/DestinationDescription";
 
+export type LandmarkPictureResolution = "360p" | "480p" | "720p" | "1080p";
+
 export interface Landmark {
     slug: _Landmark["slug"];
     title: _Landmark["title"];

@@ -24,7 +24,7 @@ const ImageFieldWrapper = styled(Box)(({ theme }) => ({
         height: "103%",
         background: alpha(theme.palette.primary.main, 0.8),
         transform: `translate(-50%,-50%)`,
-        transition: "opacity 1s .3s, transform 1s 1.3s",
+        transition: "opacity 1s .3s, transform .7s .5s",
         opacity: 0,
     },
 }));

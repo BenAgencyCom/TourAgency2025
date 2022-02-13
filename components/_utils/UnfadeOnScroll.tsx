@@ -12,8 +12,8 @@ interface UnfadeOnScrollProps {
     children: ReactNode;
     // Optional
     sx?: Record<string, unknown>;
-    animationRatio?: number;
-    duration?: number;
+    animationRatio?: number; // By default: 0.7
+    duration?: number; // By default: 500
     stylesOnUnfold?: Record<string, unknown>;
 }
 
