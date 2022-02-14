@@ -9,6 +9,8 @@ import Box from "@mui/material/Box";
 import BackgroundPicture from "./BackgroundPicture";
 import LandmarkHeader from "./LandmarkHeader";
 import LandmarkManagement from "./LandmarkManagement";
+import LandmarkContentWrapper from "./LandmarkContentWrapper";
+import ReadMore from "./ReadMore";
 // Styled Components
 const SingleLandmarkWrapper = styled(Box)(({ theme }) => ({
     margin: "0 auto",
@@ -27,35 +29,11 @@ const SingleLandmarkWrapper = styled(Box)(({ theme }) => ({
         "div.content-shape": {
             opacity: 1,
         },
+        ".read-more": {
+            opacity: 1,
+        },
     },
     padding: "40px",
-}));
-const Content = styled(Box)(({ theme }) => ({
-    width: "100%",
-    height: "100%",
-    position: "relative",
-}));
-
-const ContentShape = styled(Box)(({ theme }) => ({
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    borderRadius: "10px",
-    transition: "opacity .3s",
-    "&:nth-child(2)": {
-        background: "#fff",
-        width: "calc(100% + 10px)",
-        height: "calc(100% + 10px)",
-        transform: "translate(-50%,-50%) rotate(3deg)",
-        opacity: 0.75,
-    },
-    "&:nth-child(3)": {
-        background: theme.palette.primary.main,
-        width: "calc(100% - 30px)",
-        height: "calc(100% - 30px)",
-        transform: "translate(-50%,-50%) rotate(-10deg)",
-        opacity: 0.75,
-    },
 }));
 
 interface SingleLandmarkProps {
@@ -70,23 +48,20 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
     return (
         <SingleLandmarkWrapper
             sx={{ width: `${width}` }} //
-            onMouseEnter={props.onMouseEnter}
-            onMouseLeave={props.onMouseLeave}
         >
-            <Content>
-                <Content sx={{ zIndex: 1 }}>
-                    <LandmarkManagement createImagePath={props.createImagePath}></LandmarkManagement>
-                    <BackgroundPicture createImagePath={props.createImagePath}></BackgroundPicture>
-                    <LandmarkHeader
-                        title={props.data.title} //
-                        type={props.data.type} //
-                        reviews={35} //
-                    ></LandmarkHeader>
-                </Content>
-
-                <ContentShape className="content-shape"></ContentShape>
-                <ContentShape className="content-shape"></ContentShape>
-            </Content>
+            <LandmarkContentWrapper
+                onMouseEnter={props.onMouseEnter} //
+                onMouseLeave={props.onMouseLeave}
+            >
+                <LandmarkManagement createImagePath={props.createImagePath}></LandmarkManagement>
+                <BackgroundPicture createImagePath={props.createImagePath}></BackgroundPicture>
+                <LandmarkHeader
+                    title={props.data.title} //
+                    type={props.data.type}
+                    reviews={35}
+                ></LandmarkHeader>
+                <ReadMore slug={props.data.slug}></ReadMore>
+            </LandmarkContentWrapper>
         </SingleLandmarkWrapper>
     );
 };

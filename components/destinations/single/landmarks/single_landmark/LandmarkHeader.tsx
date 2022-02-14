@@ -11,7 +11,7 @@ import AccountBalance from "@mui/icons-material/AccountBalance";
 import Star from "@mui/icons-material/Star";
 // Styled Components
 const Header = styled(Box)(({ theme }) => ({
-    fontSize: "3rem",
+    fontSize: "2.5rem",
     color: "#fff",
     position: "absolute",
     bottom: "20px",
