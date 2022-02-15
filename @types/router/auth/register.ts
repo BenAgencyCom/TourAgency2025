@@ -9,7 +9,7 @@ export interface RegisterBody {
     gender: "MALE" | "FEMALE" | "OTHER";
     password: string;
     passwordRepeatation: string;
-    born: Date;
+    birth: string; // JSON.stringifyed value;
 }
 export interface RegisterRequest extends NextApiRequest {
     body: RegisterBody;

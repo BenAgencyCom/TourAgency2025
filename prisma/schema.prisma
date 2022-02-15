@@ -13,6 +13,7 @@ model User {
   surname       String
   email         String    @unique
   emailVerified DateTime?
+  birth         DateTime
   avatar        String?
   country       String
   countryCode   String

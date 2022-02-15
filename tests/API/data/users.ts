@@ -18,7 +18,7 @@ export const data = {
     name: faker.name.firstName(),
     surname: faker.name.lastName(),
     gender: "MALE" as Gender,
-    born: String(faker.date.past()),
+    birth: String(new Date("08/11/2002")),
     email: faker.internet.email(),
     password: password,
     passwordRepeatation: password,
@@ -34,7 +34,7 @@ export const formData: FormData = (() => {
     body.append("name", data.name);
     body.append("surname", data.surname);
     body.append("gender", data.gender);
-    body.append("born", data.born);
+    body.append("birth", data.birth);
     body.append("email", data.email);
     body.append("password", data.password);
     body.append("passwordRepeatation", data.passwordRepeatation);
@@ -56,6 +56,7 @@ export const CreateUser = async (isAdmin: boolean): Promise<User> => {
             emailVerified: faker.date.recent(),
             name: faker.name.firstName(),
             surname: faker.name.lastName(),
+            birth: new Date("08/11/2002"),
         },
     });
 };

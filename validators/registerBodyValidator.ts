@@ -11,7 +11,7 @@ const validate = async (data: RegisterBody): Promise<ValidationResult> => {
         name: joi.string().min(3).max(30).trim(),
         surname: joi.string().min(3).max(40).trim(),
         gender: joi.valid("MALE", "FEMALE", "OTHER"),
-        born: joi.date(),
+        birth: joi.date(),
         country: joi.object({
             code: joi.string().length(2),
             label: joi.string().max(60),
@@ -23,6 +23,7 @@ const validate = async (data: RegisterBody): Promise<ValidationResult> => {
     });
     const dataToValidate = JSON.parse(JSON.stringify(data));
     dataToValidate.country = JSON.parse(dataToValidate.country);
+    dataToValidate.birth = new Date(dataToValidate.birth);
 
     const bodyValidationResult = validator(schema, dataToValidate);
     if (bodyValidationResult !== true) return bodyValidationResult;

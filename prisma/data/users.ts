@@ -13,6 +13,7 @@ export default [
         isAdmin: true,
         password: bcrypt.hashSync("jebac_gorzen123", bcrypt.genSaltSync()),
         _imagesDir: "avatars/kacper",
+        birth: new Date("08/11/2002"),
     },
     {
         name: "Bill",
@@ -22,6 +23,7 @@ export default [
         countryCode: "48",
         gender: "OTHER",
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
+        birth: new Date("08/11/2002"),
     },
     {
         id: "1",
@@ -32,6 +34,7 @@ export default [
         countryCode: "48",
         gender: "MALE",
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
+        birth: new Date("08/11/2002"),
         _imagesDir: "avatars/urbanski",
     },
     {
@@ -43,6 +46,7 @@ export default [
         countryCode: "48",
         gender: "MALE",
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
+        birth: new Date("08/11/2002"),
     },
     {
         id: "3",
@@ -54,6 +58,7 @@ export default [
         gender: "MALE",
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
         _imagesDir: "avatars/ragucci",
+        birth: new Date("08/11/2002"),
     },
     {
         id: "4",
@@ -65,5 +70,6 @@ export default [
         gender: "OTHER",
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
         _imagesDir: "avatars/pkica",
+        birth: new Date("08/11/2002"),
     },
 ] as SeederDataList<User>;
