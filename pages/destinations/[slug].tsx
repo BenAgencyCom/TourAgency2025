@@ -1,10 +1,12 @@
 // Tools
 import { prisma } from "@/prisma/db";
 import { styled } from "@mui/system";
+import moment from "moment";
+import prismaCertainProps from "@/utils/prismaCertinProps";
 // Types
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { FunctionComponent } from "react";
-import type { Destination } from "@/@types/pages/SingleDestination";
+import type { Destination, Landmark, Review } from "@/@types/pages/SingleDestination";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
@@ -50,6 +52,8 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
     const dispatch = useAppDispatch();
     dispatch(setData(props.destination));
 
+    console.log(props.destination);
+
     return (
         <Wrapper sx={{ color: "text.primary" }}>
             <Landing></Landing>
@@ -84,25 +88,27 @@ export const getStaticProps: GetStaticProps<{ destination: Destination }, { slug
                 slug: context.params.slug,
             },
             select: {
-                slug: true,
-                city: true,
-                country: true,
-                population: true,
-                continent: true,
-                shortDescription: true,
-                description: true,
-                folder: true,
+                ...prismaCertainProps<Destination>(["slug", "city", "country", "population", "continent", "shortDescription", "description", "folder"]),
                 landmarks: {
+                    select: prismaCertainProps<Landmark>(["slug", "title", "picture", "type"]),
+                },
+                reviews: {
                     select: {
-                        slug: true,
-                        title: true,
-                        picture: true,
-                        type: true,
+                        ...prismaCertainProps<Review>(["id", "review", "tags", "points", "createdAt"]),
+                        creator: {
+                            select: prismaCertainProps<Review["creator"]>(["id", "name", "surname", "country", "gender", "avatar", "birth"]),
+                        },
                     },
                 },
             },
         });
         if (!destination) throw new Error();
+
+        destination.reviews = destination.reviews.map((review) => {
+            (review.createdAt as any) = moment(review.createdAt).format("YYYY-MM-DD");
+            (review.creator as any).birth = moment().diff(moment(review.creator.birth).format("DD-MM-YYYY"), "years");
+            return review;
+        });
 
         return {
             props: {

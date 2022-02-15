@@ -36,6 +36,7 @@ export default [
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
         birth: new Date("08/11/2002"),
         _imagesDir: "avatars/urbanski",
+        avatar: "urbanski",
     },
     {
         id: "2",
@@ -59,6 +60,7 @@ export default [
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
         _imagesDir: "avatars/ragucci",
         birth: new Date("08/11/2002"),
+        avatar: "ragucci",
     },
     {
         id: "4",
@@ -71,5 +73,6 @@ export default [
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
         _imagesDir: "avatars/pkica",
         birth: new Date("08/11/2002"),
+        avatar: "pkica",
     },
 ] as SeederDataList<User>;

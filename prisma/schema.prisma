@@ -73,7 +73,7 @@ model Landmark {
 
 model DestinationReview {
   id            String   @id @default(cuid())
-  creatorId     String?  @map("creator_id")
+  creatorId     String   @map("creator_id")
   destinationId String   @map("destination_id")
   review        String
   points        Float
@@ -81,7 +81,7 @@ model DestinationReview {
   createdAt     DateTime @default(now())
 
   destination Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
-  creator     User?       @relation(fields: [creatorId], references: [id], onDelete: SetNull)
+  creator     User        @relation(fields: [creatorId], references: [id], onDelete: Cascade)
 }
 
 enum Gender {
