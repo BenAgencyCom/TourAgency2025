@@ -3,13 +3,13 @@ import type { DestinationContentField, HeaderContentField, ParagraphContentField
 
 export default [
     {
+        id: "KRAKOW",
         city: "Kraków",
         continent: "Europe",
         country: "Poland",
         countryCode: "48",
         folder: "krakow",
         _imagesDir: "destinations/krakow",
-        id: "KRAKOW",
         population: 700000,
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In facilisis convallis nisl, id scelerisque nisi condimentum a. Nam porta, risus.",
         slug: "krakow",
@@ -68,13 +68,13 @@ export default [
         ),
     },
     {
+        id: "WARSZAWA",
         city: "Warszawa",
         continent: "Europe",
         country: "Poland",
         countryCode: "48",
         folder: "warszawa",
         _imagesDir: "destinations/warszawa",
-        id: "WARSZAWA",
         population: 1700000,
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In facilisis convallis nisl, id scelerisque nisi condimentum a. Nam porta, risus.",
         slug: "wwa",

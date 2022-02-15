@@ -1,7 +1,9 @@
-import type { User, Destination, Landmark } from "@prisma/client";
+import type { User, Destination, Landmark, DestinationReview } from "@prisma/client";
 
-export { User, Destination, Landmark };
-export type SeederDataList<T> = Partial<
+export { User, Destination, Landmark, DestinationReview };
+
+export type ModelName = "user" | "destination" | "landmark" | "destinationReview";
+export type SeederDataList<T extends User | Destination | Landmark | DestinationReview> = Partial<
     {
         _imagesDir: string;
     } & T

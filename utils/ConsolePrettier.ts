@@ -12,7 +12,7 @@ export default class ConsolePrettier {
     public consoleMsg(msg: string, type: "SECTION" | "SUCCESS" | "ERROR" = "SECTION") {
         switch (type) {
             case "SECTION":
-                if (this.messagesCounter) console.log("\n");
+                // if (this.messagesCounter) console.log("\n");
                 return console.log(colors.bgMagenta.black(`${++this.messagesCounter}. ${msg}`));
             case "ERROR":
                 return console.log(colors.red(`   ${this.emoji.NOT_OK} ${msg} ${this.emoji.NOT_OK}`));

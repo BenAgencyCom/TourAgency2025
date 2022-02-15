@@ -5,10 +5,11 @@ import path from "path";
 import ConsolePrettier from "../utils/ConsolePrettier";
 // Data
 import userData from "./data/users";
-import destinationsData from "./data/destinations";
-import landmarksData from "./data/landmarks";
+import destinationData from "./data/destinations";
+import landmarkData from "./data/landmarks";
+import destinationReviewData from "./data/destinationsReviews";
 // Types
-import { SeederDataList, User, Destination, Landmark } from "./data/@types";
+import { SeederDataList, User, Destination, Landmark, DestinationReview, ModelName } from "./data/@types";
 import { uploadDir } from "../utils/paths";
 
 const prisma = new PrismaClient();
@@ -17,8 +18,9 @@ class PrismaSeeder extends ConsolePrettier {
     protected imagesToUpload: string[] = [];
     public constructor(
         protected userData: SeederDataList<User>, //
-        protected destinationsData: SeederDataList<Destination>,
-        protected landmarksData: SeederDataList<Landmark>
+        protected destinationData: SeederDataList<Destination>,
+        protected landmarkData: SeederDataList<Landmark>,
+        protected destinationReviewData: SeederDataList<DestinationReview>
     ) {
         super();
     }
@@ -34,46 +36,17 @@ class PrismaSeeder extends ConsolePrettier {
         }
     }
 
-    protected async seedUsers() {
-        await prisma.user.deleteMany();
-        this.consoleMsg("Store user data");
-        const data = this.userData.map((el) => {
+    protected async seedModel(name: ModelName, dataset: SeederDataList<any>) {
+        await (prisma[name] as any).deleteMany();
+        this.consoleMsg(`Store ${name} data`);
+
+        const data = dataset.map((el) => {
             const { _imagesDir, ...rest } = el;
             if (_imagesDir) this.imagesToUpload.push(_imagesDir);
             return rest;
         });
 
-        await prisma.user.createMany({
-            data: data as any,
-        });
-        this.consoleMsg(`${data.length} records have been added`, "SUCCESS");
-    }
-
-    protected async seedDestinations() {
-        await prisma.destination.deleteMany();
-        this.consoleMsg("Store destinations data");
-        const data = this.destinationsData.map((el) => {
-            const { _imagesDir, ...rest } = el;
-            if (_imagesDir) this.imagesToUpload.push(_imagesDir);
-            return rest;
-        });
-
-        await prisma.destination.createMany({
-            data: data as any,
-        });
-        this.consoleMsg(`${data.length} records have been added`, "SUCCESS");
-    }
-
-    protected async seedLandmarks() {
-        await prisma.landmark.deleteMany();
-        this.consoleMsg("Store destinations data");
-        const data = this.landmarksData.map((el) => {
-            const { _imagesDir, ...rest } = el;
-            if (_imagesDir) this.imagesToUpload.push(_imagesDir);
-            return rest;
-        });
-
-        await prisma.landmark.createMany({
+        await (prisma[name] as any).createMany({
             data: data as any,
         });
         this.consoleMsg(`${data.length} records have been added`, "SUCCESS");
@@ -94,12 +67,12 @@ class PrismaSeeder extends ConsolePrettier {
 
     async main() {
         if (process.env.NODE_ENV === "production") return;
-
         await this.deleteCurrentImages();
-        await prisma.user.deleteMany();
-        await this.seedUsers();
-        await this.seedDestinations();
-        await this.seedLandmarks();
+
+        await this.seedModel("user", this.userData);
+        await this.seedModel("destination", this.destinationData);
+        await this.seedModel("landmark", this.landmarkData);
+        await this.seedModel("destinationReview", this.destinationReviewData);
 
         await this.uploadAllImages();
     }
@@ -107,7 +80,7 @@ class PrismaSeeder extends ConsolePrettier {
 
 const main = async () => {
     console.clear();
-    await new PrismaSeeder(userData, destinationsData, landmarksData).main();
+    await new PrismaSeeder(userData, destinationData, landmarkData, destinationReviewData).main();
 };
 
 main();

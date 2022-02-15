@@ -8,21 +8,22 @@ datasource db {
 }
 
 model User {
-  id                    String        @id @default(cuid())
-  name                  String
-  surname               String
-  email                 String        @unique
-  emailVerified         DateTime?
-  avatar                String?
-  country               String
-  countryCode           String        
-  gender                Gender        @default(MALE)
-  password              String
-  createdAt             DateTime      @default(now())
-  isAdmin               Boolean       @default(false)
+  id            String    @id @default(cuid())
+  name          String
+  surname       String
+  email         String    @unique
+  emailVerified DateTime?
+  avatar        String?
+  country       String
+  countryCode   String
+  gender        Gender    @default(MALE)
+  password      String
+  createdAt     DateTime  @default(now())
+  isAdmin       Boolean   @default(false)
 
-  sessions              Session[]
-  createdDestinations   Destination[]
+  sessions            Session[]
+  createdDestinations Destination[]
+  DestinationReview   DestinationReview[]
 }
 
 model Session {
@@ -32,40 +33,54 @@ model Session {
   expires     DateTime
   createdAt   DateTime @default(now())
 
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@map("sessions")
 }
 
 model Destination {
-  id               String     @id @default(cuid())
-  creatorId        String?    @map("creator_id")
-  slug             String     @unique
+  id               String    @id @default(cuid())
+  creatorId        String?   @map("creator_id")
+  slug             String    @unique
   city             String
   country          String
-  countryCode      String     
+  countryCode      String
   population       Int
   continent        Continent
-  shortDescription String     
+  shortDescription String
   description      Json
   folder           String
-  createdAt        DateTime   @default(now())
-  
-  landmarks        Landmark[]
-  creator          User?      @relation(fields:[creatorId], references: [id], onDelete: SetNull)
+  createdAt        DateTime  @default(now())
+
+  landmarks Landmark[]
+  reviews   DestinationReview[]
+  creator   User?               @relation(fields: [creatorId], references: [id], onDelete: SetNull)
 }
 
 model Landmark {
-  id                  String        @id @default(cuid())
-  destinationId       String        @map("destination_id")
-  slug                String        @unique
-  title               String
-  description         String
-  picture             String
-  type                LandmarkType
-  tags                String[]
-  createdAt           DateTime      @default(now())
+  id            String       @id @default(cuid())
+  destinationId String       @map("destination_id")
+  slug          String       @unique
+  title         String
+  description   String
+  picture       String
+  type          LandmarkType
+  tags          String[]
+  createdAt     DateTime     @default(now())
 
-  destination         Destination   @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  destination Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+}
+
+model DestinationReview {
+  id            String   @id @default(cuid())
+  creatorId     String?  @map("creator_id")
+  destinationId String   @map("destination_id")
+  review        String
+  points        Float
+  tags          Json
+  createdAt     DateTime @default(now())
+
+  destination Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  creator     User?       @relation(fields: [creatorId], references: [id], onDelete: SetNull)
 }
 
 enum Gender {
@@ -85,11 +100,11 @@ enum Continent {
 }
 
 enum LandmarkType {
-  RESTAURANT  
-  MONUMENT 
-  ANTIQUE 
-  BUILDING  
-  RELIC  
-  ART 
+  RESTAURANT
+  MONUMENT
+  ANTIQUE
+  BUILDING
+  RELIC
+  ART
   NATURE
 }

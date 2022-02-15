@@ -24,6 +24,7 @@ export default [
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
     },
     {
+        id: "1",
         name: "Hubert",
         surname: "Urbanski",
         email: "milionerzy@gmail.com",
@@ -34,6 +35,7 @@ export default [
         _imagesDir: "avatars/urbanski",
     },
     {
+        id: "2",
         name: "Adam",
         surname: "Mickiewicz",
         email: "jslowackiego@gmail.com",
@@ -43,6 +45,7 @@ export default [
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
     },
     {
+        id: "3",
         name: "Raphael",
         surname: "Ragucci",
         email: "zukunft@gmail.com",
@@ -53,6 +56,7 @@ export default [
         _imagesDir: "avatars/ragucci",
     },
     {
+        id: "4",
         name: "Pawel",
         surname: "Kica",
         email: "pawal_kica@gmail.com",
