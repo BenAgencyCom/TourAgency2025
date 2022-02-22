@@ -15,9 +15,10 @@ import Description from "@/components/destinations/single/description/Descriptio
 import Stats from "@/components/destinations/single/stats/Stats";
 import Stepper from "@/components/destinations/single/stepper/Stepper";
 import Landmarks from "@/components/destinations/single/landmarks/Landmarks";
+import Reviews from "@/components/destinations/single/reviews/Reviews";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { setData } from "@/redux/slices/singleDestination";
+import { setData, setRatings, setTotalReviews } from "@/redux/slices/singleDestination";
 // Styled components
 const Wrapper = styled(Box)(({ theme }) => ({
     width: "100vw",
@@ -44,6 +45,8 @@ const Content = styled(Box)(({ theme }) => ({
 
 interface SingleDestinationProps {
     destination: Destination;
+    ratings: number;
+    totalReviews: number;
 }
 
 const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => {
@@ -51,8 +54,8 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
 
     const dispatch = useAppDispatch();
     dispatch(setData(props.destination));
-
-    console.log(props.destination);
+    dispatch(setRatings(props.ratings));
+    dispatch(setTotalReviews(props.totalReviews));
 
     return (
         <Wrapper sx={{ color: "text.primary" }}>
@@ -62,6 +65,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                 <Stats></Stats>
                 <Description></Description>
                 <Landmarks></Landmarks>
+                <Reviews></Reviews>
             </Content>
         </Wrapper>
     );
@@ -88,15 +92,15 @@ export const getStaticProps: GetStaticProps<{ destination: Destination }, { slug
                 slug: context.params.slug,
             },
             select: {
-                ...prismaCertainProps<Destination>(["slug", "city", "country", "population", "continent", "shortDescription", "description", "folder"]),
+                ...prismaCertainProps<Destination>(["id", "slug", "city", "country", "population", "continent", "shortDescription", "description", "folder"]),
                 landmarks: {
                     select: prismaCertainProps<Landmark>(["slug", "title", "picture", "type"]),
                 },
                 reviews: {
                     select: {
-                        ...prismaCertainProps<Review>(["id", "review", "tags", "points", "createdAt"]),
-                        creator: {
-                            select: prismaCertainProps<Review["creator"]>(["id", "name", "surname", "country", "gender", "avatar", "birth"]),
+                        ...prismaCertainProps<Review>(["id", "review", "points", "createdAt"]),
+                        reviewer: {
+                            select: prismaCertainProps<Review["reviewer"]>(["id", "name", "surname", "country", "countryCode", "gender", "avatar", "birth"]),
                         },
                     },
                 },
@@ -105,14 +109,28 @@ export const getStaticProps: GetStaticProps<{ destination: Destination }, { slug
         if (!destination) throw new Error();
 
         destination.reviews = destination.reviews.map((review) => {
-            (review.createdAt as any) = moment(review.createdAt).format("YYYY-MM-DD");
-            (review.creator as any).birth = moment().diff(moment(review.creator.birth).format("DD-MM-YYYY"), "years");
+            (review.createdAt as any) = moment(review.createdAt).format("YYYY-MM-DD HH:mm:ss");
+            (review.reviewer as any).birth = moment().diff(moment(review.reviewer.birth).format("DD-MM-YYYY"), "years");
             return review;
+        });
+
+        const ratings = await prisma.destinationReview.aggregate({
+            where: {
+                destinationId: destination.id,
+            },
+            _avg: {
+                points: true,
+            },
+            _count: {
+                _all: true,
+            },
         });
 
         return {
             props: {
                 destination: destination as unknown as Destination,
+                ratings: (ratings._avg.points as any).toFixed(2),
+                totalReviews: ratings._count._all,
             },
         };
     } catch (e: unknown) {

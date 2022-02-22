@@ -6,14 +6,14 @@ export type LandmarkPictureResolution = "360p" | "480p" | "720p" | "1080p";
 export interface Review {
     id: DestinationReview["id"];
     review: DestinationReview["review"];
-    tags: DestinationReview["tags"];
     points: DestinationReview["points"];
     createdAt: string; // DestinationReview["createdAt"] formated via moment.js;
-    creator: {
+    reviewer: {
         id: User["id"];
         name: User["name"];
         surname: User["surname"];
         country: User["country"];
+        countryCode: User["countryCode"];
         gender: User["gender"];
         avatar: User["avatar"];
         birth: string; // User["birth"]
@@ -28,6 +28,7 @@ export interface Landmark {
 }
 
 export interface Destination {
+    id: _Destination["id"];
     slug: _Destination["slug"];
     city: _Destination["city"];
     country: _Destination["country"];
