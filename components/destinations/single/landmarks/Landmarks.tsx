@@ -30,7 +30,7 @@ const Landmarks: FunctionComponent = () => {
 
     return (
         <Section
-            id="description"
+            id="landmarks"
             background={`#121212`}
             header={{
                 text: "Beauties to discover", //

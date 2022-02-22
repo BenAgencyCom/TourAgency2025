@@ -29,8 +29,7 @@ const Navigation: FunctionComponent<{ buttonStyles: Record<string, unknown> }> =
     const [displayMenu, setDisplayMenu] = useState<boolean>(false);
     const [renderComponent, setRenderComponent] = useState<boolean>(true);
     // Redux
-    const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
-    const userData = useAppSelector((state) => state.authentication.userData);
+    const { isAuthenticated, userData } = useAppSelector((state) => state.authentication);
     const width = useAppSelector((state) => state.windowSizes.width);
 
     const navigationWrapperStyles = () => {

@@ -41,6 +41,12 @@ export default responsiveFontSizes(
             error: {
                 main: "#D62246",
             },
+            success: {
+                main: "#388E3C",
+            },
+            warning: {
+                main: "#F57C00",
+            },
         },
     })
 );

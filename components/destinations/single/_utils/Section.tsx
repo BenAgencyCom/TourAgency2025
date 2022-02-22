@@ -51,8 +51,8 @@ interface SectionProps {
     background: string;
     header: {
         text: string;
-        buttonMsg: string;
-        onClick: () => void;
+        buttonMsg?: string;
+        onClick?: () => void;
     };
     // Optional
     fadeThresholdRatio?: number;
