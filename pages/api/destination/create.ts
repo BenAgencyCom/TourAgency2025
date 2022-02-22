@@ -69,7 +69,7 @@ class CreateNewDestination extends FileUploader {
                 city: fields.city,
                 continent: fields.continent,
                 country: fields.country.label,
-                countryCode: fields.country.code,
+                countryCode: fields.country.code.toLowerCase(),
                 description: JSON.parse(JSON.stringify(fields.description)),
                 folder: this.folderName,
                 population: Number(fields.population),

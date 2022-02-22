@@ -74,7 +74,7 @@ export default async function handler(req: RegisterRequest, res: NextApiResponse
                     avatar: avatarsFilePath !== null ? folderName : null,
                     birth: new Date(fields.birth),
                     country: countryName,
-                    countryCode: countryCode,
+                    countryCode: countryCode.toLowerCase(),
                     email: fields.email,
                     emailVerified: null,
                     gender: fields.gender,
