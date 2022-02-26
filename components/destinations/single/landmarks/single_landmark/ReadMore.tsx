@@ -8,14 +8,10 @@ import Box from "@mui/material/Box";
 import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
 // Other Components
 import Link from "next/link";
-interface ReadMoreProps {
-    slug: string;
-}
 // Styled Components
-import FlexBox from "@/components/_utils/styled/FlexBox";
 const ReadMoreButton = styled(Box)(({ theme }) => ({
     position: "absolute",
-    top: "45%",
+    top: "46%",
     left: "50%",
     transform: "translateX(-50%)",
     zIndex: 10,
@@ -41,6 +37,9 @@ const ReadMoreButton = styled(Box)(({ theme }) => ({
         top: 20,
     },
 }));
+interface ReadMoreProps {
+    slug: string;
+}
 const ReadMore: FunctionComponent<ReadMoreProps> = (props) => {
     return (
         <Link passHref href={`/landmarks/${props.slug}`}>

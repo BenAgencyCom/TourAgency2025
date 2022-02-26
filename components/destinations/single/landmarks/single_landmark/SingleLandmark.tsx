@@ -23,6 +23,12 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
         ".read-more": {
             opacity: 1,
         },
+        ".landmark-description": {
+            maxHeight: 0,
+            "&::before,&::after": {
+                opacity: 0,
+            },
+        },
     },
 }));
 

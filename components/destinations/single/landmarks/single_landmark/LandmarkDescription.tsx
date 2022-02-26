@@ -2,10 +2,8 @@
 import { styled, alpha } from "@mui/system";
 import { GetLandmarkIcon } from "@/utils/client/getLandmarkIcon";
 // Types
-import type { Landmark, LandmarkPictureResolution } from "@/@types/pages/SingleDestination";
+import type { Landmark } from "@/@types/pages/SingleDestination";
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Material UI Icons
 import StarBorder from "@mui/icons-material/StarBorder";
 import Twitter from "@mui/icons-material/Twitter";
@@ -18,12 +16,13 @@ interface LandmarkDescriptionProps {
     data: Landmark;
 }
 const Wrapper = styled(FlexBox)(({ theme }) => ({
-    padding: "20px 10px",
     position: "relative",
+    maxHeight: "170px",
+    transition: "max-height .3s",
     h3: {
         fontSize: "2rem",
         letterSpacing: "-2px",
-        margin: "0 0 10px 0",
+        margin: "20px 0 10px 10px",
     },
     "&>svg": {
         position: "absolute",
@@ -32,27 +31,23 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
         color: alpha("#fff", 0.3),
         fontSize: "4rem",
     },
-    "&::before": {
+    "&::before,&::after": {
         content: "''",
         position: "absolute",
         top: -5,
         left: 0,
         width: "100%",
-        height: "20px",
         transform: "rotate(-1deg)",
-        background: theme.palette.text.primary,
         zIndex: 3,
+        transition: "opacity .3s",
+    },
+    "&::before": {
+        height: "20px",
+        background: theme.palette.text.primary,
     },
     "&::after": {
-        content: "''",
-        position: "absolute",
-        top: -8,
-        left: 0,
-        width: "100%",
         height: "5px",
-        transform: "rotate(-1deg)",
         background: "#fff",
-        zIndex: 3,
     },
 }));
 const LandmarkAsset = styled(FlexBox)(({ theme }) => ({
@@ -61,17 +56,17 @@ const LandmarkAsset = styled(FlexBox)(({ theme }) => ({
     position: "relative",
     color: theme.palette.text.primary,
     padding: "0px 10px",
-    marginRight: "10px",
+    marginLeft: "10px",
     strong: {
         margin: "0 3px 0 5px",
     },
 }));
 const LandmarkDescription: FunctionComponent<LandmarkDescriptionProps> = (props) => {
     return (
-        <Wrapper column>
+        <Wrapper column className="landmark-description">
             <h3>{props.data.title}</h3>
 
-            <FlexBox>
+            <FlexBox sx={{ marginBottom: "20px" }}>
                 <LandmarkAsset vertical="center">
                     <Twitter></Twitter>
                     <strong>741</strong>
