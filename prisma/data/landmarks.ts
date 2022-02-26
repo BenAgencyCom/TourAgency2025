@@ -24,6 +24,17 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        type: "MONUMENT",
+        destinationId: "KRAKOW",
+        picture: "krakow_papiez",
+        _imagesDir: "landmarks/krakow_papiez",
+        slug: "krakow_papiez",
+        title: "Pomnik Jana Pawla 2 na dziedzincu Placu Biskupiego",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
         type: "BUILDING",
         destinationId: "KRAKOW",
         picture: "krakow_wawel",
@@ -46,12 +57,12 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
-        type: "BUILDING",
+        type: "RESTAURANT",
         destinationId: "WARSZAWA",
-        picture: "wwa_stadion",
-        _imagesDir: "landmarks/wwa_stadion",
-        slug: "wwa_stadion",
-        title: "Stadion PGE Narodowy",
+        picture: "www_mori_mori",
+        _imagesDir: "landmarks/www_mori_mori",
+        slug: "wwa_mori_mori",
+        title: "Restauracja Mori Mori",
         tags: ["lorem", "ipsum"],
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
@@ -63,6 +74,17 @@ export default [
         _imagesDir: "landmarks/wwa_stare_miasto",
         slug: "wwa_stare_miasto",
         title: "Stare Miasto",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        type: "BUILDING",
+        destinationId: "WARSZAWA",
+        picture: "wwa_stadion",
+        _imagesDir: "landmarks/wwa_stadion",
+        slug: "wwa_stadion",
+        title: "Stadion PGE Narodowy",
         tags: ["lorem", "ipsum"],
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
