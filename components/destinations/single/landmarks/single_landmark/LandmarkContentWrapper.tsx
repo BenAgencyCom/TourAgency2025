@@ -11,28 +11,6 @@ const Content = styled(Box)(({ theme }) => ({
     position: "relative",
 }));
 
-const ContentShape = styled(Box)(({ theme }) => ({
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    borderRadius: "10px",
-    transition: "opacity .3s",
-    "&:nth-child(2)": {
-        background: "#fff",
-        width: "calc(100% + 10px)",
-        height: "calc(100% + 10px)",
-        transform: "translate(-50%,-50%) rotate(3deg)",
-        opacity: 0.75,
-    },
-    "&:nth-child(3)": {
-        background: theme.palette.primary.main,
-        width: "calc(100% - 30px)",
-        height: "calc(100% - 30px)",
-        transform: "translate(-50%,-50%) rotate(-10deg)",
-        opacity: 0.75,
-    },
-}));
-
 interface LandmarkContentWrapperProps {
     children: ReactNode;
     onMouseEnter: () => void;
@@ -48,9 +26,6 @@ const LandmarkContentWrapper: FunctionComponent<LandmarkContentWrapperProps> = (
             >
                 {props.children}
             </Content>
-
-            <ContentShape className="content-shape"></ContentShape>
-            <ContentShape className="content-shape"></ContentShape>
         </Content>
     );
 };

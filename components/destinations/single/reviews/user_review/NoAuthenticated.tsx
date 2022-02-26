@@ -5,7 +5,7 @@ import type { FunctionComponent } from "react";
 // Material UI Components
 import Button from "@mui/material/Button";
 // Material UI Icons
-import AccountBox from "@mui/icons-material/AccountBox";
+import AppRegistration from "@mui/icons-material/AppRegistration";
 // Styled components
 const BetterButton = styled(Button)(({ theme }) => ({
     textTransform: "none",
@@ -16,7 +16,7 @@ const BetterButton = styled(Button)(({ theme }) => ({
 const NoAuthenticated: FunctionComponent = () => {
     return (
         <>
-            <AccountBox sx={{ fontSize: "10rem" }}></AccountBox>
+            <AppRegistration sx={{ fontSize: "10rem" }}></AppRegistration>
             <BetterButton sx={{ fontSize: "1.5rem" }} color="inherit">
                 <span>
                     Login and <strong>share your opinion</strong>

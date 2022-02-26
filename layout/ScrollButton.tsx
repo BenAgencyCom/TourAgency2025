@@ -24,6 +24,9 @@ const ScrollBtn = styled(ButtonBase)(({ theme }) => ({
     },
     fontSize: "2rem",
     borderRadius: "50%",
+    svg: {
+        color: theme.palette.text.primary,
+    },
 }));
 
 const ScrollButton: FunctionComponent = () => {

@@ -12,9 +12,14 @@ import SingleReviewHeader from "./header/SingleReviewHeader";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 const SingleReviewWrapper = styled(FlexBox)<{ isLatest?: boolean }>(({ theme, isLatest }) => ({
     width: "100%",
-    marginBottom: isLatest ? 0 : "50px",
-    padding: "10px",
+    marginBottom: isLatest ? 0 : "40px",
+    padding: "50px 20px",
     boxSizing: "border-box",
+    borderRadius: 10,
+    border: `1px solid ${theme.palette.background.lightPaper}`,
+    hr: {
+        borderColor: theme.palette.background.lightPaper,
+    },
 }));
 
 const ReviewContent = styled(Typography)(({ theme }) => ({

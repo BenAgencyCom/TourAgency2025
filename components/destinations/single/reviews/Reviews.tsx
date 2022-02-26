@@ -1,5 +1,6 @@
 // Tools
 import { styled } from "@mui/system";
+import colorTheme from "@/colorTheme";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
@@ -27,9 +28,9 @@ const Reviews: FunctionComponent = (props) => {
     return (
         <Section
             id="reviews"
-            background={`#121212`}
+            background={colorTheme.palette.background.default}
             header={{
-                text: "User experiences",
+                text: "Users experiences",
             }}
         >
             <UnfadeOnScroll duration={700}>
@@ -41,7 +42,7 @@ const Reviews: FunctionComponent = (props) => {
                         column //
                         vertical="between"
                         horizontal="center"
-                        sx={{ width: "400px" }}
+                        sx={{ width: "360px" }}
                     >
                         <Ratings totalReviews={totalReviews} ratings={ratings}></Ratings>
                         <UserReview></UserReview>
@@ -49,7 +50,7 @@ const Reviews: FunctionComponent = (props) => {
 
                     <AllReviews
                         reviews={reviews} //
-                        sx={{ width: "calc(100% - 400px - 20px)" }}
+                        sx={{ width: "calc(100% - 360px - 40px)" }}
                     ></AllReviews>
                 </Wrapper>
             </UnfadeOnScroll>

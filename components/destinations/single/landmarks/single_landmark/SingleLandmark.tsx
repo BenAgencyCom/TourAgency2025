@@ -1,67 +1,57 @@
 // Tools
 import { styled } from "@mui/system";
+import { useState } from "react";
 // Types
-import type { Landmark, LandmarkPictureResolution } from "@/@types/pages/SingleDestination";
+import type { Landmark } from "@/@types/pages/SingleDestination";
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other Components
-import BackgroundPicture from "./BackgroundPicture";
-import LandmarkHeader from "./LandmarkHeader";
-import LandmarkManagement from "./LandmarkManagement";
-import LandmarkContentWrapper from "./LandmarkContentWrapper";
 import ReadMore from "./ReadMore";
+import LandmarkPicture from "./LandmarkPicture";
+import LandmarkDescription from "./LandmarkDescription";
 // Styled Components
-const SingleLandmarkWrapper = styled(Box)(({ theme }) => ({
+import FlexBox from "@/components/_utils/styled/FlexBox";
+const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
     margin: "0 auto",
     height: "500px",
     position: "relative",
     boxSizing: "border-box",
-    borderRadius: "5px",
-    img: {
-        transform: "scale(1)",
-        transition: "transform .3s",
-    },
+    borderRadius: "5px 40px 5px 40px",
+    overflow: "hidden",
+    background: theme.palette.text.primary,
+    color: "#fff",
     "&:hover": {
-        img: {
-            transform: "scale(1.1)",
-        },
-        "div.content-shape": {
-            opacity: 1,
-        },
         ".read-more": {
             opacity: 1,
         },
     },
-    padding: "40px",
 }));
 
 interface SingleLandmarkProps {
     data: Landmark;
-    createImagePath: (resolution: LandmarkPictureResolution) => string;
     onMouseEnter: () => void;
     onMouseLeave: () => void;
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
-    const width = `calc(100% - 40px)`;
+    const width = `calc(100% - 20px)`;
     return (
         <SingleLandmarkWrapper
             sx={{ width: `${width}` }} //
+            column
         >
-            <LandmarkContentWrapper
-                onMouseEnter={props.onMouseEnter} //
+            <LandmarkPicture
+                picture={props.data.picture} //
+                onMouseEnter={props.onMouseEnter}
                 onMouseLeave={props.onMouseLeave}
             >
-                <LandmarkManagement createImagePath={props.createImagePath}></LandmarkManagement>
-                <BackgroundPicture createImagePath={props.createImagePath}></BackgroundPicture>
-                <LandmarkHeader
-                    title={props.data.title} //
-                    type={props.data.type}
-                    reviews={35}
-                ></LandmarkHeader>
                 <ReadMore slug={props.data.slug}></ReadMore>
-            </LandmarkContentWrapper>
+            </LandmarkPicture>
+
+            <LandmarkDescription
+                data={props.data} //
+                reviews={34}
+                tweets={3213}
+            ></LandmarkDescription>
         </SingleLandmarkWrapper>
     );
 };

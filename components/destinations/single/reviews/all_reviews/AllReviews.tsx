@@ -1,12 +1,9 @@
-// Tools
 // Types
 import type { FunctionComponent } from "react";
 import type { Review } from "@/@types/pages/SingleDestination";
 // Other components
 import SingleReview from "./single_review/SingleReview";
 import ScrollableBox from "@/components/_utils/styled/ScrollableBox";
-// Material UI Components
-import Box from "@mui/material/Box";
 
 interface AllReviewsProps {
     reviews: Review[];
@@ -15,7 +12,12 @@ interface AllReviewsProps {
 const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
     const { reviews } = props;
     return (
-        <ScrollableBox sx={props.sx}>
+        <ScrollableBox
+            sx={{
+                ...props.sx,
+                paddingRight: "40px",
+            }}
+        >
             {reviews.map((item, index) => {
                 return (
                     <SingleReview

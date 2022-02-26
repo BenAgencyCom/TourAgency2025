@@ -1,3 +1,5 @@
+// Tools
+import colorTheme from "@/colorTheme";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
@@ -13,7 +15,7 @@ const DestinationWrapper: FunctionComponent = () => {
     return (
         <Section
             id="description"
-            background={`#121212`}
+            background={colorTheme.palette.background.default}
             header={{
                 text: "WORDS OF INTRODUCTION", //
                 buttonMsg: `More in ${country}`,

@@ -1,5 +1,5 @@
 // Tools
-import { styled } from "@mui/system";
+import { styled, alpha } from "@mui/system";
 // Types
 import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
@@ -14,7 +14,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
     overflowY: "scroll",
     overflowX: "hidden",
     "&::-webkit-scrollbar": { width: "8px" },
-    "&::-webkit-scrollbar-track": { boxShadow: "inset 0 0 2px rgba(0,0,0,0.5)" },
+    "&::-webkit-scrollbar-track": { boxShadow: `inset 0 0 2px ${alpha(theme.palette.primary.main, 0.3)}` },
     "&::-webkit-scrollbar-thumb": {
         backgroundColor: theme.palette.primary.main,
         borderRadius: "2px",

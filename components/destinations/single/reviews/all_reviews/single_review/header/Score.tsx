@@ -13,6 +13,7 @@ const Wrapper = styled(FlexBox)<{ color: Color }>(({ theme, ...props }) => ({
     fontWeight: 900,
     background: theme.palette[props.color].main,
     borderRadius: 3,
+    color: "#fff",
 }));
 interface ScoreProps {
     points: number;

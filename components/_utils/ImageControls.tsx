@@ -28,7 +28,7 @@ export const ImageControls: FunctionComponent<ImageControlsProps> = (props) => {
                 bottom: "10px",
                 right: "10px",
                 zIndex: 1,
-                bgcolor: (theme) => alpha(theme.palette.background.default, 0.8),
+                bgcolor: (theme) => alpha(theme.palette.text.primary, 0.8),
                 backdropFilter: "blur(5px)",
             }}
             variant="contained"

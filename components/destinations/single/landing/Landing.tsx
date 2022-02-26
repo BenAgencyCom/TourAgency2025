@@ -16,6 +16,7 @@ const LandingWrapper = styled(Box)(({ theme }) => ({
     top: 0,
     left: 0,
     userSelect: "none",
+    color: "#fff",
 }));
 
 const Landing: FunctionComponent = () => {

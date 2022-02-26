@@ -15,6 +15,7 @@ const Wrapper = styled(Box)({
     width: "100%",
     position: "relative",
     overflow: "hidden",
+    paddingBottom: "100px",
 });
 const Container = styled(Box)(({ theme }) => ({
     width: "100vw",
@@ -41,7 +42,7 @@ const SecondBackground = styled(Box)(({ theme }) => ({
         width: "100%",
         height: "100%",
         backdropFilter: "blur(3px)",
-        background: alpha("#121212", 0.9),
+        background: alpha(theme.palette.background.paper, 0.7),
     },
 }));
 
@@ -56,6 +57,7 @@ interface SectionProps {
     };
     // Optional
     fadeThresholdRatio?: number;
+    sx?: Record<string, any>;
     // Second background
     displaySecondBackground?: boolean;
     secondBackground?: string;
@@ -81,7 +83,7 @@ const Section: FunctionComponent<SectionProps> = (props) => {
             id={props.id} //
             component="section"
             ref={element}
-            sx={{ background: props.background }}
+            sx={{ background: props.background, ...props.sx }}
         >
             {(() => {
                 if (props.displaySecondBackground !== undefined) {

@@ -20,7 +20,7 @@ const Dots = styled(Box)(({ theme }) => ({
     li: {
         width: "30px !important",
         height: "10px !important",
-        background: "white",
+        background: theme.palette.text.primary,
         display: "flex !important",
         borderRadius: "3px",
         transition: "transform .1s, opacity .1s",
