@@ -4,6 +4,8 @@ import { GetLandmarkIcon } from "@/utils/client/getLandmarkIcon";
 // Types
 import type { Landmark } from "@/@types/pages/SingleDestination";
 import type { FunctionComponent } from "react";
+// Material Ui Components
+import Typography from "@mui/material/Typography";
 // Material UI Icons
 import StarBorder from "@mui/icons-material/StarBorder";
 import Twitter from "@mui/icons-material/Twitter";
@@ -20,8 +22,8 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
     maxHeight: "170px",
     transition: "max-height .3s",
     h3: {
-        fontSize: "2rem",
-        letterSpacing: "-2px",
+        height: "50px",
+        fontWeight: 500,
         margin: "20px 0 10px 10px",
     },
     "&>svg": {
@@ -30,6 +32,7 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
         right: "5px",
         color: alpha("#fff", 0.3),
         fontSize: "4rem",
+        transition: "opacity .2s",
     },
     "&::before,&::after": {
         content: "''",
@@ -62,9 +65,16 @@ const LandmarkAsset = styled(FlexBox)(({ theme }) => ({
     },
 }));
 const LandmarkDescription: FunctionComponent<LandmarkDescriptionProps> = (props) => {
+    const fontSize = (() => {
+        const { length } = props.data.title;
+        if (length < 30) return { fontSize: "2rem", letterSpacing: "-2px" };
+        else return { fontSize: "1.5rem", lineHeight: "24px" };
+    })();
     return (
         <Wrapper column className="landmark-description">
-            <h3>{props.data.title}</h3>
+            <Typography sx={fontSize} component="h3">
+                {props.data.title}
+            </Typography>
 
             <FlexBox sx={{ marginBottom: "20px" }}>
                 <LandmarkAsset vertical="center">

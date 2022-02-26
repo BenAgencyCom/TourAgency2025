@@ -28,6 +28,9 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
             "&::before,&::after": {
                 opacity: 0,
             },
+            "&>svg": {
+                opacity: 0,
+            },
         },
     },
 }));

@@ -2,11 +2,7 @@
 import { styled, alpha } from "@mui/system";
 import { landmarkPictureURL } from "@/utils/client/imageURLs";
 // Types
-import type { StatedDataField } from "@/@types/StagedDataField";
-import type { LandmarkPictureResolution } from "@/@types/pages/SingleDestination";
 import type { FunctionComponent, ReactNode } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other Components
 import Image from "next/Image";
 // Styled Components
@@ -15,14 +11,7 @@ const Wrapper = styled(AbsolutePseudoElement)(({ theme }) => ({
     width: "100%",
     height: "100%",
     position: "relative",
-    img: {
-        transform: "scale(1)",
-        transition: "transform .3s",
-    },
     "&:hover": {
-        img: {
-            transform: "scale(1.1)",
-        },
         "&::after": {
             opacity: 1,
         },
