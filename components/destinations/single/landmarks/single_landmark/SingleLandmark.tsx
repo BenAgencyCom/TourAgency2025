@@ -1,6 +1,5 @@
 // Tools
 import { styled } from "@mui/system";
-import { useState } from "react";
 // Types
 import type { Landmark } from "@/@types/pages/SingleDestination";
 import type { FunctionComponent } from "react";
@@ -15,7 +14,7 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
     height: "500px",
     position: "relative",
     boxSizing: "border-box",
-    borderRadius: "5px 40px 5px 40px",
+    borderRadius: "5px",
     overflow: "hidden",
     background: theme.palette.text.primary,
     color: "#fff",

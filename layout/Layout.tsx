@@ -5,6 +5,7 @@ import Navigation from "@/layout//Navigation";
 import PageLogo from "@/layout//PageLogo";
 import Snackbar from "@/layout//Snackbar";
 import ScrollButton from "@/layout/ScrollButton";
+import Footer from "@/layout/footer/Footer";
 // Material UI Components
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
@@ -19,7 +20,12 @@ import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { setAuthentication, getUserFromLocalStorage, setUserData } from "@/redux/slices/authentication";
 import { resize, setScroll } from "@/redux/slices/windowSizes";
 
-const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
+interface LayoutProps {
+    children: ReactNode;
+    loading: boolean;
+}
+
+const Layout: FunctionComponent<LayoutProps> = (props) => {
     const router = useRouter();
     const extraStyles = { backgroundColor: "transparent !important", backgroundImage: "none !important", backdropFilter: "none !important", boxShadow: "none !important" };
     const [displayExtraStyles, setDisplayExtraStyles] = useState<boolean>(false);
@@ -96,11 +102,16 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
             </Fade>
             {/*  */}
             <Box sx={{ backgroundColor: "background.paper" }}>
-                <main>{children}</main>
+                <main>{props.children}</main>
                 <Snackbar></Snackbar>
             </Box>
-
             <ScrollButton></ScrollButton>
+
+            {(() => {
+                if (!props.loading) {
+                    return <Footer></Footer>;
+                }
+            })()}
         </>
     );
 };

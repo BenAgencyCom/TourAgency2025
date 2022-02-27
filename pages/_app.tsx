@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
     });
     return (
         <ThemeProvider theme={colorTheme}>
-            <Layout>
+            <Layout loading={loading}>
                 {(() => {
                     if (loading) {
                         return <Loading />;
