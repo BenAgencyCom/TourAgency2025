@@ -1,6 +1,7 @@
 import type { SeederDataList, Landmark } from "./@types";
 
 export default [
+    // KRAKOW
     {
         type: "RESTAURANT",
         destinationId: "KRAKOW",
@@ -45,6 +46,7 @@ export default [
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
+    // WARSZAWA
     {
         type: "BUILDING",
         destinationId: "WARSZAWA",
@@ -85,6 +87,96 @@ export default [
         _imagesDir: "landmarks/wwa_stadion",
         slug: "wwa_stadion",
         title: "Stadion PGE Narodowy",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    // VANCOUVER
+    {
+        type: "BUILDING",
+        destinationId: "VANCOUVER",
+        picture: "vancouver_science_world",
+        _imagesDir: "landmarks/vancouver_science_world",
+        slug: "vancouver_science_world",
+        title: "Science World",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        type: "NATURE",
+        destinationId: "VANCOUVER",
+        picture: "vancouver_two_jacks_lake",
+        _imagesDir: "landmarks/vancouver_two_jacks_lake",
+        slug: "vancouver_two_jacks_lake",
+        title: "Two Jacks Lake",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        type: "MONUMENT",
+        destinationId: "VANCOUVER",
+        picture: "vancouver_pale_totem",
+        _imagesDir: "landmarks/vancouver_pale_totem",
+        slug: "vancouver_pale_totem",
+        title: "The Pale Totem",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        type: "RESTAURANT",
+        destinationId: "VANCOUVER",
+        picture: "vancouver_pan_pacific_vancouver",
+        _imagesDir: "landmarks/vancouver_pan_pacific_vancouver",
+        slug: "vancouver_pan_pacific_vancouver",
+        title: "Pan Pacific Hotel Vancouver",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    // RIO_DE_JANEIRO
+    {
+        type: "ART",
+        destinationId: "RIO_DE_JANEIRO",
+        picture: "rio_de_janeiro_boulevard_olimpico",
+        _imagesDir: "landmarks/rio_de_janeiro_boulevard_olimpico",
+        slug: "rio_de_janeiro_boulevard_olimpico",
+        title: "Boulevard Olímpico",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        type: "NATURE",
+        destinationId: "RIO_DE_JANEIRO",
+        picture: "rio_de_janeiro_caracol_waterfall",
+        _imagesDir: "landmarks/rio_de_janeiro_caracol_waterfall",
+        slug: "rio_de_janeiro_caracol_waterfall",
+        title: "Caracol cascada",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        type: "MONUMENT",
+        destinationId: "RIO_DE_JANEIRO",
+        picture: "rio_de_janeiro_jezus",
+        _imagesDir: "landmarks/rio_de_janeiro_jezus",
+        slug: "rio_de_janeiro_jezus",
+        title: "Estatua del Cristo Redentor en Río de Janeiro",
+        tags: ["lorem", "ipsum"],
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        type: "NATURE",
+        destinationId: "RIO_DE_JANEIRO",
+        picture: "rio_de_janeiro_sugarloaf_mountain",
+        _imagesDir: "landmarks/rio_de_janeiro_sugarloaf_mountain",
+        slug: "rio_de_janeiro_sugarloaf_mountain",
+        title: "Sugarloaf Montaña",
         tags: ["lorem", "ipsum"],
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
