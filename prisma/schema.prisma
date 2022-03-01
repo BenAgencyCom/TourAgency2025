@@ -24,7 +24,9 @@ model User {
 
   sessions            Session[]
   createdDestinations Destination[]
-  DestinationReview   DestinationReview[]
+  destinationReview   DestinationReview[]
+  landmarksReviews    LandmarkReview[]
+
 }
 
 model Session {
@@ -68,7 +70,8 @@ model Landmark {
   tags          String[]
   createdAt     DateTime     @default(now())
 
-  destination Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  reviews     LandmarkReview[]
+  destination Destination      @relation(fields: [destinationId], references: [id], onDelete: Cascade)
 }
 
 model DestinationReview {
@@ -81,6 +84,18 @@ model DestinationReview {
 
   destination Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
   reviewer    User        @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+}
+
+model LandmarkReview {
+  id         String   @id @default(cuid())
+  reviewerId String   @map("creator_id")
+  landmarkId String   @map("landmark_id")
+  review     String
+  points     Float
+  createdAt  DateTime @default(now())
+
+  landmark Landmark @relation(fields: [landmarkId], references: [id], onDelete: Cascade)
+  reviewer User     @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
 }
 
 enum Gender {
