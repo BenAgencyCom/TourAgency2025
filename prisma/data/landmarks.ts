@@ -3,6 +3,7 @@ import type { SeederDataList, Landmark } from "./@types";
 export default [
     // KRAKOW
     {
+        id: "1",
         type: "RESTAURANT",
         destinationId: "KRAKOW",
         picture: "krakow_nolio",
@@ -14,6 +15,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "2",
         type: "MONUMENT",
         destinationId: "KRAKOW",
         picture: "krakow_smok",
@@ -25,6 +27,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "3",
         type: "MONUMENT",
         destinationId: "KRAKOW",
         picture: "krakow_papiez",
@@ -36,6 +39,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "4",
         type: "BUILDING",
         destinationId: "KRAKOW",
         picture: "krakow_wawel",
@@ -48,6 +52,7 @@ export default [
     },
     // WARSZAWA
     {
+        id: "5",
         type: "BUILDING",
         destinationId: "WARSZAWA",
         picture: "wwa_palac",
@@ -59,6 +64,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "6",
         type: "RESTAURANT",
         destinationId: "WARSZAWA",
         picture: "www_mori_mori",
@@ -70,6 +76,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "7",
         type: "ANTIQUE",
         destinationId: "WARSZAWA",
         picture: "wwa_stare_miasto",
@@ -81,6 +88,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "8",
         type: "BUILDING",
         destinationId: "WARSZAWA",
         picture: "wwa_stadion",
@@ -93,6 +101,7 @@ export default [
     },
     // VANCOUVER
     {
+        id: "9",
         type: "BUILDING",
         destinationId: "VANCOUVER",
         picture: "vancouver_science_world",
@@ -104,6 +113,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "10",
         type: "NATURE",
         destinationId: "VANCOUVER",
         picture: "vancouver_two_jacks_lake",
@@ -115,6 +125,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "11",
         type: "MONUMENT",
         destinationId: "VANCOUVER",
         picture: "vancouver_pale_totem",
@@ -126,6 +137,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "12",
         type: "RESTAURANT",
         destinationId: "VANCOUVER",
         picture: "vancouver_pan_pacific_vancouver",
@@ -138,6 +150,7 @@ export default [
     },
     // RIO_DE_JANEIRO
     {
+        id: "13",
         type: "ART",
         destinationId: "RIO_DE_JANEIRO",
         picture: "rio_de_janeiro_boulevard_olimpico",
@@ -149,6 +162,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "14",
         type: "NATURE",
         destinationId: "RIO_DE_JANEIRO",
         picture: "rio_de_janeiro_caracol_waterfall",
@@ -160,6 +174,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "15",
         type: "MONUMENT",
         destinationId: "RIO_DE_JANEIRO",
         picture: "rio_de_janeiro_jezus",
@@ -171,6 +186,7 @@ export default [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
     {
+        id: "16",
         type: "NATURE",
         destinationId: "RIO_DE_JANEIRO",
         picture: "rio_de_janeiro_sugarloaf_mountain",

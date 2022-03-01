@@ -8,8 +8,9 @@ import userData from "./data/users";
 import destinationData from "./data/destinations";
 import landmarkData from "./data/landmarks";
 import destinationReviewData from "./data/destinationsReviews";
+import landmarksReviews from "./data/landmarksReviews";
 // Types
-import { SeederDataList, User, Destination, Landmark, DestinationReview, ModelName } from "./data/@types";
+import { SeederDataList, User, Destination, Landmark, DestinationReview, ModelName, LandmarkReview } from "./data/@types";
 import { uploadDir } from "../utils/paths";
 
 const prisma = new PrismaClient();
@@ -20,7 +21,8 @@ class PrismaSeeder extends ConsolePrettier {
         protected userData: SeederDataList<User>, //
         protected destinationData: SeederDataList<Destination>,
         protected landmarkData: SeederDataList<Landmark>,
-        protected destinationReviewData: SeederDataList<DestinationReview>
+        protected destinationReviewData: SeederDataList<DestinationReview>,
+        protected landmarksReviews: SeederDataList<LandmarkReview>
     ) {
         super();
     }
@@ -73,6 +75,7 @@ class PrismaSeeder extends ConsolePrettier {
         await this.seedModel("destination", this.destinationData);
         await this.seedModel("landmark", this.landmarkData);
         await this.seedModel("destinationReview", this.destinationReviewData);
+        await this.seedModel("landmarkReview", this.landmarksReviews);
 
         await this.uploadAllImages();
     }
@@ -80,7 +83,7 @@ class PrismaSeeder extends ConsolePrettier {
 
 const main = async () => {
     console.clear();
-    await new PrismaSeeder(userData, destinationData, landmarkData, destinationReviewData).main();
+    await new PrismaSeeder(userData, destinationData, landmarkData, destinationReviewData, landmarksReviews).main();
 };
 
 main();
