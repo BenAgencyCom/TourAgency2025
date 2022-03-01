@@ -15,6 +15,7 @@ import type { AppProps } from "next/app";
 // Material UI Components
 import { ThemeProvider } from "@mui/material";
 // Other components
+import Head from "next/Head";
 import Layout from "@/layout/Layout";
 import Loading from "@/components/_utils/Loading";
 // Redux
@@ -41,7 +42,14 @@ function MyApp({ Component, pageProps }: MyAppProps) {
             <Layout loading={loading}>
                 {(() => {
                     if (loading) {
-                        return <Loading />;
+                        return (
+                            <>
+                                <Head>
+                                    <title>My exquisite site</title>
+                                </Head>
+                                <Loading />
+                            </>
+                        );
                     } else {
                         return <Component {...pageProps} />;
                     }

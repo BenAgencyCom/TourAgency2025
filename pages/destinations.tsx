@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 // Other components
 import Link from "next/link";
+import Head from "next/Head";
 // Styled COmponents
 const SingleDestinaion = styled(Box)(({ theme }) => ({
     background: "red",
@@ -22,22 +23,28 @@ interface DestinationsProps {
 
 const Destinations: FunctionComponent<DestinationsProps> = (props) => {
     return (
-        <Container sx={{ mt: "100px", color: "text.primary" }}>
-            {props.destinations.map((item) => {
-                return (
-                    <SingleDestinaion key={item.slug} sx={{ mb: 2 }}>
-                        <Typography variant="h3">{`${item.city}, ${item.country}`}</Typography>
-                        <Typography variant="h5">{`Landmarks: ${item._count.landmarks}`}</Typography>
+        <>
+            <Head>
+                <title>Destinations</title>
+            </Head>
 
-                        <Button variant="contained" sx={{ width: 300, mt: 2 }}>
-                            <Link href={`./destinations/${item.slug}`} passHref>
-                                Visit
-                            </Link>
-                        </Button>
-                    </SingleDestinaion>
-                );
-            })}
-        </Container>
+            <Container sx={{ mt: "100px", color: "text.primary" }}>
+                {props.destinations.map((item) => {
+                    return (
+                        <SingleDestinaion key={item.slug} sx={{ mb: 2 }}>
+                            <Typography variant="h3">{`${item.city}, ${item.country}`}</Typography>
+                            <Typography variant="h5">{`Landmarks: ${item._count.landmarks}`}</Typography>
+
+                            <Button variant="contained" sx={{ width: 300, mt: 2 }}>
+                                <Link href={`./destinations/${item.slug}`} passHref>
+                                    Visit
+                                </Link>
+                            </Button>
+                        </SingleDestinaion>
+                    );
+                })}
+            </Container>
+        </>
     );
 };
 

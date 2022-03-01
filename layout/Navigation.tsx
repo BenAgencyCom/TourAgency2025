@@ -70,12 +70,14 @@ const Navigation: FunctionComponent<{ buttonStyles: Record<string, unknown> }> =
                             <Fade in={displayMenu || width > 1000}>
                                 <Box className={styles["routes-wrapper"]} sx={{ p: 1, mr: 2 }}>
                                     <Button sx={buttonStyles} variant="outlined">
-                                        <Link href="/destinations">
-                                            <a>Cities</a>
+                                        <Link href="/destinations" passHref>
+                                            Cities
                                         </Link>
                                     </Button>
                                     <Button sx={buttonStyles} variant="outlined">
-                                        Ipsum
+                                        <Link href="/landmarks" passHref>
+                                            Sights
+                                        </Link>
                                     </Button>
                                     <Button sx={buttonStyles} variant="outlined">
                                         Gorzen
