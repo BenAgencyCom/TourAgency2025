@@ -105,7 +105,13 @@ const Login: FunctionComponent<{}> = () => {
                         objectPosition="center"
                         placeholder="blur"
                     ></Image>
-                    <Card className={styles.formCard} sx={{ alignItems: "center", justifyContent: "center" }}>
+                    <Card
+                        className={styles.formCard}
+                        sx={{
+                            alignItems: "center", //
+                            justifyContent: "center",
+                        }}
+                    >
                         <Box className={styles["content-wrapper"]} component="form">
                             <LoginHeader pending={pending}></LoginHeader>
                             <TextInput
@@ -114,12 +120,12 @@ const Login: FunctionComponent<{}> = () => {
                                 updateValue={setEmail}
                                 disabled={pending}
                                 _cypressTag="email"
+                                sx={{ mb: 2 }}
                             ></TextInput>
                             <PasswordInput
                                 label="Password" //
                                 value={password}
                                 updateValue={setPassword}
-                                sx={{ mb: 2 }}
                                 disabled={pending}
                                 _cypressTag="password"
                             ></PasswordInput>

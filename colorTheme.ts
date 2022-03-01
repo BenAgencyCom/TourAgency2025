@@ -71,6 +71,20 @@ export default responsiveFontSizes(
                     },
                 },
             },
+            MuiSelect: {
+                styleOverrides: {
+                    select: {
+                        color: "#fff",
+                    },
+                },
+            },
+            MuiInputBase: {
+                styleOverrides: {
+                    input: {
+                        color: "#fff",
+                    },
+                },
+            },
         },
     })
 );

@@ -108,7 +108,7 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
             <ScrollButton></ScrollButton>
 
             {(() => {
-                if (!props.loading) {
+                if (!props.loading && displayAppBar) {
                     return <Footer></Footer>;
                 }
             })()}

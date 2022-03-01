@@ -82,7 +82,7 @@ const Upload: FunctionComponent<UploadProps> = (props) => {
                     icon={<RocketLaunch className={styles.icon}></RocketLaunch>}
                 ></StepHeader>
 
-                <Typography variant="h5" sx={{ cursor: "default", px: 5, textAlign: "center", mb: 2 }}>
+                <Typography variant="h5" sx={{ cursor: "default", px: 5, textAlign: "center", mb: 2, color: "#fff" }}>
                     By continuing I agree with the
                     <Typography sx={{ color: "primary.main" }} component="span" variant="h5">
                         <Link href="/terms-of-use">
