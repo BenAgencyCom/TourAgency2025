@@ -79,6 +79,7 @@ model DestinationReview {
   reviewerId    String   @map("creator_id")
   destinationId String   @map("destination_id")
   review        String
+  tags          Json
   points        Float
   createdAt     DateTime @default(now())
 
@@ -91,6 +92,7 @@ model LandmarkReview {
   reviewerId String   @map("creator_id")
   landmarkId String   @map("landmark_id")
   review     String
+  tags       Json
   points     Float
   createdAt  DateTime @default(now())
 

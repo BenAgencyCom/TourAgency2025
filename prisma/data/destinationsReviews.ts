@@ -15,7 +15,8 @@ const randomNumber = (): number => {
               precision: 0.1,
           });
 };
-const randomComment = (): string => faker.lorem.sentences(3).slice(0, 100);
+const randomComment = (): string => faker.lorem.sentences(3).slice(0, 150);
+const randomTags = (): string[] => faker.lorem.words(3).split(" ");
 
 export default ((): SeederDataList<DestinationReview> => {
     const result: Partial<DestinationReview>[] = [];
@@ -28,24 +29,28 @@ export default ((): SeederDataList<DestinationReview> => {
                 destinationId: destination,
                 points: randomNumber(),
                 review: randomComment(),
+                tags: randomTags(),
             },
             {
                 reviewerId: "2",
                 destinationId: destination,
                 points: randomNumber(),
                 review: randomComment(),
+                tags: randomTags(),
             },
             {
                 reviewerId: "3",
                 destinationId: destination,
                 points: randomNumber(),
                 review: randomComment(),
+                tags: randomTags(),
             },
             {
                 reviewerId: "4",
                 destinationId: destination,
                 points: randomNumber(),
                 review: randomComment(),
+                tags: randomTags(),
             }
         );
     });
