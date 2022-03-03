@@ -1,7 +1,10 @@
 import type { SeederDataList, User } from "./@types";
 import bcrypt from "bcrypt";
+import faker from "faker";
 
-export default [
+import { USERS, getRandomCountry } from "./_prisma_seeders_utils";
+
+const testingPurposedData: SeederDataList<User> = [
     {
         name: "Kacper",
         surname: "Ksiazek",
@@ -25,54 +28,26 @@ export default [
         password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
         birth: new Date("08/11/2002"),
     },
-    {
-        id: "1",
-        name: "Hubert",
-        surname: "Urbanski",
-        email: "milionerzy@gmail.com",
-        country: "Pakistan",
-        countryCode: "pk",
-        gender: "MALE",
-        password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
-        birth: new Date("08/11/2002"),
-        _imagesDir: "avatars/urbanski",
-        avatar: "urbanski",
-    },
-    {
-        id: "2",
-        name: "Adam",
-        surname: "Mickiewicz",
-        email: "jslowackiego@gmail.com",
-        country: "Poland",
-        countryCode: "pl",
-        gender: "MALE",
-        password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
-        birth: new Date("08/11/2002"),
-    },
-    {
-        id: "3",
-        name: "Raphael",
-        surname: "Ragucci",
-        email: "zukunft@gmail.com",
-        country: "Germany",
-        countryCode: "de",
-        gender: "MALE",
-        password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
-        _imagesDir: "avatars/ragucci",
-        birth: new Date("08/11/2002"),
-        avatar: "ragucci",
-    },
-    {
-        id: "4",
-        name: "Pawel",
-        surname: "Kica",
-        email: "pawal_kica@gmail.com",
-        country: "Poland",
-        countryCode: "pl",
-        gender: "OTHER",
-        password: bcrypt.hashSync("zaq12345", bcrypt.genSaltSync()),
-        _imagesDir: "avatars/pkica",
-        birth: new Date("08/11/2002"),
-        avatar: "pkica",
-    },
-] as SeederDataList<User>;
+];
+
+export default ((): SeederDataList<User> => {
+    const result: SeederDataList<User> = [];
+
+    USERS.forEach((i) => {
+        const [country, countryCode] = getRandomCountry();
+        result.push({
+            id: String(i),
+            name: faker.name.firstName(),
+            surname: faker.name.lastName(),
+            email: faker.internet.email(),
+            country,
+            countryCode,
+            gender: "MALE",
+            isAdmin: false,
+            password: "sadasdasd23e1232341!",
+            birth: faker.date.between("1970-01-01", "2008-01-01"),
+        });
+    });
+
+    return [...result, ...testingPurposedData];
+})();

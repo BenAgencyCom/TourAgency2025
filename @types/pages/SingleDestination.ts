@@ -7,6 +7,7 @@ export interface Review {
     id: DestinationReview["id"];
     review: DestinationReview["review"];
     points: DestinationReview["points"];
+    tags: DestinationReview["tags"];
     createdAt: string; // DestinationReview["createdAt"] formated via moment.js;
     reviewer: {
         id: User["id"];
