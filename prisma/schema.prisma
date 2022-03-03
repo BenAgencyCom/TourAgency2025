@@ -22,10 +22,15 @@ model User {
   createdAt     DateTime  @default(now())
   isAdmin       Boolean   @default(false)
 
-  sessions            Session[]
-  createdDestinations Destination[]
-  destinationReview   DestinationReview[]
-  landmarksReviews    LandmarkReview[]
+  sessions Session[]
+
+  landmarksReviews     LandmarkReview[]
+  landmarksReviewLikes LandmarkReviewLike[]
+
+  createdDestinations    Destination[]
+  destinationReview      DestinationReview[]
+  destinationReviewLikes DestinationReviewLike[]
+
 
 }
 
@@ -83,8 +88,19 @@ model DestinationReview {
   points        Float
   createdAt     DateTime @default(now())
 
-  destination Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
-  reviewer    User        @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+  destination Destination             @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  reviewer    User                    @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+  likes       DestinationReviewLike[]
+}
+
+model DestinationReviewLike {
+  id            String  @id @default(cuid())
+  userId        String  @map("user_id")
+  destinationId String  @map("destination_id")
+  like          Boolean
+
+  review DestinationReview @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  user   User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model LandmarkReview {
@@ -96,8 +112,19 @@ model LandmarkReview {
   points     Float
   createdAt  DateTime @default(now())
 
-  landmark Landmark @relation(fields: [landmarkId], references: [id], onDelete: Cascade)
-  reviewer User     @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+  landmark Landmark             @relation(fields: [landmarkId], references: [id], onDelete: Cascade)
+  reviewer User                 @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+  likes    LandmarkReviewLike[]
+}
+
+model LandmarkReviewLike {
+  id         String  @id @default(cuid())
+  userId     String  @map("user_id")
+  landmarkId String  @map("landmark_id")
+  like       Boolean
+
+  review LandmarkReview @relation(fields: [landmarkId], references: [id], onDelete: Cascade)
+  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Gender {
