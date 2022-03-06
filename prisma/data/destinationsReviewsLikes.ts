@@ -7,11 +7,11 @@ export default ((): SeederDataList<DestinationReviewLike> => {
     const result: Partial<DestinationReviewLike>[] = [];
 
     DESTINATIONS_REVIEWS.forEach((DESTINATION_REVIEW_ID) => {
-        getUserIds(randomNumberFromRange(30, 100)).forEach((USER_ID) => {
+        getUserIds(randomNumberFromRange(0, 100)).forEach((USER_ID) => {
             result.push({
                 userId: USER_ID,
-                destinationId: DESTINATION_REVIEW_ID,
-                like: Math.random() > 0.5,
+                reviewId: DESTINATION_REVIEW_ID,
+                feedback: Math.random() > 0.5 ? "LIKE" : "DISLIKE",
             });
         });
     });

@@ -7,11 +7,11 @@ export default ((): SeederDataList<LandmarkReviewLike> => {
     const result: Partial<LandmarkReviewLike>[] = [];
 
     LANDMARKS_REVIEWS.forEach((LANDMARK_REVIEW_ID) => {
-        getUserIds(randomNumberFromRange(30, 100)).forEach((USER_ID) => {
+        getUserIds(randomNumberFromRange(0, 100)).forEach((USER_ID) => {
             result.push({
                 userId: USER_ID,
-                landmarkId: LANDMARK_REVIEW_ID,
-                like: Math.random() > 0.5,
+                reviewId: LANDMARK_REVIEW_ID,
+                feedback: Math.random() > 0.5 ? "LIKE" : "DISLIKE",
             });
         });
     });

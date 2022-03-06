@@ -96,10 +96,10 @@ model DestinationReview {
 model DestinationReviewLike {
   id            String  @id @default(cuid())
   userId        String  @map("user_id")
-  destinationId String  @map("destination_id")
-  like          Boolean
+  reviewId String  @map("review_id")
+  feedback          Feedback
 
-  review DestinationReview @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  review DestinationReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   user   User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -120,11 +120,16 @@ model LandmarkReview {
 model LandmarkReviewLike {
   id         String  @id @default(cuid())
   userId     String  @map("user_id")
-  landmarkId String  @map("landmark_id")
-  like       Boolean
+  reviewId String  @map("review_id")
+  feedback          Feedback
 
-  review LandmarkReview @relation(fields: [landmarkId], references: [id], onDelete: Cascade)
+  review LandmarkReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Feedback {
+  LIKE
+  DISLIKE
 }
 
 enum Gender {
