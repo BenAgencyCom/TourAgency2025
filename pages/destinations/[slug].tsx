@@ -1,15 +1,15 @@
 // Tools
 import { prisma } from "@/prisma/db";
 import { styled } from "@mui/system";
-import moment from "moment";
-import prismaCertainProps from "@/utils/prismaCertinProps";
+import SingleDestinationAPI from "@/utils/api/pages/destinations/single/SingleDestinationAPI";
 // Types
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { FunctionComponent } from "react";
-import type { Destination, Landmark, Review } from "@/@types/pages/SingleDestination";
+import type { Destination } from "@/@types/pages/SingleDestination";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
+import Head from "next/Head";
 import Landing from "@/components/destinations/single/landing/Landing";
 import Description from "@/components/destinations/single/description/Description";
 import Stats from "@/components/destinations/single/stats/Stats";
@@ -58,16 +58,21 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
     dispatch(setTotalReviews(props.totalReviews));
 
     return (
-        <Wrapper sx={{ color: "text.primary" }}>
-            <Landing></Landing>
-            <Stepper></Stepper>
-            <Content sx={{ "&::before": { opacity: scrollY ? 1 : 0 } }}>
-                <Stats></Stats>
-                <Description></Description>
-                <Landmarks></Landmarks>
-                <Reviews></Reviews>
-            </Content>
-        </Wrapper>
+        <>
+            <Head>
+                <title>{props.destination.city}</title>
+            </Head>
+            <Wrapper sx={{ color: "text.primary" }}>
+                <Landing></Landing>
+                <Stepper></Stepper>
+                <Content sx={{ "&::before": { opacity: scrollY ? 1 : 0 } }}>
+                    <Stats></Stats>
+                    <Description></Description>
+                    <Landmarks></Landmarks>
+                    <Reviews></Reviews>
+                </Content>
+            </Wrapper>
+        </>
     );
 };
 
@@ -87,51 +92,8 @@ export const getStaticProps: GetStaticProps<{ destination: Destination }, { slug
     try {
         if (!context?.params?.slug) throw new Error();
 
-        const destination = await prisma.destination.findUnique({
-            where: {
-                slug: context.params.slug,
-            },
-            select: {
-                ...prismaCertainProps<Destination>(["id", "slug", "city", "country", "population", "continent", "shortDescription", "description", "folder"]),
-                landmarks: {
-                    select: prismaCertainProps<Landmark>(["slug", "title", "picture", "type"]),
-                },
-                reviews: {
-                    select: {
-                        ...prismaCertainProps<Review>(["id", "review", "points", "createdAt"]),
-                        reviewer: {
-                            select: prismaCertainProps<Review["reviewer"]>(["id", "name", "surname", "country", "countryCode", "gender", "avatar", "birth"]),
-                        },
-                    },
-                },
-            },
-        });
-        if (!destination) throw new Error();
-
-        destination.reviews = destination.reviews.map((review) => {
-            (review.createdAt as any) = moment(review.createdAt).format("YYYY-MM-DD HH:mm:ss");
-            (review.reviewer as any).birth = moment().diff(moment(review.reviewer.birth).format("DD-MM-YYYY"), "years");
-            return review;
-        });
-
-        const ratings = await prisma.destinationReview.aggregate({
-            where: {
-                destinationId: destination.id,
-            },
-            _avg: {
-                points: true,
-            },
-            _count: {
-                _all: true,
-            },
-        });
-
         return {
-            props: {
-                destination: destination as unknown as Destination,
-                ratings: (ratings._avg.points as any).toFixed(2),
-                totalReviews: ratings._count._all,
-            },
+            props: await new SingleDestinationAPI(context.params.slug).main(),
         };
     } catch (e: unknown) {
         return {
