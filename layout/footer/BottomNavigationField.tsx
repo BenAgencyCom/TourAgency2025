@@ -43,9 +43,15 @@ const BottomNavigationField: FunctionComponent<BottomNavigationFieldProps> = (pr
                 {props.fields.map((item, index) => {
                     return (
                         <li key={index}>
-                            <Link href={item.url} passHref>
-                                {item.page}
-                            </Link>
+                            {(() => {
+                                if (item.url) {
+                                    return (
+                                        <Link href={item.url} passHref>
+                                            {item.page}
+                                        </Link>
+                                    );
+                                } else return <span>{item.page}</span>;
+                            })()}
                         </li>
                     );
                 })}
