@@ -42,6 +42,10 @@ export default class SingleDestinationAPI {
                     },
                 },
                 reviews: {
+                    take: 7,
+                    orderBy: {
+                        createdAt: "desc",
+                    },
                     select: {
                         id: true,
                         review: true,
@@ -98,7 +102,7 @@ export default class SingleDestinationAPI {
 
     private reformatReviews(): Review[] {
         const { feedbacks, destinationFromQuery } = this;
-        console.log(feedbacks);
+
         const extractFromFeedback = (reviewId: string, feedback: "LIKE" | "DISLIKE"): number => {
             const index: number = feedbacks.findIndex((el: FeedbackFromQuery) => el.reviewId === reviewId && el.feedback === feedback);
             if (index && feedbacks[index]) {

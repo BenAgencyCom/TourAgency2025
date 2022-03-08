@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 // Other components
+import Link from "next/link";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 // Material UI Icons
 import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
@@ -38,6 +39,7 @@ interface SectionHeaderProps {
     header: string;
     buttonMsg?: string;
     onClick?: () => void;
+    url?: string;
 }
 const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
     return (
@@ -45,14 +47,27 @@ const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
             <Wrapper>
                 <Header variant="h2">{props.header}</Header>
                 {(() => {
-                    if (props.buttonMsg && props.onClick) {
+                    if (props.buttonMsg && props.url) {
                         return (
                             <ContinueButton
                                 variant="contained" //
                                 color="secondary"
                                 endIcon={<ArrowRightAlt></ArrowRightAlt>}
                             >
-                                More in poland
+                                <Link href={props.url} passHref>
+                                    {props.buttonMsg}
+                                </Link>
+                            </ContinueButton>
+                        );
+                    } else if (props.buttonMsg && props.onClick) {
+                        return (
+                            <ContinueButton
+                                variant="contained" //
+                                color="secondary"
+                                endIcon={<ArrowRightAlt></ArrowRightAlt>}
+                                onClick={props.onClick}
+                            >
+                                {props.buttonMsg}
                             </ContinueButton>
                         );
                     }

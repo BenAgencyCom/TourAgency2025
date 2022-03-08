@@ -54,6 +54,7 @@ interface SectionProps {
         text: string;
         buttonMsg?: string;
         onClick?: () => void;
+        url?: string;
     };
     // Optional
     fadeThresholdRatio?: number;
@@ -100,6 +101,7 @@ const Section: FunctionComponent<SectionProps> = (props) => {
                         header={props.header.text} //
                         buttonMsg={props.header.buttonMsg}
                         onClick={props.header.onClick}
+                        url={props.header.url}
                     ></SectionHeader>
                     {props.children}
                 </Container>

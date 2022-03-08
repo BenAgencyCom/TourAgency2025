@@ -18,12 +18,11 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
     width: "100%",
     height: "600px",
     userSelect: "none",
-    marginBottom: 100, // Do wyjebania !!
 }));
 
-const Reviews: FunctionComponent = (props) => {
+const Reviews: FunctionComponent = () => {
     const { ratings, data, totalReviews } = useAppSelector((state) => state.singleDestination);
-    const { reviews } = data;
+    const { reviews, slug } = data;
 
     return (
         <Section
@@ -31,9 +30,11 @@ const Reviews: FunctionComponent = (props) => {
             background={colorTheme.palette.background.default}
             header={{
                 text: "Users experiences",
+                buttonMsg: `See all reviews`,
+                url: `/destinations/${slug}/reviews`,
             }}
         >
-            <UnfadeOnScroll duration={700}>
+            <UnfadeOnScroll>
                 {/*  */}
                 {/* CONTENT */}
                 {/*  */}
@@ -50,6 +51,8 @@ const Reviews: FunctionComponent = (props) => {
 
                     <AllReviews
                         reviews={reviews} //
+                        totalReviews={totalReviews}
+                        slug={slug}
                         sx={{ width: "calc(100% - 360px - 40px)" }}
                     ></AllReviews>
                 </Wrapper>

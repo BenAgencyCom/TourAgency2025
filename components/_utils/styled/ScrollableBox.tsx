@@ -4,6 +4,8 @@ import { styled, alpha } from "@mui/system";
 import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
+// Styled components
+import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const Wrapper = styled(Box)(({ theme }) => ({
     display: "flex",
@@ -27,7 +29,7 @@ interface ScrollableBoxProps {
 const ScrollableBox: FunctionComponent<ScrollableBoxProps> = (props) => {
     return (
         <Wrapper sx={props.sx}>
-            <div>{props.children}</div>
+            <FlexBox column>{props.children}</FlexBox>
         </Wrapper>
     );
 };

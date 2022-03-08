@@ -26,9 +26,8 @@ const MailIcon = styled(Mail)(({ theme }) => ({
 const NewsletterWrapper = styled(FlexBox)(({ theme }) => ({
     h4: {
         margin: 0,
-        fontSize: "2rem",
+        fontSize: "1.7rem",
         color: "#fff",
-        letterSpacing: "-2px",
         fontWeight: 500,
     },
 }));
