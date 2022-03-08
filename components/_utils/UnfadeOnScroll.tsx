@@ -23,12 +23,14 @@ const UnfadeOnScroll: FunctionComponent<UnfadeOnScrollProps> = (props) => {
     const [fade, setFade] = useState<boolean>(false);
 
     const animationRatio = props.animationRatio ?? 0.7;
-    useEffect(() => {
-        if (element.current) {
-            const { top } = element.current.getBoundingClientRect();
 
-            if (!fade && top < windowInnerHeight * animationRatio) setFade(true);
-            else if ((fade && top > windowInnerHeight * animationRatio * 2) || scrollY === 0) setFade(false);
+    useEffect(() => {
+        if (scrollY) {
+            if (element.current && windowInnerHeight) {
+                const { top } = element.current.getBoundingClientRect();
+                if (!fade && top < windowInnerHeight * animationRatio) setFade(true);
+                else if (fade && (top > windowInnerHeight * animationRatio * 2 || scrollY === 0)) setFade(false);
+            }
         }
     }, [scrollY, windowInnerHeight, fade, animationRatio]);
 
