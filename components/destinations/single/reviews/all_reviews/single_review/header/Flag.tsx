@@ -8,17 +8,15 @@ import Tooltip from "@mui/material/Tooltip";
 // Styled component
 const Wrapper = styled(Box)(({ theme }) => ({
     position: "absolute",
-    top: "-10px",
-    right: "-10px",
-    width: "80px",
-    height: "50px",
+    top: "-0px",
+    right: "-0px",
+    width: "60px",
+    height: "40px",
     overflow: "hidden",
-    transform: "rotate(-20deg)",
     img: {
-        transform: "rotate(20deg)",
         width: "100%",
         height: "100%",
-        objectFit: "cover",
+        objectFit: "contain",
     },
 }));
 

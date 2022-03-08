@@ -2,11 +2,11 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
+import type { ScoreColor, Review } from "@/@types/pages/SingleDestination";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-type Color = "success" | "error" | "warning";
-const Wrapper = styled(FlexBox)<{ color: Color }>(({ theme, ...props }) => ({
+const Wrapper = styled(FlexBox)<{ color: ScoreColor }>(({ theme, ...props }) => ({
     width: "90px",
     alignSelf: "stretch",
     fontSize: "3rem",
@@ -16,19 +16,14 @@ const Wrapper = styled(FlexBox)<{ color: Color }>(({ theme, ...props }) => ({
     color: "#fff",
 }));
 interface ScoreProps {
-    points: number;
+    color: ScoreColor;
+    points: Review["points"];
 }
 
-const Score: FunctionComponent<ScoreProps> = ({ points }) => {
-    const color = (): Color => {
-        if (points > 7.5) return "success";
-        else if (points > 4.5) return "warning";
-        return "error";
-    };
-
+const Score: FunctionComponent<ScoreProps> = (props) => {
     return (
-        <Wrapper center color={color()}>
-            <span>{points}</span>
+        <Wrapper center color={props.color}>
+            <span>{props.points}</span>
         </Wrapper>
     );
 };

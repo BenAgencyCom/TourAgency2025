@@ -2,7 +2,7 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-import type { Review } from "@/@types/pages/SingleDestination";
+import type { Review, ScoreColor } from "@/@types/pages/SingleDestination";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
@@ -25,6 +25,7 @@ const Age = styled(Box)(({ theme }) => ({
 
 interface SingleReviewHeaderProps {
     review: Review;
+    color: ScoreColor;
 }
 
 const SingleReviewHeader: FunctionComponent<SingleReviewHeaderProps> = (props) => {
@@ -36,7 +37,7 @@ const SingleReviewHeader: FunctionComponent<SingleReviewHeaderProps> = (props) =
         <FlexBox vertical="between" sx={{ position: "relative" }}>
             <Flag countryCode={reviewer.countryCode} country={reviewer.country}></Flag>
 
-            <Score points={review.points}></Score>
+            <Score color={props.color} points={review.points}></Score>
             <ReviewerAvatar avatar={reviewer.avatar}></ReviewerAvatar>
 
             <FlexBox column vertical="evenly">
@@ -44,7 +45,7 @@ const SingleReviewHeader: FunctionComponent<SingleReviewHeaderProps> = (props) =
 
                 <FlexBox vertical="end">
                     <Name component="h4">{fullName}</Name>
-                    <Age component="span">{`${reviewer.birth} years old`}</Age>
+                    <Age component="span">{`${reviewer.age} years old`}</Age>
                 </FlexBox>
             </FlexBox>
         </FlexBox>
