@@ -11,7 +11,7 @@ import SingleReview from "./single_review/SingleReview";
 import ScrollableBox from "@/components/_utils/styled/ScrollableBox";
 // Styled components
 const SeeAllReviews = styled(Button)(({ theme }) => ({
-    fontSize: "1.5rem",
+    fontSize: "1.3rem",
     margin: "30px 0 10px 0",
     padding: "0px 20px",
     alignSelf: "center",

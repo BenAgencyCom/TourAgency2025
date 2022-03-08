@@ -51,7 +51,7 @@ const Stats: FunctionComponent = () => {
     ];
 
     return (
-        <UnfadeOnScroll>
+        <UnfadeOnScroll animationRatio={0.5}>
             <Wrapper>
                 {stats.map((item, index) => {
                     return (

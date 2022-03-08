@@ -9,7 +9,7 @@ import SingleDestinationContent from "@/components/destinations/single/descripti
 import { useAppSelector } from "@/hooks/useRedux";
 
 const DestinationWrapper: FunctionComponent = () => {
-    const { description, folder, country } = useAppSelector((state) => state.singleDestination.data);
+    const { description, folder } = useAppSelector((state) => state.singleDestination.data);
     const imageLoader = (url: string): string => `/upload/destinations/${folder}/description/${url}/1080p.jpg`;
 
     return (

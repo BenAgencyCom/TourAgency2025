@@ -38,6 +38,7 @@ const BigHeader = styled(Box)({
     fontSize: "150px",
     textTransform: "uppercase",
     lineHeight: "170px",
+    textAlign: "center",
 });
 const BottomBarsWrapper = styled(Box)({
     display: "flex",
