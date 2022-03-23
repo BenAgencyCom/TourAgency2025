@@ -1,4 +1,4 @@
-import type { LandmarkPictureResolution } from "@/@types/pages/SingleDestination";
+import type { LandmarkPictureResolution } from "@/@types/pages/destinations/SingleDestination";
 
 type AvatarResolution = "thumbnail" | "small" | "medium" | "large";
 

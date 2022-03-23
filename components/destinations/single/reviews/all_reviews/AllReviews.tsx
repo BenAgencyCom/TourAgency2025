@@ -2,7 +2,7 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-import type { Review } from "@/@types/pages/SingleDestination";
+import type { Review } from "@/@types/pages/destinations/SingleDestination";
 // Material UI Components
 import Button from "@mui/material/Button";
 // Other components

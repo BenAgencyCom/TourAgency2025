@@ -1,7 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
-import type { Landmark } from "@/@types/pages/SingleDestination";
+import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
 import type { FunctionComponent } from "react";
 // Other Components
 import ReadMore from "./ReadMore";

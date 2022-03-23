@@ -2,7 +2,7 @@
 import { styled, alpha } from "@mui/system";
 import { GetLandmarkIcon } from "@/utils/client/getLandmarkIcon";
 // Types
-import type { Landmark } from "@/@types/pages/SingleDestination";
+import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
 import type { FunctionComponent } from "react";
 // Material Ui Components
 import Typography from "@mui/material/Typography";

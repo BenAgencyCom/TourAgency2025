@@ -3,7 +3,7 @@ import moment from "moment";
 import { prisma } from "@/prisma/db";
 // Types
 import type { DestinationContentField } from "@/@types/DestinationDescription";
-import type { Destination, DestinationFromQuery, FeedbackFromQuery, Review } from "@/@types/pages/SingleDestination";
+import type { Destination, DestinationFromQuery, FeedbackFromQuery, Review } from "@/@types/pages/destinations/SingleDestination";
 
 interface RatingsSummary {
     ratings: number;

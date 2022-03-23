@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 // Types
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { Destination } from "@/@types/pages/SingleDestination";
+import type { Destination } from "@/@types/pages/destinations/SingleDestination";
 
 interface SingleDestinationState {
     data: Destination;

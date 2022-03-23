@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { GetStaticProps, GetStaticPropsContext } from "next";
-import type { Destination } from "@/@types/pages/ManyDestinations";
+import type { Destination } from "@/@types/pages/destinations/ManyDestinations";
 // Material UI Components
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
