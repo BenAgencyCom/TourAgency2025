@@ -5,7 +5,7 @@ import SingleDestinationAPI from "@/utils/api/pages/destinations/single/SingleDe
 // Types
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { FunctionComponent } from "react";
-import type { Destination } from "@/@types/pages/SingleDestination";
+import type { Destination } from "@/@types/pages/destinations/SingleDestination";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components

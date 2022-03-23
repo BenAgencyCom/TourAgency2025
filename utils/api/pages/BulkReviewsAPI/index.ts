@@ -5,7 +5,8 @@ import PrismaRequestLandmark from "./PrismaRequestBroker/PrismaRequestLandmark";
 import PrismaRequestDestination from "./PrismaRequestBroker/PrismaRequestDestination";
 // Types
 import type { ReviewFromQuery, FeedbackFromQuery, PrismaRequestBroker, AggregateCallParams, AggregateCallResponse } from "./@types";
-import type { ConstructorParams, ReviewsCallParams, Review, PaginationProperties, ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
+import type { ConstructorParams, ReviewsCallParams, Review, ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
+import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 
 export default class BulkReviewsAPI {
     private _callParams: ReviewsCallParams | null = null;

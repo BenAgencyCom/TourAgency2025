@@ -1,4 +1,5 @@
 import type { DestinationReview, User } from "@prisma/client";
+import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 
 export type ReviewsType = "landmarks" | "destinations";
 export type OrderBy = "latest" | "score";
@@ -37,12 +38,6 @@ export interface ReviewsCallParams {
     page: number | null;
     orderBy: OrderBy;
     sort: Sort;
-}
-
-export interface PaginationProperties {
-    perPage: number;
-    currentPage: number;
-    pagesInTotal: number;
 }
 
 export interface ReviewsCallResponse {
