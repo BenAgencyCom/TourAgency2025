@@ -46,7 +46,7 @@ export interface PaginationProperties {
 }
 
 export interface ReviewsCallResponse {
-    data: Review[];
+    reviews: Review[];
     pagination?: PaginationProperties;
     avgScore: number;
 }

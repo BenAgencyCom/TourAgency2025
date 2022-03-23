@@ -1,10 +1,11 @@
 // Tools
+import { ValidationError } from "@/utils/api/Errors";
 import { fullDate, ageOnly } from "@/utils/api/dateFormat";
-import PrismaRequestDestination from "./PrismaRequestBroker/PrismaRequestDestination";
 import PrismaRequestLandmark from "./PrismaRequestBroker/PrismaRequestLandmark";
+import PrismaRequestDestination from "./PrismaRequestBroker/PrismaRequestDestination";
 // Types
-import type { ConstructorParams, ReviewsCallParams, Review, PaginationProperties, ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
 import type { ReviewFromQuery, FeedbackFromQuery, PrismaRequestBroker, AggregateCallParams, AggregateCallResponse } from "./@types";
+import type { ConstructorParams, ReviewsCallParams, Review, PaginationProperties, ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
 
 export default class BulkReviewsAPI {
     private _callParams: ReviewsCallParams | null = null;
@@ -97,6 +98,14 @@ export default class BulkReviewsAPI {
     }
 
     private _establishCallParams(params: Partial<ReviewsCallParams>) {
+        // Ensure that numbers are all positive
+        [Number(params.limit), Number(params.page), Number(params.perPage)].forEach((num) => {
+            if (num < 0) throw new ValidationError();
+        });
+        // Ensure that received properties `sort` and `orderBy` both match expecting values
+        if (params.orderBy && !["latest", "score"].includes(params.orderBy)) throw new ValidationError();
+        if (params.sort && !["asc", "desc"].includes(params.sort)) throw new ValidationError();
+
         this._callParams = {
             limit: params.limit ?? null,
             perPage: params.perPage ?? null,
@@ -139,7 +148,7 @@ export default class BulkReviewsAPI {
         const paginationProperties = this._establishPaginationProperites(aggregate.count as number);
 
         return {
-            data: reviews,
+            reviews: reviews,
             avgScore: aggregate.avgScore as number,
             ...(paginationProperties ? { pagination: paginationProperties } : {}),
         };

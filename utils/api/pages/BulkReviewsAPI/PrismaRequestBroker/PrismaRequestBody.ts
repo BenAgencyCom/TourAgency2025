@@ -15,7 +15,7 @@ export default class PrismaRequestBody {
 
         if (this.params.page && this.params.perPage) {
             return {
-                skip: this.params.page * this.params.perPage,
+                skip: (this.params.page - 1) * this.params.perPage,
                 take: this.params.perPage,
             };
         } else if (this.params.limit) {
