@@ -6,7 +6,7 @@ import type { FunctionComponent, ReactNode } from "react";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 // Styled components
-import FlexBoxColumnCenter from "@/components/_utils/styled/FlexBoxColumnCenter";
+import FlexBox from "@/components/_utils/styled/FlexBox";
 
 interface SingleStatProps {
     top: string | ReactNode;
@@ -19,6 +19,7 @@ const Middle = styled(Typography)(({ theme }) => ({
     color: theme.palette.primary.main,
     fontWeight: 700,
     fontSize: "5rem",
+    lineHeight: "90px",
 }));
 
 const Header = styled(Typography)(({ theme }) => ({
@@ -28,11 +29,11 @@ const Header = styled(Typography)(({ theme }) => ({
 const SingleStat: FunctionComponent<SingleStatProps> = (props) => {
     return (
         <>
-            <FlexBoxColumnCenter sx={{ width: "33%" }}>
+            <FlexBox sx={{ width: "33%" }} column center>
                 <Header>{props.top}</Header>
                 <Middle>{props.middle}</Middle>
                 <Header>{props.bottom}</Header>
-            </FlexBoxColumnCenter>
+            </FlexBox>
 
             {(() => {
                 if (!props.hideDivider) return <Divider flexItem light orientation="vertical"></Divider>;
