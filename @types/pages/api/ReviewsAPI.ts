@@ -43,5 +43,4 @@ export interface ReviewsCallParams {
 export interface ReviewsCallResponse {
     reviews: Review[];
     pagination?: PaginationProperties;
-    avgScore: number;
 }

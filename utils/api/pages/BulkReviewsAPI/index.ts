@@ -143,14 +143,13 @@ export default class BulkReviewsAPI {
 
         await this._callForReviews();
         await this._callForFeedback();
-        const aggregate = await this.PrismaRequestBroker.aggregateCall({ count: true, avgScore: true });
+        const aggregate = await this.PrismaRequestBroker.aggregateCall({ count: true });
 
         const reviews: Review[] = this._mergeReviewsAndFeedback();
         const paginationProperties = this._establishPaginationProperites(aggregate.count as number);
 
         return {
             reviews: reviews,
-            avgScore: aggregate.avgScore as number,
             ...(paginationProperties ? { pagination: paginationProperties } : {}),
         };
     }
