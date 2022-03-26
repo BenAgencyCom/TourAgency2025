@@ -32,6 +32,7 @@ const Reviews: FunctionComponent = () => {
                 text: "Users experiences",
                 buttonMsg: `See all reviews`,
                 url: `/destinations/${slug}/reviews`,
+                biggerHeader: "reviews",
             }}
         >
             <UnfadeOnScroll>

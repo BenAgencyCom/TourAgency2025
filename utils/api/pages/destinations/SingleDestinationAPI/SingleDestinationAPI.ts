@@ -28,6 +28,10 @@ export default class SingleDestinationAPI {
                 country: true,
                 folder: true,
                 landmarks: {
+                    take: 3,
+                    orderBy: {
+                        createdAt: "desc",
+                    },
                     select: {
                         slug: true,
                         title: true,

@@ -3,63 +3,44 @@ import { styled } from "@mui/system";
 // Types
 import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
 import type { FunctionComponent } from "react";
+// Material UI Components
+import Typography from "@mui/material/Typography";
 // Other Components
 import ReadMore from "./ReadMore";
 import LandmarkPicture from "./LandmarkPicture";
-import LandmarkDescription from "./LandmarkDescription";
+import Header from "./Header";
+import Localization from "./Localization";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
+
 const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
-    margin: "0 auto",
     height: "500px",
-    position: "relative",
-    boxSizing: "border-box",
     borderRadius: "5px",
-    overflow: "hidden",
-    background: theme.palette.text.primary,
-    color: "#fff",
-    "&:hover": {
-        ".read-more": {
-            opacity: 1,
-        },
-        ".landmark-description": {
-            maxHeight: 0,
-            "&::before,&::after": {
-                opacity: 0,
-            },
-            "&>svg": {
-                opacity: 0,
-            },
-        },
-    },
+    background: "#fff",
+    padding: "10px",
+    cursor: "default",
 }));
 
 interface SingleLandmarkProps {
     data: Landmark;
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
+    ml: number;
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
     const width = `calc(100% - 20px)`;
     return (
         <SingleLandmarkWrapper
-            sx={{ width: `${width}` }} //
+            sx={{ width: `${width}`, ml: `${props.ml}px` }} //
             column
+            horizontal="start"
         >
-            <LandmarkPicture
-                picture={props.data.picture} //
-                onMouseEnter={props.onMouseEnter}
-                onMouseLeave={props.onMouseLeave}
-            >
-                <ReadMore slug={props.data.slug}></ReadMore>
-            </LandmarkPicture>
-
-            <LandmarkDescription
-                data={props.data} //
-                reviews={34}
-                tweets={3213}
-            ></LandmarkDescription>
+            <LandmarkPicture picture={props.data.picture}></LandmarkPicture>
+            <Localization>{props.data.destination.city}</Localization>
+            <Header title={props.data.title}></Header>
+            <Typography variant="body1" sx={{ flexGrow: 1 }}>
+                {props.data.description.slice(0, 150)}
+            </Typography>
+            <ReadMore slug={props.data.slug}></ReadMore>
         </SingleLandmarkWrapper>
     );
 };

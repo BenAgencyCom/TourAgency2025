@@ -14,9 +14,24 @@ import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
 // Styled Components
 const Header = styled(Typography)(({ theme }) => ({
     fontWeight: 900,
-    letterSpacing: "-2px",
-    textTransform: "uppercase",
     userSelect: "none",
+    position: "relative",
+    "span.normal": {
+        position: "relative",
+        zIndex: 1,
+        letterSpacing: "-2px",
+        textTransform: "uppercase", //
+    },
+    "span.bigger": {
+        position: "absolute",
+        letterSpacing: "10px",
+        textTransform: "uppercase", //
+        left: 0,
+        top: "50%",
+        transform: "translateY(-50%)",
+        fontSize: "10rem",
+        color: alpha(theme.palette.text.primary, 0.1),
+    },
 }));
 const Wrapper = styled(Box)(({ theme }) => ({
     display: "flex",
@@ -38,6 +53,7 @@ const ContinueButton = styled(Button)(({ theme }) => ({
 interface SectionHeaderProps {
     header: string;
     buttonMsg?: string;
+    biggerHeader?: string;
     onClick?: () => void;
     url?: string;
 }
@@ -45,7 +61,10 @@ const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
     return (
         <UnfadeOnScroll duration={700}>
             <Wrapper>
-                <Header variant="h2">{props.header}</Header>
+                <Header variant="h2">
+                    <span className="normal">{props.header}</span>
+                    {props.biggerHeader && <span className="bigger">{props.biggerHeader}</span>}
+                </Header>
                 {(() => {
                     if (props.buttonMsg && props.url) {
                         return (

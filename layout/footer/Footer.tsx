@@ -23,7 +23,7 @@ const FooterWrapper = styled(FlexBox)(({ theme }) => ({
     },
 }));
 const FooterContent = styled(FlexBox)(({ theme }) => ({
-    maxWidth: "1400px",
+    maxWidth: "1450px",
     width: "100%",
     padding: "30px 20px",
     h3: {

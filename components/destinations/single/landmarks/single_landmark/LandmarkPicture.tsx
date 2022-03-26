@@ -1,46 +1,27 @@
 // Tools
-import { styled, alpha } from "@mui/system";
+import { styled } from "@mui/system";
 import { landmarkPictureURL } from "@/utils/client/imageURLs";
 // Types
-import type { FunctionComponent, ReactNode } from "react";
+import type { FunctionComponent } from "react";
+// Material UI Components
+import Box from "@mui/material/Box";
 // Other Components
 import Image from "next/Image";
-// Styled Components
-import AbsolutePseudoElement from "@/components/_utils/styled/AbsolutePseudoElement";
-const Wrapper = styled(AbsolutePseudoElement)(({ theme }) => ({
+const Wrapper = styled(Box)(({ theme }) => ({
     width: "100%",
-    height: "100%",
+    height: "290px",
     position: "relative",
-    "&:hover": {
-        "&::after": {
-            opacity: 1,
-        },
-    },
-    "&::after": {
-        background: alpha(theme.palette.text.primary, 0.4),
-        backdropFilter: "blur(5px)",
-        zIndex: 2,
-        opacity: 0,
-        transition: "opacity .5s",
-    },
+    borderRadius: "3px 20px 3px 20px",
+    overflow: "hidden",
 }));
 
 interface BackgroundPictureProps {
-    children: ReactNode;
     picture: string;
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
 }
 
 const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => {
     return (
-        <Wrapper
-            pseudoElement="after" //
-            fullSize
-            onMouseEnter={props.onMouseEnter}
-            onMouseLeave={props.onMouseLeave}
-        >
-            {props.children}
+        <Wrapper>
             <Image
                 layout="fill" //
                 alt="bg"

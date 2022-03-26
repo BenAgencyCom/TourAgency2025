@@ -18,6 +18,7 @@ const DestinationWrapper: FunctionComponent = () => {
             background={colorTheme.palette.background.default}
             header={{
                 text: "WORDS OF INTRODUCTION", //
+                biggerHeader: "About",
             }}
         >
             <SingleDestinationContent
