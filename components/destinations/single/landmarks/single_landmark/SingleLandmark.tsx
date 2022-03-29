@@ -28,6 +28,12 @@ interface SingleLandmarkProps {
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
     const width = `calc(100% - 20px)`;
+    const amountOfWordsInDescription: number = (() => {
+        const { length } = props.data.title;
+        if (length > 40) return 40;
+        else if (length > 25) return 100;
+        return 150;
+    })();
     return (
         <SingleLandmarkWrapper
             sx={{ width: `${width}`, ml: `${props.ml}px` }} //
@@ -38,7 +44,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
             <Localization>{props.data.destination.city}</Localization>
             <Header title={props.data.title}></Header>
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-                {props.data.description.slice(0, 150)}
+                {props.data.description.slice(0, amountOfWordsInDescription)}...
             </Typography>
             <ReadMore slug={props.data.slug}></ReadMore>
         </SingleLandmarkWrapper>

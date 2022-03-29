@@ -3,12 +3,9 @@ import { styled, alpha } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
-import ButtonBase from "@mui/material/ButtonBase";
 import Button from "@mui/material/Button";
 import InputBase from "@mui/material/InputBase";
 import Box from "@mui/material/Box";
-// Other components
-import Link from "next/link";
 // Material UI Icons
 import Mail from "@mui/icons-material/Mail";
 import Twitter from "@mui/icons-material/Twitter";
@@ -16,6 +13,7 @@ import Instagram from "@mui/icons-material/Instagram";
 import YouTube from "@mui/icons-material/YouTube";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
+import ButtonWithColorTransition from "@/components/_utils/styled/ButtonWithColorTransition";
 
 const MailIcon = styled(Mail)(({ theme }) => ({
     color: theme.palette.primary.main,
@@ -31,12 +29,12 @@ const NewsletterWrapper = styled(FlexBox)(({ theme }) => ({
         fontWeight: 500,
     },
 }));
-const SocialMedia = styled(ButtonBase)(({ theme }) => ({
-    background: theme.palette.primary.main,
+const SocialMedia = styled(ButtonWithColorTransition)(({ theme }) => ({
     marginLeft: 10,
     width: 40,
     height: 40,
     borderRadius: 15,
+    padding: 0,
     svg: {
         fontSize: "1.8rem",
     },
@@ -95,15 +93,22 @@ const Newsletter: FunctionComponent = () => {
             </InputWrapper>
 
             <FlexBox>
-                <SocialMedia>
-                    <Twitter></Twitter>
-                </SocialMedia>
-                <SocialMedia>
-                    <Instagram></Instagram>
-                </SocialMedia>
-                <SocialMedia>
-                    <YouTube></YouTube>
-                </SocialMedia>
+                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={0}>
+                    <SocialMedia primary reverse>
+                        <Twitter></Twitter>
+                    </SocialMedia>
+                </a>
+                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={0}>
+                    <SocialMedia primary reverse>
+                        <Instagram></Instagram>
+                    </SocialMedia>
+                </a>
+
+                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={0}>
+                    <SocialMedia primary reverse>
+                        <YouTube></YouTube>
+                    </SocialMedia>
+                </a>
             </FlexBox>
         </NewsletterWrapper>
     );

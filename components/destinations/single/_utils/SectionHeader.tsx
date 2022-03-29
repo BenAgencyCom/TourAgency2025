@@ -12,6 +12,7 @@ import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 // Material UI Icons
 import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
 // Styled Components
+import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineTransition";
 const Header = styled(Typography)(({ theme }) => ({
     fontWeight: 900,
     userSelect: "none",
@@ -40,14 +41,10 @@ const Wrapper = styled(Box)(({ theme }) => ({
     width: "100%",
     margin: "200px 0 100px 0",
 }));
-const ContinueButton = styled(Button)(({ theme }) => ({
-    padding: "10px",
-    minWidth: "220px",
-    boxSizing: "border-box",
-    svg: {
-        color: "inherit",
-        fontSize: "1.5rem !important",
-    },
+const ContinueButton = styled(ButtonWithLineTransition)(({ theme }) => ({
+    padding: "10x 0",
+    minWidth: "200px",
+    fontSize: "1.1rem",
 }));
 
 interface SectionHeaderProps {
@@ -68,11 +65,7 @@ const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
                 {(() => {
                     if (props.buttonMsg && props.url) {
                         return (
-                            <ContinueButton
-                                variant="contained" //
-                                color="secondary"
-                                endIcon={<ArrowRightAlt></ArrowRightAlt>}
-                            >
+                            <ContinueButton reverse line="right">
                                 <Link href={props.url} passHref>
                                     {props.buttonMsg}
                                 </Link>
@@ -80,12 +73,7 @@ const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
                         );
                     } else if (props.buttonMsg && props.onClick) {
                         return (
-                            <ContinueButton
-                                variant="contained" //
-                                color="secondary"
-                                endIcon={<ArrowRightAlt></ArrowRightAlt>}
-                                onClick={props.onClick}
-                            >
+                            <ContinueButton reverse line="right">
                                 {props.buttonMsg}
                             </ContinueButton>
                         );

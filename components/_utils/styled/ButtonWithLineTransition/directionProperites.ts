@@ -11,7 +11,7 @@ export default {
         },
         hoverStyles: {
             left: "50%",
-            transform: "translate(-50%,-50%) scaleY(11)",
+            transform: "translate(-50%,-50%) scaleY(13)",
         },
     },
     right: {
@@ -25,35 +25,35 @@ export default {
         },
         hoverStyles: {
             right: "50%",
-            transform: "translate(50%,-50%) scaleY(11)",
+            transform: "translate(50%,-50%) scaleY(13)",
         },
     },
     top: {
         defaultStyles: {
             width: "5%",
             height: "100%",
-            transition: "transform .2s .2s linear, top .2s linear",
+            transition: "width .2s .2s linear, top .2s linear",
             top: "-60%",
             right: "50%",
             transform: "translate(50%,-50%)",
         },
         hoverStyles: {
             top: "50%",
-            transform: "translate(50%,-50%) scaleX(21)",
+            width: "100%",
         },
     },
     bottom: {
         defaultStyles: {
             width: "5%",
             height: "100%",
-            transition: "transform .2s .2s linear, bottom .2s linear",
+            transition: "width .2s .2s linear, bottom .2s linear",
             bottom: "-60%",
             right: "50%",
             transform: "translate(50%,50%)",
         },
         hoverStyles: {
             bottom: "50%",
-            transform: "translate(50%,50%) scaleX(21)",
+            width: "100%",
         },
     },
 } as Record<Direction, { defaultStyles: Record<any, any>; hoverStyles: Record<any, any> }>;

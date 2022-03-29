@@ -2,7 +2,8 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-import type { Review, ScoreColor } from "@/@types/pages/destinations/SingleDestination";
+import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
+import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Material UI Components
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -18,7 +19,7 @@ const SingleReviewWrapper = styled(FlexBox)<{ isLatest?: boolean }>(({ theme, is
     padding: "20px",
     boxSizing: "border-box",
     borderRadius: 10,
-    border: `1px solid ${theme.palette.background.lightPaper}`,
+    border: `2px solid ${theme.palette.background.lightPaper}`,
     hr: {
         borderColor: theme.palette.background.lightPaper,
     },

@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import Image from "next/Image";
 const Wrapper = styled(Box)(({ theme }) => ({
     width: "100%",
-    height: "290px",
+    height: "250px",
     position: "relative",
     borderRadius: "3px 20px 3px 20px",
     overflow: "hidden",

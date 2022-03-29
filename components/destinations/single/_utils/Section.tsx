@@ -18,8 +18,8 @@ const Wrapper = styled(Box)({
     paddingBottom: "100px",
 });
 const Container = styled(Box)(({ theme }) => ({
-    width: "100vw",
-    maxWidth: "1450px",
+    width: "1450px",
+    maxWidth: "calc(100vw - 400px)",
     margin: "0 auto",
     position: "relative",
     zIndex: 2,
