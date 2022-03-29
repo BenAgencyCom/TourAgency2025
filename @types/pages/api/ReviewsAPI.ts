@@ -1,9 +1,11 @@
 import type { DestinationReview, User } from "@prisma/client";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
+import type { ReviewType } from "@prisma/client";
 
-export type ReviewsType = "landmarks" | "destinations";
+export type BulkReviewsType = "landmarks" | "destinations"; // For `BulkReviewAPI` purpose
 export type OrderBy = "latest" | "score";
 export type Sort = "asc" | "desc";
+export type PointsDistribution = Record<ReviewType, number>;
 
 export interface Review {
     id: DestinationReview["id"];
@@ -11,6 +13,7 @@ export interface Review {
     points: DestinationReview["points"];
     tags: string[];
     createdAt: string;
+    type: ReviewType;
     reviewer: {
         id: User["id"];
         name: User["name"];
@@ -28,7 +31,7 @@ export interface Review {
 }
 
 export interface ConstructorParams {
-    reviewsType: ReviewsType;
+    reviewsType: BulkReviewsType;
     reviewingModelId: string;
 }
 

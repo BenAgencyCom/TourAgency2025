@@ -47,6 +47,7 @@ export default class PrismaRequestBody {
                 points: true,
                 createdAt: true,
                 tags: true,
+                type: true,
                 reviewer: {
                     select: {
                         id: true,

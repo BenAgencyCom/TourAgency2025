@@ -5,7 +5,7 @@ import PrismaRequestLandmark from "./PrismaRequestBroker/PrismaRequestLandmark";
 import PrismaRequestDestination from "./PrismaRequestBroker/PrismaRequestDestination";
 // Types
 import type { ReviewFromQuery, FeedbackFromQuery, PrismaRequestBroker, AggregateCallParams, AggregateCallResponse } from "./@types";
-import type { ConstructorParams, ReviewsCallParams, Review, ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
+import type { ConstructorParams, ReviewsCallParams, Review, ReviewsCallResponse, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 
 export default class BulkReviewsAPI {
@@ -74,6 +74,7 @@ export default class BulkReviewsAPI {
                 points: review.points,
                 review: review.review,
                 tags: review.tags as string[],
+                type: review.type,
                 reviewer: {
                     age: ageOnly(reviewer.birth),
                     avatar: reviewer.avatar,
@@ -162,12 +163,29 @@ export default class BulkReviewsAPI {
      * - `count`- enables records's counting
      * - `avgScore`- establishes an average score of ALL records
      *
-     * * ### Usage
+     * ### Usage
      * ```ts
      * await ReviewsAPI.aggregateCall({ count: true, avgScore: true })
+     * ```
+     *
+     * ### Returns
+     * ```ts
+     * { count?: 58, avgScore?: 6.1 }
      * ```
      */
     public async aggregate(params: AggregateCallParams): Promise<AggregateCallResponse> {
         return this.PrismaRequestBroker.aggregateCall(params);
+    }
+
+    /**
+     * **ASYNC** `pointsDistribution` simple method to get points distribution of user's reviews.
+     *
+     * ### Returns
+     * ```ts
+     * { MIXED: 13, NEGATIVE: 28, POSITIVE: 16 }
+     * ```
+     */
+    public async pointsDistribution(): Promise<PointsDistribution> {
+        return this.PrismaRequestBroker.pointsDistribution();
     }
 }
