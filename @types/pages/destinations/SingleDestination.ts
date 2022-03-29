@@ -4,6 +4,7 @@ import type { Review } from "@/@types/pages/api/ReviewsAPI";
 
 export type ScoreColor = "success" | "error" | "warning";
 export type LandmarkPictureResolution = "360p" | "480p" | "720p" | "1080p";
+export type DestinationPictureResolution = "360p" | "480p" | "720p" | "1080p";
 
 export interface Landmark {
     slug: _Landmark["slug"];

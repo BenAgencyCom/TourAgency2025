@@ -7,6 +7,11 @@ export type OrderBy = "latest" | "score";
 export type Sort = "asc" | "desc";
 export type PointsDistribution = Record<ReviewType, number>;
 
+export interface Statistics {
+    recordsInTotal: number;
+    averageScore: number;
+}
+
 export interface Review {
     id: DestinationReview["id"];
     review: DestinationReview["review"];
@@ -46,4 +51,6 @@ export interface ReviewsCallParams {
 export interface ReviewsCallResponse {
     reviews: Review[];
     pagination?: PaginationProperties;
+    pointsDistribution?: PointsDistribution;
+    statistics?: Statistics;
 }
