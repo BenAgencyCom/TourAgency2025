@@ -13,7 +13,7 @@ const BreadcrumbsNavigation: FunctionComponent<BreadcrumbsNavigationProps> = (pr
     const { country, continent, city, slug } = props.destination;
 
     return (
-        <FlexBox vertical="center" sx={{ userSelect: "none" }}>
+        <FlexBox vertical="center" sx={{ userSelect: "none", position: "relative", zIndex: 2 }}>
             <SingleBreadCrumb>{continent}</SingleBreadCrumb>
             <SingleBreadCrumb url={`/destinations/${slug}`}>{country}</SingleBreadCrumb>
             <SingleBreadCrumb active>{city}</SingleBreadCrumb>

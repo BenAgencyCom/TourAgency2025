@@ -101,7 +101,7 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
                 </AppBar>
             </Fade>
             {/*  */}
-            <Box sx={{ backgroundColor: "background.paper" }}>
+            <Box sx={{ backgroundColor: "background.lightPaper" }}>
                 <main>{props.children}</main>
                 <Snackbar></Snackbar>
             </Box>

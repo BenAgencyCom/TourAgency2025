@@ -17,6 +17,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
     maxWidth: "1450px",
     width: "100vw",
     margin: "100px auto 0 auto",
+    color: theme.palette.text.primary,
 }));
 
 interface ContentParams {
