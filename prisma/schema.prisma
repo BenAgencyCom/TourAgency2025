@@ -80,13 +80,15 @@ model Landmark {
 }
 
 model DestinationReview {
-  id            String   @id @default(cuid())
-  reviewerId    String   @map("creator_id")
-  destinationId String   @map("destination_id")
+  id            String     @id @default(cuid())
+  reviewerId    String     @map("creator_id")
+  destinationId String     @map("destination_id")
   review        String
   tags          Json
   points        Float
-  createdAt     DateTime @default(now())
+  createdAt     DateTime   @default(now())
+  type          ReviewType
+
 
   destination Destination             @relation(fields: [destinationId], references: [id], onDelete: Cascade)
   reviewer    User                    @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
@@ -94,23 +96,24 @@ model DestinationReview {
 }
 
 model DestinationReviewLike {
-  id            String  @id @default(cuid())
-  userId        String  @map("user_id")
-  reviewId String  @map("review_id")
-  feedback          Feedback
+  id       String   @id @default(cuid())
+  userId   String   @map("user_id")
+  reviewId String   @map("review_id")
+  feedback Feedback
 
   review DestinationReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   user   User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model LandmarkReview {
-  id         String   @id @default(cuid())
-  reviewerId String   @map("creator_id")
-  landmarkId String   @map("landmark_id")
+  id         String     @id @default(cuid())
+  reviewerId String     @map("creator_id")
+  landmarkId String     @map("landmark_id")
   review     String
   tags       Json
   points     Float
-  createdAt  DateTime @default(now())
+  type       ReviewType
+  createdAt  DateTime   @default(now())
 
   landmark Landmark             @relation(fields: [landmarkId], references: [id], onDelete: Cascade)
   reviewer User                 @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
@@ -118,10 +121,10 @@ model LandmarkReview {
 }
 
 model LandmarkReviewLike {
-  id         String  @id @default(cuid())
-  userId     String  @map("user_id")
-  reviewId String  @map("review_id")
-  feedback          Feedback
+  id       String   @id @default(cuid())
+  userId   String   @map("user_id")
+  reviewId String   @map("review_id")
+  feedback Feedback
 
   review LandmarkReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -130,6 +133,12 @@ model LandmarkReviewLike {
 enum Feedback {
   LIKE
   DISLIKE
+}
+
+enum ReviewType {
+  POSITIVE
+  MIXED
+  NEGATIVE
 }
 
 enum Gender {
