@@ -1,17 +1,15 @@
 // Tools
-import { styled, alpha } from "@mui/system";
+import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 // Other components
 import Link from "next/link";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
-// Material UI Icons
-import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
 // Styled Components
+import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineTransition";
 const Header = styled(Typography)(({ theme }) => ({
     fontWeight: 900,
@@ -22,16 +20,6 @@ const Header = styled(Typography)(({ theme }) => ({
         zIndex: 1,
         letterSpacing: "-2px",
         textTransform: "uppercase", //
-    },
-    "span.bigger": {
-        position: "absolute",
-        letterSpacing: "10px",
-        textTransform: "uppercase", //
-        left: 0,
-        top: "50%",
-        transform: "translateY(-50%)",
-        fontSize: "10rem",
-        color: alpha(theme.palette.text.primary, 0.1),
     },
 }));
 const Wrapper = styled(Box)(({ theme }) => ({
@@ -60,7 +48,11 @@ const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
             <Wrapper>
                 <Header variant="h2">
                     <span className="normal">{props.header}</span>
-                    {props.biggerHeader && <span className="bigger">{props.biggerHeader}</span>}
+                    {(() => {
+                        if (props.biggerHeader) {
+                            return <BackgroundHeader>{props.biggerHeader}</BackgroundHeader>;
+                        }
+                    })()}
                 </Header>
                 {(() => {
                     if (props.buttonMsg && props.url) {
