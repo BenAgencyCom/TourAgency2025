@@ -2,7 +2,8 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-import type { ScoreColor, Review } from "@/@types/pages/destinations/SingleDestination";
+import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
+import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
