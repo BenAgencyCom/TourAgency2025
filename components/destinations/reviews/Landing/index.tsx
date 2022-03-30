@@ -1,14 +1,13 @@
-// Tools
 // Types
 import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/destinations/Reviews";
 import type { PointsDistribution, Statistics } from "@/@types/pages/api/ReviewsAPI";
-// Material UI Components
 // Other components
-import Header from "./Header";
-import BreadcrumbsNavigation from "./BreadCrumbsNavigation";
-import DestinationPicture from "./DestinationPicture";
 import Stars from "./Stars";
+import Header from "./Header";
+import DestinationPicture from "./DestinationPicture";
+import BreadcrumbsNavigation from "./BreadCrumbsNavigation";
+import PointsDistributionComponent from "./PointsDistribution";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -25,6 +24,11 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
                 <BreadcrumbsNavigation destination={props.destination}></BreadcrumbsNavigation>
                 <Header main={props.destination.city} background="Reviews"></Header>
                 <Stars score={props.statistics.averageScore}></Stars>
+
+                <PointsDistributionComponent
+                    statistics={props.statistics} //
+                    pointsDistribution={props.pointsDistribution}
+                ></PointsDistributionComponent>
             </FlexBox>
             <DestinationPicture picture={props.destination.folder}></DestinationPicture>
         </FlexBox>
