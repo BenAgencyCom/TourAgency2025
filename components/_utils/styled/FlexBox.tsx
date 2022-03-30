@@ -20,7 +20,21 @@ const CSSSPacingProperties: Record<Spacing, string> = {
     end: "flex-end",
     start: "flex-start",
 };
-
+/**
+ * Component based on MaterialUI's `Box` Component, which provides intuitive approach for position items using *flexbox*
+ *
+ * ### Params
+ * 1. Params which are either *true* or *undefined*
+ * - `center`- determines whether all content should be centered
+ * - `column`- determines `flex-direction`
+ * - `reverse`- reverses `flex-direction`
+ *
+ * 2. Params which allow user to place elements more **flexibly**
+ * - `vertical`- positioning on Y axis
+ * - `horizontal`- positioning on X axis
+ *
+ * Both of above properties are either *undefined* or `"between"` | `"center"` | `"evenly"` | `"around"` | `"end"` | `"start"`
+ */
 export default styled(Box)<FlexBoxProps>(({ theme, ...props }) => {
     const { column, center, vertical, horizontal, reverse } = props;
 
