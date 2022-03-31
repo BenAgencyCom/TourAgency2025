@@ -1,3 +1,5 @@
+// Tools
+import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/destinations/Reviews";
@@ -8,8 +10,14 @@ import Header from "./Header";
 import DestinationPicture from "./DestinationPicture";
 import BreadcrumbsNavigation from "./BreadCrumbsNavigation";
 import PointsDistributionComponent from "./PointsDistribution";
+import Visit from "./Visit";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
+
+const LeftSideContent = styled(FlexBox)(({ theme }) => ({
+    paddingRight: "100px",
+    flexGrow: 1,
+}));
 
 interface LandingProps {
     statistics: Statistics;
@@ -19,17 +27,22 @@ interface LandingProps {
 
 const Landing: FunctionComponent<LandingProps> = (props) => {
     return (
-        <FlexBox horizontal="between" sx={{ mt: "50px" }}>
-            <FlexBox column>
-                <BreadcrumbsNavigation destination={props.destination}></BreadcrumbsNavigation>
-                <Header main={props.destination.city} background="Reviews"></Header>
-                <Stars score={props.statistics.averageScore}></Stars>
+        <FlexBox horizontal="between" sx={{ mt: "50px", flexGrow: 1 }}>
+            <LeftSideContent column vertical="evenly">
+                <FlexBox column>
+                    <BreadcrumbsNavigation destination={props.destination}></BreadcrumbsNavigation>
+                    <Header main={props.destination.city} background="Reviews"></Header>
+                    <Stars score={props.statistics.averageScore}></Stars>
+                </FlexBox>
 
                 <PointsDistributionComponent
                     statistics={props.statistics} //
                     pointsDistribution={props.pointsDistribution}
                 ></PointsDistributionComponent>
-            </FlexBox>
+
+                <Visit slug={props.destination.slug}></Visit>
+            </LeftSideContent>
+
             <DestinationPicture picture={props.destination.folder}></DestinationPicture>
         </FlexBox>
     );

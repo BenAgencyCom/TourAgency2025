@@ -2,13 +2,11 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent, ReactNode } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other components
 import Link from "next/link";
 import Separator from "./Separator";
 
-const BreadCrumbWrapper = styled(Box)<{ active?: true }>(({ theme, ...props }) => ({
+const BreadCrumbWrapper = styled("span")<{ active?: true }>(({ theme, ...props }) => ({
     textTransform: "capitalize",
     fontSize: "1.2rem",
     cursor: "pointer",
@@ -40,7 +38,7 @@ interface BreadcrumbsNavigationProps {
 const BreadcrumbsNavigation: FunctionComponent<BreadcrumbsNavigationProps> = (props) => {
     return (
         <>
-            <BreadCrumbWrapper active={props.active} component="span">
+            <BreadCrumbWrapper active={props.active}>
                 {(() => {
                     if (props.url) {
                         return (

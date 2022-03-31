@@ -15,7 +15,7 @@ import Landing from "./Landing";
 import Loading from "@/components/_utils/Loading";
 const Wrapper = styled(Box)(({ theme }) => ({
     maxWidth: "1450px",
-    width: "100vw",
+    width: "calc(100vw - 40px)",
     margin: "100px auto 0 auto",
     color: theme.palette.text.primary,
 }));
