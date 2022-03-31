@@ -2,14 +2,12 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other Components
 import BackgroundImage from "./BackgroundImage";
 import Information from "./Information";
 import Explore from "./Explore";
 // Styled components
-const LandingWrapper = styled(Box)(({ theme }) => ({
+const LandingWrapper = styled("section")(({ theme }) => ({
     width: "100vw",
     height: "100vh",
     position: "fixed",
@@ -21,7 +19,7 @@ const LandingWrapper = styled(Box)(({ theme }) => ({
 
 const Landing: FunctionComponent = () => {
     return (
-        <LandingWrapper id="landing-wrapper" component="section">
+        <LandingWrapper id="landing-wrapper">
             <BackgroundImage></BackgroundImage>
             <Information></Information>
             <Explore></Explore>

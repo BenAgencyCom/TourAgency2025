@@ -3,10 +3,9 @@ import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
-import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 // Styled component
-const Wrapper = styled(Box)(({ theme }) => ({
+const Wrapper = styled("div")(({ theme }) => ({
     position: "absolute",
     top: "-0px",
     right: "-0px",

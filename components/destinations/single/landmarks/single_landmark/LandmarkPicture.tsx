@@ -3,11 +3,9 @@ import { styled } from "@mui/system";
 import { landmarkPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other Components
 import Image from "next/Image";
-const Wrapper = styled(Box)(({ theme }) => ({
+const Wrapper = styled("div")(({ theme }) => ({
     width: "100%",
     height: "250px",
     position: "relative",

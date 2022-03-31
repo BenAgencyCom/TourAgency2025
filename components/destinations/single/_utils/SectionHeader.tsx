@@ -2,19 +2,18 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 // Other components
 import Link from "next/link";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 // Styled Components
 import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineTransition";
-const Header = styled(Typography)(({ theme }) => ({
+
+const Header = styled("h2")(({ theme }) => ({
     fontWeight: 900,
     userSelect: "none",
     position: "relative",
+    margin: 0,
     "span.normal": {
         position: "relative",
         zIndex: 1,
@@ -22,7 +21,7 @@ const Header = styled(Typography)(({ theme }) => ({
         textTransform: "uppercase", //
     },
 }));
-const Wrapper = styled(Box)(({ theme }) => ({
+const Wrapper = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -46,7 +45,7 @@ const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
     return (
         <UnfadeOnScroll duration={700}>
             <Wrapper>
-                <Header variant="h2">
+                <Header>
                     <span className="normal">{props.header}</span>
                     {(() => {
                         if (props.biggerHeader) {

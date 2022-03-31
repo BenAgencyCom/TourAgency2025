@@ -11,14 +11,14 @@ import Image from "next/Image";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
-const BackgroundImageWrapper = styled(Box)({
+const BackgroundImageWrapper = styled("div")({
     width: "100%",
     height: "100%",
     position: "relative",
     transitionDelay: "500ms !important",
     transitionDuration: "1000ms !important",
 });
-const GradientMask = styled(Box)({
+const GradientMask = styled("div")({
     position: "absolute",
     zIndex: 1,
     top: 0,
@@ -27,7 +27,7 @@ const GradientMask = styled(Box)({
     background: `linear-gradient(180deg, ${alpha("#121212", 0.1)} 0%, ${alpha("#121212", 0.2)} 41.46%, ${alpha("#121212", 0.627299)} 72.19%, #121212 100%)`,
     backdropFilter: "blur(5px)",
 });
-const LoadingHiddingMask = styled(Box)({
+const LoadingHiddingMask = styled("div")({
     position: "absolute",
     top: 0,
     width: "100%",

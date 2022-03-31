@@ -17,7 +17,7 @@ const Wrapper = styled(Box)({
     overflow: "hidden",
     paddingBottom: "100px",
 });
-const Container = styled(Box)(({ theme }) => ({
+const Container = styled("div")(({ theme }) => ({
     width: "1450px",
     maxWidth: "calc(100vw - 400px)",
     margin: "0 auto",

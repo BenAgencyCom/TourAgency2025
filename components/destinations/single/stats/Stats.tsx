@@ -2,20 +2,17 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other components
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import SingleStat from "./SingleStat";
 // Styled components
-const Wrapper = styled(Box)(({ theme }) => ({
+import FlexBox from "@/components/_utils/styled/FlexBox";
+
+const Wrapper = styled(FlexBox)(({ theme }) => ({
     maxWidth: theme.breakpoints.values.xl,
     width: "100vw",
     margin: "50px auto",
     userSelect: "none",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
 }));
 
 const Stats: FunctionComponent = () => {
@@ -52,7 +49,7 @@ const Stats: FunctionComponent = () => {
 
     return (
         <UnfadeOnScroll animationRatio={0.5}>
-            <Wrapper>
+            <Wrapper horizontal="between" vertical="center">
                 {stats.map((item, index) => {
                     return (
                         <SingleStat

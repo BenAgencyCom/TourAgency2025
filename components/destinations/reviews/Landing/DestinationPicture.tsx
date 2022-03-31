@@ -3,12 +3,10 @@ import { styled } from "@mui/system";
 import { destinationPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other components
 import Image from "next/Image";
 // Styled components
-const DestinationPictureWrapper = styled(Box)(({ theme }) => ({
+const DestinationPictureWrapper = styled("div")(({ theme }) => ({
     height: "600px",
     width: "700px",
     position: "relative",

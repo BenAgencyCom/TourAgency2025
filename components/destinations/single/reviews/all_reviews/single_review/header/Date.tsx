@@ -2,13 +2,11 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
 
-const Wrapper = styled(Box)(({ theme }) => ({
+const Wrapper = styled("span")(({ theme }) => ({
     fontSize: "1.2rem",
 }));
-const Colored = styled(Box)(({ theme }) => ({
+const Colored = styled("span")(({ theme }) => ({
     color: theme.palette.primary.main,
 }));
 
@@ -19,10 +17,10 @@ const Date: FunctionComponent<DateProps> = (props) => {
     const [days, time] = props.createdAt.split(" ");
 
     return (
-        <Wrapper component="span">
-            <Colored component="span">{days}</Colored>
+        <Wrapper>
+            <Colored>{days}</Colored>
             <span>, at </span>
-            <Colored component="span">{time}</Colored>
+            <Colored>{time}</Colored>
         </Wrapper>
     );
 };

@@ -4,8 +4,6 @@ import { styled } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other components
 import ReviewerAvatar from "./ReviewerAvatar";
 import Score from "./Score";
@@ -14,12 +12,12 @@ import Flag from "./Flag";
 // Styled component
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const Name = styled(Box)(({ theme }) => ({
+const Name = styled("h4")(({ theme }) => ({
     fontSize: "2rem",
     fontWeight: "700",
     margin: "0 10px 0 0 ",
 }));
-const Age = styled(Box)(({ theme }) => ({
+const Age = styled("span")(({ theme }) => ({
     fontSize: "1.2rem",
     paddingBottom: "5px",
 }));
@@ -45,8 +43,8 @@ const SingleReviewHeader: FunctionComponent<SingleReviewHeaderProps> = (props) =
                 <Date createdAt={props.review.createdAt}></Date>
 
                 <FlexBox vertical="end">
-                    <Name component="h4">{fullName}</Name>
-                    <Age component="span">{`${reviewer.age} years old`}</Age>
+                    <Name>{fullName}</Name>
+                    <Age>{`${reviewer.age} years old`}</Age>
                 </FlexBox>
             </FlexBox>
         </FlexBox>

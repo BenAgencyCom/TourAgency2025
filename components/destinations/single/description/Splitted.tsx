@@ -3,13 +3,10 @@ import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { SplittedContentField } from "@/@types/DestinationDescription";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other components
 import SplittedSubfieldField from "@/components/destinations/single/description/_SplittedSubfield";
-
 // Styled components
-const SplittedFieldWrapper = styled(Box)({
+const SplittedFieldWrapper = styled("div")({
     display: "flex",
     justifyContent: "space-between",
     width: "100%",

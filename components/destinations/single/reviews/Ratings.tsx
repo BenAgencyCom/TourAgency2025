@@ -2,19 +2,16 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 // Other components
 import Field from "@/components/destinations/single/reviews/Field";
 import ScoreInStars from "@/components/_utils/ScoreInStars";
 // Styled components
-const StarsWrapper = styled(Box)(({ theme }) => ({
+const StarsWrapper = styled("div")(({ theme }) => ({
     svg: {
         fontSize: "3rem",
     },
 }));
-const Rating = styled(Typography)(({ theme }) => ({
+const Rating = styled("h2")(({ theme }) => ({
     fontWeight: 900,
     letterSpacing: "-2px",
     fontSize: "4.5rem !important",
@@ -32,7 +29,7 @@ const Ratings: FunctionComponent<RatingsProps> = (props) => {
             <StarsWrapper>
                 <ScoreInStars score={props.ratings}></ScoreInStars>
             </StarsWrapper>
-            <Rating variant="h2">{`${Math.floor(props.ratings * 10)}/100`}</Rating>
+            <Rating>{`${Math.floor(props.ratings * 10)}/100`}</Rating>
             <span>
                 Based on <strong>{props.totalReviews}</strong> reviews
             </span>

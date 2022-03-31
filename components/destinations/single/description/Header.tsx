@@ -5,7 +5,6 @@ import type { FunctionComponent } from "react";
 import type { HeaderContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 
 const Header = styled(Typography)(({ theme }) => ({
     margin: `${theme.spacing(2)} 0`,
@@ -14,7 +13,7 @@ const Header = styled(Typography)(({ theme }) => ({
     paddingLeft: "40px",
     position: "relative",
 }));
-const Dot = styled(Box)(({ theme }) => ({
+const Dot = styled("span")(({ theme }) => ({
     position: "absolute",
     top: "50%",
     left: "0",

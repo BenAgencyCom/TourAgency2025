@@ -5,14 +5,13 @@ import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
-import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 // Other components
 import Image from "next/Image";
 import { ImageControls } from "@/components/_utils/ImageControls";
 import ImageModal from "@/components/_utils/ImageModal";
 // Styled Components
-const ImageFieldWrapper = styled(Box)(({ theme }) => ({
+const ImageFieldWrapper = styled("div")(({ theme }) => ({
     position: "relative",
     minHeight: "300px",
     "&::before": {

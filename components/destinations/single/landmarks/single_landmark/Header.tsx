@@ -2,10 +2,8 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Typography from "@mui/material/Typography";
 // Styled Components
-const Header = styled(Typography)(({ theme }) => ({
+const Header = styled("h3")(({ theme }) => ({
     fontWeight: 900,
     letterSpacing: "-1px",
 }));

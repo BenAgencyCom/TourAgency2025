@@ -4,12 +4,10 @@ import { styled } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const Tag = styled(Box)<{ color: ScoreColor }>(({ theme, ...props }) => ({
+const Tag = styled("div")<{ color: ScoreColor }>(({ theme, ...props }) => ({
     background: theme.palette[props.color].main,
     marginRight: "20px",
     padding: "3px 10px",

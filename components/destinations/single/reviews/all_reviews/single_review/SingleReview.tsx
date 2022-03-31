@@ -5,7 +5,6 @@ import type { FunctionComponent } from "react";
 import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Material UI Components
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 // Other components
 import SingleReviewHeader from "./header/SingleReviewHeader";
@@ -25,10 +24,11 @@ const SingleReviewWrapper = styled(FlexBox)<{ isLatest?: boolean }>(({ theme, is
     },
 }));
 
-const ReviewContent = styled(Typography)(({ theme }) => ({
+const ReviewContent = styled("p")(({ theme }) => ({
     fontSize: "1.2rem",
     fontWeight: 300,
     letterSpacing: "1px",
+    margin: 0,
 }));
 
 interface SingleReviewProps {
