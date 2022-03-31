@@ -10,7 +10,7 @@ import Header from "./Header";
 import DestinationPicture from "./DestinationPicture";
 import BreadcrumbsNavigation from "./BreadCrumbsNavigation";
 import PointsDistributionComponent from "./PointsDistribution";
-import Visit from "./Visit";
+import MoreInformation from "./MoreInformation";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -40,7 +40,7 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
                     pointsDistribution={props.pointsDistribution}
                 ></PointsDistributionComponent>
 
-                <Visit slug={props.destination.slug}></Visit>
+                <MoreInformation slug={props.destination.slug}></MoreInformation>
             </LeftSideContent>
 
             <DestinationPicture picture={props.destination.folder}></DestinationPicture>
