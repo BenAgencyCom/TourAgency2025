@@ -6,6 +6,7 @@ import type { FunctionComponent } from "react";
 const Header = styled("h3")(({ theme }) => ({
     fontWeight: 900,
     letterSpacing: "-1px",
+    margin: "0 0 10px 0",
 }));
 
 interface ReadMoreProps {

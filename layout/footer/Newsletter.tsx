@@ -39,7 +39,7 @@ const SocialMedia = styled(ButtonWithColorTransition)(({ theme }) => ({
         fontSize: "1.8rem",
     },
 }));
-const InputWrapper = styled(Box)(({ theme }) => ({
+const InputWrapper = styled("div")(({ theme }) => ({
     position: "relative",
     margin: "20px 0",
     borderRadius: "10px",
@@ -86,7 +86,7 @@ const Newsletter: FunctionComponent = () => {
             </FlexBox>
 
             <InputWrapper>
-                <InputBase placeholder="youremail@gmail.com"></InputBase>
+                <InputBase placeholder="your_email@gmail.com"></InputBase>
                 <Button color="primary" variant="contained">
                     Join
                 </Button>

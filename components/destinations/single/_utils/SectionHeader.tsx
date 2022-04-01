@@ -14,6 +14,7 @@ const Header = styled("h2")(({ theme }) => ({
     userSelect: "none",
     position: "relative",
     margin: 0,
+    fontSize: "4rem",
     "span.normal": {
         position: "relative",
         zIndex: 1,

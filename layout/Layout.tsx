@@ -5,7 +5,7 @@ import Navigation from "@/layout//Navigation";
 import PageLogo from "@/layout//PageLogo";
 import Snackbar from "@/layout//Snackbar";
 import ScrollButton from "@/layout/ScrollButton";
-import Footer from "@/layout/footer/Footer";
+import Footer from "@/layout/Footer";
 // Material UI Components
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";

@@ -23,6 +23,10 @@ const Field = styled(FlexBox)(({ theme }) => ({
         li: {
             color: alpha("#fff", 0.7),
             marginTop: 7,
+            "&:hover": {
+                color: alpha("#fff", 0.9),
+                cursor: "pointer",
+            },
         },
     },
 }));
