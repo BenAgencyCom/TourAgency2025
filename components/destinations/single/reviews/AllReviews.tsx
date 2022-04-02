@@ -7,7 +7,7 @@ import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import Button from "@mui/material/Button";
 // Other components
 import Link from "next/link";
-import SingleReview from "./single_review/SingleReview";
+import SingleReview from "@/components/_utils/SingleReview";
 import ScrollableBox from "@/components/_utils/styled/ScrollableBox";
 // Styled components
 const SeeAllReviews = styled(Button)(({ theme }) => ({

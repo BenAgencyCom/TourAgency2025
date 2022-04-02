@@ -30,7 +30,7 @@ export default styled(ButtonBase)<ButtonWrapperParams>(({ theme, ...props }) => 
                   border: `2px solid ${fontColor}`,
                   color: backgroundColor,
                   backgroundColor: fontColor,
-                  "&:hover": {
+                  "&:hover, &:focus": {
                       color: fontColor,
                       backgroundColor: backgroundColor,
                   },
@@ -39,7 +39,7 @@ export default styled(ButtonBase)<ButtonWrapperParams>(({ theme, ...props }) => 
                   border: `2px solid ${backgroundColor}`,
                   color: fontColor,
                   backgroundColor: backgroundColor,
-                  "&:hover": {
+                  "&:hover, &:focus": {
                       color: backgroundColor,
                       backgroundColor: fontColor,
                   },

@@ -11,10 +11,17 @@ import ThumbDown from "@mui/icons-material/ThumbDown";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
+const Label = styled("span")(({ theme }) => ({
+    fontWeight: 700,
+    marginRight: "10px",
+}));
 const ThumbsWrapper = styled(Button)(({ theme }) => ({
     strong: {
         marginLeft: "5px",
     },
+}));
+const ReportButton = styled(Button)(({ theme }) => ({
+    padding: "3px 10px",
 }));
 
 interface LikesProps {
@@ -24,21 +31,21 @@ interface LikesProps {
 const Likes: FunctionComponent<LikesProps> = (props) => {
     return (
         <FlexBox horizontal="between" vertical="center">
-            <FlexBox>
+            <FlexBox vertical="center">
+                <Label>Did you find it helpful?</Label>
                 <ThumbsWrapper color="inherit">
                     <ThumbUp></ThumbUp>
                     <strong>{props.feedback.likes}</strong>
                 </ThumbsWrapper>
-
                 <ThumbsWrapper color="inherit">
                     <ThumbDown></ThumbDown>
                     <strong>{props.feedback.dislikes}</strong>
                 </ThumbsWrapper>
             </FlexBox>
 
-            <Button variant="outlined" sx={{ padding: "3px 10px" }}>
+            <ReportButton variant="outlined" color="inherit">
                 Report
-            </Button>
+            </ReportButton>
         </FlexBox>
     );
 };

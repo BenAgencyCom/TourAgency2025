@@ -86,10 +86,10 @@ const Newsletter: FunctionComponent = () => {
             </FlexBox>
 
             <InputWrapper>
-                <InputBase placeholder="your_email@gmail.com"></InputBase>
-                <Button color="primary" variant="contained">
+                <InputBase placeholder="there_is_no_newsletter@gmail.com"></InputBase>
+                <ButtonWithColorTransition primary reverse sx={{ fontSize: "1.2rem", borderRadius: "0 10px 10px 0" }}>
                     Join
-                </Button>
+                </ButtonWithColorTransition>
             </InputWrapper>
 
             <FlexBox>

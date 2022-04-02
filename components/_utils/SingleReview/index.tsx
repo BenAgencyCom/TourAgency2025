@@ -48,11 +48,10 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     return (
         <SingleReviewWrapper isLatest={isLatest} column>
             <SingleReviewHeader review={review} color={color}></SingleReviewHeader>
-            <Divider flexItem sx={{ mt: "20px" }}></Divider>
             <SingleReviewTags tags={review.tags} color={color}></SingleReviewTags>
             <ReviewContent>{review.review}</ReviewContent>
 
-            <Divider flexItem sx={{ my: "20px" }}></Divider>
+            <Divider flexItem sx={{ my: "10px" }}></Divider>
             <Likes feedback={review.feedback}></Likes>
         </SingleReviewWrapper>
     );

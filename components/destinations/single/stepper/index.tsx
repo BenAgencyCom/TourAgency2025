@@ -1,49 +1,12 @@
 // Tools
 import { useEffect, useState, useMemo } from "react";
-import { styled, alpha } from "@mui/system";
 // Types
-import type { Theme } from "@mui/system";
 import type { FunctionComponent } from "react";
 // Material UI Components
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 // Styled components
-const StepperWrapper = styled(Stepper)({
-    position: "fixed",
-    top: "50%",
-    transform: "translateY(-50%)",
-    left: "40px",
-    zIndex: "10",
-    userSelect: "none",
-    ".MuiStepConnector-root": {
-        marginLeft: "19px",
-    },
-});
-const StepperElement = styled(Step)(({ theme }) => ({
-    svg: {
-        width: "40px",
-        height: "40px",
-    },
-    ".MuiStepLabel-label": {
-        fontSize: "1.1rem",
-        fontWeight: 300,
-        color: theme.palette.text.primary,
-    },
-    ".MuiSvgIcon-root": {
-        color: alpha(theme.palette.text.primary, 0.7),
-        cursor: "pointer",
-        "&:hover": {
-            color: alpha(theme.palette.text.primary, 0.6),
-        },
-        "&.Mui-active": {
-            color: `${theme.palette.primary.main} !important`,
-        },
-    },
-    ".MuiStepIcon-text": {
-        fill: theme.palette.text.primary,
-    },
-}));
+import StepperElement from "./StepperElement";
+import StepperWrapper from "./StepperWrapper";
 
 const ScrollStepper: FunctionComponent = () => {
     const steps = ["Landing", "Description", "Landmarks", "Reviews"];
@@ -51,7 +14,7 @@ const ScrollStepper: FunctionComponent = () => {
 
     const sectionsIDsToObseve = useMemo<string[]>(() => ["landing-wrapper", "description", "landmarks", "reviews"], []);
 
-    const onClick = (index: number) => {
+    const onStepperClick = (index: number) => {
         setActiveStep(index);
 
         if (index) {
@@ -91,7 +54,7 @@ const ScrollStepper: FunctionComponent = () => {
                 return (
                     <StepperElement
                         key={step} //
-                        onClick={() => onClick(index)}
+                        onClick={() => onStepperClick(index)}
                         active={index === activeStep}
                     >
                         <StepLabel>{step}</StepLabel>

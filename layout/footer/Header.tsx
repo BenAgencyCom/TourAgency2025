@@ -11,6 +11,7 @@ const HeaderWrapper = styled("div")(({ theme }) => ({
         color: alpha("#fff", 0.1),
         fontSize: "7rem",
         letterSpacing: "2px",
+        fontWeight: 900,
     },
     h3: {
         position: "relative",

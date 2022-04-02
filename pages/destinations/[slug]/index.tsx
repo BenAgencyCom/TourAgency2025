@@ -13,7 +13,7 @@ import Head from "next/Head";
 import Landing from "@/components/destinations/single/landing/Landing";
 import Description from "@/components/destinations/single/description/Description";
 import Stats from "@/components/destinations/single/stats/Stats";
-import Stepper from "@/components/destinations/single/stepper/Stepper";
+import Stepper from "@/components/destinations/single/stepper";
 import Landmarks from "@/components/destinations/single/landmarks/Landmarks";
 import Reviews from "@/components/destinations/single/reviews/Reviews";
 // Redux

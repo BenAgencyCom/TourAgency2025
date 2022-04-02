@@ -8,7 +8,7 @@ import ScoreInStars from "@/components/_utils/ScoreInStars";
 // Styled components
 const StarsWrapper = styled("div")(({ theme }) => ({
     svg: {
-        fontSize: "3rem",
+        fontSize: "2rem",
     },
 }));
 const Rating = styled("h2")(({ theme }) => ({
@@ -17,6 +17,7 @@ const Rating = styled("h2")(({ theme }) => ({
     fontSize: "4.5rem !important",
     color: theme.palette.primary.main,
     marginBottom: "10px",
+    margin: 0,
 }));
 
 interface RatingsProps {

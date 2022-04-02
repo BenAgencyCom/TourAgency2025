@@ -8,7 +8,7 @@ import Section from "@/components/destinations/single/_utils/Section";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import Ratings from "@/components/destinations/single/reviews/Ratings";
 import UserReview from "@/components/destinations/single/reviews/user_review/UserReview";
-import AllReviews from "@/components/destinations/single/reviews/all_reviews/AllReviews";
+import AllReviews from "@/components/destinations/single/reviews/AllReviews";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
