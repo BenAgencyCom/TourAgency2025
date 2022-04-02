@@ -2,6 +2,7 @@
 import { prisma } from "@/prisma/db";
 import PrismaRequestBody from "./PrismaRequestBody";
 // Types
+import type { ReviewType } from "@prisma/client";
 import type { ReviewsCallParams, BulkReviewsType, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
 import type { PrismaRequestBroker, ReviewFromQuery, FeedbackFromQuery, AggregateCallParams, AggregateCallResponse } from "../@types";
 
@@ -14,6 +15,7 @@ export default class DestinationBroker implements PrismaRequestBroker {
         return await prisma.landmarkReview.findMany({
             where: {
                 landmarkId: this.id,
+                ...(params.certianReviewType && { type: params.certianReviewType }),
             },
             ...requestBody,
         });
@@ -53,5 +55,15 @@ export default class DestinationBroker implements PrismaRequestBroker {
             NEGATIVE: result.find((el) => el.type === "NEGATIVE")?._count._all ?? 0,
             POSITIVE: result.find((el) => el.type === "POSITIVE")?._count._all ?? 0,
         };
+    }
+
+    public async countRecordsWithSpecificTypeOnly(type: ReviewType): Promise<number> {
+        const result = await prisma.landmarkReview.count({
+            where: {
+                landmarkId: this.id,
+                type,
+            },
+        });
+        return result;
     }
 }

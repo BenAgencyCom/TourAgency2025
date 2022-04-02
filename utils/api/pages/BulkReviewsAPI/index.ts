@@ -36,8 +36,15 @@ export default class BulkReviewsAPI {
         else this.PrismaRequestBroker = new PrismaRequestLandmark(type, id);
     }
 
-    private _establishPaginationProperites(recordsInTotal: number): PaginationProperties | false {
+    private async _establishPaginationProperites(_recordsInTotal: number): Promise<PaginationProperties | false> {
         if (!this._callParams?.page || !this._callParams?.perPage) return false;
+
+        let recordsInTotal: number = _recordsInTotal;
+
+        // The number of records in total varies during fetching specific type reviews only
+        const { certianReviewType } = this._callParams;
+        if (certianReviewType) recordsInTotal = await this.PrismaRequestBroker.countRecordsWithSpecificTypeOnly(certianReviewType);
+
         const { page, perPage } = this._callParams;
         const floored = Math.floor(recordsInTotal / perPage);
 
@@ -107,13 +114,15 @@ export default class BulkReviewsAPI {
         // Ensure that received properties `sort` and `orderBy` both match expecting values
         if (params.orderBy && !["latest", "score"].includes(params.orderBy)) throw new ValidationError();
         if (params.sort && !["asc", "desc"].includes(params.sort)) throw new ValidationError();
+        if (params.certianReviewType && !["POSITIVE", "MIXED", "NEGATIVE"].includes(params.certianReviewType)) throw new ValidationError();
 
         this._callParams = {
             limit: params.limit ?? null,
             perPage: params.perPage ?? null,
-            page: params.page || null,
+            page: params.page ?? null,
             orderBy: params.orderBy ?? "latest",
             sort: params.sort ?? "desc",
+            certianReviewType: params.certianReviewType ?? null,
         };
     }
     /**
@@ -127,6 +136,7 @@ export default class BulkReviewsAPI {
      * - `page`- *pagination property*- number of current page
      * - `orderBy`- property which will be used to sort records- either `"latest"` or `"score"`
      * - `sort`- sorting direction- either `"asc"` or `"desc"`
+     * - `certianReviewType`- fetch only specific reviews type- either `"POSITIVE"`, `"NEGATIVE"` or `"MIXED"`
      *
      * **`limit` cannot be used alongside with `page` and `perPage`, because it gets overwritten**
      *
@@ -136,6 +146,7 @@ export default class BulkReviewsAPI {
      *    orderBy: "score",
      *    page: 2,
      *    perPage: 7,
+     *    certianReviewType: "NEGATIVE"
      *});
      * ```
      */
@@ -147,7 +158,7 @@ export default class BulkReviewsAPI {
         const aggregate = await this.PrismaRequestBroker.aggregateCall({ count: true });
 
         const reviews: Review[] = this._mergeReviewsAndFeedback();
-        const paginationProperties = this._establishPaginationProperites(aggregate.count as number);
+        const paginationProperties = await this._establishPaginationProperites(aggregate.count as number);
 
         return {
             reviews: reviews,

@@ -44,6 +44,7 @@ export interface ReviewsCallParams {
     limit: number | null;
     perPage: number | null;
     page: number | null;
+    certianReviewType: ReviewType | null;
     orderBy: OrderBy;
     sort: Sort;
 }

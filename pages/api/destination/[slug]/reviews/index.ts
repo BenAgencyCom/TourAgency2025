@@ -1,7 +1,8 @@
 // Tools
-import BulkReviewsAPI from "@/utils/api/pages/BulkReviewsAPI";
 import { ValidationError } from "@/utils/api/Errors";
+import BulkReviewsAPI from "@/utils/api/pages/BulkReviewsAPI";
 // Types
+import type { ReviewType } from "@prisma/client";
 import type { NextApiResponse, NextApiRequest } from "next";
 import type { OrderBy, Sort } from "@/@types/pages/api/ReviewsAPI";
 
@@ -13,6 +14,7 @@ interface Request extends NextApiRequest {
         page?: string;
         perPage?: string;
         applyPointsDistribution?: string;
+        certianReviewType?: ReviewType;
     };
 }
 
@@ -20,7 +22,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
     try {
         if (req.method !== "GET") return res.status(404).end();
 
-        const { orderBy, sort, page, perPage, applyPointsDistribution } = req.query;
+        const { orderBy, sort, page, perPage, applyPointsDistribution, certianReviewType } = req.query;
         if (!page || !perPage) return res.status(400).end();
 
         const ReviewsAPI = new BulkReviewsAPI({ reviewsType: "destinations", reviewingModelId: req.query.slug });
@@ -29,6 +31,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
             page: Number(page),
             perPage: Number(perPage),
             sort: sort,
+            certianReviewType: certianReviewType,
         });
 
         if (!result.reviews.length) return res.status(404).end();

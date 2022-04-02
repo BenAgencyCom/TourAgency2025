@@ -1,3 +1,4 @@
+import type { ReviewType } from "@prisma/client";
 import type { DestinationReview, User } from "@prisma/client";
 import type { BulkReviewsType, ReviewsCallParams, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
 
@@ -9,6 +10,7 @@ export interface PrismaRequestBroker {
     callForFeedback(idsList: string[]): Promise<FeedbackFromQuery[]>;
     aggregateCall(params: AggregateCallParams): Promise<AggregateCallResponse>;
     pointsDistribution(): Promise<PointsDistribution>;
+    countRecordsWithSpecificTypeOnly(type: ReviewType): Promise<number>;
 }
 
 export interface ReviewFromQuery {
