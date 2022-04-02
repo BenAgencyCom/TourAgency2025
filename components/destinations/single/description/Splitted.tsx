@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { SplittedContentField } from "@/@types/DestinationDescription";
 // Other components
-import SplittedSubfieldField from "@/components/destinations/single/description/_SplittedSubfield";
+import SplittedSubfieldField from "@/components/destinations/single/Description/_SplittedSubfield";
 // Styled components
 const SplittedFieldWrapper = styled("div")({
     display: "flex",

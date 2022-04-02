@@ -5,7 +5,7 @@ import type { FunctionComponent } from "react";
 // Other components
 import Section from "@/components/destinations/single/_utils/Section";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
-import SingleLandmark from "./single_landmark/SingleLandmark";
+import SingleLandmark from "@/components/_utils/SingleLandmark";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components

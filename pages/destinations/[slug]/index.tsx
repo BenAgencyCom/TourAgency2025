@@ -6,25 +6,23 @@ import SingleDestinationAPI from "@/utils/api/pages/destinations/SingleDestinati
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/destinations/SingleDestination";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other components
 import Head from "next/Head";
-import Landing from "@/components/destinations/single/landing/Landing";
-import Description from "@/components/destinations/single/description/Description";
-import Stats from "@/components/destinations/single/stats/Stats";
-import Stepper from "@/components/destinations/single/stepper";
-import Landmarks from "@/components/destinations/single/landmarks/Landmarks";
-import Reviews from "@/components/destinations/single/reviews/Reviews";
+import Landing from "@/components/destinations/single/Landing";
+import Description from "@/components/destinations/single/Description";
+import Stats from "@/components/destinations/single/Stats";
+import Stepper from "@/components/destinations/single/Stepper";
+import Landmarks from "@/components/destinations/single/Landmarks";
+import Reviews from "@/components/destinations/single/Reviews";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { setData, setRatings, setTotalReviews } from "@/redux/slices/singleDestination";
 // Styled components
-const Wrapper = styled(Box)(({ theme }) => ({
+const Wrapper = styled("div")(({ theme }) => ({
     width: "100vw",
     position: "relative",
 }));
-const Content = styled(Box)(({ theme }) => ({
+const Content = styled("div")(({ theme }) => ({
     width: "100vw",
     position: "relative",
     marginTop: "100vh",

@@ -4,7 +4,7 @@ import colorTheme from "@/colorTheme";
 import type { FunctionComponent } from "react";
 // Other components
 import Section from "@/components/destinations/single/_utils/Section";
-import SingleDestinationContent from "@/components/destinations/single/description/SingleDestinationContent";
+import SingleDestinationContent from "@/components/destinations/single/Description/SingleDestinationContent";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 

@@ -7,10 +7,10 @@ import type { DestinationContentField } from "@/@types/DestinationDescription";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
-import Header from "@/components/destinations/single/description/Header";
-import Paragraph from "@/components/destinations/single/description/Paragraph";
-import ImageField from "@/components/destinations/single/description/Image";
-import Splitted from "@/components/destinations/single/description/Splitted";
+import Header from "@/components/destinations/single/Description/Header";
+import Paragraph from "@/components/destinations/single/Description/Paragraph";
+import ImageField from "@/components/destinations/single/Description/Image";
+import Splitted from "@/components/destinations/single/Description/Splitted";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 
 interface SingleDestinationContentProps {
