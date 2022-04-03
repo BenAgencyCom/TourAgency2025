@@ -1,5 +1,5 @@
 // Tools
-import { styled } from "@mui/system";
+import { styled, alpha } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
@@ -17,6 +17,7 @@ const SingleReviewWrapper = styled(FlexBox)<{ isLatest?: boolean }>(({ theme, is
     marginBottom: isLatest ? 0 : "40px",
     padding: "20px",
     boxSizing: "border-box",
+    background: alpha("#fff", 0.3),
     borderRadius: 10,
     border: `2px solid ${theme.palette.background.lightPaper}`,
     hr: {

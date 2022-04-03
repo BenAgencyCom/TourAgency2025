@@ -2,6 +2,7 @@
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { CreateRequestURL } from "./_utils/URLBuilder";
 // Types
 import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/destinations/Reviews";
@@ -10,8 +11,10 @@ import type { ReviewsCallResponse, Review, PointsDistribution, Statistics } from
 // Other components
 import Landing from "./Landing";
 import Reviews from "./Reviews";
+import Sort from "./Sort";
 // Styled components
 import Loading from "@/components/_utils/Loading";
+
 const Wrapper = styled("div")(({ theme }) => ({
     maxWidth: "1450px",
     width: "calc(100vw - 40px)",
@@ -27,22 +30,30 @@ const Content: FunctionComponent<ContentParams> = (props) => {
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
     const [pointsDistribution, setPointsDistribution] = useState<PointsDistribution | null>(null);
     const [statistics, setStatistics] = useState<Statistics | null>(null);
+    const [reviewsAreLoading, setReviewsAreLoading] = useState<boolean>(true);
 
     const router = useRouter();
-    const page = router.query.page ? Number(router.query.page) : 1;
-    const perPage = 20;
-
-    const refreshData = async () => {
-        console.log("refreshing");
-        console.log(router.query);
-    };
+    const perPage = 15;
 
     useEffect(() => {
         let isMounted = true;
-        fetch(`/api/destination/${props.destination.id}/reviews?page=${page}&perPage=${perPage}&applyPointsDistribution=true`)
+        const page = router.query.page ? Number(router.query.page) : 1;
+
+        const URL = CreateRequestURL({
+            destinationId: props.destination.id,
+            perPage: perPage,
+            page,
+            type: router.query.type,
+            pointsDistribution: true,
+            order: router.query.order,
+        });
+
+        if (isMounted) setReviewsAreLoading(true);
+        fetch(URL)
             .then((res) => res.json())
             .then((res: ReviewsCallResponse) => {
                 if (isMounted) {
+                    setReviewsAreLoading(false);
                     setPaginationProperties(res.pagination as PaginationProperties);
                     setReviews(res.reviews);
                     setPointsDistribution(res.pointsDistribution as PointsDistribution);
@@ -55,7 +66,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
         return () => {
             isMounted = false;
         };
-    }, [page, props.destination, router, router.query]);
+    }, [props.destination, router, router.query]);
 
     return (
         <Wrapper>
@@ -71,11 +82,19 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                                 pointsDistribution={pointsDistribution}
                             ></Landing>
 
+                            <Sort
+                                setReviews={setReviews} //
+                                setPaginationProperties={setPaginationProperties}
+                                setReviewsAreLoading={setReviewsAreLoading}
+                                destinationId={props.destination.id}
+                                perPage={20}
+                            ></Sort>
+
                             <Reviews
                                 reviews={reviews} //
                                 paginationProperties={paginationProperties}
                                 slug={props.destination.slug}
-                                refreshData={refreshData}
+                                reviewsAreLoading={reviewsAreLoading}
                             ></Reviews>
                         </>
                     );

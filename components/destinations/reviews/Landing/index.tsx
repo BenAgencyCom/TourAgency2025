@@ -27,7 +27,7 @@ interface LandingProps {
 
 const Landing: FunctionComponent<LandingProps> = (props) => {
     return (
-        <FlexBox horizontal="between" sx={{ mt: "50px", flexGrow: 1 }}>
+        <FlexBox horizontal="between" sx={{ mt: "50px", width: "100%" }}>
             <LeftSideContent column vertical="evenly">
                 <FlexBox column>
                     <BreadcrumbsNavigation destination={props.destination}></BreadcrumbsNavigation>

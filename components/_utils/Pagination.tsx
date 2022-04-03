@@ -51,7 +51,7 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
     };
 
     return (
-        <FlexBox>
+        <FlexBox sx={{ marginTop: "50px" }}>
             {Array.from(Array(pagesInTotal).keys()).map((item, index) => {
                 const page = index + 1;
                 const isCurrent = page === currentPage;

@@ -12,8 +12,9 @@ import ThumbDown from "@mui/icons-material/ThumbDown";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const Label = styled("span")(({ theme }) => ({
-    fontWeight: 700,
+    fontWeight: 500,
     marginRight: "10px",
+    letterSpacing: "1px",
 }));
 const ThumbsWrapper = styled(Button)(({ theme }) => ({
     strong: {

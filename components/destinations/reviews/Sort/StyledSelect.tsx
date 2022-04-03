@@ -8,12 +8,13 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 interface StyledSelectProps {
-    variable: StatedDataField<any>;
     options: {
         label: string;
         value: any;
     }[];
     sx?: Record<any, any>;
+    value: string;
+    onChange: (e: any) => void;
 }
 
 const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
@@ -41,8 +42,8 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                     },
                 },
             }}
-            value={props.variable.value}
-            onChange={(e) => props.variable.setValue(e.target.value)}
+            value={props.value}
+            onChange={props.onChange}
         >
             {props.options.map((item, index) => {
                 return (
