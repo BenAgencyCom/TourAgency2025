@@ -7,13 +7,12 @@ import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/destinations/Reviews";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { ReviewsCallResponse, Review, PointsDistribution, Statistics } from "@/@types/pages/api/ReviewsAPI";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other components
 import Landing from "./Landing";
+import Reviews from "./Reviews";
 // Styled components
 import Loading from "@/components/_utils/Loading";
-const Wrapper = styled(Box)(({ theme }) => ({
+const Wrapper = styled("div")(({ theme }) => ({
     maxWidth: "1450px",
     width: "calc(100vw - 40px)",
     margin: "100px auto 0 auto",
@@ -33,6 +32,11 @@ const Content: FunctionComponent<ContentParams> = (props) => {
     const page = router.query.page ? Number(router.query.page) : 1;
     const perPage = 20;
 
+    const refreshData = async () => {
+        console.log("refreshing");
+        console.log(router.query);
+    };
+
     useEffect(() => {
         let isMounted = true;
         fetch(`/api/destination/${props.destination.id}/reviews?page=${page}&perPage=${perPage}&applyPointsDistribution=true`)
@@ -51,7 +55,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
         return () => {
             isMounted = false;
         };
-    }, [page, props.destination, router]);
+    }, [page, props.destination, router, router.query]);
 
     return (
         <Wrapper>
@@ -60,11 +64,20 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                     return <Loading></Loading>;
                 } else {
                     return (
-                        <Landing
-                            destination={props.destination} //
-                            statistics={statistics}
-                            pointsDistribution={pointsDistribution}
-                        ></Landing>
+                        <>
+                            <Landing
+                                destination={props.destination} //
+                                statistics={statistics}
+                                pointsDistribution={pointsDistribution}
+                            ></Landing>
+
+                            <Reviews
+                                reviews={reviews} //
+                                paginationProperties={paginationProperties}
+                                slug={props.destination.slug}
+                                refreshData={refreshData}
+                            ></Reviews>
+                        </>
                     );
                 }
             })()}

@@ -11,6 +11,7 @@ const MoreInformationButton = styled(ButtonWithLineTransition)(({ theme }) => ({
     alignSelf: "flex-end",
     width: "200px",
     fontSize: "1.1rem",
+    padding: "10px 20px",
 }));
 const MoreInformation: FunctionComponent<{ slug: string }> = (props) => {
     return (

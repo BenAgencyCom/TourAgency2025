@@ -34,7 +34,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
             certianReviewType: certianReviewType,
         });
 
-        if (!result.reviews.length) return res.status(404).end();
+        if (!result.reviews.length) return res.send({ reviews: [] });
         if (applyPointsDistribution) {
             const pointsDistribution = await ReviewsAPI.pointsDistribution();
             const statistics = await ReviewsAPI.aggregate({ count: true, avgScore: true });
