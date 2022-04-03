@@ -6,7 +6,13 @@ import type { ButtonWrapperParams } from "./@types";
 // Material UI Components
 import ButtonBase from "@mui/material/ButtonBase";
 
-export default styled(ButtonBase)<ButtonWrapperParams>(({ theme, ...props }) => {
+const restrictedProperties = ["reverse", "primary"];
+
+export default styled(ButtonBase, {
+    shouldForwardProp: (propName: string) => {
+        return !restrictedProperties.includes(propName);
+    },
+})<ButtonWrapperParams>(({ theme, ...props }) => {
     const { primary, reverse, color, background } = props;
     const direction = props.line ?? "left";
 

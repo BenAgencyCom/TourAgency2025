@@ -10,7 +10,13 @@ interface ButtonWrapperParams {
     background?: string;
 }
 
-export default styled(ButtonBase)<ButtonWrapperParams>(({ theme, ...props }) => {
+const restrictedProperties = ["reverse", "primary"];
+
+export default styled(ButtonBase, {
+    shouldForwardProp: (propName: string) => {
+        return !restrictedProperties.includes(propName);
+    },
+})<ButtonWrapperParams>(({ theme, ...props }) => {
     const { primary, reverse, color, background } = props;
 
     if (primary && color) throw new Error("Properties `primary` and `color` are interfering with each other!");

@@ -6,7 +6,9 @@ import type { FunctionComponent, ReactNode } from "react";
 import Link from "next/link";
 import Separator from "./Separator";
 
-const BreadCrumbWrapper = styled("span")<{ active?: true }>(({ theme, ...props }) => ({
+const BreadCrumbWrapper = styled("span", {
+    shouldForwardProp: (propName: string) => propName !== "active",
+})<{ active?: true }>(({ theme, ...props }) => ({
     textTransform: "capitalize",
     fontSize: "1.2rem",
     cursor: "pointer",

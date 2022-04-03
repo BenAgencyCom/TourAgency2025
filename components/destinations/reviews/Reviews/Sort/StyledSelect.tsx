@@ -29,6 +29,8 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                     padding: "10px 20px",
                     fontSize: "1.1rem",
                     background: colorTheme.palette.text.primary,
+                    display: "flex",
+                    alignItems: "center",
                 },
             }}
             MenuProps={{

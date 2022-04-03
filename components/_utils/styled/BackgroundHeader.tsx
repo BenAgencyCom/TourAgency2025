@@ -1,9 +1,7 @@
 // Tools
 import { styled, alpha } from "@mui/system";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Styled components
-export default styled(Box)<{ fontSize?: string }>(({ theme, ...props }) => ({
+export default styled("span")<{ fontSize?: string }>(({ theme, ...props }) => ({
     position: "absolute",
     letterSpacing: "10px",
     textTransform: "uppercase",

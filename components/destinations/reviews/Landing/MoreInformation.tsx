@@ -15,10 +15,12 @@ const MoreInformationButton = styled(ButtonWithLineTransition)(({ theme }) => ({
 }));
 const MoreInformation: FunctionComponent<{ slug: string }> = (props) => {
     return (
-        <Link href={`/destinations/${props.slug}`} passHref>
-            <MoreInformationButton line="right" reverse>
-                <span>More information</span>
-            </MoreInformationButton>
+        <Link href={`/destinations/${props.slug}`}>
+            <a href="" style={{ alignSelf: "flex-end" }}>
+                <MoreInformationButton line="right" reverse>
+                    <span>More information</span>
+                </MoreInformationButton>
+            </a>
         </Link>
     );
 };
