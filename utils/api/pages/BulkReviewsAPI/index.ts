@@ -52,6 +52,7 @@ export default class BulkReviewsAPI {
             currentPage: page,
             perPage: perPage,
             pagesInTotal: recordsInTotal % perPage ? floored + 1 : floored,
+            recordsInTotal,
         };
     }
 
