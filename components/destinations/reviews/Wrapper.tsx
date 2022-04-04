@@ -2,16 +2,18 @@
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { CreateRequestURL } from "./_utils/URLBuilder";
+import PrefetchData from "./_utils/PrefetchData";
+import _RefreshData from "./_utils/RefreshData";
 // Types
 import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/destinations/Reviews";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
-import type { ReviewsCallResponse, Review, PointsDistribution, Statistics } from "@/@types/pages/api/ReviewsAPI";
+import type { Review, PointsDistribution, Statistics } from "@/@types/pages/api/ReviewsAPI";
 // Other components
+import Sort from "./Sort";
 import Landing from "./Landing";
 import Reviews from "./Reviews";
-import Sort from "./Sort";
+import Pagination from "@/components/_utils/Pagination";
 // Styled components
 import Loading from "@/components/_utils/Loading";
 
@@ -34,42 +36,44 @@ const Content: FunctionComponent<ContentParams> = (props) => {
 
     const router = useRouter();
     const perPage = 15;
+    const destinationID = props.destination.id;
 
+    const refreshData = async (page: number) => {
+        setReviewsAreLoading(true);
+        const refreshedData = await _RefreshData({ destinationID, perPage, router, page });
+        if (!refreshedData) return;
+
+        const { reviews, paginationProperties } = refreshedData;
+        setPaginationProperties(paginationProperties);
+        setReviews(reviews);
+
+        setReviewsAreLoading(false);
+    };
+
+    // Prefetch data
     useEffect(() => {
         let isMounted = true;
-        const page = router.query.page ? Number(router.query.page) : 1;
+        (async () => {
+            const prefetchedData = await PrefetchData({ destinationID, perPage, router });
+            if (!prefetchedData) return;
+            const { reviews, paginationProperties, pointsDistribution, statistics } = prefetchedData;
 
-        const URL = CreateRequestURL({
-            destinationId: props.destination.id,
-            perPage: perPage,
-            page,
-            type: router.query.type,
-            pointsDistribution: true,
-            order: router.query.order,
-        });
+            if (isMounted) {
+                setReviewsAreLoading(false);
+                setPaginationProperties(paginationProperties);
+                setReviews(reviews);
+                setPointsDistribution(pointsDistribution);
+                setStatistics(statistics);
+            }
+        })();
 
-        if (isMounted) setReviewsAreLoading(true);
-        fetch(URL)
-            .then((res) => res.json())
-            .then((res: ReviewsCallResponse) => {
-                if (isMounted) {
-                    setReviewsAreLoading(false);
-                    setPaginationProperties(res.pagination as PaginationProperties);
-                    setReviews(res.reviews);
-                    setPointsDistribution(res.pointsDistribution as PointsDistribution);
-                    setStatistics(res.statistics as Statistics);
-                }
-            })
-            .catch(() => {
-                router.push("/404");
-            });
         return () => {
             isMounted = false;
         };
-    }, [props.destination, router, router.query]);
+    }, [props.destination, router, router.query, destinationID]);
 
     return (
-        <Wrapper>
+        <Wrapper id="reviews-wrapper">
             {(() => {
                 if (!statistics || !pointsDistribution || !paginationProperties) {
                     return <Loading></Loading>;
@@ -82,13 +86,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                                 pointsDistribution={pointsDistribution}
                             ></Landing>
 
-                            <Sort
-                                setReviews={setReviews} //
-                                setPaginationProperties={setPaginationProperties}
-                                setReviewsAreLoading={setReviewsAreLoading}
-                                destinationId={props.destination.id}
-                                perPage={20}
-                            ></Sort>
+                            <Sort refreshData={refreshData}></Sort>
 
                             <Reviews
                                 reviews={reviews} //
@@ -96,6 +94,14 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                                 slug={props.destination.slug}
                                 reviewsAreLoading={reviewsAreLoading}
                             ></Reviews>
+
+                            <Pagination
+                                paginationProperties={paginationProperties} //
+                                scrollToElement="reviews-wrapper"
+                                callbackDuringScrolling={(pageNumber: number) => {
+                                    refreshData(pageNumber);
+                                }}
+                            ></Pagination>
                         </>
                     );
                 }

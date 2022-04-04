@@ -1,7 +1,6 @@
 // Tools
-import { styled, alpha } from "@mui/system";
+import { styled } from "@mui/system";
 // Material UI Components
-import Step from "@mui/material/Step";
 import Stepper from "@mui/material/Stepper";
 
 export default styled(Stepper)({

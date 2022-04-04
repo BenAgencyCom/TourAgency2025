@@ -34,6 +34,8 @@ const PagginationStep = styled("div")<{ current: boolean }>(({ theme, ...props }
 
 interface PaginationProps {
     paginationProperties: PaginationProperties;
+    scrollToElement?: string;
+    callbackDuringScrolling?: (pageNumber: number) => any;
 }
 
 const Pagination: FunctionComponent<PaginationProps> = (props) => {
@@ -41,13 +43,22 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
     const { pagesInTotal, currentPage } = props.paginationProperties;
 
     const changePage = (page: number) => {
-        router.push({
-            pathname: router.pathname,
-            query: {
-                ...router.query,
-                page: page,
-            },
-        });
+        if (props.scrollToElement) {
+            const el = document.getElementById(props.scrollToElement);
+            if (!el) throw new Error(`Element with an id ${props.paginationProperties} cannot be accessed`);
+            const top = el.getBoundingClientRect().top + window.scrollY;
+            scrollTo({ left: 0, top: top - 100, behavior: "smooth" });
+
+            if (props.callbackDuringScrolling) props.callbackDuringScrolling(page);
+        } else {
+            router.push({
+                pathname: router.pathname,
+                query: {
+                    ...router.query,
+                    page: page,
+                },
+            });
+        }
     };
 
     return (

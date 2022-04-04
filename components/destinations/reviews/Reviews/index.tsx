@@ -6,7 +6,6 @@ import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 // Material UI Components
 import Fade from "@mui/material/Fade";
 // Other components
-import Pagination from "@/components/_utils/Pagination";
 import AllReviews from "./AllReviews";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
@@ -30,7 +29,6 @@ const Reviews: FunctionComponent<ReviewsProps> = (props) => {
                         <Fade in={true}>
                             <FlexBox column horizontal="center">
                                 <AllReviews reviews={props.reviews}></AllReviews>
-                                <Pagination paginationProperties={props.paginationProperties}></Pagination>
                             </FlexBox>
                         </Fade>
                     );

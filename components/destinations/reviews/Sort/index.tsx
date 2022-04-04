@@ -1,23 +1,15 @@
 // Tools
-import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { CreateRequestURL, UpdateCurrentURLsQueries } from "../_utils/URLBuilder";
 // Types
 import type { ChosenOrder, ChosenType } from "../@types";
-import type { Review } from "@/@types/pages/api/ReviewsAPI";
-import type { PaginationProperties } from "@/@types/pages/api/Pagination";
-import type { FunctionComponent, Dispatch, SetStateAction, ChangeEvent } from "react";
+import type { FunctionComponent, ChangeEvent } from "react";
 // Styled components
 import Select from "./StyledSelect";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 interface SortProps {
-    destinationId: string;
-    perPage: number;
-    setReviews: Dispatch<SetStateAction<Review[]>>;
-    setPaginationProperties: Dispatch<SetStateAction<PaginationProperties | null>>;
-    setReviewsAreLoading: Dispatch<SetStateAction<boolean>>;
+    refreshData: (page: number) => Promise<any>;
 }
 
 const Sort: FunctionComponent<SortProps> = (props) => {
@@ -25,26 +17,6 @@ const Sort: FunctionComponent<SortProps> = (props) => {
     const [type, setType] = useState<ChosenType>("all");
 
     const router = useRouter();
-
-    const refreshData = async () => {
-        props.setReviewsAreLoading(true);
-        router.query.page = `1`;
-
-        UpdateCurrentURLsQueries(router);
-        const URL = CreateRequestURL({
-            destinationId: props.destinationId,
-            perPage: props.perPage,
-            page: 1,
-            type: router.query.type,
-            order: router.query.order,
-        });
-
-        const { data } = await axios.get(URL);
-
-        props.setPaginationProperties(data.pagination);
-        props.setReviews(data.reviews);
-        props.setReviewsAreLoading(false);
-    };
 
     const setSelectValue = async (e: ChangeEvent<HTMLInputElement>, property: "order" | "type") => {
         const { value } = e.target;
@@ -57,7 +29,7 @@ const Sort: FunctionComponent<SortProps> = (props) => {
             router.query.type = value;
         }
 
-        await refreshData();
+        await props.refreshData(1);
     };
 
     return (
