@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { CreateRequestURL } from "../_utils/URLBuilder";
+import { CreateRequestURL, UpdateCurrentURLsQueries } from "../_utils/URLBuilder";
 // Types
 import type { ChosenOrder, ChosenType } from "../@types";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
@@ -30,6 +30,7 @@ const Sort: FunctionComponent<SortProps> = (props) => {
         props.setReviewsAreLoading(true);
         router.query.page = `1`;
 
+        UpdateCurrentURLsQueries(router);
         const URL = CreateRequestURL({
             destinationId: props.destinationId,
             perPage: props.perPage,
