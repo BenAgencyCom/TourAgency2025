@@ -1,8 +1,11 @@
-import type { SeederDataList, User } from "./@types";
+// Tools
+import fse from "fs-extra";
 import bcrypt from "bcrypt";
 import faker from "faker";
-
-import { USERS, getRandomCountry } from "./_prisma_seeders_utils";
+import path from "path";
+import { USERS, getRandomCountry, randomNumberFromRange } from "./_prisma_seeders_utils";
+// Types
+import type { SeederDataList, User } from "./@types";
 
 const testingPurposedData: SeederDataList<User> = [
     {
@@ -30,11 +33,22 @@ const testingPurposedData: SeederDataList<User> = [
     },
 ];
 
+// const
+
+const legoStarWarsAvatars = fse.readdirSync(path.join(__dirname, "images", "avatars", "lego_star_wars"));
+const amountOfAvatars = legoStarWarsAvatars.length;
+
+const randomLegoStarWarsAvatar = (): string => {
+    return legoStarWarsAvatars[randomNumberFromRange(1, amountOfAvatars)] as string;
+};
+
 export default ((): SeederDataList<User> => {
     const result: SeederDataList<User> = [];
 
     USERS.forEach((i) => {
         const [country, countryCode] = getRandomCountry();
+        const avatar = randomLegoStarWarsAvatar();
+
         result.push({
             id: String(i),
             name: faker.name.firstName(),
@@ -46,6 +60,8 @@ export default ((): SeederDataList<User> => {
             isAdmin: false,
             password: "sadasdasd23e1232341!",
             birth: faker.date.between("1970-01-01", "2008-01-01"),
+            avatar: `lego_star_wars/${avatar}`,
+            _imagesDir: `/avatars/lego_star_wars/${avatar}`,
         });
     });
 

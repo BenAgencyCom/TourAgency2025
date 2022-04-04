@@ -18,7 +18,7 @@ import { uploadDir } from "../utils/paths";
 const prisma = new PrismaClient();
 
 class PrismaSeeder extends ConsolePrettier {
-    protected imagesToUpload: string[] = [];
+    protected imagesToUpload: Set<string> = new Set();
     public constructor(
         protected userData: SeederDataList<User>, //
         protected destinationData: SeederDataList<Destination>,
@@ -48,7 +48,7 @@ class PrismaSeeder extends ConsolePrettier {
 
         const data = dataset.map((el) => {
             const { _imagesDir, ...rest } = el;
-            if (_imagesDir) this.imagesToUpload.push(_imagesDir);
+            if (_imagesDir) this.imagesToUpload.add(_imagesDir);
             return rest;
         });
 
@@ -61,7 +61,7 @@ class PrismaSeeder extends ConsolePrettier {
     protected async uploadAllImages() {
         this.consoleMsg("Save all images distinguished in above steps");
         const dataDir = path.join(__dirname, "data", "images");
-        for (const img of this.imagesToUpload) {
+        for (const img of Array.from(this.imagesToUpload)) {
             try {
                 await fse.copy(path.join(dataDir, img), path.join(uploadDir, img));
                 this.consoleMsg(`${img} images director has been stored`, "SUCCESS");
