@@ -22,34 +22,9 @@ export default async function handler(req: Request, res: NextApiResponse) {
     try {
         if (req.method !== "GET") return res.status(404).end();
 
-        const { orderBy, sort, page, perPage, applyPointsDistribution, certianReviewType } = req.query;
-        if (!page || !perPage) return res.status(400).end();
-
         const ReviewsAPI = new BulkReviewsAPI({ reviewsType: "destinations", reviewingModelId: req.query.slug });
-        const result = await ReviewsAPI.call({
-            orderBy: orderBy,
-            page: Number(page),
-            perPage: Number(perPage),
-            sort: sort,
-            certianReviewType: certianReviewType,
-        });
-
-        if (!result.reviews.length) return res.send({ reviews: [] });
-        if (applyPointsDistribution) {
-            const pointsDistribution = await ReviewsAPI.pointsDistribution();
-            const statistics = await ReviewsAPI.aggregate({ count: true, avgScore: true });
-
-            return res.send({
-                ...result,
-                pointsDistribution,
-                statistics: {
-                    recordsInTotal: statistics.count as number,
-                    averageScore: statistics.avgScore as number,
-                },
-            });
-        }
-
-        return res.send(result);
+        return res.send(await ReviewsAPI.call(req));
+        //
     } catch (e) {
         if (e instanceof ValidationError) return res.status(422).end();
         return res.status(500).end();

@@ -15,10 +15,10 @@ interface CreateRequestURLParams {
 
 const translateOrder = (order: ChosenOrder): string => {
     const possibilites: Record<ChosenOrder, string> = {
-        best: "orderBy=score&sort=desc",
-        worst: "orderBy=score&sort=asc",
-        newest: "orderBy=latest&sort=desc",
-        oldest: "orderBy=score&sort=asc",
+        best: "orderBy=points&sort=desc",
+        worst: "orderBy=points&sort=asc",
+        newest: "orderBy=createdAt&sort=desc",
+        oldest: "orderBy=createdAt&sort=asc",
     };
 
     return possibilites[order];
@@ -29,7 +29,7 @@ export const CreateRequestURL = (props: CreateRequestURLParams): string => {
     // Queries
     const pagination = `page=${page}&perPage=${perPage}`;
     const certianReviewType = isTypeOK(type) ? `certianReviewType=${type}` : "";
-    const points = pointsDistribution ? "applyPointsDistribution=true" : "";
+    const points = pointsDistribution ? "applyPointsDistribution=1" : "";
     const applyOrder = isOrderOK(order) ? translateOrder(order as ChosenOrder) : "";
 
     return `/api/destination/${destinationId}/reviews?${[pagination, points, certianReviewType, applyOrder].join("&")}`;

@@ -1,12 +1,13 @@
 import type { ReviewType } from "@prisma/client";
 import type { DestinationReview, User } from "@prisma/client";
-import type { BulkReviewsType, ReviewsCallParams, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
+import type { BulkReviewsType, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
+import type { URLQueriesConvertedIntoPrismaBody } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
 
 export interface PrismaRequestBroker {
     type: BulkReviewsType;
     id: string;
 
-    callForReviews(params: ReviewsCallParams): Promise<ReviewFromQuery[]>;
+    callForReviews(convertedURLsQueries: URLQueriesConvertedIntoPrismaBody): Promise<ReviewFromQuery[]>;
     callForFeedback(idsList: string[]): Promise<FeedbackFromQuery[]>;
     aggregateCall(params: AggregateCallParams): Promise<AggregateCallResponse>;
     pointsDistribution(): Promise<PointsDistribution>;

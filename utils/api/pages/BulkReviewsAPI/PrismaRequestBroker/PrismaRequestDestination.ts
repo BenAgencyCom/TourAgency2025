@@ -3,19 +3,19 @@ import { prisma } from "@/prisma/db";
 import PrismaRequestBody from "./PrismaRequestBody";
 // Types
 import type { ReviewType } from "@prisma/client";
-import type { ReviewsCallParams, BulkReviewsType, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
+import type { URLQueriesConvertedIntoPrismaBody } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
+import type { BulkReviewsType, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
 import type { PrismaRequestBroker, ReviewFromQuery, FeedbackFromQuery, AggregateCallParams, AggregateCallResponse } from "../@types";
 
 export default class DestinationBroker implements PrismaRequestBroker {
     public constructor(public type: BulkReviewsType, public id: string) {}
 
-    public async callForReviews(params: ReviewsCallParams): Promise<ReviewFromQuery[]> {
-        const requestBody = new PrismaRequestBody(params).create();
-
+    public async callForReviews(convertedURLsQueries: URLQueriesConvertedIntoPrismaBody): Promise<ReviewFromQuery[]> {
+        const { where, ...requestBody } = new PrismaRequestBody(convertedURLsQueries).create();
         return await prisma.destinationReview.findMany({
             where: {
                 destinationId: this.id,
-                ...(params.certianReviewType && { type: params.certianReviewType }),
+                ...where,
             },
             ...requestBody,
         });
@@ -67,3 +67,25 @@ export default class DestinationBroker implements PrismaRequestBroker {
         return result;
     }
 }
+const a = {
+    createdAt: "2022-04-06 17:48:12",
+    feedback: {
+        dislikes: 23,
+        likes: 34,
+    },
+    id: "20",
+    points: 7.9,
+    review: "Est aperiam consequuntur. Quia repellendus dolorem qui. Qui et iure quam sint.",
+    tags: ["ad", "enim", "et"],
+    type: "POSITIVE",
+    reviewer: {
+        age: 24,
+        avatar: "lego_star_wars/LSW_ProfileIcons_CloneTrooper_Lt",
+        country: "United Arab Emirates",
+        countryCode: "ae",
+        gender: "MALE",
+        id: "90",
+        name: "Samara",
+        surname: "Kris",
+    },
+};
