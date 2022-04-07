@@ -8,7 +8,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
 
     /**
      * `BulkAPIsURLQueriesHandler` - provides facilities for swift establishment tedious and
-     * repetitive properties associated with querying for BulkData such as `order`, `sort`, `page`
+     * repetitive properties associated with querying for BulkData and suporting paggination such as `order`, `sort`, `page`
      *
      * ### Params
      * - `request`- just `NextAPIRequest`

@@ -23,7 +23,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
         if (req.method !== "GET") return res.status(404).end();
 
         const ReviewsAPI = new BulkReviewsAPI({ reviewsType: "destinations", reviewingModelId: req.query.slug });
-        return res.send(await ReviewsAPI.call(req));
+        return res.send(await ReviewsAPI.processComingRequest(req));
         //
     } catch (e) {
         if (e instanceof ValidationError) return res.status(422).end();

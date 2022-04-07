@@ -3,7 +3,7 @@ import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { ReviewType } from "@prisma/client";
 
 export type BulkReviewsType = "landmarks" | "destinations"; // For `BulkReviewAPI` purpose
-export type OrderBy = "latest" | "score";
+export type OrderBy = "createdAt" | "points";
 export type Sort = "asc" | "desc";
 export type PointsDistribution = Record<ReviewType, number>;
 
@@ -47,6 +47,7 @@ export interface ReviewsCallParams {
     certianReviewType: ReviewType | null;
     orderBy: OrderBy;
     sort: Sort;
+    applyPointsDistribution?: 1;
 }
 
 export interface ReviewsCallResponse {
