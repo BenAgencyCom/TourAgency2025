@@ -85,6 +85,19 @@ export default responsiveFontSizes(
                     },
                 },
             },
+            MuiTooltip: {
+                styleOverrides: {
+                    tooltip: {
+                        fontSize: "1rem",
+                        letterSpacing: "1px",
+                        fontWeight: 300,
+                        textTransform: "capitalize",
+                        background: "#052946",
+                        padding: "5px 10px",
+                        cursor: "default",
+                    },
+                },
+            },
         },
     })
 );

@@ -3,8 +3,8 @@ import { prisma } from "@/prisma/db";
 import { styled } from "@mui/system";
 import SingleDestinationAPI from "@/utils/api/pages/destinations/SingleDestinationAPI/SingleDestinationAPI";
 // Types
-import type { GetStaticPaths, GetStaticProps } from "next";
 import type { FunctionComponent } from "react";
+import type { GetStaticPaths, GetStaticProps } from "next";
 import type { Destination } from "@/@types/pages/destinations/SingleDestination";
 // Other components
 import Head from "next/Head";

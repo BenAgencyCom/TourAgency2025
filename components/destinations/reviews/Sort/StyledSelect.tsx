@@ -1,11 +1,11 @@
 // Tools
 import colorTheme from "@/colorTheme";
 // Types
-import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import InputAdornment from "@mui/material/InputAdornment";
 
 interface StyledSelectProps {
     options: {
@@ -15,6 +15,7 @@ interface StyledSelectProps {
     sx?: Record<any, any>;
     value: string;
     onChange: (e: any) => void;
+    icon: ReactNode;
 }
 
 const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
@@ -24,6 +25,7 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                 borderColor: colorTheme.palette.text.primary,
                 width: "200px",
                 ...props.sx,
+                background: colorTheme.palette.text.primary,
             }}
             inputProps={{
                 sx: {
@@ -44,6 +46,11 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
             }}
             value={props.value}
             onChange={props.onChange}
+            startAdornment={
+                <InputAdornment position="start" sx={{ p: 0, opacity: 0.7 }}>
+                    {props.icon}
+                </InputAdornment>
+            }
         >
             {props.options.map((item, index) => {
                 return (

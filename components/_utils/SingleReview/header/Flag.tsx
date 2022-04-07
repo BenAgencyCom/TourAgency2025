@@ -25,20 +25,7 @@ interface FlagProps {
 }
 const Flag: FunctionComponent<FlagProps> = (props) => {
     return (
-        <Tooltip
-            title={props.country}
-            placement="top"
-            componentsProps={{
-                tooltip: {
-                    sx: {
-                        fontSize: "1rem",
-                        letterSpacing: "1px",
-                        fontWeight: 300,
-                        textTransform: "capitalize",
-                    },
-                },
-            }}
-        >
+        <Tooltip title={props.country} placement="top">
             <Wrapper>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

@@ -37,7 +37,7 @@ const SingleReviewHeader: FunctionComponent<SingleReviewHeaderProps> = (props) =
             <Flag countryCode={reviewer.countryCode} country={reviewer.country}></Flag>
 
             <Score color={props.color} points={review.points}></Score>
-            <ReviewerAvatar avatar={reviewer.avatar}></ReviewerAvatar>
+            <ReviewerAvatar avatar={reviewer.avatar} id={reviewer.id}></ReviewerAvatar>
 
             <FlexBox column vertical="evenly">
                 <Date createdAt={props.review.createdAt}></Date>

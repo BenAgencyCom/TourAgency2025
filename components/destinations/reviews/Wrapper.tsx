@@ -86,7 +86,11 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                                 pointsDistribution={pointsDistribution}
                             ></Landing>
 
-                            <Sort refreshData={refreshData}></Sort>
+                            <Sort
+                                refreshData={refreshData} //
+                                recordsInTotal={paginationProperties?.recordsInTotal ?? false}
+                                reviewsAreLoading={reviewsAreLoading}
+                            ></Sort>
 
                             <Reviews
                                 reviews={reviews} //
