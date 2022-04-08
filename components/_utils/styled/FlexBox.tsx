@@ -1,7 +1,5 @@
 // Tools
 import { styled } from "@mui/system";
-// Material UI Components
-import Box from "@mui/material/Box";
 
 type Spacing = "between" | "center" | "evenly" | "around" | "end" | "start";
 interface FlexBoxProps {
@@ -21,7 +19,7 @@ const CSSSPacingProperties: Record<Spacing, string> = {
     start: "flex-start",
 };
 /**
- * Component based on MaterialUI's `Box` Component, which provides intuitive approach for position items using *flexbox*
+ * Styled `div` component which provides intuitive approach for position items using *flexbox*
  *
  * ### Params
  * 1. Params which are either *true* or *undefined*
@@ -35,7 +33,7 @@ const CSSSPacingProperties: Record<Spacing, string> = {
  *
  * Both of above properties are either *undefined* or `"between"` | `"center"` | `"evenly"` | `"around"` | `"end"` | `"start"`
  */
-export default styled(Box)<FlexBoxProps>(({ theme, ...props }) => {
+export default styled("div")<FlexBoxProps>(({ theme, ...props }) => {
     const { column, center, vertical, horizontal, reverse } = props;
 
     const applyVertical = () => {
