@@ -37,10 +37,11 @@ export default class SingleDestinationAPI {
                         title: true,
                         picture: true,
                         type: true,
-                        description: true,
+                        shortDescription: true,
                         destination: {
                             select: {
                                 city: true,
+                                country: true,
                             },
                         },
                     },

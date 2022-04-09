@@ -44,7 +44,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
             <Localization>{props.data.destination.city}</Localization>
             <Header title={props.data.title}></Header>
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-                {props.data.description.slice(0, amountOfWordsInDescription)}...
+                {props.data.shortDescription.slice(0, amountOfWordsInDescription)}...
             </Typography>
             <ReadMore slug={props.data.slug}></ReadMore>
         </SingleLandmarkWrapper>

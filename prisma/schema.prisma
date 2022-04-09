@@ -65,15 +65,16 @@ model Destination {
 }
 
 model Landmark {
-  id            String       @id @default(cuid())
-  destinationId String       @map("destination_id")
-  slug          String       @unique
-  title         String
-  description   String
-  picture       String
-  type          LandmarkType
-  tags          String[]
-  createdAt     DateTime     @default(now())
+  id               String       @id @default(cuid())
+  destinationId    String       @map("destination_id")
+  slug             String       @unique
+  title            String
+  description      String
+  shortDescription String
+  picture          String
+  type             LandmarkType
+  tags             String[]
+  createdAt        DateTime     @default(now())
 
   reviews     LandmarkReview[]
   destination Destination      @relation(fields: [destinationId], references: [id], onDelete: Cascade)

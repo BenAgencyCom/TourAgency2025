@@ -79,6 +79,7 @@ class CreateNewDestination extends FileUploader {
                     createMany: {
                         data: fields.landmarks.map((landmark) => ({
                             description: landmark.description,
+                            shortDescription: landmark.description.slice(0, 150),
                             slug: slugGenerator(`${fields.city}_${landmark.title}`, false),
                             picture: landmark.pictureURL,
                             title: landmark.title,

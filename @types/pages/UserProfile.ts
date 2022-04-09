@@ -23,7 +23,7 @@ export interface Landmark {
     title: _Landmark["title"];
     picture: _Landmark["picture"];
     type: _Landmark["type"];
-    description: _Landmark["description"];
+    shortDescription: _Landmark["shortDescription"];
     destination: {
         city: _Destination["city"];
     };

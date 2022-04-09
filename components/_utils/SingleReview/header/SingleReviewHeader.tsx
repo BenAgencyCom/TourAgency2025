@@ -13,12 +13,12 @@ import Flag from "./Flag";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const Name = styled("h4")(({ theme }) => ({
-    fontSize: "2rem",
+    fontSize: "2.2rem",
     fontWeight: "700",
     margin: "0 10px 0 0 ",
 }));
 const Age = styled("span")(({ theme }) => ({
-    fontSize: "1.2rem",
+    fontSize: "1.3rem",
     paddingBottom: "5px",
 }));
 

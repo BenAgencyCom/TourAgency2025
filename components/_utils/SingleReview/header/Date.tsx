@@ -4,10 +4,11 @@ import { styled } from "@mui/system";
 import type { FunctionComponent } from "react";
 
 const Wrapper = styled("span")(({ theme }) => ({
-    fontSize: "1.2rem",
+    fontSize: "1.3rem",
 }));
 const Colored = styled("span")(({ theme }) => ({
     color: theme.palette.primary.main,
+    fontWeight: 700,
 }));
 
 interface DateProps {

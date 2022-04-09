@@ -5,7 +5,7 @@ export const selectLandmarkReview = {
         landmark: {
             select: {
                 title: true,
-                description: true,
+                shortDescription: true,
                 slug: true,
                 picture: true,
                 destination: {

@@ -10,6 +10,7 @@ export default [
         _imagesDir: "landmarks/krakow_nolio",
         slug: "krakow_nolio",
         title: "Restauracja Nolio",
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         tags: ["lorem", "ipsum"],
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
@@ -23,6 +24,7 @@ export default [
         slug: "krakow_smok",
         title: "Smok wawelski",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -35,6 +37,7 @@ export default [
         slug: "krakow_papiez",
         title: "Pomnik Jana Pawla 2 na dziedzincu Placu Biskupiego",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -47,6 +50,7 @@ export default [
         slug: "krakow_wawel",
         title: "Zamek krolewski na wawelu",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -60,6 +64,7 @@ export default [
         slug: "wwa_palac",
         title: "Palac kultury i nauki",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -72,6 +77,7 @@ export default [
         slug: "wwa_mori_mori",
         title: "Restauracja Mori Mori",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -84,6 +90,7 @@ export default [
         slug: "wwa_stare_miasto",
         title: "Stare Miasto",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -96,6 +103,7 @@ export default [
         slug: "wwa_stadion",
         title: "Stadion PGE Narodowy",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -109,6 +117,7 @@ export default [
         slug: "vancouver_science_world",
         title: "Science World",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -121,6 +130,7 @@ export default [
         slug: "vancouver_two_jacks_lake",
         title: "Two Jacks Lake",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -133,6 +143,7 @@ export default [
         slug: "vancouver_pale_totem",
         title: "The Pale Totem",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -145,6 +156,7 @@ export default [
         slug: "vancouver_pan_pacific_vancouver",
         title: "Pan Pacific Hotel Vancouver",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -158,6 +170,7 @@ export default [
         slug: "rio_de_janeiro_boulevard_olimpico",
         title: "Boulevard Olímpico",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -170,6 +183,7 @@ export default [
         slug: "rio_de_janeiro_caracol_waterfall",
         title: "Caracol cascada",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -182,6 +196,7 @@ export default [
         slug: "rio_de_janeiro_jezus",
         title: "Estatua del Cristo Redentor en Río de Janeiro",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
@@ -194,6 +209,7 @@ export default [
         slug: "rio_de_janeiro_sugarloaf_mountain",
         title: "Sugarloaf Montaña",
         tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
