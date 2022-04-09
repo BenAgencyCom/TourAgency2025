@@ -37,6 +37,7 @@ export interface HandleResultPagination {
 export interface ExtraProperty {
     name: string;
     values?: any[];
+    alias?: string;
     default?: any;
     required?: boolean;
     compareWith?: string;

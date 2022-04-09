@@ -1,6 +1,8 @@
 // Tools
 import { ValidationError } from "@/utils/api/Errors";
+import _establishPaginationProperties from "@/utils/api/establishPaginationProperties";
 // Types
+import { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { QueriesFromRequest, URLQueriesConvertedIntoPrismaBody, ExtraProperty, Request, Sort, HandleResultPagination } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
 
 export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends Record<any, any>> {
@@ -45,6 +47,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
             const propertyHasBeenRecived: boolean = Boolean(query[name]);
             const propertyIsRequired: boolean = Boolean(prop.required);
             const propertyHasToBeSpecific: boolean = Boolean(values);
+            const propertyHasAlias: boolean = Boolean(prop.alias);
 
             // Validate that recived value match expected set of values
             if (propertyHasToBeSpecific) {
@@ -54,10 +57,12 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
             // Throw an `ValidationError` if property is required but hasn't been recived
             if (!propertyHasBeenRecived && propertyIsRequired) throw new ValidationError(`Required property **${name}** has not been provided`);
 
+            const finalName: string = propertyHasAlias ? (prop.alias as string) : prop.name;
+
             // Apply Recived value
-            if (propertyHasBeenRecived) extraPropertiesObject[name] = query[name];
+            if (propertyHasBeenRecived) extraPropertiesObject[finalName] = query[name];
             // Apply default value otherwise
-            else if (prop.default !== undefined) extraPropertiesObject[name] = prop.default;
+            else if (prop.default !== undefined) extraPropertiesObject[finalName] = prop.default;
         });
 
         this.quriesFromRequest = {
@@ -89,7 +94,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
     private _generateWhereClausule(): Record<any, any> {
         const result: Record<any, any> = {};
         this.extraProperties.forEach((prop) => {
-            const value = this.quriesFromRequest[prop.name];
+            const value = this.quriesFromRequest[prop.alias ? prop.alias : prop.name];
             if (!prop.compareWith) return;
             if (value || prop.alwaysCompare) result[prop.compareWith] = value;
         });
@@ -121,5 +126,18 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
             ...this._handlePagination(),
             where: this._generateWhereClausule(),
         };
+    }
+    /**
+     * Generates pagination properties matching following schema:
+     * ```ts
+     *
+     * ```
+     */
+    public establishPaginationProperties(recordsInTotal: number): PaginationProperties | false {
+        return _establishPaginationProperties({
+            recordsInTotal,
+            page: this.quriesFromRequest.page,
+            perPage: this.quriesFromRequest.perPage,
+        });
     }
 }
