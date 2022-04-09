@@ -7,7 +7,7 @@ export default ((): SeederDataList<LandmarkReview> => {
     const result: Partial<LandmarkReview>[] = [];
 
     LANDMARKS.forEach((LANDMARKS_ID) => {
-        getUserIds(randomNumberFromRange(30, 80)).forEach((USER_ID) => {
+        getUserIds(randomNumberFromRange(30, 100)).forEach((USER_ID) => {
             const LANDMARK_REVIEW_ID = String(LANDMARKS_REVIEWS.length);
             const points = randomReviewScore();
 

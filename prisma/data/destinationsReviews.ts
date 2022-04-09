@@ -7,7 +7,7 @@ export default ((): SeederDataList<DestinationReview> => {
     const result: Partial<DestinationReview>[] = [];
 
     DESTINATIONS.forEach((DESTINATION_ID) => {
-        getUserIds(randomNumberFromRange(30, 80)).forEach((USER_ID) => {
+        getUserIds(randomNumberFromRange(30, 100)).forEach((USER_ID) => {
             const DESTINATION_REVIEW_ID = String(DESTINATIONS_REVIEWS.length);
             const points = randomReviewScore();
 

@@ -20,17 +20,19 @@ export const randomReviewScore = (): number => {
         max: 10,
         precision: 0.1,
     });
-    return result > 5
-        ? result
-        : faker.datatype.number({
-              min: 0,
-              max: 10,
-              precision: 0.1,
-          });
+    const drawn =
+        result > 5
+            ? result
+            : faker.datatype.number({
+                  min: 0,
+                  max: 10,
+                  precision: 0.1,
+              });
+    return Math.min(drawn * 1.1, 10);
 };
 
 export const randomComment = (): string => faker.lorem.sentences(3).slice(0, 150);
-export const randomTags = (): string[] => faker.lorem.words(3).split(" ");
+export const randomTags = (): string[] => faker.lorem.words(randomNumberFromRange(3, 5)).split(" ");
 
 export const randomNumberFromRange = (min: number, max: number) => {
     return faker.datatype.number({ min, max });
