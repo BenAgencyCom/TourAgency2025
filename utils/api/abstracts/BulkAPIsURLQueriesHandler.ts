@@ -14,6 +14,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
      * - `request`- just `NextAPIRequest`
      * - `sortable`- array of model's properties supporting sorting records (eg: [`"createdAt"`, `"points"`, `"age"`])
      * - `extraProperties`- additional properties described by **generic** type
+     *
      */
 
     public constructor(request: Request<ExtraProperties>, sortable: string[], private extraProperties: ExtraProperty[]) {
@@ -29,15 +30,23 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
         if (!sortable.length) throw new ValidationError();
 
         // Additional properties validation
-        console.log(extraProperties);
         const extraPropertiesObject: Record<any, any> = {};
         extraProperties.forEach((prop) => {
-            const { name, values, required } = prop;
-            if (query[name] && !values.includes(query[name])) throw new ValidationError(`Unexpected value ${query[name]} for property ${name}`);
-            else if (!query[name] && required) throw new ValidationError(`Required property **${name}** has not been provided`);
+            const { name, values } = prop;
+            const propertyHasBeenRecived: boolean = Boolean(query[name]);
+            const propertyIsRequired: boolean = Boolean(prop.required);
+            const propertyHasToBeSpecific: boolean = Boolean(values);
+
+            // Validate that recived value match expected set of values
+            if (propertyHasToBeSpecific) {
+                const propertyMatchsExpectations: boolean = (values as any[]).includes(query[name]);
+                if (propertyHasBeenRecived && !propertyMatchsExpectations) throw new ValidationError(`Unexpected value ${query[name]} for property ${name}`);
+            }
+            // Throw an `ValidationError` if property is required but hasn't been recived
+            if (!propertyHasBeenRecived && propertyIsRequired) throw new ValidationError(`Required property **${name}** has not been provided`);
 
             // Apply Recived value
-            if (query[name]) extraPropertiesObject[name] = query[name];
+            if (propertyHasBeenRecived) extraPropertiesObject[name] = query[name];
             // Apply default value otherwise
             else if (prop.default !== undefined) extraPropertiesObject[name] = prop.default;
         });
