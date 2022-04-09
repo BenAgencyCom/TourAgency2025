@@ -15,19 +15,28 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
      * - `sortable`- array of model's properties supporting sorting records (eg: [`"createdAt"`, `"points"`, `"age"`])
      * - `extraProperties`- additional properties described by **generic** type
      *
+     * ### Throws
+     * - `ValidationError`- when something is wrong with recived req.query
      */
 
     public constructor(request: Request<ExtraProperties>, sortable: string[], private extraProperties: ExtraProperty[]) {
         const { query } = request;
         // Ensure that numbers are all positive
         [(Number(query.limit), Number(query.page), Number(query.perPage))].forEach((num) => {
-            if (num < 0) throw new ValidationError();
+            if (num < 0) throw new ValidationError("All numbers have to be positive!");
         });
 
         // Ensure that received properties `sort` and `orderBy` both match expecting values
-        if (query.orderBy && !sortable.includes(query.orderBy)) throw new ValidationError();
-        if (query.sort && !["asc", "desc"].includes(query.sort)) throw new ValidationError();
-        if (!sortable.length) throw new ValidationError();
+        if (query.orderBy && !sortable.includes(query.orderBy)) {
+            throw new ValidationError(`Unexpeced value **${query.orderBy}** for **orderBy** property. Expected values: ${JSON.stringify(sortable)}`);
+        }
+        if (query.sort && !["asc", "desc"].includes(query.sort)) {
+            throw new ValidationError(`Sort property has to be either "asc" or "desc"`);
+        }
+        if (!sortable.length) {
+            // `createdAt` cannot be taken as default value here due to the fact, that this property's name might vary throughout different ORM approaches
+            throw new ValidationError("At least one model's property has to be included in sortable in order to perform ANY kind of soring");
+        }
 
         // Additional properties validation
         const extraPropertiesObject: Record<any, any> = {};
@@ -114,12 +123,3 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
         };
     }
 }
-
-const a = {
-    pagination: {
-        currentPage: 22,
-        perPage: 1,
-        pagesInTotal: 54,
-        recordsInTotal: 54,
-    },
-};
