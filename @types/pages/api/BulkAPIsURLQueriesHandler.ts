@@ -39,6 +39,6 @@ export interface ExtraProperty {
     values: any[];
     default: any;
     required?: boolean;
-    compareBy?: string;
+    compareWith?: string;
     alwaysCompare?: boolean;
 }

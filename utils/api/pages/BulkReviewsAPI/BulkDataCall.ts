@@ -20,7 +20,7 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
         const extraProperties: ExtraProperty[] = [
             {
                 name: "certianReviewType",
-                compareBy: "type",
+                compareWith: "type",
                 default: null,
                 required: false,
                 values: ["MIXED", "NEGATIVE", "POSITIVE"] as ReviewType[],

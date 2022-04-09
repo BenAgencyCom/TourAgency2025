@@ -68,8 +68,8 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
         const result: Record<any, any> = {};
         this.extraProperties.forEach((prop) => {
             const value = this.quriesFromRequest[prop.name];
-            if (!prop.compareBy) return;
-            if (value || prop.alwaysCompare) result[prop.compareBy] = value;
+            if (!prop.compareWith) return;
+            if (value || prop.alwaysCompare) result[prop.compareWith] = value;
         });
 
         return result;
