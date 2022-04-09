@@ -29,13 +29,17 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
         if (!sortable.length) throw new ValidationError();
 
         // Additional properties validation
+        console.log(extraProperties);
         const extraPropertiesObject: Record<any, any> = {};
         extraProperties.forEach((prop) => {
             const { name, values, required } = prop;
             if (query[name] && !values.includes(query[name])) throw new ValidationError(`Unexpected value ${query[name]} for property ${name}`);
-            else if (required) throw new ValidationError(`Required property ${query[name]} has not been provided`);
+            else if (!query[name] && required) throw new ValidationError(`Required property **${name}** has not been provided`);
 
-            extraPropertiesObject[name] = query[name] ? query[name] : prop.default;
+            // Apply Recived value
+            if (query[name]) extraPropertiesObject[name] = query[name];
+            // Apply default value otherwise
+            else if (prop.default !== undefined) extraPropertiesObject[name] = prop.default;
         });
 
         this.quriesFromRequest = {
