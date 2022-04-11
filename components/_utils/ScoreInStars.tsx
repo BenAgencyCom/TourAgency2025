@@ -13,9 +13,10 @@ interface ScoreInStarsProps {
  * - `score`- **REQUIRE** value based on which stars will be displayed
  */
 const ScoreInStars: FunctionComponent<ScoreInStarsProps> = (props) => {
+    const score = Math.min(props.score + 0.5, 10);
     const stars: ReactNode[] = [];
-    const amountOfStars = Math.floor(props.score / 2);
-    const applyHalfStar = props.score % 1 > 0.5;
+    const amountOfStars = Math.floor(score / 2);
+    const applyHalfStar = Number(String(score).split(".")[1]) > 5;
     const amountOfRemainingEmtpyStars = applyHalfStar ? 4 - amountOfStars : 5 - amountOfStars;
 
     for (let i = 0; i < amountOfStars; i++) stars.push(<Star key={stars.length}></Star>);
