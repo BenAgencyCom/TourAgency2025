@@ -1,10 +1,10 @@
 // Tools
 import { prisma } from "@/prisma/db";
-import { ageOnly } from "@/utils/api/dateFormat";
+import { ageOnly, fullDate } from "@/utils/api/dateFormat";
 import { NotFound } from "@/utils/api/Errors";
 // Types
 import type { ReviewType } from "@prisma/client";
-import type { UserFromQuery, PointsDistributionFromQuery } from "./@types";
+import type { UserFromQuery, AggregateFromQuery } from "./@types";
 import type { User, PointsDistribution } from "@/@types/pages/UserProfile";
 
 export default class UserProfileAPI {
@@ -39,11 +39,14 @@ export default class UserProfileAPI {
                 country: true,
                 countryCode: true,
                 gender: true,
+                createdAt: true,
             },
         });
         if (!data) throw new NotFound(`User with id ${this.userID} could not have been found`);
         data.age = ageOnly(data.birth as Date);
         delete data.birth;
+        data.memberSince = fullDate(data.createdAt as Date);
+        delete data.createdAt;
 
         return data as User;
     }
@@ -55,31 +58,68 @@ export default class UserProfileAPI {
      * ```
      */
     public async getPointsDistributions(): Promise<PointsDistribution> {
-        const extract = (from: PointsDistributionFromQuery, what: ReviewType): number => {
-            const expectedElement = from.find((el) => el.type === what);
-            return expectedElement ? expectedElement._count._all : 0;
+        const destinationsReviews = await this._queryForLandmarksReviews();
+        const landmarksReviews = await this._queryForDestinationsReviews();
+
+        const _countParticularType = (type: ReviewType): number => {
+            return this._extract(destinationsReviews, "COUNT", type) + this._extract(landmarksReviews, "COUNT", type);
         };
 
-        const destinationsReviews = (await prisma.destinationReview.groupBy({
-            where: { reviewerId: this.userID },
-            by: ["type"],
-            _count: { _all: true },
-        })) as unknown as PointsDistributionFromQuery;
-        const landmarksReviews = (await prisma.landmarkReview.groupBy({
-            where: { reviewerId: this.userID },
-            by: ["type"],
-            _count: { _all: true },
-        })) as unknown as PointsDistributionFromQuery;
+        const negativesInTotal = _countParticularType("NEGATIVE");
+        const mixedInTotal = _countParticularType("MIXED");
+        const positivesInTotal = _countParticularType("POSITIVE");
 
-        const negativesInTotal = extract(destinationsReviews, "NEGATIVE") + extract(landmarksReviews, "NEGATIVE");
-        const mixedInTotal = extract(destinationsReviews, "MIXED") + extract(landmarksReviews, "MIXED");
-        const positivesInTotal = extract(destinationsReviews, "POSITIVE") + extract(landmarksReviews, "POSITIVE");
+        const reviewsInTotal = positivesInTotal + negativesInTotal + mixedInTotal;
+
+        // In order to avoid dividing by zero
+        if (!reviewsInTotal) return this._returnNoPointsDistribution();
+
+        const scoreInTotal = (["NEGATIVE", "MIXED", "POSITIVE"] as ReviewType[])
+            .map((type) => {
+                return this._extract(destinationsReviews, "SUM", type) + this._extract(landmarksReviews, "SUM", type);
+            })
+            .reduce((a, b) => a + b);
 
         return {
             MIXED: mixedInTotal,
             NEGATIVE: negativesInTotal,
             POSITIVE: positivesInTotal,
-            reviewsInTotal: positivesInTotal + negativesInTotal + mixedInTotal,
+            reviewsInTotal,
+            averageScore: scoreInTotal / reviewsInTotal,
         } as PointsDistribution;
+    }
+
+    protected async _queryForLandmarksReviews(): Promise<AggregateFromQuery> {
+        return (await prisma.landmarkReview.groupBy({
+            where: { reviewerId: this.userID },
+            by: ["type"],
+            _count: { _all: true },
+            _sum: { points: true },
+        })) as unknown as AggregateFromQuery;
+    }
+
+    protected async _queryForDestinationsReviews(): Promise<AggregateFromQuery> {
+        return (await prisma.destinationReview.groupBy({
+            where: { reviewerId: this.userID },
+            by: ["type"],
+            _count: { _all: true },
+            _sum: { points: true },
+        })) as unknown as AggregateFromQuery;
+    }
+
+    protected _returnNoPointsDistribution(): PointsDistribution {
+        return {
+            MIXED: 0,
+            NEGATIVE: 0,
+            POSITIVE: 0,
+            averageScore: 0,
+            reviewsInTotal: 0,
+        };
+    }
+
+    protected _extract(from: AggregateFromQuery, what: "SUM" | "COUNT", type: ReviewType): number {
+        const expectedElement = from.find((el) => el.type === type);
+        if (!expectedElement) return 0;
+        return what === "SUM" ? expectedElement._sum.points : expectedElement._count._all;
     }
 }

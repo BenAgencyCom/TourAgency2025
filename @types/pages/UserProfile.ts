@@ -9,6 +9,7 @@ export interface User {
     country: _User["country"];
     countryCode: _User["countryCode"];
     gender: _User["gender"];
+    memberSince: string;
 }
 
 export interface PointsDistribution {
@@ -16,6 +17,7 @@ export interface PointsDistribution {
     NEGATIVE: number;
     MIXED: number;
     reviewsInTotal: number;
+    averageScore: number;
 }
 
 export interface Landmark {
