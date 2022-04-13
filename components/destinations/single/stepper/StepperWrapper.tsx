@@ -3,7 +3,9 @@ import { styled } from "@mui/system";
 // Material UI Components
 import Stepper from "@mui/material/Stepper";
 
-export default styled(Stepper)({
+export default styled(Stepper, {
+    shouldForwardProp: (prop: string) => !["white"].includes(prop),
+})<{ white: boolean }>(({ theme, ...props }) => ({
     position: "fixed",
     top: "50%",
     transform: "translateY(-50%)",
@@ -13,4 +15,12 @@ export default styled(Stepper)({
     ".MuiStepConnector-root": {
         marginLeft: "19px",
     },
-});
+    ...(props.white && {
+        ".MuiStepLabel-label": {
+            color: "#fff !important",
+        },
+        ".MuiStepIcon-text": {
+            fill: "#fff !important",
+        },
+    }),
+}));

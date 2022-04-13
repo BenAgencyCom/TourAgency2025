@@ -11,11 +11,18 @@ import StepperWrapper from "./StepperWrapper";
 const ScrollStepper: FunctionComponent = () => {
     const steps = ["Landing", "Description", "Landmarks", "Reviews"];
     const [activeStep, setActiveStep] = useState<number>(0);
+    const [ultimateIndex, setUltimateIndex] = useState<number | null>(null);
 
     const sectionsIDsToObseve = useMemo<string[]>(() => ["landing-wrapper", "description", "landmarks", "reviews"], []);
 
     const onStepperClick = (index: number) => {
+        if (ultimateIndex !== null) return;
+
         setActiveStep(index);
+        setUltimateIndex(index);
+        setTimeout(() => {
+            setUltimateIndex(null);
+        }, 700);
 
         if (index) {
             const top = (document.getElementById(sectionsIDsToObseve[index]) as HTMLDivElement).getBoundingClientRect().top + window.scrollY;
@@ -46,16 +53,16 @@ const ScrollStepper: FunctionComponent = () => {
             intersectingSections[id] = false;
             Observer.observe(document.getElementById(id) as HTMLDivElement);
         });
-    }, [sectionsIDsToObseve]);
+    }, [sectionsIDsToObseve, ultimateIndex]);
 
     return (
-        <StepperWrapper orientation="vertical">
+        <StepperWrapper orientation="vertical" white={activeStep === 0}>
             {steps.map((step, index) => {
                 return (
                     <StepperElement
                         key={step} //
                         onClick={() => onStepperClick(index)}
-                        active={index === activeStep}
+                        active={index === (ultimateIndex ?? activeStep)}
                     >
                         <StepLabel>{step}</StepLabel>
                     </StepperElement>
