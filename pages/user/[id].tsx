@@ -7,7 +7,13 @@ import type { FunctionComponent } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { User, PointsDistribution } from "@/@types/pages/UserProfile";
 // Other components
+import Landing from "@/components/user_profile/landing";
+// Pivotal message to Kacper from future!
+// Implement static imports for both `DestinationReviews` and `LandmarksReviews`
+// you will know why and undoubtedly thank myself from the past
 import Head from "next/Head";
+// Styled components
+import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
 interface ProfileProps {
     user: User;
@@ -21,11 +27,9 @@ const Profile: FunctionComponent<ProfileProps> = (props) => {
                 <title>{`${props.user.name} ${props.user.surname} | Profile`}</title>
             </Head>
 
-            <section>
-                <span>PROFILE</span>
-                <span>{JSON.stringify(props.user)}</span>
-                <span>{JSON.stringify(props.pointsDistribution)}</span>
-            </section>
+            <ContentContainter>
+                <Landing user={props.user} pointsDistribution={props.pointsDistribution}></Landing>
+            </ContentContainter>
         </>
     );
 };

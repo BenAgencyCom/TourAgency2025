@@ -12,7 +12,12 @@ import SingleReviewTags from "./SingleReviewTags";
 import Likes from "./Likes";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
-const SingleReviewWrapper = styled(FlexBox)<{ isLatest?: boolean }>(({ theme, isLatest }) => ({
+
+const SingleReviewWrapper = styled(FlexBox, {
+    shouldForwardProp: (propName: string) => {
+        return !["isLatest"].includes(propName);
+    },
+})<{ isLatest?: boolean }>(({ theme, isLatest }) => ({
     width: "100%",
     marginBottom: isLatest ? 0 : "40px",
     padding: "20px",

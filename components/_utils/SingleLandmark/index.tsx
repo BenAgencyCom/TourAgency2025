@@ -1,8 +1,8 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
-import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
 import type { FunctionComponent } from "react";
+import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
 // Material UI Components
 import Typography from "@mui/material/Typography";
 // Other Components
@@ -41,7 +41,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
             horizontal="start"
         >
             <LandmarkPicture picture={props.data.picture}></LandmarkPicture>
-            <Localization>{props.data.destination.city}</Localization>
+            <Localization destination={props.data.destination}></Localization>
             <Header title={props.data.title}></Header>
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
                 {props.data.shortDescription.slice(0, amountOfWordsInDescription)}...

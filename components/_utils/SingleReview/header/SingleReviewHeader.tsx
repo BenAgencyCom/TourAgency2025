@@ -8,7 +8,7 @@ import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import ReviewerAvatar from "./ReviewerAvatar";
 import Score from "./Score";
 import Date from "./Date";
-import Flag from "./Flag";
+import Flag from "@/components/_utils/Flag";
 // Styled component
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -34,7 +34,15 @@ const SingleReviewHeader: FunctionComponent<SingleReviewHeaderProps> = (props) =
 
     return (
         <FlexBox vertical="between" sx={{ position: "relative" }}>
-            <Flag countryCode={reviewer.countryCode} country={reviewer.country}></Flag>
+            <Flag
+                countryCode={reviewer.countryCode}
+                country={reviewer.country}
+                sx={{
+                    position: "absolute",
+                    top: "-0px",
+                    right: "-0px",
+                }}
+            ></Flag>
 
             <Score color={props.color} points={review.points}></Score>
             <ReviewerAvatar avatar={reviewer.avatar} id={reviewer.id}></ReviewerAvatar>

@@ -11,5 +11,6 @@ export default styled("span")<{ fontSize?: string }>(({ theme, ...props }) => ({
     fontSize: props.fontSize ?? "10rem",
     color: alpha(theme.palette.text.primary, 0.1),
     userSelect: "none",
+    fontWeight: 900,
     zIndex: 0,
 }));

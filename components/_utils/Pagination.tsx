@@ -7,7 +7,11 @@ import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const PagginationStep = styled("div")<{ current: boolean }>(({ theme, ...props }) => ({
+const PagginationStep = styled("div", {
+    shouldForwardProp: (propName: string) => {
+        return !["current"].includes(propName);
+    },
+})<{ current: boolean }>(({ theme, ...props }) => ({
     width: "40px",
     height: "40px",
     borderRadius: "5px",

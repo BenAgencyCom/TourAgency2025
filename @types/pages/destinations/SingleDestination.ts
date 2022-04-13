@@ -14,6 +14,7 @@ export interface Landmark {
     shortDescription: _Landmark["shortDescription"];
     destination: {
         city: _Destination["city"];
+        country: _Destination["country"];
     };
 }
 

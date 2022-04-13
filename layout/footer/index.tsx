@@ -38,7 +38,7 @@ const FooterContent = styled(FlexBox)(({ theme }) => ({
 
 const Footer: FunctionComponent = () => {
     return (
-        <FooterWrapper component="footer" center column>
+        <FooterWrapper center column>
             <FooterContent column>
                 <Header></Header>
 

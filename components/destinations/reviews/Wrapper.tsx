@@ -1,5 +1,4 @@
 // Tools
-import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PrefetchData from "./_utils/PrefetchData";
@@ -14,15 +13,9 @@ import Sort from "./Sort";
 import Landing from "./Landing";
 import Reviews from "./Reviews";
 import Pagination from "@/components/_utils/Pagination";
-// Styled components
 import Loading from "@/components/_utils/Loading";
-
-const Wrapper = styled("div")(({ theme }) => ({
-    maxWidth: "1450px",
-    width: "calc(100vw - 40px)",
-    margin: "100px auto 0 auto",
-    color: theme.palette.text.primary,
-}));
+// Styled components
+import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
 interface ContentParams {
     destination: Destination;
@@ -73,7 +66,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
     }, [props.destination, router, router.query, destinationID]);
 
     return (
-        <Wrapper id="reviews-wrapper">
+        <ContentContainter id="reviews-wrapper">
             {(() => {
                 if (!statistics || !pointsDistribution || !paginationProperties) {
                     return <Loading></Loading>;
@@ -110,7 +103,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                     );
                 }
             })()}
-        </Wrapper>
+        </ContentContainter>
     );
 };
 

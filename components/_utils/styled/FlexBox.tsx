@@ -33,7 +33,11 @@ const CSSSPacingProperties: Record<Spacing, string> = {
  *
  * Both of above properties are either *undefined* or `"between"` | `"center"` | `"evenly"` | `"around"` | `"end"` | `"start"`
  */
-export default styled("div")<FlexBoxProps>(({ theme, ...props }) => {
+export default styled("div", {
+    shouldForwardProp: (propName: string) => {
+        return !["column", "center"].includes(propName);
+    },
+})<FlexBoxProps>(({ theme, ...props }) => {
     const { column, center, vertical, horizontal, reverse } = props;
 
     const applyVertical = () => {

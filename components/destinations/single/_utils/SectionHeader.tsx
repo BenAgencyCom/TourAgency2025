@@ -30,9 +30,9 @@ const Wrapper = styled("div")(({ theme }) => ({
     margin: "200px 0 100px 0",
 }));
 const ContinueButton = styled(ButtonWithLineTransition)(({ theme }) => ({
-    padding: "10x 0",
+    padding: "10px 0",
     minWidth: "200px",
-    fontSize: "1.1rem",
+    fontSize: "1.2rem",
 }));
 
 interface SectionHeaderProps {

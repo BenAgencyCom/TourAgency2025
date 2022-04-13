@@ -2,6 +2,8 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent, ReactNode } from "react";
+// Types
+import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
 // Material UI Icons
 import LocationOn from "@mui/icons-material/LocationOn";
 // Styled Components
@@ -20,15 +22,15 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
     },
 }));
 interface LocalizationProps {
-    children: ReactNode;
+    destination: Landmark["destination"];
 }
 const Localization: FunctionComponent<LocalizationProps> = (props) => {
     return (
         <Wrapper center>
             <LocationOn></LocationOn>
-            <span className="uncolor">Brazil</span>
+            <span className="uncolor">{props.destination.country}</span>
             <span className="seperator">/</span>
-            <span>{props.children}</span>
+            <span>{props.destination.city}</span>
         </Wrapper>
     );
 };
