@@ -1,4 +1,4 @@
-import type { User as _User, DestinationReview as _DestinationReview, Landmark as _Landmark, Destination as _Destination } from "@prisma/client";
+import type { User as _User, DestinationReview as _DestinationReview, Landmark as _Landmark, Destination as _Destination, ReviewType } from "@prisma/client";
 
 export interface User {
     id: _User["id"];
@@ -16,6 +16,7 @@ export interface PointsDistribution {
     POSITIVE: number;
     NEGATIVE: number;
     MIXED: number;
+    PREDOMINANT: ReviewType;
     reviewsInTotal: number;
     averageScore: number;
 }

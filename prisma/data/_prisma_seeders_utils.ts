@@ -28,7 +28,7 @@ export const randomReviewScore = (): number => {
                   max: 10,
                   precision: 0.1,
               });
-    return Math.min(drawn * 1.1, 10);
+    return Number(Math.min(drawn * 1.1, 10).toFixed(1));
 };
 
 export const randomComment = (): string => faker.lorem.sentences(3).slice(0, 150);
