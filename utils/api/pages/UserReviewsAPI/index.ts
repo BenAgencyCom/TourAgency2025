@@ -4,12 +4,14 @@ import { NotFound } from "@/utils/api/Errors";
 import { selectLandmarkReview, selectDestinationReview } from "./PrismaSelectPart";
 import BulkAPIsURLQueriesHandler from "@/utils/api/abstracts/BulkAPIsURLQueriesHandler";
 // Types
-import type { DestinationReview, LandmarkReview } from "@/@types/pages/UserProfile";
 import type { NextApiRequest } from "next";
+import type { ReviewType } from "@prisma/client";
+import type { DestinationReview, LandmarkReview } from "@/@types/pages/UserProfile";
 
 interface ExtraProperties {
     type: "landmark" | "destination";
     userId: string;
+    certianReviewType: ReviewType | null;
 }
 
 export default class UserReviewsAPI extends BulkAPIsURLQueriesHandler<ExtraProperties> {
@@ -30,6 +32,11 @@ export default class UserReviewsAPI extends BulkAPIsURLQueriesHandler<ExtraPrope
                     required: true,
                     alias: "userId",
                     compareWith: "reviewerId",
+                },
+                {
+                    name: "certianReviewType",
+                    values: ["MIXED", "POSITIVE", "NEGATIVE"],
+                    compareWith: "type",
                 },
             ]
         );
@@ -78,7 +85,7 @@ export default class UserReviewsAPI extends BulkAPIsURLQueriesHandler<ExtraPrope
         if (this.userWithGivenIDExists === null) await this.ensureThatUserExists();
         else if (this.userWithGivenIDExists === false) throw new NotFound();
 
-        const reviews = await this._queryForRevies();
+        const reviews = await this._queryForReviews();
         const recordsInTotal = await this._countAllRecords();
         const paginationProperties = this.establishPaginationProperties(recordsInTotal);
 
@@ -89,15 +96,31 @@ export default class UserReviewsAPI extends BulkAPIsURLQueriesHandler<ExtraPrope
     }
 
     protected async _countAllRecords(): Promise<number> {
-        const recordsInTotal = await prisma.landmarkReview.aggregate({
-            where: { reviewerId: this.quriesFromRequest.userId },
+        const certainTypeHasBeenReceived = ["POSITIVE", "NEGATIVE", "MIXED"].includes(this.quriesFromRequest.certianReviewType as any);
+
+        if (this.quriesFromRequest.type === "landmark") {
+            const recordsInTotal = await prisma.landmarkReview.aggregate({
+                where: {
+                    reviewerId: this.quriesFromRequest.userId,
+                    ...(certainTypeHasBeenReceived && { type: this.quriesFromRequest.certianReviewType as ReviewType }),
+                },
+                _count: { _all: true },
+            });
+
+            return recordsInTotal._count._all;
+        }
+        const recordsInTotal = await prisma.destinationReview.aggregate({
+            where: {
+                reviewerId: this.quriesFromRequest.userId,
+                ...(certainTypeHasBeenReceived && { type: this.quriesFromRequest.certianReviewType as ReviewType }),
+            },
             _count: { _all: true },
         });
 
         return recordsInTotal._count._all;
     }
 
-    protected async _queryForRevies(): Promise<DestinationReview[] | LandmarkReview[]> {
+    protected async _queryForReviews(): Promise<DestinationReview[] | LandmarkReview[]> {
         switch (this.quriesFromRequest.type) {
             case "destination":
                 return (await prisma.destinationReview.findMany({

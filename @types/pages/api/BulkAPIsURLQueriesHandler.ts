@@ -1,5 +1,4 @@
 // Types
-import type { ReviewType } from "@prisma/client";
 import type { NextApiRequest } from "next";
 
 export type Sort = "asc" | "desc";
@@ -12,7 +11,6 @@ export interface QueriesFromRequest {
     limit: number | null;
     perPage: number | null;
     page: number | null;
-    certianReviewType: ReviewType | null;
     orderBy: string;
     sort: Sort;
 }
