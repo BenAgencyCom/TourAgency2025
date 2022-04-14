@@ -1,6 +1,7 @@
 // Tools
 import colorTheme from "@/colorTheme";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
 import Select from "@mui/material/Select";
@@ -12,7 +13,7 @@ interface StyledSelectProps {
         label: string;
         value: any;
     }[];
-    sx?: Record<any, any>;
+    sx?: SxProps;
     value: string;
     onChange: (e: any) => void;
     icon: ReactNode;

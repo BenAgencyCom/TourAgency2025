@@ -10,7 +10,7 @@ import RecordsInTotal from "./RecordsInTotal";
 import SortByAlpha from "@mui/icons-material/SortByAlpha";
 import Star from "@mui/icons-material/Star";
 // Styled components
-import Select from "./StyledSelect";
+import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 interface SortProps {
@@ -42,7 +42,7 @@ const Sort: FunctionComponent<SortProps> = (props) => {
     return (
         <FlexBox sx={{ my: "50px" }} vertical="center" horizontal="between">
             <FlexBox>
-                <Select
+                <SelectWithIcon
                     value={order}
                     onChange={(e) => setSelectValue(e, "order")}
                     options={[
@@ -53,8 +53,8 @@ const Sort: FunctionComponent<SortProps> = (props) => {
                     ]}
                     sx={{ mr: "10px" }}
                     icon={<SortByAlpha />}
-                ></Select>
-                <Select
+                ></SelectWithIcon>
+                <SelectWithIcon
                     value={type}
                     onChange={(e) => setSelectValue(e, "type")}
                     options={[
@@ -64,7 +64,7 @@ const Sort: FunctionComponent<SortProps> = (props) => {
                         { label: "Mixed", value: "MIXED" },
                     ]}
                     icon={<Star />}
-                ></Select>
+                ></SelectWithIcon>
             </FlexBox>
 
             {(() => {
