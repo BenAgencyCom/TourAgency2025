@@ -13,3 +13,9 @@ export type AggregateFromQuery = {
     _count: { _all: number };
     _sum: { points: number };
 }[];
+
+export interface LatestReviewFromQuery {
+    createdAt: Date;
+    type: ReviewType;
+    points: number;
+}

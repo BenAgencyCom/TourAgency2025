@@ -21,6 +21,11 @@ export interface PointsDistribution {
     averageScore: number;
 }
 
+export interface LatestReview {
+    type: ReviewType;
+    points: number;
+}
+
 export interface Landmark {
     slug: _Landmark["slug"];
     title: _Landmark["title"];

@@ -5,8 +5,8 @@ import { NotFound } from "@/utils/api/Errors";
 import _determineReviewType from "@/utils/api/determineReviewType";
 // Types
 import type { ReviewType } from "@prisma/client";
-import type { UserFromQuery, AggregateFromQuery } from "./@types";
-import type { User, PointsDistribution } from "@/@types/pages/UserProfile";
+import type { User, PointsDistribution, LatestReview } from "@/@types/pages/UserProfile";
+import type { UserFromQuery, AggregateFromQuery, LatestReviewFromQuery } from "./@types";
 
 export default class UserProfileAPI {
     public constructor(public userID: string) {}
@@ -55,7 +55,7 @@ export default class UserProfileAPI {
      * @Async
      * @Returns
      * ```ts
-     * { MIXED: 6, NEGATIVE: 2, POSITIVE: 6, reviewsInTotal: 14 }
+     * { MIXED: 6, NEGATIVE: 2, POSITIVE: 6, PREDOMINANT:"POSITIVE", reviewsInTotal: 14, averageScore: 6.3 }
      * ```
      */
     public async getPointsDistributions(): Promise<PointsDistribution> {
@@ -90,6 +90,31 @@ export default class UserProfileAPI {
             reviewsInTotal,
             averageScore,
         } as PointsDistribution;
+    }
+    /**
+     * **ASYNC**
+     */
+    public async getLatestReviewScore(): Promise<LatestReview> {
+        const latestLandmarkReview: LatestReviewFromQuery = (await prisma.landmarkReview.findFirst({
+            orderBy: { createdAt: "desc" },
+            where: { reviewerId: this.userID },
+            select: { points: true, createdAt: true, type: true },
+        })) as LatestReviewFromQuery;
+        const latestDestinationReview: LatestReviewFromQuery = (await prisma.destinationReview.findFirst({
+            orderBy: { createdAt: "desc" },
+            where: { reviewerId: this.userID },
+            select: { points: true, createdAt: true, type: true },
+        })) as LatestReviewFromQuery;
+
+        const _createResponse = (from: LatestReviewFromQuery): LatestReview => ({
+            points: from.points,
+            type: from.type,
+        });
+
+        if (latestLandmarkReview.createdAt > latestDestinationReview.createdAt) {
+            return _createResponse(latestLandmarkReview);
+        }
+        return _createResponse(latestDestinationReview);
     }
 
     protected async _queryForLandmarksReviews(): Promise<AggregateFromQuery> {
