@@ -98,6 +98,13 @@ export default responsiveFontSizes(
                     },
                 },
             },
+            MuiTypography: {
+                styleOverrides: {
+                    h4: {
+                        fontWeight: 700,
+                    },
+                },
+            },
         },
     })
 );

@@ -5,7 +5,7 @@ import { NotFound } from "@/utils/api/Errors";
 // Types
 import type { FunctionComponent } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
-import type { User, PointsDistribution } from "@/@types/pages/UserProfile";
+import type { User, PointsDistribution, LatestReview } from "@/@types/pages/UserProfile";
 // Other components
 import Landing from "@/components/user_profile/landing";
 // Pivotal message to Kacper from future!
@@ -18,6 +18,7 @@ import ContentContainter from "@/components/_utils/styled/ContentContainter";
 interface ProfileProps {
     user: User;
     pointsDistribution: PointsDistribution;
+    latestReview: LatestReview;
 }
 
 const Profile: FunctionComponent<ProfileProps> = (props) => {
@@ -28,7 +29,11 @@ const Profile: FunctionComponent<ProfileProps> = (props) => {
             </Head>
 
             <ContentContainter>
-                <Landing user={props.user} pointsDistribution={props.pointsDistribution}></Landing>
+                <Landing
+                    user={props.user} //
+                    pointsDistribution={props.pointsDistribution}
+                    latestReview={props.latestReview}
+                ></Landing>
             </ContentContainter>
         </>
     );
@@ -55,6 +60,7 @@ export const getStaticProps: GetStaticProps<ProfileProps, { id: string }> = asyn
             props: {
                 user: await UserProfile.getInfomationAboutUser(),
                 pointsDistribution: await UserProfile.getPointsDistributions(),
+                latestReview: await UserProfile.getLatestReviewScore(),
             },
         };
     } catch (e: unknown) {

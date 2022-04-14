@@ -6,7 +6,6 @@ import type { FunctionComponent } from "react";
 // Material UI Components
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
-
 // Other components
 import Link from "next/link";
 
