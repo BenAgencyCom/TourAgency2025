@@ -1,4 +1,5 @@
 // Tools
+import { useState } from "react";
 import { styled, alpha } from "@mui/system";
 import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
 // Types
@@ -18,7 +19,7 @@ const Label = styled("span")(({ theme, ...props }) => ({
     },
 }));
 
-const Bar = styled("div")<{ ratio: number; type: ReviewType }>(({ theme, ...props }) => ({
+const Bar = styled("div")<{ ratio: number; type: ReviewType; unfold: boolean }>(({ theme, ...props }) => ({
     width: "100%",
     height: "5px",
     background: alpha(theme.palette.text.primary, 0.1),
@@ -30,6 +31,9 @@ const Bar = styled("div")<{ ratio: number; type: ReviewType }>(({ theme, ...prop
         width: `${props.ratio}%`,
         background: getColorBasedOnScore(props.type),
         left: "0",
+        transform: props.unfold ? "scaleX(1)" : "scaleX(0.1)",
+        transition: "transform 1s ease-in-out",
+        transformOrigin: "left",
     },
 }));
 
@@ -42,10 +46,15 @@ interface PointsBarProps {
 const PointsBar: FunctionComponent<PointsBarProps> = (props) => {
     const { type, pointsDistribution, predominant } = props;
     const ratio: number = Math.floor((pointsDistribution[type] * 100) / pointsDistribution[predominant]);
+    const [unfold, setUnfold] = useState<boolean>(false);
+
+    setTimeout(() => {
+        setUnfold(true);
+    }, 300);
 
     return (
         <Wrapper>
-            <Bar ratio={ratio} type={type}></Bar>
+            <Bar ratio={ratio} type={type} unfold={unfold}></Bar>
             <Label>
                 <span>{type.toLowerCase()}: </span>
                 <strong>{pointsDistribution[type]}</strong>
