@@ -7,8 +7,8 @@ import type { User, PointsDistribution, LatestReview } from "@/@types/pages/User
 import Typography from "@mui/material/Typography";
 // Other Components
 import UserAvatar from "./Avatar";
-import Header from "./Header";
 import ListPoint from "./ListPoint";
+import Header from "./Header";
 import Flag from "@/components/_utils/Flag";
 import ReviewScore from "@/components/_utils/ReviewScore";
 import PointsDistributionComponent from "@/components/_utils/PointsDistribution";

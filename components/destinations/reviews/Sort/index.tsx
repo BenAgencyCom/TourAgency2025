@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 // Types
-import type { ChosenOrder, ChosenType } from "../@types";
+import type { Order, ScoreType } from "@/@types/SortReviews";
 import type { FunctionComponent, ChangeEvent } from "react";
 // Other components
 import RecordsInTotal from "./RecordsInTotal";
@@ -20,8 +20,8 @@ interface SortProps {
 }
 
 const Sort: FunctionComponent<SortProps> = (props) => {
-    const [order, setOrder] = useState<ChosenOrder>("newest");
-    const [type, setType] = useState<ChosenType>("all");
+    const [order, setOrder] = useState<Order>("newest");
+    const [type, setType] = useState<ScoreType>("all");
 
     const router = useRouter();
 
@@ -29,10 +29,10 @@ const Sort: FunctionComponent<SortProps> = (props) => {
         const { value } = e.target;
 
         if (property === "order") {
-            setOrder(value as ChosenOrder);
+            setOrder(value as Order);
             router.query.order = value;
         } else if (property == "type") {
-            setType(value as ChosenType);
+            setType(value as ScoreType);
             router.query.type = value;
         }
 

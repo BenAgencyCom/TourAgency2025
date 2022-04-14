@@ -3,8 +3,8 @@ import { styled } from "@mui/system";
 import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
 // Types
 import type { SxProps } from "@mui/system";
-import type { ReviewType } from "@prisma/client";
 import type { FunctionComponent } from "react";
+import type { ReviewType } from "@prisma/client";
 // Styled component
 const Wrapper = styled("div")(({ theme }) => ({
     display: "flex",

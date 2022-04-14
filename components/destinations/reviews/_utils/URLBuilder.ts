@@ -1,36 +1,25 @@
 // Tools
-import { isOrderOK, isTypeOK } from "./_validators";
+import { isOrderOK, isScoreTypeOK, translateOrder } from "@/utils/client/reviewsSortingHelpers";
 // Types
-import type { ChosenOrder } from "../@types";
+import type { Order } from "@/@types/SortReviews";
 import type { NextRouter } from "next/router";
 
 interface CreateRequestURLParams {
     destinationId: string;
     perPage: number;
     page?: number;
-    order?: any; // ChosenOrder
-    type?: any; // ChosenType
+    order?: any; // Order
+    type?: any; // ScoreType
     pointsDistribution?: boolean;
 }
-
-const translateOrder = (order: ChosenOrder): string => {
-    const possibilites: Record<ChosenOrder, string> = {
-        best: "orderBy=points&sort=desc",
-        worst: "orderBy=points&sort=asc",
-        newest: "orderBy=createdAt&sort=desc",
-        oldest: "orderBy=createdAt&sort=asc",
-    };
-
-    return possibilites[order];
-};
 
 export const CreateRequestURL = (props: CreateRequestURLParams): string => {
     const { destinationId, perPage, page, order, type, pointsDistribution } = props;
     // Queries
     const pagination = `page=${page}&perPage=${perPage}`;
-    const certianReviewType = isTypeOK(type) ? `certianReviewType=${type}` : "";
+    const certianReviewType = isScoreTypeOK(type) ? `certianReviewType=${type}` : "";
     const points = pointsDistribution ? "applyPointsDistribution=1" : "";
-    const applyOrder = isOrderOK(order) ? translateOrder(order as ChosenOrder) : "";
+    const applyOrder = isOrderOK(order) ? translateOrder(order as Order) : "";
 
     return `/api/destination/${destinationId}/reviews?${[pagination, points, certianReviewType, applyOrder].join("&")}`;
 };
@@ -41,7 +30,7 @@ export const UpdateCurrentURLsQueries = (router: NextRouter) => {
         // Queries
         const page = router.query.page ? `page=${router.query.page}` : "";
         const order = isOrderOK(router.query.order) ? `order=${router.query.order}` : "";
-        const type = isTypeOK(router.query.type) ? `type=${router.query.type}` : "";
+        const type = isScoreTypeOK(router.query.type) ? `type=${router.query.type}` : "";
 
         const updatedURL = `${baseURL}?${[page, order, type].join("&")}`;
         window.history.pushState({ path: updatedURL }, "", updatedURL);
