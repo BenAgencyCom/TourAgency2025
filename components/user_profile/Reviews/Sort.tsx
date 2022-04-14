@@ -37,6 +37,7 @@ const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
         else if (property === "scoreType") setScoreType(value as ScoreType);
         else props.reviewingType.setValue(value as ReviewingType);
         // Update URL queries
+        router.query.page = `1`;
         router.query[property] = value;
         UpdateCurrentURLsQueries(router);
         await props.refreshData();

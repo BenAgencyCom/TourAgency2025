@@ -49,7 +49,9 @@ const Landmarks: FunctionComponent = () => {
                             <SingleLandmark
                                 key={item.slug} //
                                 data={item}
-                                ml={index ? 20 : 0}
+                                sx={{
+                                    ml: index ? 20 : 0,
+                                }}
                             ></SingleLandmark>
                         );
                     })}

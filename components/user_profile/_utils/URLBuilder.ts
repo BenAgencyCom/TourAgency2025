@@ -30,7 +30,7 @@ export const CreateRequestURL = (props: CreateRequestURLParams): string => {
     // Queries
     const pagination = `page=${page ?? 1}&perPage=${perPage}`;
     const certianReviewType = isScoreTypeOK(scoreType) ? `certianReviewType=${scoreType}` : "";
-    const type = isReviewingTypeOK(reviewingType) ? `type=${reviewingType}` : "";
+    const type = isReviewingTypeOK(reviewingType) ? `type=${reviewingType}` : "type=landmark";
     const applyOrder = isOrderOK(order) ? translateOrder(order as Order) : "";
 
     return `/api/user/${userID}/reviews?${[type, pagination, certianReviewType, applyOrder].join("&")}`;

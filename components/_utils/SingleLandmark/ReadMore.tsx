@@ -11,9 +11,11 @@ interface ReadMoreProps {
 const ReadMore: FunctionComponent<ReadMoreProps> = (props) => {
     return (
         <Link passHref href={`/landmarks/${props.slug}`}>
-            <ButtonWithLineTransition primary reverse>
-                Read more
-            </ButtonWithLineTransition>
+            <a>
+                <ButtonWithLineTransition primary reverse sx={{ fontSize: "1.1rem" }}>
+                    Read more
+                </ButtonWithLineTransition>
+            </a>
         </Link>
     );
 };

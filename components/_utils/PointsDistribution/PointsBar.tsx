@@ -19,7 +19,9 @@ const Label = styled("span")(({ theme, ...props }) => ({
     },
 }));
 
-const Bar = styled("div")<{ ratio: number; type: ReviewType; unfold: boolean }>(({ theme, ...props }) => ({
+const Bar = styled("div", {
+    shouldForwardProp: (prop: string) => !["ratio", "unfold", "type"].includes(prop),
+})<{ ratio: number; type: ReviewType; unfold: boolean }>(({ theme, ...props }) => ({
     width: "100%",
     height: "5px",
     background: alpha(theme.palette.text.primary, 0.1),

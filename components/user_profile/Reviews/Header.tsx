@@ -17,7 +17,7 @@ const Wrapper = styled("div")(({ theme }) => ({
     },
 }));
 
-const Header: FunctionComponent<{ background: string }> = (props) => {
+const Header: FunctionComponent<{ background: string; id?: string }> = (props) => {
     const [displayBackgroundHeader, setDisplayBackgroundHeader] = useState<boolean>(true);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const Header: FunctionComponent<{ background: string }> = (props) => {
     }, [props.background]);
 
     return (
-        <Wrapper>
+        <Wrapper id={props.id}>
             {(() => {
                 if (displayBackgroundHeader) {
                     return (

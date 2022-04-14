@@ -34,6 +34,7 @@ export interface Landmark {
     shortDescription: _Landmark["shortDescription"];
     destination: {
         city: _Destination["city"];
+        country: _Destination["country"];
     };
 }
 
@@ -49,7 +50,7 @@ export interface Destination {
 
 interface Review {
     points: _DestinationReview["points"];
-    type: _DestinationReview;
+    type: _DestinationReview["type"];
 }
 
 export interface LandmarkReview extends Review {
