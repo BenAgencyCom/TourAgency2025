@@ -266,4 +266,57 @@ export default [
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
+    // HAMBURG
+    {
+        id: "21",
+        type: "BUILDING",
+        destinationId: "HAMBURG",
+        picture: "hamburg_rathaus",
+        _imagesDir: "landmarks/hamburg_rathaus",
+        slug: "hamburg_rathaus",
+        title: "Rathaus Hamburg",
+        tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        id: "22",
+        type: "BUILDING",
+        destinationId: "HAMBURG",
+        picture: "hamburg_elbphilharmonie",
+        _imagesDir: "landmarks/hamburg_elbphilharmonie",
+        slug: "hamburg_elbphilharmonie",
+        title: "Elbphilharmonie",
+        tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        id: "23",
+        type: "BUILDING",
+        destinationId: "HAMBURG",
+        picture: "hamburg_hafen",
+        _imagesDir: "landmarks/hamburg_hafen",
+        slug: "hamburg_hafen",
+        title: "Hamburg Hafen",
+        tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        id: "24",
+        type: "NATURE",
+        destinationId: "HAMBURG",
+        picture: "hamburg_fiction_park",
+        _imagesDir: "landmarks/hamburg_fiction_park",
+        slug: "hamburg_fiction_park",
+        title: "Fiction Park",
+        tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
 ] as SeederDataList<Landmark>;
