@@ -34,10 +34,7 @@ const PointsDistributionComponent: FunctionComponent<PointsDistributionProps> = 
             })()}
 
             <FlexBox horizontal="between" sx={{ flexGrow: 1 }}>
-                <AverageScore
-                    averageScore={averageScore} //
-                    predominant={predominant}
-                ></AverageScore>
+                <AverageScore averageScore={averageScore}></AverageScore>
                 <FlexBox column sx={{ flexGrow: 1, ml: "20px" }}>
                     <PointsBar type="POSITIVE" pointsDistribution={pointsDistribution} predominant={predominant}></PointsBar>
                     <PointsBar type="MIXED" pointsDistribution={pointsDistribution} predominant={predominant}></PointsBar>

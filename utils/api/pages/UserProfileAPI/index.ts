@@ -2,7 +2,6 @@
 import { prisma } from "@/prisma/db";
 import { ageOnly, fullDate } from "@/utils/api/dateFormat";
 import { NotFound } from "@/utils/api/Errors";
-import _determineReviewType from "@/utils/api/determineReviewType";
 // Types
 import type { ReviewType } from "@prisma/client";
 import type { User, PointsDistribution, LatestReview } from "@/@types/pages/UserProfile";
@@ -82,11 +81,18 @@ export default class UserProfileAPI {
             .reduce((a, b) => a + b);
 
         const averageScore = Number((scoreInTotal / reviewsInTotal).toFixed(1));
+        // PREDOMINANT
+        const PREDOMINANT: ReviewType = ((): ReviewType => {
+            if (positivesInTotal >= negativesInTotal && positivesInTotal >= mixedInTotal) return "POSITIVE";
+            else if (mixedInTotal > positivesInTotal && mixedInTotal >= negativesInTotal) return "MIXED";
+            return "NEGATIVE";
+        })();
+
         return {
             MIXED: mixedInTotal,
             NEGATIVE: negativesInTotal,
             POSITIVE: positivesInTotal,
-            PREDOMINANT: _determineReviewType(averageScore),
+            PREDOMINANT,
             reviewsInTotal,
             averageScore,
         } as PointsDistribution;
