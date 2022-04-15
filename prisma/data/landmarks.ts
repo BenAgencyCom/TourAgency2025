@@ -213,4 +213,57 @@ export default [
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
     },
+    // Cape Town
+    {
+        id: "17",
+        type: "BUILDING",
+        destinationId: "CAPE_TOWN",
+        picture: "cape_town_stadium",
+        _imagesDir: "landmarks/cape_town_stadium",
+        slug: "cape_town_stadium",
+        title: "Cape Town Stadium",
+        tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        id: "18",
+        type: "NATURE",
+        destinationId: "CAPE_TOWN",
+        picture: "cape_town_duiker_island",
+        _imagesDir: "landmarks/cape_town_duiker_island",
+        slug: "cape_town_duiker_island",
+        title: "Duiker Island",
+        tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        id: "19",
+        type: "BUILDING",
+        destinationId: "CAPE_TOWN",
+        picture: "cape_town_table_bay_harbour",
+        _imagesDir: "landmarks/cape_town_table_bay_harbour",
+        slug: "cape_town_table_bay_harbour",
+        title: "Table Bay Harbour",
+        tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
+    {
+        id: "20",
+        type: "NATURE",
+        destinationId: "CAPE_TOWN",
+        picture: "cape_town_bay_beach",
+        _imagesDir: "landmarks/cape_town_bay_beach",
+        slug: "cape_town_bay_beach",
+        title: "Cape Bay Beach",
+        tags: ["lorem", "ipsum"],
+        shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringilla posuere non at turpis. Nullam et est pharetra, commodo magna sed, posuere metus. Fusce consectetur sollicitudin pharetra. Ut tincidunt arcu eget sem molestie ultricies. Sed in ante tincidunt, efficitur sapien at, pulvinar metus. Nunc dictum pulvinar malesuada. Nullam sed ornare nulla, eget tincidunt mauris. Sed facilisis risus vel ullamcorper cursus. Cras ultricies ligula tempor justo dictum aliquet. Sed eget magna vitae ipsum semper blandit nec eu odio. Suspendisse nec mi orci. Morbi viverra pretium dignissim. Sed aliquam mauris a nibh odio.",
+    },
 ] as SeederDataList<Landmark>;

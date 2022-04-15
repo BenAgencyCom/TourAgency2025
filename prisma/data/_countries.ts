@@ -47,6 +47,7 @@ export default [
     ["North Korea", "kp"],
     ["South Korea", "kr"],
     ["Kazakhstan", "kz"],
+    ["South Africa", "za"],
     ["Liechtenstein", "li"],
     ["Lithuania", "lt"],
     ["Luxembourg", "lu"],
