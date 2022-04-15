@@ -23,7 +23,6 @@ export default async (params: RefreshDataParams): Promise<RefreshDataResponse | 
     try {
         const URL = CreateRequestURL(params);
         const { data } = await axios.get(URL);
-
         return {
             reviews: data.reviews,
             paginationProperties: data.pagination,

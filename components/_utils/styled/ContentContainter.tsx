@@ -5,7 +5,7 @@ export default styled("section")(({ theme }) => ({
     flexDirection: "column",
     maxWidth: "1450px",
     margin: "100px auto 0 auto",
-    width: "100vw",
+    width: "calc(100vw - 200px)",
     padding: "0 20px",
     boxSizing: "border-box",
     color: theme.palette.text.primary,

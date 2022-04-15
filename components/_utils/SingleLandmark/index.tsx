@@ -40,7 +40,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
     const amountOfWordsInDescription: number = (() => {
         const { length } = props.data.title;
         if (length > 40) return 40;
-        else if (length > 25) return 100;
+        else if (length > 23) return 100;
         return 150;
     })();
     return (

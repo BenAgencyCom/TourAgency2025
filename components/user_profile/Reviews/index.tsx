@@ -12,14 +12,13 @@ import type { LandmarkReview, DestinationReview } from "@/@types/pages/UserProfi
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other Components
-import Header from "./Header";
 import Sort from "./Sort";
+import Header from "./Header";
+import ReviewsList from "./ReviewsList";
 import ResultsInTotal from "./ResultsInTotal";
-import SingleLandmark from "@/components/_utils/SingleLandmark";
 import Pagination from "@/components/_utils/Pagination";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
-import Loading from "@/components/_utils/Loading";
 
 interface ReviewsWrapperProps {
     userID: string;
@@ -47,10 +46,12 @@ const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
             perPage,
         });
         if (result) {
-            setLoading(false);
             setPaginationProperties(result.paginationProperties);
             setReviews(result.reviews);
             setFetchedReviewsType(result.fetchedReviewsType);
+            setTimeout(() => {
+                setLoading(false);
+            }, 100);
         }
     };
 
@@ -65,10 +66,12 @@ const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
                 perPage,
             });
             if (result && isMounted) {
-                setLoading(false);
                 setPaginationProperties(result.paginationProperties);
                 setReviews(result.reviews);
                 setFetchedReviewsType(result.fetchedReviewsType);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 100);
             }
         })();
 
@@ -90,37 +93,12 @@ const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
                 {paginationProperties && <ResultsInTotal>{paginationProperties.recordsInTotal}</ResultsInTotal>}
             </FlexBox>
 
-            <FlexBox
-                sx={{
-                    position: "relative", //
-                    marginTop: "60px",
-                    minHeight: "1000px",
-                    flexWrap: "wrap",
-                }}
-            >
-                {/* Display reviews */}
-                {(() => {
-                    if (loading || (fetchedReviewsType === null && paginationProperties === null)) {
-                        return <Loading sx={{ top: "10%" }}></Loading>;
-                    } else {
-                        if (fetchedReviewsType === "landmark") {
-                            return (reviews as LandmarkReview[]).map((review, index) => {
-                                return (
-                                    <SingleLandmark
-                                        data={review.landmark} //
-                                        key={review.landmark.slug}
-                                        sx={{ mb: "20px", ml: index % 3 ? "20px" : 0 }}
-                                        userReview={{
-                                            points: review.points,
-                                            type: review.type,
-                                        }}
-                                    ></SingleLandmark>
-                                );
-                            });
-                        }
-                    }
-                })()}
-            </FlexBox>
+            <ReviewsList
+                reviews={reviews} //
+                fetchedReviewsType={fetchedReviewsType}
+                somethingIsLoading={loading || (fetchedReviewsType === null && paginationProperties === null)}
+            ></ReviewsList>
+
             {(() => {
                 if (paginationProperties && paginationProperties.pagesInTotal > 1) {
                     return (

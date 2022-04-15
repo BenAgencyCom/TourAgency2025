@@ -103,6 +103,9 @@ export default responsiveFontSizes(
                     h4: {
                         fontWeight: 700,
                     },
+                    body1: {
+                        fontSize: "1.1rem",
+                    },
                 },
             },
         },
