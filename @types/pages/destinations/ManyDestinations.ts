@@ -1,4 +1,4 @@
-import type { Destination as _Destination } from "@prisma/client";
+import type { Destination as _Destination, Landmark as _Landmark } from "@prisma/client";
 
 export interface Destination {
     slug: _Destination["slug"];
@@ -8,7 +8,7 @@ export interface Destination {
     continent: _Destination["continent"];
     shortDescription: _Destination["shortDescription"];
     folder: _Destination["folder"];
-    _count: {
-        landmarks: number;
-    };
+    landmarks: {
+        picture: _Landmark["picture"];
+    }[];
 }
