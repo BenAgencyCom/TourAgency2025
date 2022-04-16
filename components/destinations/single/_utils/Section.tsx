@@ -1,7 +1,8 @@
 // Tools
-import { styled, alpha } from "@mui/system";
+import { styled } from "@mui/system";
 import { useState, useEffect, useRef } from "react";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
@@ -13,9 +14,9 @@ import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
 const Wrapper = styled(Box)({
     width: "100%",
+    padding: "100px 0",
     position: "relative",
     overflow: "hidden",
-    paddingBottom: "100px",
 });
 const Container = styled("div")(({ theme }) => ({
     width: "1450px",
@@ -38,7 +39,7 @@ interface SectionProps {
     };
     // Optional
     fadeThresholdRatio?: number;
-    sx?: Record<string, any>;
+    sx?: SxProps;
 }
 const Section: FunctionComponent<SectionProps> = (props) => {
     const { scrollY, height } = useAppSelector((state) => state.windowSizes);

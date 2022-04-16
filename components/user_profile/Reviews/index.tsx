@@ -81,7 +81,7 @@ const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
     }, [router, router.query, props.userID, reviewingType]);
 
     return (
-        <Box sx={{ mt: "100px" }}>
+        <Box sx={{ mt: "200px", position: "relative", zIndex: "1" }}>
             <Header background={`${reviewingType}s`} id="reviews-header">
                 Reviews
             </Header>

@@ -14,10 +14,10 @@ import Loading from "@/components/_utils/Loading";
 
 const Wrapper = styled(FlexBox)(({ theme }) => ({
     position: "relative",
-    marginTop: "60px",
     minHeight: "1000px",
     flexWrap: "wrap",
     alignItems: "flex-start",
+    margin: "60px 0 ",
 }));
 
 interface ReviewsListProps {

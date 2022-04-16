@@ -24,6 +24,7 @@ const Landmarks: FunctionComponent = () => {
                 biggerHeader: "Landmarks",
             }}
             sx={{
+                paddingBottom: "300px",
                 "&::before, &::after": {
                     content: "''",
                     position: "absolute",
@@ -50,7 +51,7 @@ const Landmarks: FunctionComponent = () => {
                                 key={item.slug} //
                                 data={item}
                                 sx={{
-                                    ml: index ? 20 : 0,
+                                    ml: index ? "20px" : 0,
                                 }}
                             ></SingleLandmark>
                         );
