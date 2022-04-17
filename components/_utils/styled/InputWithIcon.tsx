@@ -1,27 +1,24 @@
 // Tools
 import colorTheme from "@/colorTheme";
 // Types
-import type { SxProps } from "@mui/system";
 import type { FunctionComponent, ReactNode } from "react";
+import type { InputBaseProps } from "@mui/material/InputBase";
 // Material UI Components
 import InputBase from "@mui/material/InputBase";
 import InputAdornment from "@mui/material/InputAdornment";
 
-interface StyledSelectProps {
-    sx?: SxProps;
-    value: string;
-    onChange: (e: any) => void;
-    placeholder?: string;
+interface StyledSelectProps extends InputBaseProps {
     icon: ReactNode;
 }
 
 const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
+    const { sx, icon, ...propsToForward } = props;
+
     return (
         <InputBase
             sx={{
                 borderColor: colorTheme.palette.text.primary,
                 width: "200px",
-                ...props.sx,
                 background: colorTheme.palette.text.primary,
                 paddingLeft: "14px",
                 borderRadius: "4px",
@@ -30,6 +27,8 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                 "&.Mui-focused": {
                     border: `2px solid  ${colorTheme.palette.primary.main}`,
                 },
+                // Has to be at the end so as to overwritte every above property!
+                ...sx,
             }}
             inputProps={{
                 sx: {
@@ -39,14 +38,13 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                     alignItems: "center",
                 },
             }}
-            value={props.value}
-            onChange={props.onChange}
-            placeholder={props.placeholder}
             startAdornment={
                 <InputAdornment position="start" sx={{ p: 0, opacity: 0.7 }}>
-                    {props.icon}
+                    {icon}
                 </InputAdornment>
             }
+            // Has to be at the end so as to overwritte every above property!
+            {...propsToForward}
         ></InputBase>
     );
 };

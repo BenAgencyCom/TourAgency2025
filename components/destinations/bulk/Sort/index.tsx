@@ -26,7 +26,7 @@ const Sort: FunctionComponent<SortProps> = (props) => {
     const [searchingPhrase, setSearchingPhrase] = useState<string>((router.query.searchingPhrase as string) ?? "");
     const [debounce, setDebounce] = useState<number | null>(null);
 
-    const setSelectValue = async (e: ChangeEvent<HTMLInputElement>, property: "order" | "continent") => {
+    const setSelectValue = async (e: any, property: "order" | "continent") => {
         const { value } = e.target;
 
         if (property === "order") {

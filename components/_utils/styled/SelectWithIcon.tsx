@@ -1,32 +1,32 @@
 // Tools
 import colorTheme from "@/colorTheme";
 // Types
-import type { SxProps } from "@mui/system";
+import type { SelectProps } from "@mui/material/Select";
 import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputAdornment from "@mui/material/InputAdornment";
 
-interface StyledSelectProps {
+interface StyledSelectProps extends SelectProps {
     options: {
         label: string;
         value: any;
     }[];
-    sx?: SxProps;
-    value: string;
-    onChange: (e: any) => void;
     icon: ReactNode;
 }
 
 const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
+    const { icon, options, sx, ...propsToForward } = props;
     return (
         <Select
+            {...propsToForward}
             sx={{
                 borderColor: colorTheme.palette.text.primary,
                 width: "200px",
-                ...props.sx,
                 background: colorTheme.palette.text.primary,
+                // Has to be at the end so as to overwritte every above property!
+                ...sx,
             }}
             inputProps={{
                 sx: {
@@ -45,15 +45,13 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                     },
                 },
             }}
-            value={props.value}
-            onChange={props.onChange}
             startAdornment={
                 <InputAdornment position="start" sx={{ p: 0, opacity: 0.7 }}>
                     {props.icon}
                 </InputAdornment>
             }
         >
-            {props.options.map((item, index) => {
+            {options.map((item, index) => {
                 return (
                     <MenuItem value={item.value} key={index}>
                         {item.label}

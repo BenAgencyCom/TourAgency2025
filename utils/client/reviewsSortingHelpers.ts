@@ -8,7 +8,7 @@ export const translateOrder = (order: Order): string => {
         newest: "orderBy=createdAt&sort=desc",
         oldest: "orderBy=createdAt&sort=asc",
         biggest: "orderBy=population&sort=desc",
-        smallest: "orderBy=population&sort=esc",
+        smallest: "orderBy=population&sort=asc",
     };
 
     return possibilites[order];

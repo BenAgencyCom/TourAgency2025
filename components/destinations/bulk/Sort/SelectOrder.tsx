@@ -1,20 +1,14 @@
 // Types
 import type { FunctionComponent } from "react";
 import type { Order } from "@/@types/SortReviews";
+import type { SelectProps } from "@mui/material/Select";
 // Material UI Icons
 import SortByAlpha from "@mui/icons-material/SortByAlpha";
 // Styled components
 import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
 
-interface SelectOrderProps {
-    value: Order;
-    onChange(e: any): void;
-}
-
-const SelectOrder: FunctionComponent<SelectOrderProps> = (props) => (
+const SelectOrder: FunctionComponent<SelectProps> = (props) => (
     <SelectWithIcon
-        value={props.value}
-        onChange={props.onChange}
         options={
             [
                 { label: "Newest", value: "newest" },
@@ -24,6 +18,7 @@ const SelectOrder: FunctionComponent<SelectOrderProps> = (props) => (
             ] as { label: string; value: Order }[]
         }
         icon={<SortByAlpha />}
+        {...props}
     ></SelectWithIcon>
 );
 

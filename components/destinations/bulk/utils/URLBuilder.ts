@@ -5,21 +5,20 @@ import type { Order } from "@/@types/SortReviews";
 import type { NextRouter } from "next/router";
 
 interface CreateRequestURLParams {
+    router: NextRouter;
     perPage: number;
-    page?: number;
-    searchingPhrase?: string;
-    continent?: string;
-    order?: any; // Order
-    type?: any; // ScoreType
 }
 
-export const CreateRequestURL = (props: CreateRequestURLParams): string => {
-    const { perPage, page, order } = props;
+export const CreateRequestURL = (params: CreateRequestURLParams): string => {
+    const { router, perPage } = params;
+    const { page, order, continent, searchingPhrase } = router.query;
     // Queries
-    const pagination = `page=${page}&perPage=${perPage}`;
+    const pagination = `page=${page ?? 1}&perPage=${perPage}`;
     const applyOrder = isOrderOK(order) ? translateOrder(order as Order) : "";
+    const applyContinent = isContinentOK(continent) ? `continent=${continent}` : "";
+    const applySearchingPhrase = searchingPhrase ? `searchingPhrase=${searchingPhrase}` : "";
 
-    return `/api/destination/bulk?${[pagination, applyOrder].join("&")}`;
+    return `/api/destination/bulk?${[pagination, applyOrder, applyContinent, applySearchingPhrase].join("&")}`;
 };
 
 export const UpdateCurrentURLsQueries = (router: NextRouter) => {

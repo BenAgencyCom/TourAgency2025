@@ -1,20 +1,14 @@
 // Types
 import type { FunctionComponent } from "react";
 import type { Continent } from "@/@types/SortReviews";
+import type { SelectProps } from "@mui/material/Select";
 // Material UI Icons
 import Public from "@mui/icons-material/Public";
 // Styled components
 import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
 
-interface SelectContinentProps {
-    value: Continent;
-    onChange(e: any): void;
-}
-
-const SelectContinent: FunctionComponent<SelectContinentProps> = (props) => (
+const SelectContinent: FunctionComponent<SelectProps> = (props) => (
     <SelectWithIcon
-        value={props.value}
-        onChange={props.onChange}
         options={
             [
                 { label: "All continents", value: "all" },
@@ -28,6 +22,7 @@ const SelectContinent: FunctionComponent<SelectContinentProps> = (props) => (
         }
         sx={{ mr: "10px", width: "250px" }}
         icon={<Public />}
+        {...props}
     ></SelectWithIcon>
 );
 
