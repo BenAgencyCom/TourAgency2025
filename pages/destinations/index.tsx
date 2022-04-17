@@ -15,6 +15,7 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import Head from "next/Head";
 import Sort from "@/components/destinations/bulk/Sort";
+import LandingHeader from "@/components/destinations/bulk/LandingHeader";
 // Styled COmponents
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
 const SingleDestinaion = styled(Box)(({ theme }) => ({
@@ -32,14 +33,13 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
         console.log(router);
     };
 
-    console.log(router.query);
-
     return (
         <>
             <Head>
                 <title>Destinations</title>
             </Head>
             <ContentContainter>
+                <LandingHeader></LandingHeader>
                 <Sort refreshData={refreshData}></Sort>
                 <Box sx={{ mt: "35px" }}>
                     {props.destinations.map((item) => {
