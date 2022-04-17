@@ -1,5 +1,5 @@
 // Types
-import type { Order, ScoreType, ReviewingType } from "@/@types/SortReviews";
+import type { Order, ScoreType, ReviewingType, Continent } from "@/@types/SortReviews";
 
 export const translateOrder = (order: Order): string => {
     const possibilites: Record<Order, string> = {
@@ -7,6 +7,8 @@ export const translateOrder = (order: Order): string => {
         worst: "orderBy=points&sort=asc",
         newest: "orderBy=createdAt&sort=desc",
         oldest: "orderBy=createdAt&sort=asc",
+        biggest: "orderBy=population&sort=desc",
+        smallest: "orderBy=population&sort=esc",
     };
 
     return possibilites[order];
@@ -21,7 +23,11 @@ export const isScoreTypeOK = (scoreType?: any): boolean => {
 };
 
 export const isOrderOK = (order?: any): boolean => {
-    return (order && ["newest", "oldest", "best", "worst"].includes(order)) as boolean;
+    return (order && ["newest", "oldest", "best", "worst", "biggest", "smallest"].includes(order)) as boolean;
+};
+
+export const isContinentOK = (continent?: any): boolean => {
+    return (continent && continent !== "all" && ["Africa", "Antarctica", "Asia", "Australia_Oceania", "Europe", "North_America", "South_America"].includes(continent)) as boolean;
 };
 
 /**
@@ -50,4 +56,13 @@ export const getDefaultReviewingType = (value: any): ReviewingType => {
  */
 export const getDefaultOrder = (value: any): Order => {
     return isOrderOK(value) ? value : "newest";
+};
+/**
+ * The only parameter is value of `router.query.continent`
+ *
+ * In order to make function more reusable the value is expected instead of `router` instance
+ * due to the fact that property's name might vary in different places.
+ */
+export const getDefaultContinent = (value: any): Continent => {
+    return isContinentOK(value) ? value : "all";
 };
