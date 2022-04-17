@@ -39,7 +39,7 @@ const Destinations: FunctionComponent = (props) => {
     useEffect(() => {
         let isMounted = true;
         (async () => {
-            // Wait until router.query fully will have been fully loaded
+            // Wait until router.query will have been fully loaded
             if (Object.keys(router.query).length === 0) await new Promise((resolve) => setTimeout(resolve, 300));
 
             const result = await FetchData({ router, perPage: PER_PAGE });
