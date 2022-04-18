@@ -11,8 +11,8 @@ import Typography from "@mui/material/Typography";
 import ReadMore from "./ReadMore";
 import LandmarkPicture from "./LandmarkPicture";
 import Header from "./Header";
-import Localization from "./Localization";
 import ReviewScore from "@/components/_utils/ReviewScore";
+import LocalizationBreadCrumbs from "@/components/_utils/LocalizationBreadCrumbs";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -36,24 +36,27 @@ interface SingleLandmarkProps {
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
-    const width = `calc(33% - 10px)`;
+    const { destination, slug, title, picture, shortDescription } = props.data;
+    const { imageResolution, userReview } = props;
+
     const amountOfWordsInDescription: number = (() => {
         const { length } = props.data.title;
         if (length > 40) return 40;
         else if (length > 23) return 100;
         return 150;
     })();
+
     return (
         <SingleLandmarkWrapper
-            sx={{ width: `${width}`, ...props.sx }} //
+            sx={{ width: `calc(33% - 10px)`, ...props.sx }} //
             column
             horizontal="start"
         >
             {(() => {
-                if (props.userReview) {
+                if (userReview) {
                     return (
                         <ReviewScore
-                            type={props.userReview.type}
+                            type={userReview.type}
                             sx={{
                                 position: "absolute", //
                                 top: "20px",
@@ -65,19 +68,21 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                                 borderRadius: "5px",
                             }}
                         >
-                            {props.userReview.points}
+                            {userReview.points}
                         </ReviewScore>
                     );
                 }
             })()}
 
-            <LandmarkPicture picture={props.data.picture} resolution={props.imageResolution ?? "480p"}></LandmarkPicture>
-            <Localization destination={props.data.destination}></Localization>
-            <Header title={props.data.title}></Header>
+            <LandmarkPicture picture={picture} resolution={imageResolution ?? "480p"}></LandmarkPicture>
+            <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]}></LocalizationBreadCrumbs>
+            <Header title={title}></Header>
+
             <Typography variant="body1" sx={{ flexGrow: 1 }}>
-                {props.data.shortDescription.slice(0, amountOfWordsInDescription)}...
+                {shortDescription.slice(0, amountOfWordsInDescription)}...
             </Typography>
-            <ReadMore slug={props.data.slug}></ReadMore>
+
+            <ReadMore slug={slug}></ReadMore>
         </SingleLandmarkWrapper>
     );
 };

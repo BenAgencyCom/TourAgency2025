@@ -1,9 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
-import type { FunctionComponent, ReactNode } from "react";
-// Types
-import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
+import type { FunctionComponent } from "react";
 // Material UI Icons
 import LocationOn from "@mui/icons-material/LocationOn";
 // Styled Components
@@ -20,17 +18,27 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
     "span.uncolor": {
         color: theme.palette.text.primary,
     },
+    svg: {
+        marginRight: "5px",
+    },
 }));
 interface LocalizationProps {
-    destination: Landmark["destination"];
+    crumbs: string[];
 }
 const Localization: FunctionComponent<LocalizationProps> = (props) => {
+    const crumbsInTotal = props.crumbs.length;
     return (
         <Wrapper center>
             <LocationOn></LocationOn>
-            <span className="uncolor">{props.destination.country}</span>
-            <span className="seperator">/</span>
-            <span>{props.destination.city}</span>
+            {props.crumbs.map((item, index) => {
+                if (index + 1 === crumbsInTotal) return <span>{item}</span>;
+                return (
+                    <>
+                        <span className="uncolor">{item}</span>
+                        <span className="seperator">/</span>
+                    </>
+                );
+            })}
         </Wrapper>
     );
 };
