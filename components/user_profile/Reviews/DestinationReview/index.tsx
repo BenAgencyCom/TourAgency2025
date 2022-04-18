@@ -10,8 +10,8 @@ import Typography from "@mui/material/Typography";
 import Map from "./Map";
 import Picture from "./Picture";
 import CityName from "./CityName";
-import ReadMore from "./ReadMore";
 import Review from "./Review";
+import ReadMore from "@/components/_utils/ReadMore";
 import LocalizationBreadCrumbs from "@/components/_utils/LocalizationBreadCrumbs";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
@@ -43,7 +43,7 @@ const SingleDestinationReview: FunctionComponent<DestinationReviewProps> = (prop
                     <Typography variant="body1" sx={{ mb: "10px" }}>
                         {shortDescription}
                     </Typography>
-                    <ReadMore slug={slug}></ReadMore>
+                    <ReadMore url={`/destinations/${slug}`}></ReadMore>
                 </FlexBox>
             </FlexBox>
         </DestinationReviewWrapper>

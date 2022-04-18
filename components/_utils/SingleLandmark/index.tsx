@@ -8,7 +8,7 @@ import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
 // Material UI Components
 import Typography from "@mui/material/Typography";
 // Other Components
-import ReadMore from "./ReadMore";
+import ReadMore from "@/components/_utils/ReadMore";
 import LandmarkPicture from "./LandmarkPicture";
 import Header from "./Header";
 import ReviewScore from "@/components/_utils/ReviewScore";
@@ -82,7 +82,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                 {shortDescription.slice(0, amountOfWordsInDescription)}...
             </Typography>
 
-            <ReadMore slug={slug}></ReadMore>
+            <ReadMore url={`/landmarks/${slug}`}></ReadMore>
         </SingleLandmarkWrapper>
     );
 };

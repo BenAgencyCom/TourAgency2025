@@ -5,13 +5,10 @@ import Link from "next/link";
 // Styled Components
 import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineTransition";
 
-interface ReadMoreProps {
-    slug: string;
-}
-const ReadMore: FunctionComponent<ReadMoreProps> = (props) => {
+const ReadMore: FunctionComponent<{ url: string }> = (props) => {
     return (
-        <Link passHref href={`/landmarks/${props.slug}`}>
-            <a>
+        <Link passHref href={props.url}>
+            <a tabIndex={-1}>
                 <ButtonWithLineTransition primary reverse sx={{ fontSize: "1.1rem" }}>
                     Read more
                 </ButtonWithLineTransition>

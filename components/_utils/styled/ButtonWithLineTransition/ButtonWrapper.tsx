@@ -34,7 +34,7 @@ export default styled(ButtonBase, {
                   border: `2px solid ${fontColor}`,
                   color: backgroundColor,
                   backgroundColor: fontColor,
-                  "&:hover": {
+                  "&:hover, &:focus": {
                       color: fontColor,
                       "span.bwlt-line": directionProperites[direction].hoverStyles,
                   },
@@ -43,7 +43,7 @@ export default styled(ButtonBase, {
                   border: `2px solid ${backgroundColor}`,
                   color: fontColor,
                   backgroundColor: backgroundColor,
-                  "&:hover": {
+                  "&:hover, &:focus": {
                       color: backgroundColor,
                       "span.bwlt-line": directionProperites[direction].hoverStyles,
                   },
