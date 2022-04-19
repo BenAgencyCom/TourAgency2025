@@ -102,6 +102,11 @@ export default responsiveFontSizes(
                 styleOverrides: {
                     h4: {
                         fontWeight: 700,
+                        letterSpacing: "-1px",
+                    },
+                    h2: {
+                        fontWeight: 900,
+                        letterSpacing: "-2px",
                     },
                     body1: {
                         fontSize: "1.1rem",

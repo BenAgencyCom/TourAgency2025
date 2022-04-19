@@ -1,6 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { Continent } from "@prisma/client";
 // Other components
@@ -12,12 +13,12 @@ const MapWrapper = styled("div")(({ theme }) => ({
     width: "100%",
     height: "90%",
     right: "0%",
-    opacity: 0.6,
+    opacity: 0.5,
 }));
 
-const Map: FunctionComponent<{ continent: Continent }> = (props) => {
+const Map: FunctionComponent<{ continent: Continent; sx?: SxProps }> = (props) => {
     return (
-        <MapWrapper>
+        <MapWrapper sx={props.sx}>
             <Image
                 alt="continent" //
                 layout="fill"

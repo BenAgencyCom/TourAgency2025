@@ -7,7 +7,7 @@ import type { DestinationReview } from "@/@types/pages/UserProfile";
 // Material UI
 import Typography from "@mui/material/Typography";
 // Other components
-import Map from "./Map";
+import FieldBackgroundMap from "@/components/_utils/FieldBackgroundMap";
 import Picture from "./Picture";
 import CityName from "./CityName";
 import Review from "./Review";
@@ -36,7 +36,7 @@ const SingleDestinationReview: FunctionComponent<DestinationReviewProps> = (prop
             <Review type={type} points={points}></Review>
 
             <FlexBox column sx={{ position: "relative" }}>
-                <Map continent={continent}></Map>
+                <FieldBackgroundMap continent={continent}></FieldBackgroundMap>
                 <FlexBox column horizontal="start" sx={{ position: "relative", zIndex: "1" }}>
                     <LocalizationBreadCrumbs crumbs={[continent, country]}></LocalizationBreadCrumbs>
                     <CityName>{city}</CityName>

@@ -2,29 +2,31 @@
 import { styled } from "@mui/system";
 import { destinationPictureURL } from "@/utils/client/imageURLs";
 // Types
+import type { MUIStyledCommonProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 // Other Components
 import Image from "next/Image";
+// Styled Components
 const Wrapper = styled("div")(({ theme }) => ({
-    width: "50%",
-    height: "400px",
+    height: "450px",
     position: "relative",
-    borderRadius: "3px 20px 3px 20px",
+    borderRadius: "50px 10px 50px 10px",
     overflow: "hidden",
 }));
 
-interface BackgroundPictureProps {
+interface BackgroundPictureProps extends MUIStyledCommonProps {
     picture: string;
     resolution: "360p" | "480p" | "720p" | "1080p";
 }
 
 const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => {
+    const { picture, resolution, ...propsToForward } = props;
     return (
-        <Wrapper>
+        <Wrapper {...propsToForward}>
             <Image
                 layout="fill" //
                 alt="bg"
-                src={destinationPictureURL(props.picture, props.resolution, "thumbnail")}
+                src={destinationPictureURL(picture, resolution, "thumbnail")}
             ></Image>
         </Wrapper>
     );

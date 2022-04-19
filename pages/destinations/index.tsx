@@ -13,7 +13,8 @@ import Box from "@mui/material/Box";
 import Head from "next/Head";
 import Sort from "@/components/destinations/bulk/Sort";
 import LandingHeader from "@/components/destinations/bulk/LandingHeader";
-// Styled COmponents
+import SingleDestination from "@/components/destinations/bulk/SingleDestination";
+// Styled Components
 import Loading from "@/components/_utils/Loading";
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
@@ -69,7 +70,12 @@ const Destinations: FunctionComponent = (props) => {
                         if (loading) {
                             return <Loading sx={{ mt: "200px" }}></Loading>;
                         } else {
-                            return <>{JSON.stringify(destinations)}</>;
+                            return destinations.map((destination) => (
+                                <SingleDestination
+                                    destination={destination} //
+                                    key={destination.slug}
+                                ></SingleDestination>
+                            ));
                         }
                     })()}
                 </Box>
