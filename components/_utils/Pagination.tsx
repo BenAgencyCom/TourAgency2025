@@ -49,7 +49,7 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
     const changePage = (page: number) => {
         if (props.scrollToElement) {
             const el = document.getElementById(props.scrollToElement);
-            if (!el) throw new Error(`Element with an id ${props.paginationProperties} cannot be accessed`);
+            if (!el) throw new Error(`Element with an id ${props.scrollToElement} cannot be accessed`);
             const top = el.getBoundingClientRect().top + window.scrollY;
             scrollTo({ left: 0, top: top - 100, behavior: "smooth" });
 

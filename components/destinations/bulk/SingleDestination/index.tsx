@@ -23,6 +23,7 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
     padding: "20px",
     position: "relative",
     overflow: "hidden",
+    cursor: "default",
 }));
 
 interface SingleDestinationProps {

@@ -14,6 +14,7 @@ import Head from "next/Head";
 import Sort from "@/components/destinations/bulk/Sort";
 import LandingHeader from "@/components/destinations/bulk/LandingHeader";
 import SingleDestination from "@/components/destinations/bulk/SingleDestination";
+import Pagination from "@/components/_utils/Pagination";
 // Styled Components
 import Loading from "@/components/_utils/Loading";
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
@@ -27,6 +28,7 @@ const Destinations: FunctionComponent = (props) => {
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
 
     const refreshData = async (pageNumber?: number) => {
+        if (pageNumber) router.query.page = String(pageNumber);
         setLoading(true);
         UpdateCurrentURLsQueries(router);
         const result = await FetchData({ router, perPage: PER_PAGE });
@@ -61,7 +63,7 @@ const Destinations: FunctionComponent = (props) => {
             <Head>
                 <title>Destinations</title>
             </Head>
-            <ContentContainter>
+            <ContentContainter id="destinations-wrapper" sx={{ minHeight: "1000px" }}>
                 <LandingHeader></LandingHeader>
                 <Sort refreshData={refreshData}></Sort>
 
@@ -76,6 +78,17 @@ const Destinations: FunctionComponent = (props) => {
                                     key={destination.slug}
                                 ></SingleDestination>
                             ));
+                        }
+                    })()}
+                    {(() => {
+                        if (paginationProperties) {
+                            return (
+                                <Pagination
+                                    paginationProperties={paginationProperties} //
+                                    scrollToElement="destinations-wrapper"
+                                    callbackDuringScrolling={refreshData}
+                                ></Pagination>
+                            );
                         }
                     })()}
                 </Box>
