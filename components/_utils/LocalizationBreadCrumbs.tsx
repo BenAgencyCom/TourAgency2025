@@ -31,12 +31,12 @@ const Localization: FunctionComponent<LocalizationProps> = (props) => {
         <Wrapper center>
             <LocationOn></LocationOn>
             {props.crumbs.map((item, index) => {
-                if (index + 1 === crumbsInTotal) return <span>{item}</span>;
+                if (index + 1 === crumbsInTotal) return <span key={index}>{item}</span>;
                 return (
-                    <>
+                    <span key={index}>
                         <span className="uncolor">{item}</span>
                         <span className="seperator">/</span>
-                    </>
+                    </span>
                 );
             })}
         </Wrapper>
