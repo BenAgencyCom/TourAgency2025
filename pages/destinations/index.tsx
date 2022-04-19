@@ -1,6 +1,6 @@
 // Tools
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FetchData from "@/components/destinations/bulk/utils/FetchData";
 import { UpdateCurrentURLsQueries } from "@/components/destinations/bulk/utils/URLBuilder";
 // Types
@@ -21,6 +21,7 @@ import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
 const Destinations: FunctionComponent = (props) => {
     const PER_PAGE = 4;
+    const destinationsWrapperRef = useRef<HTMLElement | null>(null);
 
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
@@ -28,6 +29,15 @@ const Destinations: FunctionComponent = (props) => {
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
 
     const refreshData = async (pageNumber?: number) => {
+        // Smooth scrolling, trick with fixing height
+        if (destinationsWrapperRef.current) {
+            const setMinHeight = (px: number) => ((destinationsWrapperRef.current as HTMLElement).style.minHeight = `${px}px`);
+            const minHeight = destinationsWrapperRef.current.getBoundingClientRect().height;
+            setMinHeight(minHeight);
+            // Reverse temporary changes
+            setTimeout(() => setMinHeight(0), 1000);
+        }
+        //
         if (pageNumber) router.query.page = String(pageNumber);
         setLoading(true);
         UpdateCurrentURLsQueries(router);
@@ -63,7 +73,7 @@ const Destinations: FunctionComponent = (props) => {
             <Head>
                 <title>Destinations</title>
             </Head>
-            <ContentContainter id="destinations-wrapper" sx={{ minHeight: "1000px" }}>
+            <ContentContainter id="destinations-wrapper" sx={{ minHeight: "1000px" }} ref={destinationsWrapperRef}>
                 <LandingHeader></LandingHeader>
                 <Sort refreshData={refreshData}></Sort>
 
@@ -81,7 +91,7 @@ const Destinations: FunctionComponent = (props) => {
                         }
                     })()}
                     {(() => {
-                        if (paginationProperties) {
+                        if (paginationProperties && paginationProperties.pagesInTotal > 1) {
                             return (
                                 <Pagination
                                     paginationProperties={paginationProperties} //
