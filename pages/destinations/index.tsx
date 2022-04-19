@@ -1,6 +1,6 @@
 // Tools
 import { useRouter } from "next/router";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import FetchData from "@/components/destinations/bulk/utils/FetchData";
 import { UpdateCurrentURLsQueries } from "@/components/destinations/bulk/utils/URLBuilder";
 // Types
@@ -21,7 +21,6 @@ import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
 const Destinations: FunctionComponent = (props) => {
     const PER_PAGE = 4;
-    const destinationsWrapperRef = useRef<HTMLElement | null>(null);
 
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
@@ -30,9 +29,10 @@ const Destinations: FunctionComponent = (props) => {
 
     const refreshData = async (pageNumber?: number) => {
         // Smooth scrolling, trick with fixing height
-        if (destinationsWrapperRef.current) {
-            const setMinHeight = (px: number) => ((destinationsWrapperRef.current as HTMLElement).style.minHeight = `${px}px`);
-            const minHeight = destinationsWrapperRef.current.getBoundingClientRect().height;
+        const element = document.getElementById("destinations-wrapper");
+        if (element) {
+            const setMinHeight = (px: number) => ((element as HTMLElement).style.minHeight = `${px}px`);
+            const minHeight = element.getBoundingClientRect().height;
             setMinHeight(minHeight);
             // Reverse temporary changes
             setTimeout(() => setMinHeight(0), 1000);
@@ -73,7 +73,7 @@ const Destinations: FunctionComponent = (props) => {
             <Head>
                 <title>Destinations</title>
             </Head>
-            <ContentContainter id="destinations-wrapper" sx={{ minHeight: "1000px" }} ref={destinationsWrapperRef}>
+            <ContentContainter id="destinations-wrapper" sx={{ minHeight: "1000px" }} backgroundMap>
                 <LandingHeader></LandingHeader>
                 <Sort refreshData={refreshData}></Sort>
 

@@ -29,7 +29,7 @@ const Profile: FunctionComponent<ProfileProps> = (props) => {
                 <title>{`${props.user.name} ${props.user.surname} | Profile`}</title>
             </Head>
 
-            <ContentContainter>
+            <ContentContainter backgroundMap>
                 <Landing
                     user={props.user} //
                     pointsDistribution={props.pointsDistribution}

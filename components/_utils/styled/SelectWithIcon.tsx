@@ -25,6 +25,10 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                 borderColor: colorTheme.palette.text.primary,
                 width: "200px",
                 background: colorTheme.palette.text.primary,
+                transition: "background .2s,border .2s",
+                "&.Mui-focused": {
+                    background: colorTheme.palette.primary.main,
+                },
                 // Has to be at the end so as to overwritte every above property!
                 ...sx,
             }}
@@ -32,7 +36,6 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                 sx: {
                     padding: "10px 20px",
                     fontSize: "1.1rem",
-                    background: colorTheme.palette.text.primary,
                     display: "flex",
                     alignItems: "center",
                 },
