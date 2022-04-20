@@ -16,12 +16,13 @@ import AuthenticatedUserRoutes from "./routes/AuthenticatedUserRoutes";
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
+import MobileMenuButton from "./styled/MobileMenuButton";
 import NavigationWrapper from "./styled/NavigationWrapper";
 
 const Navigation: FunctionComponent<MUIStyledCommonProps> = (props) => {
     const router = useRouter();
     // Redux
-    const { scrollY } = useAppSelector((state) => state.windowSizes);
+    const { scrollY, width } = useAppSelector((state) => state.windowSizes);
     const { isAuthenticated, userData } = useAppSelector((state) => state.authentication);
     // Handle scrolling
     const previousScrollY = useRef<number>(0);
@@ -41,13 +42,45 @@ const Navigation: FunctionComponent<MUIStyledCommonProps> = (props) => {
     const applyReverseContrast = isContrastReversed(router.pathname);
     const navbarIsDisabled = isDisabled(router.pathname);
 
+    // Mobile menu
+    const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
+    const [previeousScollTop, setPrevieousScollTop] = useState<number>(0);
+
+    const handleOpenMobileMenu = () => {
+        if (!openMobileMenu) {
+            setPrevieousScollTop(window.scrollY);
+            document.body.style.top = `-${window.scrollY}px`;
+            document.body.style.position = "fixed";
+            document.body.style.left = `0px`;
+        } else {
+            document.body.style.top = `0px`;
+            document.body.style.paddingRight = `0px`;
+            document.body.style.position = "static";
+            setTimeout(() => {
+                window.scrollTo({ top: previeousScollTop });
+                setIsScrollingDown(false);
+            }, 1);
+        }
+        setOpenMobileMenu((val) => !val);
+    };
+    useEffect(() => {
+        document.body.style.top = `0px`;
+        document.body.style.paddingRight = `0px`;
+        document.body.style.position = "static";
+        setTimeout(() => {
+            setOpenMobileMenu(false);
+        }, 1);
+    }, [router.pathname]);
+
     return (
         <Fade in={!navbarIsDisabled && (!isScrollingDown || scrollY < 500)}>
             <NavigationWrapper center scrolledDown={isScrolledDown} reverseContrast={applyReverseContrast}>
-                <FlexBox horizontal="between" vertical="center" className="conteiner">
-                    <PageLogo />
+                <FlexBox horizontal="between" vertical="center" id="navigation-main-conteiner">
+                    <PageLogo isScrolledDown={isScrolledDown} forceAlternativeLogo={openMobileMenu} />
 
-                    <FlexBox vertical="center" sx={{ height: "100%" }}>
+                    {width <= 1000 && <MobileMenuButton onClick={handleOpenMobileMenu}></MobileMenuButton>}
+
+                    <FlexBox vertical="center" sx={{ height: "100%" }} id="routes-wrapper" className={openMobileMenu ? "scroll-in" : ""}>
                         <GeneralRoutes />
                         <hr></hr>
                         {(() => {
