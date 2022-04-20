@@ -1,4 +1,5 @@
 export default interface LocalStorageUserData {
+    id: string;
     name: string;
     surname: string;
     avatar: string;

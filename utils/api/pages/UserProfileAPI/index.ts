@@ -61,6 +61,9 @@ export default class UserProfileAPI {
         const destinationsReviews = await this._queryForLandmarksReviews();
         const landmarksReviews = await this._queryForDestinationsReviews();
 
+        // If there are no reviews at all
+        if (!landmarksReviews.length && !destinationsReviews.length) return this._returnNoPointsDistribution();
+
         const _countParticularType = (type: ReviewType): number => {
             return this._extract(destinationsReviews, "COUNT", type) + this._extract(landmarksReviews, "COUNT", type);
         };
@@ -117,9 +120,11 @@ export default class UserProfileAPI {
             type: from.type,
         });
 
-        if (latestLandmarkReview.createdAt > latestDestinationReview.createdAt) {
-            return _createResponse(latestLandmarkReview);
-        }
+        if (!latestDestinationReview && !latestLandmarkReview) return { points: 0, type: "NEGATIVE" };
+        else if (latestLandmarkReview && !latestDestinationReview) return _createResponse(latestLandmarkReview);
+        else if (latestDestinationReview && !latestLandmarkReview) return _createResponse(latestDestinationReview);
+        else if (latestLandmarkReview.createdAt > latestDestinationReview.createdAt) return _createResponse(latestLandmarkReview);
+
         return _createResponse(latestDestinationReview);
     }
 

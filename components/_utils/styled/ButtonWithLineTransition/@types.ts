@@ -14,4 +14,6 @@ export interface ButtonWrapperParams {
 export interface ButtonWithLineTransitionProps extends ButtonWrapperParams {
     children: ReactNode;
     sx?: SxProps;
+    className?: string;
+    id?: string;
 }

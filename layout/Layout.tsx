@@ -1,24 +1,19 @@
 import type { FunctionComponent, ReactNode } from "react";
 import { useEffect, useState } from "react";
 // Components
-import Navigation from "@/layout//Navigation";
-import PageLogo from "@/layout//PageLogo";
+import Navigation from "@/layout/navigation2";
 import Snackbar from "@/layout//Snackbar";
 import ScrollButton from "@/layout/ScrollButton";
 import Footer from "@/layout/Footer";
 // Material UI Components
 import Box from "@mui/material/Box";
-import AppBar from "@mui/material/AppBar";
-import Container from "@mui/material/Container";
-import Fade from "@mui/material/Fade";
 // Tools
-import styles from "@/sass/layout.module.sass";
 import { useRouter } from "next/router";
 import { authenticateToken, getUserData } from "@/utils/client/authenticate";
 // Redux
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
-import { setAuthentication, getUserFromLocalStorage, setUserData } from "@/redux/slices/authentication";
 import { resize, setScroll } from "@/redux/slices/windowSizes";
+import { setAuthentication, getUserFromLocalStorage, setUserData } from "@/redux/slices/authentication";
 
 interface LayoutProps {
     children: ReactNode;
@@ -30,7 +25,6 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
     const extraStyles = { backgroundColor: "transparent !important", backgroundImage: "none !important", backdropFilter: "none !important", boxShadow: "none !important" };
     const [displayExtraStyles, setDisplayExtraStyles] = useState<boolean>(false);
     const [displayAppBar, setDisplayAppBar] = useState<boolean>(true);
-    const buttonStyles = { px: 3, mx: 1 };
 
     const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
     const dispatch = useAppDispatch();
@@ -84,22 +78,7 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
     //
     return (
         <>
-            <Fade in={displayAppBar && isAuthenticated !== null} timeout={300}>
-                <AppBar className={styles.wrapper} sx={displayExtraStyles ? extraStyles : {}}>
-                    <Container
-                        maxWidth="xl"
-                        sx={{
-                            display: "flex", //
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            p: 1,
-                        }}
-                    >
-                        <PageLogo></PageLogo>
-                        <Navigation buttonStyles={buttonStyles}></Navigation>
-                    </Container>
-                </AppBar>
-            </Fade>
+            <Navigation></Navigation>
             {/*  */}
             <Box sx={{ backgroundColor: "background.lightPaper" }}>
                 <main>{props.children}</main>

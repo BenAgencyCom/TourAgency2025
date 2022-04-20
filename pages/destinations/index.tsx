@@ -91,7 +91,7 @@ const Destinations: FunctionComponent = (props) => {
                         }
                     })()}
                     {(() => {
-                        if (paginationProperties && paginationProperties.pagesInTotal > 1) {
+                        if (paginationProperties && paginationProperties.pagesInTotal > 1 && !loading) {
                             return (
                                 <Pagination
                                     paginationProperties={paginationProperties} //

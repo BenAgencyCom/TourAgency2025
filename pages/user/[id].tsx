@@ -57,6 +57,7 @@ export const getStaticProps: GetStaticProps<ProfileProps, { id: string }> = asyn
     try {
         if (!context?.params?.id) throw new NotFound();
         const UserProfile = new UserProfileAPI(context.params.id);
+        console.log(context?.params?.id);
 
         return {
             props: {

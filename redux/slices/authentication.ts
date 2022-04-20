@@ -32,10 +32,10 @@ const authenticationSlice = createSlice({
             if (data === null) throw new ThereIsNoUserDataInLocalStorage();
 
             const userFormLocalStorage = JSON.parse(data);
-            const { name, surname, gender, country, isAdmin } = userFormLocalStorage;
+            const { name, surname, gender, country, isAdmin, id } = userFormLocalStorage;
             const { name: countryName, code } = country;
 
-            if (name && surname && gender && countryName && code) {
+            if (name && surname && gender && countryName && code && id) {
                 state.userData = userFormLocalStorage as AuthenticationState["userData"];
                 if (isAdmin) {
                     throw new StoredUserIsAdmin();
