@@ -22,7 +22,7 @@ const HeaderWrapper = styled("div")(({ theme }) => ({
 
 const Header: FunctionComponent = () => {
     return (
-        <HeaderWrapper>
+        <HeaderWrapper className="footer-header">
             <BackgroundHeader className="bigger-header">See also</BackgroundHeader>
             <h3>My exquisite page</h3>
         </HeaderWrapper>

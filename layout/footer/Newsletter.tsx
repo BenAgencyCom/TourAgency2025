@@ -79,13 +79,13 @@ const InputWrapper = styled("div")(({ theme }) => ({
 
 const Newsletter: FunctionComponent = () => {
     return (
-        <NewsletterWrapper column horizontal="end">
-            <FlexBox vertical="center">
+        <NewsletterWrapper column horizontal="end" className="newsletter">
+            <FlexBox vertical="center" className="newsletter-icon-wrapper">
                 <MailIcon></MailIcon>
                 <h4>Subscribe to our newsletter</h4>
             </FlexBox>
 
-            <InputWrapper>
+            <InputWrapper className="newsletter-input-wrapper">
                 <InputBase placeholder="there_is_no_newsletter@gmail.com"></InputBase>
                 <ButtonWithColorTransition primary reverse sx={{ fontSize: "1.2rem", borderRadius: "0 10px 10px 0" }}>
                     Join
@@ -93,19 +93,19 @@ const Newsletter: FunctionComponent = () => {
             </InputWrapper>
 
             <FlexBox>
-                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={0}>
-                    <SocialMedia primary reverse>
+                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={-1}>
+                    <SocialMedia primary reverse className="social-media-btn">
                         <Twitter></Twitter>
                     </SocialMedia>
                 </a>
-                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={0}>
-                    <SocialMedia primary reverse>
+                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={-1}>
+                    <SocialMedia primary reverse className="social-media-btn">
                         <Instagram></Instagram>
                     </SocialMedia>
                 </a>
 
-                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={0}>
-                    <SocialMedia primary reverse>
+                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={-1}>
+                    <SocialMedia primary reverse className="social-media-btn">
                         <YouTube></YouTube>
                     </SocialMedia>
                 </a>

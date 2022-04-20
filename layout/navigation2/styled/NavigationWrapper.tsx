@@ -23,7 +23,7 @@ export default styled(FlexBox, {
     padding: "10px 0",
     "div.conteiner": {
         maxWidth: "1920px",
-        width: "calc(100vw - 200px)",
+        width: "calc(100vw - 50px)",
         height: "100%",
         padding: "0 100px",
     },

@@ -8,7 +8,7 @@ import Link from "next/link";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const Field = styled(FlexBox)(({ theme }) => ({
-    marginRight: 200,
+    marginRight: "150px",
     h5: {
         color: "#fff",
         fontWeight: 500,
@@ -41,7 +41,7 @@ interface BottomNavigationFieldProps {
 }
 const BottomNavigationField: FunctionComponent<BottomNavigationFieldProps> = (props) => {
     return (
-        <Field column>
+        <Field column className="footer-navigation-field">
             <h5>{props.title}</h5>
             <ul>
                 {props.fields.map((item, index) => {
