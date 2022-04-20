@@ -73,7 +73,7 @@ const Destinations: FunctionComponent = (props) => {
             <Head>
                 <title>Destinations</title>
             </Head>
-            <ContentContainter id="destinations-wrapper" sx={{ minHeight: "1000px" }} backgroundMap>
+            <ContentContainter id="destinations-wrapper" sx={{ minHeight: "1000px", pt: "40px" }} backgroundMap>
                 <LandingHeader></LandingHeader>
                 <Sort refreshData={refreshData}></Sort>
 
