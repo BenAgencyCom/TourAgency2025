@@ -118,9 +118,6 @@ const FooterContent = styled(FlexBox)(({ theme }) => ({
             h3: {
                 fontSize: "2.2rem",
             },
-            ".bigger-header": {
-                fontSize: "5rem",
-            },
         },
         ".newsletter-icon-wrapper": {
             flexDirection: "column",

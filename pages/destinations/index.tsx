@@ -75,7 +75,7 @@ const Destinations: FunctionComponent = (props) => {
             </Head>
             <ContentContainter id="destinations-wrapper" sx={{ minHeight: "1000px", pt: "40px" }} backgroundMap>
                 <LandingHeader></LandingHeader>
-                <Sort refreshData={refreshData}></Sort>
+                <Sort refreshData={refreshData} resultsInTotal={paginationProperties?.recordsInTotal ?? 0}></Sort>
 
                 <Box sx={{ mt: "35px", position: "relative" }}>
                     {(() => {

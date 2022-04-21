@@ -18,7 +18,7 @@ const MapWrapper = styled("div")(({ theme }) => ({
 
 const Map: FunctionComponent<{ continent: Continent; sx?: SxProps }> = (props) => {
     return (
-        <MapWrapper sx={props.sx}>
+        <MapWrapper sx={props.sx} className="background-map">
             <Image
                 alt="continent" //
                 layout="fill"

@@ -1,4 +1,5 @@
 // Tools
+import { styled } from "@mui/system";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { getDefaultContinent, getDefaultOrder } from "@/utils/client/reviewsSortingHelpers";
@@ -13,8 +14,35 @@ import SearchingBar from "./SearchingBar";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
+const SortingToolsWrapper = styled(FlexBox)(({ theme }) => ({
+    marginBottom: "20px",
+    ["@media (max-width:900px)"]: {
+        fontSize: "5rem",
+        flexDirection: "column",
+        maxWidth: "600px",
+        ".MuiInputBase-root": {
+            width: "100%",
+            height: "45px",
+            marginTop: "10px",
+            "&:nth-of-type(1)": {
+                marginTop: "0px",
+            },
+        },
+    },
+}));
+
+const RecordsInTotal = styled("span")(({ theme }) => ({
+    marginTop: "10px",
+    fontSize: "1.2rem",
+    strong: {
+        color: theme.palette.primary.main,
+        fontWeigt: 900,
+    },
+}));
+
 interface SortProps {
     refreshData: (pageNumber?: number) => Promise<void>;
+    resultsInTotal: number;
 }
 
 const Sort: FunctionComponent<SortProps> = (props) => {
@@ -56,16 +84,19 @@ const Sort: FunctionComponent<SortProps> = (props) => {
 
     return (
         <>
-            <FlexBox sx={{ mb: "20px" }}>
+            <SortingToolsWrapper>
                 <SearchingBar value={searchingPhrase} onChange={changeSearchingPhrase}></SearchingBar>
                 <SelectContinent value={continent} onChange={(e) => setSelectValue(e, "continent")}></SelectContinent>
                 <SelectOrder value={order} onChange={(e) => setSelectValue(e, "order")}></SelectOrder>
-            </FlexBox>
+            </SortingToolsWrapper>
             <DebounceBar
                 duration={SEARCHING_DELAY} //
                 key={debounce}
                 playAnimation={debounce !== null}
             ></DebounceBar>
+            <RecordsInTotal>
+                There {props.resultsInTotal === 1 ? "is" : "are"} <strong>{props.resultsInTotal}</strong> result in total
+            </RecordsInTotal>
         </>
     );
 };

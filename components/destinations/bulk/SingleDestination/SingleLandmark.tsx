@@ -13,8 +13,8 @@ interface Props {
 const Wrapper = styled("div", {
     shouldForwardProp: (propname: string) => !["inactive"].includes(propname),
 })<Props>(({ theme, ...props }) => ({
-    width: "calc(33% - 10px)",
-    height: "100%",
+    width: "calc(32.5%)",
+    height: "150px",
     position: "relative",
     overflow: "hidden",
     borderRadius: "5px",
@@ -48,7 +48,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
     const { url, ...propsToForward } = props;
     const src = props.inactive ? destinationPictureURL(url, "360p", "thumbnail") : landmarkPictureURL(url, "360p");
     return (
-        <Wrapper {...propsToForward}>
+        <Wrapper {...propsToForward} className="single-landmark">
             <Image
                 layout="fill" //
                 alt="bg"

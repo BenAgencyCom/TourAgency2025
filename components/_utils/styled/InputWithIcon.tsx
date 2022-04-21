@@ -5,8 +5,8 @@ import type { FunctionComponent, ReactNode } from "react";
 import type { InputBaseProps } from "@mui/material/InputBase";
 // Material UI Components
 import InputBase from "@mui/material/InputBase";
-import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
 // Material UI Icons
 import Clear from "@mui/icons-material/Clear";
 

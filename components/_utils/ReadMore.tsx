@@ -8,7 +8,7 @@ import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineT
 const ReadMore: FunctionComponent<{ url: string }> = (props) => {
     return (
         <Link passHref href={props.url}>
-            <a tabIndex={-1}>
+            <a tabIndex={-1} className="read-more">
                 <ButtonWithLineTransition primary reverse sx={{ fontSize: "1.1rem" }}>
                     Read more
                 </ButtonWithLineTransition>

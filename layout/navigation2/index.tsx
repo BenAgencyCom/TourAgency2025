@@ -46,17 +46,22 @@ const Navigation: FunctionComponent<MUIStyledCommonProps> = (props) => {
     const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
     const [previeousScollTop, setPrevieousScollTop] = useState<number>(0);
 
+    const unblockScrolling = () => {
+        document.body.style.top = `0px`;
+        document.body.style.paddingLeft = `0px`;
+        document.body.style.position = "static";
+        document.body.style.width = "auto";
+    };
+
     const handleOpenMobileMenu = () => {
         if (!openMobileMenu) {
             setPrevieousScollTop(window.scrollY);
             document.body.style.top = `-${window.scrollY}px`;
             document.body.style.position = "fixed";
-            document.body.style.left = `0px`;
+            document.body.style.width = "100vw";
             setOpenMobileMenu((val) => !val);
         } else {
-            document.body.style.top = `0px`;
-            document.body.style.paddingRight = `0px`;
-            document.body.style.position = "static";
+            unblockScrolling();
             setTimeout(() => {
                 window.scrollTo({ top: previeousScollTop });
                 setIsScrollingDown(false);
@@ -66,19 +71,16 @@ const Navigation: FunctionComponent<MUIStyledCommonProps> = (props) => {
         }
     };
     useEffect(() => {
-        document.body.style.top = `0px`;
-        document.body.style.paddingRight = `0px`;
-        document.body.style.position = "static";
+        unblockScrolling();
         setTimeout(() => {
             setOpenMobileMenu(false);
         }, 1);
     }, [router.pathname]);
+
     // Prevent from blocking scrolling while switching to wider screen
     useEffect(() => {
         if (width > 1000 && openMobileMenu) {
-            document.body.style.top = `0px`;
-            document.body.style.paddingRight = `0px`;
-            document.body.style.position = "static";
+            unblockScrolling();
             setTimeout(() => {
                 setOpenMobileMenu(false);
             }, 1);

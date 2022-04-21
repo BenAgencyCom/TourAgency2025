@@ -9,6 +9,7 @@ import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
 
 const SelectContinent: FunctionComponent<SelectProps> = (props) => (
     <SelectWithIcon
+        defaultValue="all"
         options={
             [
                 { label: "All continents", value: "all" },

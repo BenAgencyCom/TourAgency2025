@@ -22,11 +22,12 @@ interface BackgroundPictureProps extends MUIStyledCommonProps {
 const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => {
     const { picture, resolution, ...propsToForward } = props;
     return (
-        <Wrapper {...propsToForward}>
+        <Wrapper {...propsToForward} className="single-destination-picture">
             <Image
                 layout="fill" //
                 alt="bg"
                 src={destinationPictureURL(picture, resolution, "thumbnail")}
+                objectFit="cover"
             ></Image>
         </Wrapper>
     );

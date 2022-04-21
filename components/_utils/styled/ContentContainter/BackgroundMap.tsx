@@ -4,34 +4,28 @@ import { styled } from "@mui/system";
 import type { FunctionComponent } from "react";
 // Material UI Components
 import Fade from "@mui/material/Fade";
-// Other components
-import Image from "next/Image";
 // Styled components
 const MapWrapper = styled("div")(({ theme }) => ({
     position: "fixed",
     top: "0%",
     left: "0%",
-    width: "calc(100vw - 20px)",
+    width: "100vw",
     height: "100%",
     opacity: 0.2,
     zIndex: 0,
     filter: "blur(1px)",
     animationDelay: "2s",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundImage: "url('/images/continents/blank_background.png')",
 }));
 
 const BackgroundMap: FunctionComponent = () => {
     return (
         <Fade in={true} timeout={2000}>
+            {/* To avoid opacity inheritance after MUI animations is done */}
             <div>
-                <MapWrapper>
-                    <Image
-                        alt="continent" //
-                        layout="fill"
-                        src={`/images/continents/blank_background.png`}
-                        objectFit="cover"
-                        objectPosition="center"
-                    ></Image>
-                </MapWrapper>
+                <MapWrapper></MapWrapper>
             </div>
         </Fade>
     );

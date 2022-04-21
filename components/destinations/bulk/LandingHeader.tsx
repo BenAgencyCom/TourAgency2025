@@ -10,6 +10,16 @@ const Header = styled("h1")(({ theme }) => ({
     margin: "60px 0 ",
     fontSize: "4rem",
     fontWeight: 900,
+    ["@media (max-width:1500px)"]: {
+        fontSize: "3.5rem",
+        lineHeight: "55px",
+    },
+    ["@media (max-width:900px)"]: {
+        margin: "60px 0 40px 0 ",
+    },
+    ["@media (max-width:600px)"]: {
+        margin: "20px 0 ",
+    },
 }));
 
 const LandingHeader: FunctionComponent = () => (

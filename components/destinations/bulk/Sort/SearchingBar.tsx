@@ -10,7 +10,14 @@ const SelectOrder: FunctionComponent<InputBaseProps> = (props) => (
     <InputWithIcon
         icon={<Search />} //
         placeholder="Search for a place of your dreams..."
-        sx={{ mr: "10px", width: "400px" }}
+        sx={{
+            mr: "10px",
+            width: "400px",
+            fontSize: "1.1rem",
+            svg: {
+                marginRight: "16px",
+            },
+        }}
         inputProps={{
             maxLength: 30,
         }}

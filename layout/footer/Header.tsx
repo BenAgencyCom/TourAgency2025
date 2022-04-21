@@ -23,7 +23,9 @@ const HeaderWrapper = styled("div")(({ theme }) => ({
 const Header: FunctionComponent = () => {
     return (
         <HeaderWrapper className="footer-header">
-            <BackgroundHeader className="bigger-header">See also</BackgroundHeader>
+            <BackgroundHeader className="bigger-header" sx={{ display: "block !important" }}>
+                See also
+            </BackgroundHeader>
             <h3>My exquisite page</h3>
         </HeaderWrapper>
     );

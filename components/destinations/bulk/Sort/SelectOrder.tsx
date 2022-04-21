@@ -9,6 +9,7 @@ import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
 
 const SelectOrder: FunctionComponent<SelectProps> = (props) => (
     <SelectWithIcon
+        defaultValue="newest"
         options={
             [
                 { label: "Newest", value: "newest" },

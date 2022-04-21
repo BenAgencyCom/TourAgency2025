@@ -24,6 +24,108 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
     position: "relative",
     overflow: "hidden",
     cursor: "default",
+    ".single-destination-picture": {
+        width: "calc(50% - 10px)",
+    },
+    ".single-destination-information": {
+        width: "calc(50% - 10px)",
+        position: "relative",
+        zIndex: "1",
+        ".background-map": {
+            maxWidth: "500px",
+            width: "100%",
+            top: "-22%",
+            right: "-8%",
+            zIndex: -1,
+        },
+        ".landmarks-wrapper": {
+            flexGrow: 1,
+            width: "100%",
+            mb: "20px",
+        },
+    },
+    ["@media (max-width:1200px)"]: {
+        ".single-destination-picture": {
+            width: "calc(45% - 10px)",
+        },
+        ".single-destination-information": {
+            width: "calc(55% - 10px)",
+        },
+    },
+    ["@media (max-width:1000px)"]: {
+        flexDirection: "column",
+        padding: "0 0 10px 0",
+        ".single-destination-picture": {
+            width: "100%",
+            borderRadius: "10px 10px 0 0",
+        },
+        ".single-destination-information": {
+            padding: "0 10px",
+            width: "100%",
+            ".background-map": {
+                top: "0",
+                right: "0",
+                height: "calc(100% - 200px)",
+                maxWidth: "calc(100% - 100px)",
+                zIndex: -1,
+                opacity: 0.4,
+                img: {
+                    objectPosition: "120% 20px !important",
+                },
+            },
+            ".single-landmark": {
+                height: "200px",
+            },
+            "a.read-more": {
+                marginTop: "50px",
+                alignSelf: "center",
+                width: "100%",
+                maxWidth: "400px",
+                button: {
+                    height: "45px",
+                    width: "100%",
+                },
+            },
+        },
+    },
+    ["@media (max-width:800px)"]: {
+        ".single-destination-information": {
+            ".single-landmark": {
+                height: "150px",
+            },
+        },
+    },
+    ["@media (max-width:700px)"]: {
+        h2: {
+            fontSize: "3rem",
+        },
+        ".single-destination-picture": {
+            height: "350px",
+        },
+    },
+    ["@media (max-width:600px)"]: {
+        ".single-destination-picture": {
+            height: "350px",
+        },
+    },
+    ["@media (max-width:500px)"]: {
+        ".single-destination-picture": {
+            height: "300px",
+        },
+        ".single-destination-information": {
+            ".landmarks-wrapper": {
+                flexDirection: "column",
+                ".single-landmark": {
+                    width: "100%",
+                    height: "280px",
+                    marginBottom: "10px",
+                },
+            },
+            "a.read-more": {
+                marginTop: "20px",
+            },
+        },
+    },
 }));
 
 interface SingleDestinationProps {
@@ -35,19 +137,18 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
 
     return (
         <Wrapper horizontal="between">
-            <FieldBackgroundMap continent={continent} sx={{ width: "35%", top: "-20%", right: "-3%" }}></FieldBackgroundMap>
             <DestinationPicture
                 picture={folder} //
                 resolution="480p"
-                sx={{ width: "calc(50% - 10px)" }}
             ></DestinationPicture>
-            <FlexBox column sx={{ width: "calc(50% - 10px)", position: "relative", zIndex: "1" }} horizontal="start">
+            <FlexBox column horizontal="start" className="single-destination-information">
+                <FieldBackgroundMap continent={continent}></FieldBackgroundMap>
                 <LocalizationBreadCrumbs crumbs={localization}></LocalizationBreadCrumbs>
                 <Typography variant="h2">{city}</Typography>
                 <Typography variant="body1">{shortDescription}</Typography>
                 <LandmarksHeader></LandmarksHeader>
 
-                <FlexBox horizontal="between" sx={{ flexGrow: 1, width: "100%", mb: "20px" }}>
+                <FlexBox horizontal="between" className="landmarks-wrapper">
                     {landmarks.map((item, index) => {
                         return <SingleLandmark url={item.picture} key={item.picture}></SingleLandmark>;
                     })}
