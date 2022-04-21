@@ -52,6 +52,7 @@ const Navigation: FunctionComponent<MUIStyledCommonProps> = (props) => {
             document.body.style.top = `-${window.scrollY}px`;
             document.body.style.position = "fixed";
             document.body.style.left = `0px`;
+            setOpenMobileMenu((val) => !val);
         } else {
             document.body.style.top = `0px`;
             document.body.style.paddingRight = `0px`;
@@ -59,9 +60,10 @@ const Navigation: FunctionComponent<MUIStyledCommonProps> = (props) => {
             setTimeout(() => {
                 window.scrollTo({ top: previeousScollTop });
                 setIsScrollingDown(false);
-            }, 1);
+                previousScrollY.current = previeousScollTop + 10;
+                setOpenMobileMenu((val) => !val);
+            }, 50);
         }
-        setOpenMobileMenu((val) => !val);
     };
     useEffect(() => {
         document.body.style.top = `0px`;
@@ -71,6 +73,17 @@ const Navigation: FunctionComponent<MUIStyledCommonProps> = (props) => {
             setOpenMobileMenu(false);
         }, 1);
     }, [router.pathname]);
+    // Prevent from blocking scrolling while switching to wider screen
+    useEffect(() => {
+        if (width > 1000 && openMobileMenu) {
+            document.body.style.top = `0px`;
+            document.body.style.paddingRight = `0px`;
+            document.body.style.position = "static";
+            setTimeout(() => {
+                setOpenMobileMenu(false);
+            }, 1);
+        }
+    }, [width, openMobileMenu]);
 
     return (
         <Fade in={!navbarIsDisabled && (!isScrollingDown || scrollY < 500)}>

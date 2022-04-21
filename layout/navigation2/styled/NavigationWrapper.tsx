@@ -100,6 +100,7 @@ export default styled(FlexBox, {
         },
     },
     ["@media (max-width:1000px)"]: {
+        boxShadow: props.scrolledDown ? "#fff 2px 0px 1px" : "",
         "div#navigation-main-conteiner": {
             padding: "0 50px",
             "div#routes-wrapper": {
@@ -114,6 +115,23 @@ export default styled(FlexBox, {
                 justifyContent: "space-evenly",
                 transition: "transform .3s",
                 transform: "translateX(100%)",
+                "&::after": {
+                    content: "''",
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    opacity: 0.1,
+                    filter: "blur(2px)",
+                    backgroundImage: "url('/images/continents/mobile_navigation_background_full.jpg')",
+                    ["@media (max-width:500px)"]: {
+                        backgroundImage: "url('/images/continents/mobile_navigation_background_cropped.jpg')",
+                    },
+                },
                 a: {
                     height: "auto",
                     "button,svg": {

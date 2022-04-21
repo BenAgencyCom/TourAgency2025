@@ -30,6 +30,7 @@ const Header = styled("h4", {
     marginLeft: "10px",
     fontSize: props.isScrolledDown ? "1.5rem !important" : "3rem",
     fontWeight: 900,
+    userSelect: "none",
 }));
 interface PageLogoProps {
     forceAlternativeLogo: boolean;

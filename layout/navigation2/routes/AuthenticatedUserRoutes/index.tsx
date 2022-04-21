@@ -6,6 +6,8 @@ import type LocalStorageUserData from "@/@types/LocalStorageUserData";
 // Other components
 import Logout from "./Logout";
 import Avatar from "./Avatar";
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -21,14 +23,22 @@ const HelloThere = styled("span")(({ theme }) => ({
 
 const GeneralRoutes: FunctionComponent<{ userData: LocalStorageUserData }> = (props) => {
     const { id, avatar, name } = props.userData;
+    const { width } = useAppSelector((state) => state.windowSizes);
 
     return (
         <FlexBox vertical="center">
-            <Avatar id={id} avatar={avatar}></Avatar>
-            <HelloThere className="contrast-color">
-                <span>Hello, </span>
-                <strong>{name}</strong>
-            </HelloThere>
+            {width > 1000 && <Avatar id={id} avatar={avatar}></Avatar>}
+            {(() => {
+                if (width > 1300) {
+                    return (
+                        <HelloThere className="contrast-color">
+                            <span>Hello, </span>
+                            <strong>{name}</strong>
+                        </HelloThere>
+                    );
+                }
+            })()}
+
             <Logout></Logout>
         </FlexBox>
     );
