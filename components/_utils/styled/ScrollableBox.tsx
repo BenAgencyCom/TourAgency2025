@@ -1,6 +1,7 @@
 // Tools
 import { styled, alpha } from "@mui/system";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
@@ -21,15 +22,25 @@ const Wrapper = styled(Box)(({ theme }) => ({
         backgroundColor: theme.palette.primary.main,
         borderRadius: "2px",
     },
+    ["@media (max-width:800px)"]: {
+        padding: "0 20px",
+        width: "calc(100% - 20px)",
+    },
+    ["@media (max-width:600px)"]: {
+        padding: "0 10px 0 10px",
+        width: "calc(100% - 10px)",
+    },
 }));
 interface ScrollableBoxProps {
     children: ReactNode;
-    sx?: Record<string, any>;
+    sx?: SxProps;
+    className: string;
 }
 const ScrollableBox: FunctionComponent<ScrollableBoxProps> = (props) => {
+    const { children, ...propsToForward } = props;
     return (
-        <Wrapper sx={props.sx}>
-            <FlexBox column>{props.children}</FlexBox>
+        <Wrapper {...propsToForward}>
+            <FlexBox column>{children}</FlexBox>
         </Wrapper>
     );
 };

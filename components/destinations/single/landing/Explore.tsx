@@ -27,7 +27,7 @@ const ExploreButton = styled(Button)(({ theme }) => ({
 const Explore: FunctionComponent = () => {
     return (
         <Fade in={true}>
-            <ExploreButton variant="outlined" color="inherit">
+            <ExploreButton variant="outlined" color="inherit" className="explore">
                 Explore
             </ExploreButton>
         </Fade>

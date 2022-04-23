@@ -20,7 +20,7 @@ interface BackgroundPictureProps {
 
 const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => {
     return (
-        <Wrapper>
+        <Wrapper className="single-landmark-picture">
             <Image
                 layout="fill" //
                 alt="bg"

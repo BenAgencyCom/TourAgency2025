@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
-import Field from "@/components/destinations/single/reviews/Field";
+import Field from "./Field";
 import ScoreInStars from "@/components/_utils/ScoreInStars";
 // Styled components
 const StarsWrapper = styled("div")(({ theme }) => ({
@@ -26,7 +26,7 @@ interface RatingsProps {
 }
 const Ratings: FunctionComponent<RatingsProps> = (props) => {
     return (
-        <Field>
+        <Field className="ratings">
             <StarsWrapper>
                 <ScoreInStars score={props.ratings}></ScoreInStars>
             </StarsWrapper>

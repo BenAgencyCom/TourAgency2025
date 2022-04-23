@@ -51,6 +51,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
             sx={{ width: `calc(33% - 10px)`, ...props.sx }} //
             column
             horizontal="start"
+            className="single-landmark"
         >
             {(() => {
                 if (userReview) {

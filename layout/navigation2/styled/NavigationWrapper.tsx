@@ -33,6 +33,7 @@ export default styled(FlexBox, {
         maxHeight: "70px",
         height: "70px",
         background: theme.palette.text.primary,
+        boxShadow: "#fff 2px 0px 1px",
     }),
     a: {
         height: "100%",
@@ -100,7 +101,6 @@ export default styled(FlexBox, {
         },
     },
     ["@media (max-width:1000px)"]: {
-        boxShadow: props.scrolledDown ? "#fff 2px 0px 1px" : "",
         "div#navigation-main-conteiner": {
             padding: "0 50px",
             "div#routes-wrapper": {

@@ -6,7 +6,7 @@ import type { FunctionComponent } from "react";
 const Wrapper = styled("span")(({ theme }) => ({
     fontSize: "1.3rem",
 }));
-const Colored = styled("span")(({ theme }) => ({
+const Colored = styled("strong")(({ theme }) => ({
     color: theme.palette.primary.main,
     fontWeight: 700,
 }));
@@ -18,7 +18,7 @@ const Date: FunctionComponent<DateProps> = (props) => {
     const [days, time] = props.createdAt.split(" ");
 
     return (
-        <Wrapper>
+        <Wrapper className="date">
             <Colored>{days}</Colored>
             <span>, at </span>
             <Colored>{time}</Colored>

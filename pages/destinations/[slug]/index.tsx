@@ -1,4 +1,5 @@
 // Tools
+import dynamic from "next/dynamic";
 import { prisma } from "@/prisma/db";
 import { styled } from "@mui/system";
 import SingleDestinationAPI from "@/utils/api/pages/destinations/SingleDestinationAPI/SingleDestinationAPI";
@@ -11,17 +12,15 @@ import Head from "next/Head";
 import Landing from "@/components/destinations/single/Landing";
 import Description from "@/components/destinations/single/Description";
 import Stats from "@/components/destinations/single/Stats";
-import Stepper from "@/components/destinations/single/Stepper";
+const Stepper = dynamic(() => import("@/components/destinations/single/Stepper"));
 import Landmarks from "@/components/destinations/single/Landmarks";
 import Reviews from "@/components/destinations/single/Reviews";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { setData, setRatings, setTotalReviews } from "@/redux/slices/singleDestination";
 // Styled components
-const Wrapper = styled("div")(({ theme }) => ({
-    width: "100vw",
-    position: "relative",
-}));
+import RWDContentWrapper from "@/components/destinations/single/RWD";
+
 const Content = styled("div")(({ theme }) => ({
     width: "100vw",
     position: "relative",
@@ -48,7 +47,7 @@ interface SingleDestinationProps {
 }
 
 const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => {
-    const { scrollY } = useAppSelector((state) => state.windowSizes);
+    const { scrollY, width } = useAppSelector((state) => state.windowSizes);
 
     const dispatch = useAppDispatch();
     dispatch(setData(props.destination));
@@ -60,16 +59,16 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
             <Head>
                 <title>{props.destination.city}</title>
             </Head>
-            <Wrapper sx={{ color: "text.primary" }}>
+            <RWDContentWrapper sx={{ color: "text.primary" }}>
                 <Landing></Landing>
-                <Stepper></Stepper>
+                {width > 1000 && <Stepper></Stepper>}
                 <Content sx={{ "&::before": { opacity: scrollY ? 1 : 0 } }}>
                     <Stats></Stats>
                     <Description></Description>
                     <Landmarks></Landmarks>
                     <Reviews></Reviews>
                 </Content>
-            </Wrapper>
+            </RWDContentWrapper>
         </>
     );
 };

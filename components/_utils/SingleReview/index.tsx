@@ -1,4 +1,5 @@
 // Tools
+import RWD from "./RWD";
 import { styled, alpha } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
@@ -7,9 +8,11 @@ import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Material UI Components
 import Divider from "@mui/material/Divider";
 // Other components
-import SingleReviewHeader from "./header/SingleReviewHeader";
+import SingleReviewHeader from "./header";
 import SingleReviewTags from "./SingleReviewTags";
 import Likes from "./Likes";
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -28,6 +31,8 @@ const SingleReviewWrapper = styled(FlexBox, {
     hr: {
         borderColor: theme.palette.background.lightPaper,
     },
+    //
+    ...(RWD as any),
 }));
 
 const ReviewContent = styled("p")(({ theme }) => ({
@@ -43,6 +48,7 @@ interface SingleReviewProps {
 }
 const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     const { review, isLatest } = props;
+    const { width } = useAppSelector((state) => state.windowSizes);
 
     const color = ((): ScoreColor => {
         const { points } = review;
@@ -54,6 +60,7 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     return (
         <SingleReviewWrapper isLatest={isLatest} column>
             <SingleReviewHeader review={review} color={color}></SingleReviewHeader>
+            {width <= 700 && <Divider flexItem sx={{ my: "10px" }}></Divider>}
             <SingleReviewTags tags={review.tags} color={color}></SingleReviewTags>
             <ReviewContent>{review.review}</ReviewContent>
 

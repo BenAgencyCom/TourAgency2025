@@ -20,7 +20,7 @@ interface SplittedFieldProps {
 
 const SplittedField: FunctionComponent<SplittedFieldProps> = (props) => {
     return (
-        <SplittedFieldWrapper>
+        <SplittedFieldWrapper className="splitted-content-field">
             <SplittedSubfieldField
                 data={props.data.left} //
                 imageLoader={props.imageLoader}

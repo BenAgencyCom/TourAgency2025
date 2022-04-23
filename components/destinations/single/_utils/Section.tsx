@@ -24,6 +24,21 @@ const Container = styled("div")(({ theme }) => ({
     margin: "0 auto",
     position: "relative",
     zIndex: 2,
+    ["@media (max-width:1400px)"]: {
+        maxWidth: "calc(100vw - 340px)",
+    },
+    ["@media (max-width:1300px)"]: {
+        maxWidth: "calc(100vw - 300px)",
+    },
+    ["@media (max-width:1000px)"]: {
+        maxWidth: "calc(100vw - 100px)",
+    },
+    ["@media (max-width:800px)"]: {
+        maxWidth: "calc(100vw - 40px)",
+    },
+    ["@media (max-width:600px)"]: {
+        maxWidth: "calc(100vw - 0px)",
+    },
 }));
 
 interface SectionProps {

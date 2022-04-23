@@ -23,7 +23,7 @@ interface ScoreProps {
 
 const Score: FunctionComponent<ScoreProps> = (props) => {
     return (
-        <Wrapper center color={props.color}>
+        <Wrapper center color={props.color} className="landmark-review-score">
             <span>{props.points}</span>
         </Wrapper>
     );

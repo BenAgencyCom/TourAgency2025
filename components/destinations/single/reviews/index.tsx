@@ -6,9 +6,9 @@ import type { FunctionComponent } from "react";
 // Other components
 import Section from "@/components/destinations/single/_utils/Section";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
-import Ratings from "@/components/destinations/single/reviews/Ratings";
-import UserReview from "@/components/destinations/single/reviews/user_review/UserReview";
-import AllReviews from "@/components/destinations/single/reviews/AllReviews";
+import Ratings from "@/components/destinations/single/Reviews/Ratings";
+import UserReview from "@/components/destinations/single/Reviews/user_review/UserReview";
+import AllReviews from "@/components/destinations/single/Reviews/AllReviews";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
@@ -39,22 +39,16 @@ const Reviews: FunctionComponent = () => {
                 {/*  */}
                 {/* CONTENT */}
                 {/*  */}
-                <Wrapper horizontal="between">
-                    <FlexBox
-                        column //
-                        vertical="between"
-                        horizontal="center"
-                        sx={{ width: "360px" }}
-                    >
+                <Wrapper column>
+                    {/* <FlexBox vertical="between" horizontal="center" sx={{ height: "360px" }}>
                         <Ratings totalReviews={totalReviews} ratings={ratings}></Ratings>
                         <UserReview></UserReview>
-                    </FlexBox>
+                    </FlexBox> */}
 
                     <AllReviews
                         reviews={reviews} //
                         totalReviews={totalReviews}
                         slug={slug}
-                        sx={{ width: "calc(100% - 360px - 40px)" }}
                     ></AllReviews>
                 </Wrapper>
             </UnfadeOnScroll>

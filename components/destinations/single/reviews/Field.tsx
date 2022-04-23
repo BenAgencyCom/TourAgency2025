@@ -1,25 +1,26 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent, ReactNode } from "react";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const FieldWrapper = styled(FlexBox)(({ theme }) => ({
-    height: "calc(50% - 20px)",
     width: "100%",
-    background: theme.palette.background.lightPaper,
     borderRadius: 10,
     boxSizing: "border-box",
 }));
 interface FieldProps {
     children: ReactNode;
+    className?: string;
+    sx?: SxProps;
 }
 
-const Field: FunctionComponent<FieldProps> = (props) => {
+const Field: FunctionComponent<FieldProps> = ({ children, ...propsToForward }) => {
     return (
-        <FieldWrapper column center>
-            {props.children}
+        <FieldWrapper column center {...propsToForward}>
+            {children}
         </FieldWrapper>
     );
 };

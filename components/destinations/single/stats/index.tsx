@@ -5,6 +5,8 @@ import type { FunctionComponent } from "react";
 // Other components
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import SingleStat from "./SingleStat";
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -46,10 +48,11 @@ const Stats: FunctionComponent = () => {
             hideDivider: true,
         },
     ];
+    const { width } = useAppSelector((state) => state.windowSizes);
 
     return (
         <UnfadeOnScroll animationRatio={0.5}>
-            <Wrapper horizontal="between" vertical="center">
+            <Wrapper horizontal="between" vertical="center" id="destination-general-stats">
                 {stats.map((item, index) => {
                     return (
                         <SingleStat
@@ -57,7 +60,7 @@ const Stats: FunctionComponent = () => {
                             top={item.top}
                             middle={item.middle}
                             bottom={item.bottom}
-                            hideDivider={item?.hideDivider}
+                            hideDivider={width < 700 || item?.hideDivider}
                         ></SingleStat>
                     );
                 })}

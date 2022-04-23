@@ -33,7 +33,7 @@ const Likes: FunctionComponent<LikesProps> = (props) => {
     return (
         <FlexBox horizontal="between" vertical="center">
             <FlexBox vertical="center">
-                <Label>Did you find it helpful?</Label>
+                <Label className="landmark-review-feedback-label">Did you find it helpful?</Label>
                 <ThumbsWrapper color="inherit">
                     <ThumbUp></ThumbUp>
                     <strong>{props.feedback.likes}</strong>

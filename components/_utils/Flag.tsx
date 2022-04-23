@@ -21,10 +21,11 @@ interface FlagProps {
     countryCode: string;
     country: string;
     sx?: SxProps;
+    className?: string;
 }
 const Flag: FunctionComponent<FlagProps> = (props) => {
     return (
-        <Tooltip title={props.country} placement="top">
+        <Tooltip title={props.country} placement="top" className={props.className}>
             <Wrapper sx={props.sx}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

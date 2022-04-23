@@ -50,7 +50,7 @@ interface HeaderContentFieldProps {
 const HeaderField: FunctionComponent<HeaderContentFieldProps> = (props) => {
     return (
         <Header variant="h3">
-            <Dot></Dot>
+            <Dot className="decoration"></Dot>
             <span>{props.data.header}</span>
         </Header>
     );

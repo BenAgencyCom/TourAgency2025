@@ -17,7 +17,7 @@ export default styled("span")<{ fontSize?: string }>(({ theme, ...props }) => {
         left: 0,
         top: "50%",
         transform: "translateY(-50%)",
-        fontSize: props.fontSize ?? "10rem",
+        fontSize: props.fontSize ?? "9rem",
         color: alpha(theme.palette.text.primary, 0.1),
         userSelect: "none",
         fontWeight: 900,

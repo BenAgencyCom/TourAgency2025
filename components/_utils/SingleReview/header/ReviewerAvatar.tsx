@@ -26,12 +26,14 @@ const ReviewerAvatar: FunctionComponent<ReviewerAvatarProps> = (props) => {
                             <Avatar
                                 src={avatarURL(props.avatar, "small")} //
                                 sx={{ width: avatarSize, height: avatarSize, mx: "20px", cursor: "pointer" }}
+                                className="landmark-reviewer-avatar"
                             ></Avatar>
                         );
                     } else {
                         return (
                             <Avatar
                                 sx={{ width: avatarSize, height: avatarSize, color: "white", mx: "20px", cursor: "pointer" }} //
+                                className="landmark-reviewer-avatar"
                             ></Avatar>
                         );
                     }

@@ -13,7 +13,6 @@ import ImageModal from "@/components/_utils/ImageModal";
 // Styled Components
 const ImageFieldWrapper = styled("div")(({ theme }) => ({
     position: "relative",
-    minHeight: "300px",
     "&::before": {
         content: "''",
         position: "absolute",
@@ -25,6 +24,7 @@ const ImageFieldWrapper = styled("div")(({ theme }) => ({
         transform: `translate(-50%,-50%)`,
         transition: "opacity 1s .3s, transform .7s .5s",
         opacity: 0,
+        zIndex: "-1",
     },
 }));
 
@@ -46,14 +46,16 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
         return 100;
     })();
 
+    // ClassNames (for RWD purpose)
+    const type: string = props.split ? "splitted-field-image" : "entire-field-image";
+    const pseudoElementRotation: string = props.side === "right" ? "image-with-reversed-shape" : "image-with-shape";
     return (
         <ImageFieldWrapper
             sx={{
                 width: `${width}% !important`, //
-                height: `${props.split ? "auto" : "600px"}`,
                 my: props.split ? 0 : 2,
             }}
-            className={props.side === "right" ? "image-with-reversed-shape" : "image-with-shape"}
+            className={[type, pseudoElementRotation].join(" ")}
         >
             {(() => {
                 if (props.imageURL) {

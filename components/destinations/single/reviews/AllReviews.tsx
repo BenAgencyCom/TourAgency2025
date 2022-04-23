@@ -1,6 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Material UI Components
@@ -9,6 +10,8 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import SingleReview from "@/components/_utils/SingleReview";
 import ScrollableBox from "@/components/_utils/styled/ScrollableBox";
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 const SeeAllReviews = styled(Button)(({ theme }) => ({
     fontSize: "1.3rem",
@@ -20,20 +23,25 @@ const SeeAllReviews = styled(Button)(({ theme }) => ({
 }));
 interface AllReviewsProps {
     reviews: Review[];
-    sx: Record<string, any>;
+    sx?: SxProps;
     totalReviews: number;
     slug: string;
 }
 const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
+    const { width } = useAppSelector((state) => state.windowSizes);
     const { reviews } = props;
+
+    const reviewToDisplay = width <= 700 ? reviews.slice(0, 4) : reviews;
+
     return (
         <ScrollableBox
             sx={{
                 ...props.sx,
                 paddingRight: "40px",
             }}
+            className="reviews-wrapper"
         >
-            {reviews.map((item, index) => {
+            {reviewToDisplay.map((item, index) => {
                 return (
                     <SingleReview
                         key={index} //
