@@ -16,13 +16,9 @@ import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const SingleReviewWrapper = styled(FlexBox, {
-    shouldForwardProp: (propName: string) => {
-        return !["isLatest"].includes(propName);
-    },
-})<{ isLatest?: boolean }>(({ theme, isLatest }) => ({
+const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
     width: "100%",
-    marginBottom: isLatest ? 0 : "40px",
+    marginTop: "40px",
     padding: "20px",
     boxSizing: "border-box",
     background: alpha("#fff", 0.3),
@@ -30,6 +26,9 @@ const SingleReviewWrapper = styled(FlexBox, {
     border: `2px solid ${theme.palette.background.lightPaper}`,
     hr: {
         borderColor: theme.palette.background.lightPaper,
+    },
+    "&:nth-of-type(1)": {
+        marginTop: "0px !important",
     },
     //
     ...(RWD as any),
@@ -44,10 +43,9 @@ const ReviewContent = styled("p")(({ theme }) => ({
 
 interface SingleReviewProps {
     review: Review;
-    isLatest?: boolean;
 }
 const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
-    const { review, isLatest } = props;
+    const { review } = props;
     const { width } = useAppSelector((state) => state.windowSizes);
 
     const color = ((): ScoreColor => {
@@ -58,7 +56,7 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     })();
 
     return (
-        <SingleReviewWrapper isLatest={isLatest} column>
+        <SingleReviewWrapper column>
             <SingleReviewHeader review={review} color={color}></SingleReviewHeader>
             {width <= 700 && <Divider flexItem sx={{ my: "10px" }}></Divider>}
             <SingleReviewTags tags={review.tags} color={color}></SingleReviewTags>

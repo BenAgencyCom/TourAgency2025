@@ -8,7 +8,7 @@ import LocationOn from "@mui/icons-material/LocationOn";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 const Wrapper = styled(FlexBox)(({ theme }) => ({
     color: theme.palette.primary.main,
-    fontWeight: "bold",
+    fontWeight: 500,
     fontSize: "1.2rem",
     margin: "10px 0 5px 0",
     "span.seperator": {
@@ -20,6 +20,9 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
     },
     svg: {
         marginRight: "5px",
+    },
+    ["@media (max-width:600px)"]: {
+        fontSize: "1.1rem",
     },
 }));
 interface LocalizationProps {

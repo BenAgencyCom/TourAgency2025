@@ -6,6 +6,7 @@ export default {
             flexDirection: "column",
             alignItems: "flex-start",
         },
+        marginTop: "60px",
     },
     ["@media (max-width:800px)"]: {
         "div.landmark-reviewer-avatar": {

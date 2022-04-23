@@ -11,6 +11,21 @@ const Wrapper = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: "3px 20px 3px 20px",
     overflow: "hidden",
+    ["@media (max-width:1000px)"]: {
+        height: "500px",
+    },
+    ["@media (max-width:800px)"]: {
+        height: "400px",
+    },
+    ["@media (max-width:700px)"]: {
+        height: "350px",
+    },
+    ["@media (max-width:600px)"]: {
+        height: "300px",
+    },
+    ["@media (max-width:500px)"]: {
+        height: "250px",
+    },
 }));
 
 interface BackgroundPictureProps {

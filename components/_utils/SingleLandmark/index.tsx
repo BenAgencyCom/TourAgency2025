@@ -23,6 +23,32 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
     padding: "10px",
     cursor: "default",
     position: "relative",
+    ["@media (max-width:1000px)"]: {
+        width: "100%",
+        margin: "60px 0 0 0",
+        height: "auto",
+        "&:nth-of-type(1)": {
+            marginTop: "0px",
+        },
+        ".read-more": {
+            marginTop: "10px",
+        },
+        h3: {
+            fontSize: "3rem !important",
+        },
+    },
+    ["@media (max-width:700px)"]: {
+        h3: {
+            fontSize: "2.5rem !important",
+            lineHeight: "36px",
+        },
+    },
+    ["@media (max-width:400px)"]: {
+        h3: {
+            fontSize: "2rem !important",
+            lineHeight: "30px",
+        },
+    },
 }));
 
 interface SingleLandmarkProps {

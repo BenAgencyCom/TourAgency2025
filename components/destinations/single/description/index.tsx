@@ -5,6 +5,8 @@ import type { FunctionComponent } from "react";
 // Other components
 import Section from "@/components/destinations/single/_utils/Section";
 import SingleDestinationContent from "@/components/destinations/single/Description/SingleDestinationContent";
+// Material UI Icons
+import MenuBook from "@mui/icons-material/MenuBook";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 
@@ -16,6 +18,7 @@ const DestinationWrapper: FunctionComponent = () => {
         <Section
             id="description"
             background={colorTheme.palette.background.default}
+            mobileIcon={<MenuBook></MenuBook>}
             header={{
                 text: "WORDS OF INTRODUCTION", //
                 biggerHeader: "About",

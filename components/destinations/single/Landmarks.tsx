@@ -6,6 +6,8 @@ import type { FunctionComponent } from "react";
 import Section from "@/components/destinations/single/_utils/Section";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import SingleLandmark from "@/components/_utils/SingleLandmark";
+// Material UI Icons
+import Map from "@mui/icons-material/Map";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
@@ -17,6 +19,7 @@ const Landmarks: FunctionComponent = () => {
         <Section
             id="landmarks"
             background={colorTheme.palette.background.lightPaper}
+            mobileIcon={<Map></Map>}
             header={{
                 text: "More similar venues to visit", //
                 buttonMsg: `More in ${country}`,

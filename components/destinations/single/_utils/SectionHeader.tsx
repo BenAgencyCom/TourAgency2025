@@ -1,66 +1,20 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
-import type { FunctionComponent } from "react";
+import type { FunctionComponent, ReactNode } from "react";
 // Other components
-import Link from "next/link";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
+// Other components
+import ContinueButton from "./ContinueButton";
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
+import Header from "./styled/Header";
+import Wrapper from "./styled/Wrapper";
 import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
-import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineTransition";
-
-const Header = styled("h2")(({ theme }) => ({
-    fontWeight: 900,
-    userSelect: "none",
-    position: "relative",
-    margin: 0,
-    fontSize: "4rem",
-    "span.normal": {
-        position: "relative",
-        zIndex: 1,
-        letterSpacing: "-2px",
-        textTransform: "uppercase", //
-    },
-}));
-const Wrapper = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    margin: "200px 0 100px 0",
-    ["@media (max-width:1000px)"]: {
-        flexDirection: "column",
-        button: {
-            marginTop: "20px",
-        },
-    },
-    ["@media (max-width:800px)"]: {
-        margin: "100px 0 50px 0",
-        h2: {
-            fontSize: "3.5rem",
-            lineHeight: "50px",
-        },
-    },
-    ["@media (max-width:600px)"]: {
-        h2: {
-            padding: "0 10px",
-        },
-    },
-    ["@media (max-width:500px)"]: {
-        h2: {
-            fontSize: "3rem",
-            lineHeight: "40px",
-            textAlign: "center",
-        },
-    },
-}));
-const ContinueButton = styled(ButtonWithLineTransition)(({ theme }) => ({
-    padding: "10px 0",
-    minWidth: "200px",
-    fontSize: "1.2rem",
-}));
 
 interface SectionHeaderProps {
+    mobileIcon: ReactNode;
     header: string;
     buttonMsg?: string;
     biggerHeader?: string;
@@ -68,34 +22,23 @@ interface SectionHeaderProps {
     url?: string;
 }
 const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
+    const { buttonMsg, onClick, url } = props;
+    const { width } = useAppSelector((state) => state.windowSizes);
     return (
         <UnfadeOnScroll duration={700}>
             <Wrapper>
                 <Header>
-                    <span className="normal">{props.header}</span>
                     {(() => {
-                        if (props.biggerHeader) {
-                            return <BackgroundHeader>{props.biggerHeader}</BackgroundHeader>;
+                        if (width > 1000) {
+                            return props.biggerHeader && <BackgroundHeader>{props.biggerHeader}</BackgroundHeader>;
+                        } else {
+                            return props.mobileIcon;
                         }
                     })()}
+                    <span className="normal">{props.header}</span>
                 </Header>
-                {(() => {
-                    if (props.buttonMsg && props.url) {
-                        return (
-                            <ContinueButton reverse line="right">
-                                <Link href={props.url} passHref>
-                                    {props.buttonMsg}
-                                </Link>
-                            </ContinueButton>
-                        );
-                    } else if (props.buttonMsg && props.onClick) {
-                        return (
-                            <ContinueButton reverse line="right">
-                                {props.buttonMsg}
-                            </ContinueButton>
-                        );
-                    }
-                })()}
+
+                {buttonMsg && <ContinueButton buttonMsg={buttonMsg} onClick={onClick} url={url}></ContinueButton>}
             </Wrapper>
         </UnfadeOnScroll>
     );

@@ -9,6 +9,7 @@ export interface ButtonWrapperParams {
     color?: string;
     background?: string;
     line?: Direction;
+    onClick?: () => any;
 }
 
 export interface ButtonWithLineTransitionProps extends ButtonWrapperParams {

@@ -39,6 +39,7 @@ const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
                 ...props.sx,
                 paddingRight: "40px",
             }}
+            maxHeight="600px"
             className="reviews-wrapper"
         >
             {reviewToDisplay.map((item, index) => {
@@ -46,18 +47,23 @@ const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
                     <SingleReview
                         key={index} //
                         review={item}
-                        isLatest={index === reviews.length - 1}
                     ></SingleReview>
                 );
             })}
 
-            <SeeAllReviews variant="outlined">
-                <Link href={`/destinations/${props.slug}/reviews`} passHref>
-                    <span>
-                        See all <strong>{props.totalReviews}</strong> reviews
-                    </span>
-                </Link>
-            </SeeAllReviews>
+            {(() => {
+                if (width > 1000) {
+                    return (
+                        <SeeAllReviews variant="outlined">
+                            <Link href={`/destinations/${props.slug}/reviews`} passHref>
+                                <span>
+                                    See all <strong>{props.totalReviews}</strong> reviews
+                                </span>
+                            </Link>
+                        </SeeAllReviews>
+                    );
+                }
+            })()}
         </ScrollableBox>
     );
 };

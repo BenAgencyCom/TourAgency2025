@@ -109,7 +109,10 @@ export default responsiveFontSizes(
                         letterSpacing: "-2px",
                     },
                     body1: {
-                        fontSize: "1.1rem",
+                        fontSize: "1.2rem",
+                        ["@media (max-width:1000px)"]: {
+                            fontSize: "1.1rem",
+                        },
                     },
                 },
             },

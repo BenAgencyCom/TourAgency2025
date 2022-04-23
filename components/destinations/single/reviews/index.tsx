@@ -9,6 +9,8 @@ import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import Ratings from "@/components/destinations/single/Reviews/Ratings";
 import UserReview from "@/components/destinations/single/Reviews/user_review/UserReview";
 import AllReviews from "@/components/destinations/single/Reviews/AllReviews";
+// Material UI Icons
+import ShowChart from "@mui/icons-material/ShowChart";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
@@ -16,7 +18,6 @@ import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const Wrapper = styled(FlexBox)(({ theme }) => ({
     width: "100%",
-    height: "600px",
     userSelect: "none",
 }));
 
@@ -28,6 +29,7 @@ const Reviews: FunctionComponent = () => {
         <Section
             id="reviews"
             background={colorTheme.palette.background.default}
+            mobileIcon={<ShowChart></ShowChart>}
             header={{
                 text: "Users experiences",
                 buttonMsg: `See all reviews`,

@@ -8,6 +8,7 @@ import type { FunctionComponent, ReactNode } from "react";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 // Other components
+import ContinueButton from "./ContinueButton";
 import SectionHeader from "@/components/destinations/single/_utils/SectionHeader";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
@@ -17,12 +18,17 @@ const Wrapper = styled(Box)({
     padding: "100px 0",
     position: "relative",
     overflow: "hidden",
+    ["@media (max-width:600px)"]: {
+        padding: "50px 0",
+    },
 });
 const Container = styled("div")(({ theme }) => ({
     width: "1450px",
     maxWidth: "calc(100vw - 400px)",
     margin: "0 auto",
     position: "relative",
+    display: "flex",
+    flexDirection: "column",
     zIndex: 2,
     ["@media (max-width:1400px)"]: {
         maxWidth: "calc(100vw - 340px)",
@@ -42,7 +48,7 @@ const Container = styled("div")(({ theme }) => ({
 }));
 
 interface SectionProps {
-    children: ReactNode;
+    mobileIcon: ReactNode;
     id: string;
     background: string;
     header: {
@@ -57,7 +63,7 @@ interface SectionProps {
     sx?: SxProps;
 }
 const Section: FunctionComponent<SectionProps> = (props) => {
-    const { scrollY, height } = useAppSelector((state) => state.windowSizes);
+    const { scrollY, height, width } = useAppSelector((state) => state.windowSizes);
     const [fade, setFade] = useState<boolean>(true);
     const element = useRef<HTMLElement | null>(null);
 
@@ -83,12 +89,29 @@ const Section: FunctionComponent<SectionProps> = (props) => {
                 <Container>
                     <SectionHeader
                         header={props.header.text} //
-                        buttonMsg={props.header.buttonMsg}
-                        onClick={props.header.onClick}
-                        url={props.header.url}
+                        buttonMsg={width > 1000 ? props.header.buttonMsg : undefined}
+                        onClick={width > 1000 ? props.header.onClick : undefined}
+                        url={width > 1000 ? props.header.url : undefined}
                         biggerHeader={props.header.biggerHeader}
+                        mobileIcon={props.mobileIcon}
                     ></SectionHeader>
                     {props.children}
+
+                    {(() => {
+                        if (width <= 1000 && props.header.buttonMsg) {
+                            return (
+                                <ContinueButton
+                                    buttonMsg={props.header.buttonMsg} //
+                                    onClick={props.header.onClick}
+                                    url={props.header.url}
+                                    sx={{
+                                        alignSelf: "center",
+                                        marginTop: "50px",
+                                    }}
+                                ></ContinueButton>
+                            );
+                        }
+                    })()}
                 </Container>
             </Fade>
         </Wrapper>

@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 const Paragraph = styled(Typography)(({ theme }) => ({
     textIndent: "20px",
     marginBottom: theme.spacing(1),
-    fontSize: "1.2rem",
     fontWeight: 300,
     textAlign: "justify",
     letterSpacing: "1px",
