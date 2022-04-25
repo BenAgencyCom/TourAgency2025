@@ -23,15 +23,15 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
     padding: "10px",
     cursor: "default",
     position: "relative",
+    ".read-more": {
+        marginTop: "10px",
+    },
     ["@media (max-width:1000px)"]: {
         width: "100%",
         margin: "60px 0 0 0",
         height: "auto",
         "&:nth-of-type(1)": {
             marginTop: "0px",
-        },
-        ".read-more": {
-            marginTop: "10px",
         },
         h3: {
             fontSize: "3rem !important",
@@ -67,7 +67,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
 
     const amountOfWordsInDescription: number = (() => {
         const { length } = props.data.title;
-        if (length > 40) return 40;
+        if (length > 40) return 0;
         else if (length > 23) return 100;
         return 150;
     })();
@@ -105,9 +105,15 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
             <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]}></LocalizationBreadCrumbs>
             <Header title={title}></Header>
 
-            <Typography variant="body1" sx={{ flexGrow: 1 }}>
-                {shortDescription.slice(0, amountOfWordsInDescription)}...
-            </Typography>
+            {(() => {
+                if (amountOfWordsInDescription) {
+                    return (
+                        <Typography variant="body1" sx={{ flexGrow: 1 }}>
+                            {shortDescription.slice(0, amountOfWordsInDescription)}...
+                        </Typography>
+                    );
+                }
+            })()}
 
             <ReadMore url={`/landmarks/${slug}`}></ReadMore>
         </SingleLandmarkWrapper>

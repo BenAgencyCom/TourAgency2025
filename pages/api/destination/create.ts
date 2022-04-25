@@ -75,6 +75,8 @@ class CreateNewDestination extends FileUploader {
                 shortDescription: fields.quickDescription,
                 slug,
                 creatorId: this.userId,
+                city_lowercase: fields.city.toLowerCase(),
+                country_lowercase: fields.country.label.toLowerCase(),
                 landmarks: {
                     createMany: {
                         data: fields.landmarks.map((landmark) => ({
@@ -90,7 +92,6 @@ class CreateNewDestination extends FileUploader {
                 },
             },
         });
-
         return slug;
     }
 }

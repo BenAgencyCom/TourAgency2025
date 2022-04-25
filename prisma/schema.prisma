@@ -46,18 +46,20 @@ model Session {
 }
 
 model Destination {
-  id               String    @id @default(cuid())
-  creatorId        String?   @map("creator_id")
-  slug             String    @unique
-  city             String
-  country          String
-  countryCode      String
-  population       Int
-  continent        Continent
-  shortDescription String
-  description      Json
-  folder           String
-  createdAt        DateTime  @default(now())
+  id                String    @id @default(cuid())
+  creatorId         String?   @map("creator_id")
+  slug              String    @unique
+  city              String
+  country           String
+  countryCode       String
+  population        Int
+  continent         Continent
+  shortDescription  String
+  description       Json
+  folder            String
+  createdAt         DateTime  @default(now())
+  country_lowercase String
+  city_lowercase    String
 
   landmarks Landmark[]
   reviews   DestinationReview[]
