@@ -51,13 +51,13 @@ export default class BulkDestinationsApi extends BulkAPIsURLQueriesHandler<Extra
                 ...(searchingPhrase && {
                     OR: [
                         {
-                            country: {
-                                contains: searchingPhrase,
+                            country_lowercase: {
+                                contains: searchingPhrase.toLowerCase(),
                             },
                         },
                         {
-                            city: {
-                                contains: searchingPhrase,
+                            city_lowercase: {
+                                contains: searchingPhrase.toLowerCase(),
                             },
                         },
                     ],
