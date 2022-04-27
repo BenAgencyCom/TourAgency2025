@@ -1,14 +1,18 @@
 // Tools
 import { styled } from "@mui/system";
 import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
-import determineReviewType from "@/utils/api/determineReviewType";
 // Types
 import type { FunctionComponent } from "react";
+import type { ReviewType } from "@prisma/client";
+// Material UI Icons
+import HourglassDisabled from "@mui/icons-material/HourglassDisabled";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const AverageScoreWrapper = styled(FlexBox)<{ score: number }>(({ theme, ...props }) => ({
-    background: getColorBasedOnScore(determineReviewType(props.score)),
+const AverageScoreWrapper = styled(FlexBox, {
+    shouldForwardProp: (prop: string) => !["predominant"].includes(prop),
+})<{ predominant: AverageScoreProps["predominant"] }>(({ theme, ...props }) => ({
+    background: getColorBasedOnScore(props.predominant),
     color: "#fff",
     width: "90px",
     height: "90px",
@@ -20,11 +24,14 @@ const AverageScoreWrapper = styled(FlexBox)<{ score: number }>(({ theme, ...prop
 
 interface AverageScoreProps {
     averageScore: number;
+    thereAreNoReviewsAtAll: boolean;
+    predominant: ReviewType | "NO_SCORE";
 }
 const AverageScore: FunctionComponent<AverageScoreProps> = (props) => {
+    const score = Math.floor(props.averageScore * 10);
     return (
-        <AverageScoreWrapper score={props.averageScore} center>
-            {Math.floor(props.averageScore * 10)}
+        <AverageScoreWrapper predominant={props.predominant} center>
+            {props.thereAreNoReviewsAtAll ? <HourglassDisabled sx={{ fontSize: "3rem" }} /> : score}
         </AverageScoreWrapper>
     );
 };

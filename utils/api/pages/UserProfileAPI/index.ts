@@ -120,7 +120,7 @@ export default class UserProfileAPI {
             type: from.type,
         });
 
-        if (!latestDestinationReview && !latestLandmarkReview) return { points: 0, type: "NEGATIVE" };
+        if (!latestDestinationReview && !latestLandmarkReview) return { points: 0, type: "NO_SCORE" };
         else if (latestLandmarkReview && !latestDestinationReview) return _createResponse(latestLandmarkReview);
         else if (latestDestinationReview && !latestLandmarkReview) return _createResponse(latestDestinationReview);
         else if (latestLandmarkReview.createdAt > latestDestinationReview.createdAt) return _createResponse(latestLandmarkReview);
@@ -150,7 +150,7 @@ export default class UserProfileAPI {
         return {
             MIXED: 0,
             NEGATIVE: 0,
-            PREDOMINANT: "MIXED",
+            PREDOMINANT: "NO_SCORE",
             POSITIVE: 0,
             averageScore: 0,
             reviewsInTotal: 0,

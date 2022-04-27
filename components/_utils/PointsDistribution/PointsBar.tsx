@@ -1,7 +1,7 @@
 // Tools
-import { useState } from "react";
 import { styled, alpha } from "@mui/system";
 import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
+import { KeyframeScaleX } from "@/components/_utils/styled/keyframes";
 // Types
 import type { FunctionComponent } from "react";
 import type { ReviewType } from "@prisma/client";
@@ -15,13 +15,13 @@ const Label = styled("span")(({ theme, ...props }) => ({
     userSelect: "none",
     letterSpacing: "1px",
     strong: {
-        color: theme.palette.primary.main,
+        color: theme.palette.text.primary,
     },
 }));
 
 const Bar = styled("div", {
     shouldForwardProp: (prop: string) => !["ratio", "unfold", "type"].includes(prop),
-})<{ ratio: number; type: ReviewType; unfold: boolean }>(({ theme, ...props }) => ({
+})<{ ratio: number; type: ReviewType }>(({ theme, ...props }) => ({
     width: "100%",
     height: "5px",
     background: alpha(theme.palette.text.primary, 0.1),
@@ -33,8 +33,7 @@ const Bar = styled("div", {
         width: `${props.ratio}%`,
         background: getColorBasedOnScore(props.type),
         left: "0",
-        transform: props.unfold ? "scaleX(1)" : "scaleX(0.1)",
-        transition: "transform 1s ease-in-out",
+        animation: `${KeyframeScaleX} 1s ease-in-out .5s both`,
         transformOrigin: "left",
     },
 }));
@@ -42,21 +41,18 @@ const Bar = styled("div", {
 interface PointsBarProps {
     type: ReviewType;
     pointsDistribution: PointsDistribution;
-    predominant: ReviewType;
+    predominant: ReviewType | "NO_SCORE";
 }
 
 const PointsBar: FunctionComponent<PointsBarProps> = (props) => {
     const { type, pointsDistribution, predominant } = props;
-    const ratio: number = Math.floor((pointsDistribution[type] * 100) / pointsDistribution[predominant]);
-    const [unfold, setUnfold] = useState<boolean>(false);
 
-    setTimeout(() => {
-        setUnfold(true);
-    }, 300);
+    const _computeRatio = () => Math.floor((pointsDistribution[type] * 100) / pointsDistribution[predominant as ReviewType]);
+    const ratio: number = predominant === "NO_SCORE" ? 0 : _computeRatio();
 
     return (
         <Wrapper>
-            <Bar ratio={ratio} type={type} unfold={unfold}></Bar>
+            <Bar ratio={ratio} type={type}></Bar>
             <Label>
                 <span>{type.toLowerCase()}: </span>
                 <strong>{pointsDistribution[type]}</strong>

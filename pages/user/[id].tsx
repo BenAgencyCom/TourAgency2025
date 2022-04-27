@@ -35,7 +35,10 @@ const Profile: FunctionComponent<ProfileProps> = (props) => {
                     pointsDistribution={props.pointsDistribution}
                     latestReview={props.latestReview}
                 ></Landing>
-                <Reviews userID={props.user.id}></Reviews>
+                <Reviews
+                    userID={props.user.id} //
+                    thereIsNoDataAtAll={props.pointsDistribution.reviewsInTotal === 0}
+                ></Reviews>
             </ContentContainter>
         </>
     );

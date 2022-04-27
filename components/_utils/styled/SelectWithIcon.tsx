@@ -16,7 +16,7 @@ interface StyledSelectProps extends SelectProps {
         label: string;
         value: any;
     }[];
-    defaultValue: any;
+    defaultValue?: any;
     icon: ReactNode;
 }
 

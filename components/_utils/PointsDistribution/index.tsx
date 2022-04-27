@@ -12,7 +12,7 @@ import FlexBox from "@/components/_utils/styled/FlexBox";
 interface PointsDistributionProps {
     averageScore: number;
     reviewsInTotal: number;
-    predominant: ReviewType;
+    predominant: ReviewType | "NO_SCORE";
     pointsDistribution: Record<ReviewType, number>;
     hideBasedOn?: true;
     sx?: SxProps;
@@ -20,7 +20,7 @@ interface PointsDistributionProps {
 
 const PointsDistributionComponent: FunctionComponent<PointsDistributionProps> = (props) => {
     const { predominant, reviewsInTotal, pointsDistribution, averageScore } = props;
-
+    console.log(predominant);
     return (
         <FlexBox column sx={props.sx}>
             {(() => {
@@ -34,7 +34,7 @@ const PointsDistributionComponent: FunctionComponent<PointsDistributionProps> = 
             })()}
 
             <FlexBox horizontal="between" sx={{ flexGrow: 1 }}>
-                <AverageScore averageScore={averageScore}></AverageScore>
+                <AverageScore averageScore={averageScore} thereAreNoReviewsAtAll={props.reviewsInTotal === 0} predominant={predominant}></AverageScore>
                 <FlexBox column sx={{ flexGrow: 1, ml: "20px" }}>
                     <PointsBar type="POSITIVE" pointsDistribution={pointsDistribution} predominant={predominant}></PointsBar>
                     <PointsBar type="MIXED" pointsDistribution={pointsDistribution} predominant={predominant}></PointsBar>

@@ -16,7 +16,7 @@ const Wrapper = styled("div")(({ theme }) => ({
 }));
 
 interface ReviewScoreProps {
-    type: ReviewType;
+    type: ReviewType | "NO_SCORE";
     sx?: SxProps;
 }
 

@@ -16,13 +16,13 @@ export interface PointsDistribution {
     POSITIVE: number;
     NEGATIVE: number;
     MIXED: number;
-    PREDOMINANT: ReviewType;
+    PREDOMINANT: ReviewType | "NO_SCORE";
     reviewsInTotal: number;
     averageScore: number;
 }
 
 export interface LatestReview {
-    type: ReviewType;
+    type: ReviewType | "NO_SCORE";
     points: number;
 }
 

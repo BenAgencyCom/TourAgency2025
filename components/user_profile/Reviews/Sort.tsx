@@ -7,9 +7,6 @@ import { getDefaultScoreType, getDefaultOrder } from "@/utils/client/reviewsSort
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { StatedDataField } from "@/@types/StagedDataField";
 import type { Order, ScoreType, ReviewingType } from "@/@types/SortReviews";
-// Material UI Components
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 // Material UI Icons
 import SortByAlpha from "@mui/icons-material/SortByAlpha";
 import Star from "@mui/icons-material/Star";
@@ -20,6 +17,8 @@ import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
 interface ReviewsWrapperProps {
     reviewingType: StatedDataField<ReviewingType>;
     refreshData: () => Promise<any>;
+    disabled: boolean;
+    thereIsNoDataAtAll: boolean;
 }
 
 const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
@@ -47,7 +46,8 @@ const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
         <>
             <SelectWithIcon
                 value={props.reviewingType.value}
-                onChange={(e) => setSelectValue(e, "reviewingType")}
+                disabled={props.thereIsNoDataAtAll}
+                onChange={(e) => setSelectValue(e as any, "reviewingType")}
                 options={
                     [
                         { label: "Landmarks", value: "landmark" },
@@ -59,7 +59,9 @@ const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
             ></SelectWithIcon>{" "}
             <SelectWithIcon
                 value={order}
-                onChange={(e) => setSelectValue(e, "order")}
+                disabled={props.disabled}
+                onChange={(e) => setSelectValue(e as any, "order")}
+                defaultValue="newest"
                 options={
                     [
                         { label: "Newest", value: "newest" },
@@ -68,12 +70,14 @@ const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
                         { label: "Worst score", value: "worst" },
                     ] as { label: string; value: Order }[]
                 }
-                sx={{ mr: "10px" }}
+                sx={{ mr: "10px", width: "230px" }}
                 icon={<SortByAlpha />}
             ></SelectWithIcon>
             <SelectWithIcon
                 value={scoreType}
-                onChange={(e) => setSelectValue(e, "scoreType")}
+                disabled={props.disabled}
+                onChange={(e) => setSelectValue(e as any, "scoreType")}
+                defaultValue="all"
                 options={
                     [
                         { label: "All types", value: "all" },
@@ -83,6 +87,7 @@ const ReviewsWrapper: FunctionComponent<ReviewsWrapperProps> = (props) => {
                     ] as { label: string; value: ScoreType }[]
                 }
                 icon={<Star />}
+                sx={{ width: "230px" }}
             ></SelectWithIcon>
         </>
     );

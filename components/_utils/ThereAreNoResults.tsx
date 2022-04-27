@@ -53,50 +53,56 @@ const NoResultsWrapper = styled(FlexBoxColumnCenter)(({ theme }) => ({
     },
 }));
 interface ThereAreNoResultsProps {
-    router: NextRouter;
+    router?: NextRouter;
+    header?: string;
+    moreInformation?: ReactNode[];
 }
 const ThereAreNoResults: FunctionComponent<ThereAreNoResultsProps> = (props) => {
     const [playEasterEgg, setPlayEasterEgg] = useState<boolean>(false);
-    const moreInformation: ReactNode[] = [];
+    const moreInformation: ReactNode[] = props.moreInformation ?? [];
     const explanations: ReactNode[] = [];
-    /**
-     * Add extra information releted to one particular key of `router.query` object
-     *
-     * Returns span containing asterisks so as to make user able to
-     * know which point in extra information section reffers to which point in explanation section
-     */
-    const addToExplanation = (contentToBeAdded: string): ReactNode => {
-        const asterisks: ReactNode = <span className="asterisks">{explanations.map(() => "*") + "*"}</span>;
-        explanations.push(
-            <span>
-                {asterisks}
-                {contentToBeAdded}
-            </span>
-        );
-        return asterisks;
-    };
 
-    const { query } = props.router;
-    Object.keys(query).forEach((key) => {
-        if (key === "continent") {
-            if (query[key] === "all") return;
-
-            moreInformation.push(
+    if (props.router) {
+        /**
+         * Add extra information releted to one particular key of `router.query` object
+         *
+         * Returns span containing asterisks so as to make user able to
+         * know which point in extra information section reffers to which point in explanation section
+         */
+        const addToExplanation = (contentToBeAdded: string): ReactNode => {
+            const asterisks: ReactNode = <span className="asterisks">{explanations.map(() => "*") + "*"}</span>;
+            explanations.push(
                 <span>
-                    In <strong>{(query[key] as any).replace("_", " ")} </strong>
+                    {asterisks}
+                    {contentToBeAdded}
                 </span>
             );
-        } else if (key === "searchingPhrase" && query[key]?.length) {
-            if ((query[key] as any).toLowerCase() === "jebac gorzen" && !playEasterEgg) setPlayEasterEgg(true);
+            return asterisks;
+        };
 
-            const asterisks = addToExplanation("The algorithm looks for records containing searching phrase in their either country or city name only");
-            moreInformation.push(
-                <span>
-                    Containing phrase <strong>{query[key]} </strong> {asterisks}
-                </span>
-            );
-        }
-    });
+        const { query } = props.router;
+        Object.keys(query).forEach((key) => {
+            if (key === "continent") {
+                if (query[key] === "all") return;
+
+                moreInformation.push(
+                    <span>
+                        In <strong>{(query[key] as any).replace("_", " ")} </strong>
+                    </span>
+                );
+            } else if (key === "searchingPhrase" && query[key]?.length) {
+                if ((query[key] as any).toLowerCase() === "jebac gorzen" && !playEasterEgg) setPlayEasterEgg(true);
+
+                const asterisks = addToExplanation("The algorithm looks for records containing searching phrase in their either country or city name only");
+                moreInformation.push(
+                    <span>
+                        Containing phrase <strong>{query[key]} </strong> {asterisks}
+                    </span>
+                );
+            }
+        });
+    }
+
     return (
         <Fade in={true}>
             <NoResultsWrapper>
@@ -105,7 +111,7 @@ const ThereAreNoResults: FunctionComponent<ThereAreNoResultsProps> = (props) => 
                     return (
                         <>
                             <BlurOff></BlurOff>
-                            <h3>Nothing to explore</h3>
+                            <h3>{props.header ?? "Nothing to explore"}</h3>
                             {moreInformation.length > 0 && <FlexBoxColumnCenter>{moreInformation}</FlexBoxColumnCenter>}
                             {explanations.length > 0 && (
                                 <>
