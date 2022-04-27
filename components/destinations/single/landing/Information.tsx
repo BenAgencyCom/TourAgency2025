@@ -16,8 +16,8 @@ const InformationWrapper = styled(FlexBox)({
     left: "50%",
     transform: "translate(-50%,-50%)",
     zIndex: 2,
-    width: "calc(100% - 20px)",
-    maxWidth: "700px",
+    width: "1200px",
+    maxWidth: "calc(100% - 20px)",
 });
 const ColoredHeader = styled("span")(({ theme }) => ({
     color: theme.palette.primary.main,

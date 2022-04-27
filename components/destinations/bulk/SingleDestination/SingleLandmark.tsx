@@ -18,6 +18,8 @@ const Wrapper = styled("div", {
     position: "relative",
     overflow: "hidden",
     borderRadius: "5px",
+    opacity: "0.95",
+    transition: "opacity .3s",
     ...(props.inactive
         ? {
               img: {
@@ -36,6 +38,7 @@ const Wrapper = styled("div", {
                       opacity: 1,
                       transform: "scale(1.1)",
                   },
+                  opacity: "1",
               },
           }),
 }));

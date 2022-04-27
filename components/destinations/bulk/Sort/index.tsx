@@ -12,6 +12,7 @@ import SelectContinent from "./SelectContinent";
 import SelectOrder from "./SelectOrder";
 import SearchingBar from "./SearchingBar";
 // Styled components
+import ResultsInTotal from "@/components/_utils/ResultsInTotal";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const SortingToolsWrapper = styled(FlexBox)(({ theme }) => ({
@@ -28,15 +29,6 @@ const SortingToolsWrapper = styled(FlexBox)(({ theme }) => ({
                 marginTop: "0px",
             },
         },
-    },
-}));
-
-const RecordsInTotal = styled("span")(({ theme }) => ({
-    marginTop: "10px",
-    fontSize: "1.2rem",
-    strong: {
-        color: theme.palette.primary.main,
-        fontWeigt: 900,
     },
 }));
 
@@ -94,9 +86,8 @@ const Sort: FunctionComponent<SortProps> = (props) => {
                 key={debounce}
                 playAnimation={debounce !== null}
             ></DebounceBar>
-            <RecordsInTotal>
-                There {props.resultsInTotal === 1 ? "is" : "are"} <strong>{props.resultsInTotal}</strong> result in total
-            </RecordsInTotal>
+
+            <ResultsInTotal resultsInTotal={props.resultsInTotal}></ResultsInTotal>
         </>
     );
 };

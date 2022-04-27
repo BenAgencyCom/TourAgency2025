@@ -130,9 +130,19 @@ const ThereAreNoResults: FunctionComponent<ThereAreNoResultsProps> = (props) => 
 export default ThereAreNoResults;
 
 const EasterEggWrapper = styled("div")(({ theme }) => ({
-    width: "600px",
-    height: "600px",
+    width: "500px",
+    height: "500px",
     position: "relative",
+    marginBottom: "100px",
+
+    ["@media (max-width:700px)"]: {
+        width: "400px",
+        height: "400px",
+    },
+    ["@media (max-width:550px)"]: {
+        width: "300px",
+        height: "300px",
+    },
 }));
 const EasterEgg: FunctionComponent = (props) => {
     return (

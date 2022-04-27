@@ -11,11 +11,6 @@ import ThumbDown from "@mui/icons-material/ThumbDown";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const Label = styled("span")(({ theme }) => ({
-    fontWeight: 500,
-    marginRight: "10px",
-    letterSpacing: "1px",
-}));
 const ThumbsWrapper = styled(Button)(({ theme }) => ({
     strong: {
         marginLeft: "5px",
@@ -33,7 +28,6 @@ const Likes: FunctionComponent<LikesProps> = (props) => {
     return (
         <FlexBox horizontal="between" vertical="center">
             <FlexBox vertical="center">
-                <Label className="landmark-review-feedback-label">Did you find it helpful?</Label>
                 <ThumbsWrapper color="inherit">
                     <ThumbUp></ThumbUp>
                     <strong>{props.feedback.likes}</strong>

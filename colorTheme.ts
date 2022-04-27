@@ -63,6 +63,15 @@ export default responsiveFontSizes(
                 primary: "#052946",
             },
         },
+        typography: {
+            // Used for instance in `InputWithIcon` and `SelectWithIcon` components
+            subtitle2: {
+                fontSize: "1.2rem",
+                ["@media (max-width:800px)"]: {
+                    fontSize: "1.rem",
+                },
+            },
+        },
         components: {
             MuiDivider: {
                 styleOverrides: {
@@ -109,7 +118,16 @@ export default responsiveFontSizes(
                         letterSpacing: "-2px",
                     },
                     body1: {
-                        fontSize: "1.2rem",
+                        fontSize: "1.5rem",
+                        ["@media (max-width:1500px)"]: {
+                            fontSize: "1.4rem",
+                        },
+                        ["@media (max-width:1200px)"]: {
+                            fontSize: "1.3rem",
+                        },
+                    },
+                    body2: {
+                        fontSize: "1.3rem",
                         ["@media (max-width:1000px)"]: {
                             fontSize: "1.1rem",
                         },

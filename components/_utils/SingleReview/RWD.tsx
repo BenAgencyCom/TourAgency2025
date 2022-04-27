@@ -60,10 +60,6 @@ export default {
                 height: "90px",
             },
         },
-
-        "span.landmark-review-feedback-label": {
-            display: "none",
-        },
     },
     ["@media (max-width:500px)"]: {
         "div.landmark-review-header": {

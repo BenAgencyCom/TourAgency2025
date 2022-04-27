@@ -21,7 +21,7 @@ const Landmarks: FunctionComponent = () => {
             background={colorTheme.palette.background.lightPaper}
             mobileIcon={<Map></Map>}
             header={{
-                text: "More similar venues to visit", //
+                text: "Astonishing venues", //
                 buttonMsg: `More in ${country}`,
                 onClick: () => {},
                 biggerHeader: "Landmarks",

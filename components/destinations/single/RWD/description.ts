@@ -16,11 +16,8 @@ export default {
             },
         },
         //
-        ["@media (max-width:1000px)"]: {
+        ["@media (max-width:1100px)"]: {
             padding: "0",
-        },
-        //
-        ["@media (max-width:800px)"]: {
             ".entire-field-image": {
                 height: "400px",
             },

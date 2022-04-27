@@ -21,7 +21,7 @@ const SelectContinent: FunctionComponent<SelectProps> = (props) => (
                 { label: "Africa", value: "Africa" },
             ] as { label: string; value: Continent }[]
         }
-        sx={{ mr: "10px", width: "250px" }}
+        sx={{ mr: "10px", width: "270px" }}
         icon={<Public />}
         {...props}
     ></SelectWithIcon>

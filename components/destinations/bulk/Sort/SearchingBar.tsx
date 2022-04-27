@@ -12,8 +12,7 @@ const SelectOrder: FunctionComponent<InputBaseProps> = (props) => (
         placeholder="Search for a place of your dreams..."
         sx={{
             mr: "10px",
-            width: "400px",
-            fontSize: "1.1rem",
+            width: "450px",
             svg: {
                 marginRight: "16px",
             },

@@ -1,5 +1,6 @@
 // Tools
 import { styled } from "@mui/system";
+import RWD from "./RWD";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
@@ -10,14 +11,13 @@ import Typography from "@mui/material/Typography";
 // Other Components
 import ReadMore from "@/components/_utils/ReadMore";
 import LandmarkPicture from "./LandmarkPicture";
-import Header from "./Header";
 import ReviewScore from "@/components/_utils/ReviewScore";
 import LocalizationBreadCrumbs from "@/components/_utils/LocalizationBreadCrumbs";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
-    height: "480px",
+    height: "550px",
     borderRadius: "5px",
     background: "#fff",
     padding: "10px",
@@ -26,29 +26,14 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
     ".read-more": {
         marginTop: "10px",
     },
-    ["@media (max-width:1000px)"]: {
-        width: "100%",
-        margin: "60px 0 0 0",
-        height: "auto",
-        "&:nth-of-type(1)": {
-            marginTop: "0px",
-        },
-        h3: {
-            fontSize: "3rem !important",
-        },
+    h3: {
+        fontWeight: 900,
+        letterSpacing: "-1px",
+        margin: "0 0 10px 0",
+        fontSize: "2.5rem",
+        lineHeight: "40px",
     },
-    ["@media (max-width:700px)"]: {
-        h3: {
-            fontSize: "2.5rem !important",
-            lineHeight: "36px",
-        },
-    },
-    ["@media (max-width:400px)"]: {
-        h3: {
-            fontSize: "2rem !important",
-            lineHeight: "30px",
-        },
-    },
+    ...(RWD as any),
 }));
 
 interface SingleLandmarkProps {
@@ -67,9 +52,9 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
 
     const amountOfWordsInDescription: number = (() => {
         const { length } = props.data.title;
-        if (length > 40) return 0;
-        else if (length > 23) return 100;
-        return 150;
+        if (length > 40) return 35;
+        else if (length > 23) return 60;
+        return 120;
     })();
 
     return (
@@ -102,13 +87,13 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
             })()}
 
             <LandmarkPicture picture={picture} resolution={imageResolution ?? "480p"}></LandmarkPicture>
-            <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]}></LocalizationBreadCrumbs>
-            <Header title={title}></Header>
+            <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ fontSize: "1.2rem" }}></LocalizationBreadCrumbs>
+            <h3>{title}</h3>
 
             {(() => {
                 if (amountOfWordsInDescription) {
                     return (
-                        <Typography variant="body1" sx={{ flexGrow: 1 }}>
+                        <Typography variant="body2" sx={{ flexGrow: 1 }}>
                             {shortDescription.slice(0, amountOfWordsInDescription)}...
                         </Typography>
                     );

@@ -32,7 +32,7 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
             {...propsToForward}
             sx={{
                 borderColor: colorTheme.palette.text.primary,
-                width: "200px",
+                width: "220px",
                 background: colorTheme.palette.text.primary,
                 transition: "background .2s,border .2s",
 
@@ -49,9 +49,9 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
             inputProps={{
                 sx: {
                     padding: "10px 20px",
-                    fontSize: "1.1rem",
                     display: "flex",
                     alignItems: "center",
+                    fontSize: colorTheme.typography.subtitle2.fontSize,
                 },
             }}
             MenuProps={{
@@ -59,6 +59,9 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                     ul: {
                         background: colorTheme.palette.text.primary,
                         color: "#fff",
+                    },
+                    li: {
+                        fontSize: colorTheme.typography.subtitle2.fontSize,
                     },
                 },
             }}

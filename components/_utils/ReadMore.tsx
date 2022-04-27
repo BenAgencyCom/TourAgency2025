@@ -9,7 +9,7 @@ const ReadMore: FunctionComponent<{ url: string }> = (props) => {
     return (
         <Link passHref href={props.url}>
             <a tabIndex={-1} className="read-more">
-                <ButtonWithLineTransition primary reverse sx={{ fontSize: "1.1rem" }}>
+                <ButtonWithLineTransition primary reverse sx={{ fontSize: "1.2rem", marginTop: "10px" }}>
                     Read more
                 </ButtonWithLineTransition>
             </a>

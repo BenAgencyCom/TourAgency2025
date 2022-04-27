@@ -9,9 +9,9 @@ import Link from "next/link";
 import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineTransition";
 
 const StyledButton = styled(ButtonWithLineTransition)(({ theme }) => ({
-    padding: "10px 0",
+    padding: "10px 40px",
     minWidth: "200px",
-    fontSize: "1.2rem",
+    fontSize: "1.3rem",
 }));
 
 interface SectionHeaderProps {
@@ -24,9 +24,9 @@ interface SectionHeaderProps {
 const ContinueButton: FunctionComponent<SectionHeaderProps> = (props) => {
     const { buttonMsg, onClick, url, sx } = props;
 
-    if (props.url) {
+    if (url) {
         return (
-            <Link href={props.url} passHref>
+            <Link href={url} passHref>
                 <span style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <StyledButton reverse line="right" sx={sx}>
                         {buttonMsg}

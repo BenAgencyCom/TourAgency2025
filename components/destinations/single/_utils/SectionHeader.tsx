@@ -1,5 +1,3 @@
-// Tools
-import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent, ReactNode } from "react";
 // Other components

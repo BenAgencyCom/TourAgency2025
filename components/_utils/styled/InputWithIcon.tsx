@@ -35,13 +35,13 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                     border: `2px solid  ${colorTheme.palette.primary.main}`,
                     background: colorTheme.palette.primary.main,
                 },
+                fontSize: colorTheme.typography.subtitle2.fontSize,
                 // Has to be at the end so as to overwritte every above property!
                 ...sx,
             }}
             inputProps={{
                 sx: {
                     padding: "10px 20px",
-                    fontSize: "1.1rem",
                     display: "flex",
                     alignItems: "center",
                 },

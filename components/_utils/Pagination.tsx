@@ -12,8 +12,8 @@ const PagginationStep = styled("div", {
         return !["current"].includes(propName);
     },
 })<{ current: boolean }>(({ theme, ...props }) => ({
-    width: "40px",
-    height: "40px",
+    width: "50px",
+    height: "50px",
     borderRadius: "5px",
     margin: "0 5px",
     display: "flex",
@@ -23,7 +23,7 @@ const PagginationStep = styled("div", {
     color: "#fff",
     userSelect: "none",
     fontWeight: 500,
-    fontSize: "1.2rem",
+    fontSize: "1.5rem",
     boxSizing: "border-box",
     ...(!props.current && {
         transition: "all .3s",
@@ -34,6 +34,11 @@ const PagginationStep = styled("div", {
             background: "#fff",
         },
     }),
+    ["@media (max-width:800px)"]: {
+        width: "40px",
+        height: "40px",
+        fontSize: "1.2rem",
+    },
 }));
 
 interface PaginationProps {

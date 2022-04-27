@@ -7,6 +7,7 @@ import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Material UI Components
 import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 // Other components
 import SingleReviewHeader from "./header";
 import SingleReviewTags from "./SingleReviewTags";
@@ -34,13 +35,6 @@ const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
     ...(RWD as any),
 }));
 
-const ReviewContent = styled("p")(({ theme }) => ({
-    fontSize: "1.2rem",
-    fontWeight: 300,
-    letterSpacing: "1px",
-    margin: 0,
-}));
-
 interface SingleReviewProps {
     review: Review;
 }
@@ -60,7 +54,7 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
             <SingleReviewHeader review={review} color={color}></SingleReviewHeader>
             {width <= 700 && <Divider flexItem sx={{ my: "10px" }}></Divider>}
             <SingleReviewTags tags={review.tags} color={color}></SingleReviewTags>
-            <ReviewContent>{review.review}</ReviewContent>
+            <Typography variant="body1">{review.review}</Typography>
 
             <Divider flexItem sx={{ my: "10px" }}></Divider>
             <Likes feedback={review.feedback}></Likes>
