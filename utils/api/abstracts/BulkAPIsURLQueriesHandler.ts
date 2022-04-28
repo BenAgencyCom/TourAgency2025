@@ -1,5 +1,6 @@
 // Tools
 import { ValidationError } from "@/utils/api/Errors";
+import transformPrismaNastedModels from "@/utils/api/transformPrismaNastedModels";
 import _establishPaginationProperties from "@/utils/api/establishPaginationProperties";
 // Types
 import { PaginationProperties } from "@/@types/pages/api/Pagination";
@@ -9,11 +10,11 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
     public quriesFromRequest: QueriesFromRequest & ExtraProperties;
 
     /**
-     * `BulkAPIsURLQueriesHandler` - provides facilities for swift establishment tedious and
+     * `BulkAPIsURLQueriesHandler` - provides facilities for swift establishing tedious and
      * repetitive properties associated with querying for BulkData and suporting paggination such as `order`, `sort`, `page`
      *
      * ### Params
-     * - `request`- just `NextAPIRequest`
+     * - `request`- just `NextApiRequest`
      * - `sortable`- array of model's properties supporting sorting records (eg: [`"createdAt"`, `"points"`, `"age"`])
      * - `extraProperties`- additional properties described by **generic** type
      *
@@ -92,13 +93,14 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
     }
 
     private _generateWhereClausule(): Record<any, any> {
-        const result: Record<any, any> = {};
+        let result: Record<any, any> = {};
         this.extraProperties.forEach((prop) => {
             const value = this.quriesFromRequest[prop.alias ? prop.alias : prop.name];
             if (!prop.compareWith) return;
-            if (value || prop.alwaysCompare) result[prop.compareWith] = value;
+            else if (value || prop.alwaysCompare) {
+                result = { ...result, ...transformPrismaNastedModels(prop.compareWith, value) };
+            }
         });
-
         return result;
     }
 

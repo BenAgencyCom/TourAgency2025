@@ -15,7 +15,7 @@ interface BulkDataAPICreatorProps<PrismaModelSelect> {
 }
 
 interface GetDataResponse<ExpectedData> {
-    data: ExpectedData;
+    data: ExpectedData[];
     pagination?: PaginationProperties;
 }
 
@@ -26,7 +26,7 @@ interface GetDataResponse<ExpectedData> {
  * - get only records with specific value of particual property (*for instance `continent`===`"Europe"`*)
  *
  * ### Generics
- * 1. The first generic comes from **Prisma namespace** and is responsible for organizing selection of model properties. In other words it something alike `Prisma.LandmarkSelect`
+ * 1. The first generic comes from **Prisma namespace** and is responsible for organizing selection of model properties (*for instance `Prisma.LandmarkSelect`*)
  * 2. The second generic describes extra properties comming from `req.query`
  *
  *
@@ -52,9 +52,28 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
         this.model = props.model;
         this.propertiesForSearchingPhrase = props.propertiesForSearchingPhrase;
     }
-
+    /**
+     * **ASYNC**
+     * ### Generics
+     * The only generic describes the **prisma select object** provided as the function only argument
+     * ### Params
+     * The only required parameter is **prisma select object**, something like:
+     * ```ts
+     * {
+     *   id: true,
+     *   slug: true,
+     *   title: true,
+     *   createdAt: true,
+     *   destination: {
+     *       select: {
+     *           city: true,
+     *       },
+     *   },
+     * }
+     * ```
+     */
     protected async _getData<ExpectedData>(prismaSelectBody: PrismaModelSelect): Promise<GetDataResponse<ExpectedData>> {
-        const result: ExpectedData = await (prisma[this.model] as any).findMany(this._createPrismaRequestBody({ prismaSelectBody }));
+        const result: ExpectedData[] = await (prisma[this.model] as any).findMany(this._createPrismaRequestBody({ prismaSelectBody }));
 
         const recordsInTotal = await this._getAmountOfRecordsInTotal();
         const pagination = this.establishPaginationProperties(recordsInTotal);
