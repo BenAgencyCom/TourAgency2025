@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
         const API = new BulkDestinationsAPI(req);
-        const data = await API.getDestinations();
+        const data = await API.getData();
 
         return res.send(data);
     } catch (e: unknown) {

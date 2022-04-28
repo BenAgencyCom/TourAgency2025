@@ -44,7 +44,7 @@ const Destinations: FunctionComponent = (props) => {
         UpdateCurrentURLsQueries(router);
         const result = await FetchData({ router, perPage: PER_PAGE });
         if (result) {
-            setDestinations(result.destinations);
+            setDestinations(result.data);
             setPaginationProperties(result.paginationProperties);
         }
         setLoading(false);
@@ -58,7 +58,7 @@ const Destinations: FunctionComponent = (props) => {
 
             const result = await FetchData({ router, perPage: PER_PAGE });
             if (isMounted && result) {
-                setDestinations(result.destinations);
+                setDestinations(result.data);
                 setPaginationProperties(result.paginationProperties);
                 setLoading(false);
             }

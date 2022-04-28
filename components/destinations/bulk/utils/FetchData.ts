@@ -11,7 +11,7 @@ interface RefreshDataParams {
     router: NextRouter;
 }
 interface RefreshDataResponse {
-    destinations: Destination[];
+    data: Destination[];
     paginationProperties: PaginationProperties;
 }
 
@@ -21,7 +21,7 @@ export default async (params: RefreshDataParams): Promise<RefreshDataResponse | 
         const URL = CreateRequestURL(params);
         const { data } = await axios.get(URL);
         return {
-            destinations: data.destinations,
+            data: data.data,
             paginationProperties: data.pagination,
         };
     } catch (e: any) {

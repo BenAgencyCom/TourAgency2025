@@ -24,7 +24,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (property: string, expectedValue: string, prismaProperty?: "contains") => {
     const nastedModels = property.split(".").reverse();
-    if (nastedModels.length === 1) return { [property]: expectedValue };
+    if (nastedModels.length === 1) return prismaProperty ? { [property]: { [prismaProperty]: expectedValue } } : { [property]: expectedValue };
 
     let result: any = prismaProperty ? { [prismaProperty]: expectedValue } : expectedValue;
     for (const nastedModel of nastedModels) {
