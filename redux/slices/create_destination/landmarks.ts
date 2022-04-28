@@ -1,5 +1,5 @@
 import createBetterSlice from "@/redux/slices/_redux_templates/createSliceWithListManagement";
-import { Landmark } from "@/@types/Landmark";
+import { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 
 const { reducer, actions, helpers } = createBetterSlice<Landmark>({
     name: "landmarks",

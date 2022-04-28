@@ -1,7 +1,7 @@
 import { useState } from "react";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { Landmark } from "@/@types/Landmark";
+import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 // Material UI Components
 import TextField from "@mui/material/TextField";
 import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";

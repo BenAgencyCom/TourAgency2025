@@ -1,6 +1,6 @@
 // Types
 import type { FunctionComponent } from "react";
-import type { Landmark } from "@/@types/Landmark";
+import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 import type { LandmarkType } from "@prisma/client";
 import { ListItem } from "@/@types/redux";
 // Material UI Components

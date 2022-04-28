@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { Landmark } from "@/@types/Landmark";
+import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";

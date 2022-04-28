@@ -64,7 +64,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
             <FlexBox column horizontal="start" className="single-destination-information">
                 <FieldBackgroundMap continent={continent}></FieldBackgroundMap>
                 <LocalizationBreadCrumbs crumbs={localization}></LocalizationBreadCrumbs>
-                <Typography variant="h3">{city}</Typography>
+                <Typography variant="h2">{city}</Typography>
                 <Typography variant="body2">{shortDescription}</Typography>
                 <LandmarksHeader></LandmarksHeader>
 

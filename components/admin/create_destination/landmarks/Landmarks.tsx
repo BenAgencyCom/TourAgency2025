@@ -3,7 +3,7 @@ import SingleLandmarkJoiSchema from "@/validators/helpers/create_destination/sin
 import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent } from "react";
-import type { Landmark } from "@/@types/Landmark";
+import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 import type { StatedDataField } from "@/@types/StagedDataField";
 // Material UI Components
 import Box from "@mui/material/Box";

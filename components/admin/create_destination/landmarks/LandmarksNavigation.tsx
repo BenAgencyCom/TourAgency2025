@@ -1,6 +1,6 @@
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { Landmark } from "@/@types/Landmark";
+import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 import type { Theme } from "@mui/material/styles";
 // Material UI Components
 import Box from "@mui/material/Box";

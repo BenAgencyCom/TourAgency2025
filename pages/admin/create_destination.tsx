@@ -9,7 +9,7 @@ import type { FunctionComponent } from "react";
 import type { Continent } from "@prisma/client";
 import { FieldType } from "@/@types/DestinationDescription";
 import type { ImageContentField } from "@/@types/DestinationDescription";
-import type { Landmark } from "@/@types/Landmark";
+import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 import type { CountryType } from "@/data/countries";
 // Material UI Components
 import Box from "@mui/material/Box";

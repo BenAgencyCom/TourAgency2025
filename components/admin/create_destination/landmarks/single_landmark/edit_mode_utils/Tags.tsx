@@ -4,7 +4,7 @@ import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestinat
 // Types
 import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ChangeEvent, ReactNode } from "react";
-import type { Landmark } from "@/@types/Landmark";
+import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
