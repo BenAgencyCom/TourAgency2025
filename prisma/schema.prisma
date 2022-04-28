@@ -58,6 +58,7 @@ model Destination {
   description       Json
   folder            String
   createdAt         DateTime  @default(now())
+  // For seaching purpose
   country_lowercase String
   city_lowercase    String
 
@@ -77,6 +78,8 @@ model Landmark {
   type             LandmarkType
   tags             String[]
   createdAt        DateTime     @default(now())
+  // For seaching purpose
+  title_lowercase  String
 
   reviews     LandmarkReview[]
   destination Destination      @relation(fields: [destinationId], references: [id], onDelete: Cascade)

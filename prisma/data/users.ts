@@ -39,7 +39,7 @@ const legoStarWarsAvatars = fse.readdirSync(path.join(__dirname, "images", "avat
 const amountOfAvatars = legoStarWarsAvatars.length;
 
 const randomLegoStarWarsAvatar = (): string => {
-    return legoStarWarsAvatars[randomNumberFromRange(1, amountOfAvatars)] as string;
+    return legoStarWarsAvatars[randomNumberFromRange(0, amountOfAvatars - 1)] as string;
 };
 
 export default ((): SeederDataList<User> => {

@@ -10,6 +10,7 @@ export default [
         _imagesDir: "landmarks/krakow_nolio",
         slug: "krakow_nolio",
         title: "Restauracja Nolio",
+        title_lowercase: "restauracja nolio",
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         tags: ["lorem", "ipsum"],
         description:
@@ -23,6 +24,7 @@ export default [
         _imagesDir: "landmarks/krakow_smok",
         slug: "krakow_smok",
         title: "Smok wawelski",
+        title_lowercase: "smok wawelski",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -36,6 +38,7 @@ export default [
         _imagesDir: "landmarks/krakow_papiez",
         slug: "krakow_papiez",
         title: "Pomnik Jana Pawla 2 na dziedzincu Placu Biskupiego",
+        title_lowercase: "pomnik jana pawla 2 na dziedzincu placu biskupiego",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -49,6 +52,7 @@ export default [
         _imagesDir: "landmarks/krakow_wawel",
         slug: "krakow_wawel",
         title: "Zamek krolewski na wawelu",
+        title_lowercase: "zamek krolewski na wawelu",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -63,6 +67,7 @@ export default [
         _imagesDir: "landmarks/wwa_palac",
         slug: "wwa_palac",
         title: "Palac kultury i nauki",
+        title_lowercase: "palac kultury i nauki",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -76,6 +81,7 @@ export default [
         _imagesDir: "landmarks/www_mori_mori",
         slug: "wwa_mori_mori",
         title: "Restauracja Mori Mori",
+        title_lowercase: "restauracja mori mori",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -89,6 +95,7 @@ export default [
         _imagesDir: "landmarks/wwa_stare_miasto",
         slug: "wwa_stare_miasto",
         title: "Stare Miasto",
+        title_lowercase: "stare miasto",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -102,6 +109,7 @@ export default [
         _imagesDir: "landmarks/wwa_stadion",
         slug: "wwa_stadion",
         title: "Stadion PGE Narodowy",
+        title_lowercase: "stadion pge narodowy",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -116,6 +124,7 @@ export default [
         _imagesDir: "landmarks/vancouver_science_world",
         slug: "vancouver_science_world",
         title: "Science World",
+        title_lowercase: "science world",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -129,6 +138,7 @@ export default [
         _imagesDir: "landmarks/vancouver_two_jacks_lake",
         slug: "vancouver_two_jacks_lake",
         title: "Two Jacks Lake",
+        title_lowercase: "two jacks lake",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -142,6 +152,7 @@ export default [
         _imagesDir: "landmarks/vancouver_pale_totem",
         slug: "vancouver_pale_totem",
         title: "The Pale Totem",
+        title_lowercase: "the pale totem",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -155,6 +166,7 @@ export default [
         _imagesDir: "landmarks/vancouver_pan_pacific_vancouver",
         slug: "vancouver_pan_pacific_vancouver",
         title: "Pan Pacific Hotel Vancouver",
+        title_lowercase: "pan pacific hotel vancouver",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -169,6 +181,7 @@ export default [
         _imagesDir: "landmarks/rio_de_janeiro_boulevard_olimpico",
         slug: "rio_de_janeiro_boulevard_olimpico",
         title: "Boulevard Olímpico",
+        title_lowercase: "boulevard olímpico",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -182,6 +195,7 @@ export default [
         _imagesDir: "landmarks/rio_de_janeiro_caracol_waterfall",
         slug: "rio_de_janeiro_caracol_waterfall",
         title: "Caracol cascada",
+        title_lowercase: "caracol cascada",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -195,6 +209,7 @@ export default [
         _imagesDir: "landmarks/rio_de_janeiro_jezus",
         slug: "rio_de_janeiro_jezus",
         title: "Estatua del Cristo Redentor en Río de Janeiro",
+        title_lowercase: "estatua del cristo redentor en río de janeiro",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -208,6 +223,7 @@ export default [
         _imagesDir: "landmarks/rio_de_janeiro_sugarloaf_mountain",
         slug: "rio_de_janeiro_sugarloaf_mountain",
         title: "Sugarloaf Montaña",
+        title_lowercase: "sugarloaf montaña",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -222,6 +238,7 @@ export default [
         _imagesDir: "landmarks/cape_town_stadium",
         slug: "cape_town_stadium",
         title: "Cape Town Stadium",
+        title_lowercase: "cape town stadium",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -235,6 +252,7 @@ export default [
         _imagesDir: "landmarks/cape_town_duiker_island",
         slug: "cape_town_duiker_island",
         title: "Duiker Island",
+        title_lowercase: "duiker island",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -248,6 +266,7 @@ export default [
         _imagesDir: "landmarks/cape_town_table_bay_harbour",
         slug: "cape_town_table_bay_harbour",
         title: "Table Bay Harbour",
+        title_lowercase: "table bay harbour",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -261,6 +280,7 @@ export default [
         _imagesDir: "landmarks/cape_town_bay_beach",
         slug: "cape_town_bay_beach",
         title: "Cape Bay Beach",
+        title_lowercase: "cape bay beach",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -275,6 +295,7 @@ export default [
         _imagesDir: "landmarks/hamburg_rathaus",
         slug: "hamburg_rathaus",
         title: "Rathaus Hamburg",
+        title_lowercase: "rathaus hamburg",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -288,6 +309,7 @@ export default [
         _imagesDir: "landmarks/hamburg_elbphilharmonie",
         slug: "hamburg_elbphilharmonie",
         title: "Elbphilharmonie",
+        title_lowercase: "elbphilharmonie",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -301,6 +323,7 @@ export default [
         _imagesDir: "landmarks/hamburg_hafen",
         slug: "hamburg_hafen",
         title: "Hamburg Hafen",
+        title_lowercase: "hamburg hafen",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -314,6 +337,7 @@ export default [
         _imagesDir: "landmarks/hamburg_fiction_park",
         slug: "hamburg_fiction_park",
         title: "Fiction Park",
+        title_lowercase: "fiction park",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -328,6 +352,7 @@ export default [
         _imagesDir: "landmarks/tokyo_shibuya",
         slug: "tokyo_shibuya",
         title: "Shibuya",
+        title_lowercase: "shibuya",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -341,6 +366,7 @@ export default [
         _imagesDir: "landmarks/tokyo_senso_ji_temple",
         slug: "tokyo_senso_ji_temple",
         title: "Sensō-ji",
+        title_lowercase: "sensō-ji",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -354,6 +380,7 @@ export default [
         _imagesDir: "landmarks/tokyo_shinjuku_gyoen",
         slug: "tokyo_shinjuku_gyoen",
         title: "Shinjuku Gyoen",
+        title_lowercase: "shinjuku gyoen",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
@@ -367,6 +394,7 @@ export default [
         _imagesDir: "landmarks/tokyo_disneyland",
         slug: "tokyo_disneyland",
         title: "Tokyo Disneyland",
+        title_lowercase: "tokyo disneyland",
         tags: ["lorem", "ipsum"],
         shortDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum efficitur auctor. Fusce id ornare odio. Phasellus non tortor vitae lacus fringil",
         description:
