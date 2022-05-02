@@ -6,11 +6,12 @@ interface GetDefaultValuesParams {
     routerQueries: NextRouter["query"];
     allSelects: SelectProps[];
     expectedProperties: string[];
+    lookForASeachingPhrase: boolean;
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (params: GetDefaultValuesParams): Record<string, any> => {
-    const { routerQueries, expectedProperties, allSelects } = params;
+    const { routerQueries, expectedProperties, allSelects, lookForASeachingPhrase } = params;
     const updatedState: Record<string, any> = {};
 
     const getDefaultValue = (prop: string) => {
@@ -39,5 +40,10 @@ export default (params: GetDefaultValuesParams): Record<string, any> => {
         }
     });
 
+    // Searching phrase
+    if (lookForASeachingPhrase) {
+        const { searchingPhrase } = routerQueries;
+        if (searchingPhrase && searchingPhrase.length > 0) updatedState["searchingPhrase"] = searchingPhrase;
+    }
     return updatedState;
 };

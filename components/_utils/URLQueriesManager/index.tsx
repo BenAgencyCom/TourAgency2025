@@ -7,23 +7,26 @@ import getDefaultValues from "./_utls/getDefaultValues";
 import updateURLQueries from "./_utls/updateURLQueries";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
+import type { InputBaseProps } from "@mui/material/InputBase";
 import type { SelectProps, SelectExtraOrderOption } from "./@types";
 // Other Components
 import Skeletons from "./Skeletons";
 import SelectOrder from "./SelectOrder";
+import DebounceBar from "./DebounceBar";
 import ExtraSelects from "./ExtraSelects";
-// Styled components
+import SearchingBar from "./SearchingBar";
 
+// Styled components
 const URLQueriesManagerWrapper = styled("div")(({ theme }) => ({
     display: "flex",
-    alignItems: "center",
+    marginBottom: "20px",
     ".MuiSkeleton-root, .MuiInputBase-root": {
         marginRight: "20px",
     },
 }));
 
 interface URLQueriesManagerProps {
-    searchingPhrase?: true;
+    searchingPhrase?: InputBaseProps | boolean;
     extraSelects?: SelectProps[];
     extraOrderOptions?: SelectExtraOrderOption[];
 }
@@ -36,6 +39,8 @@ interface URLQueriesManagerProps {
  * ### Props
  */
 const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => {
+    const SEARCHING_DELAY = 500; // Debounce purpose
+
     const [state, setState] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState<boolean>(true);
     const router = useRouter();
@@ -55,9 +60,14 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
     useEffect(() => {
         let isMounted = true;
 
-        const updatedState = getDefaultValues({ allSelects, expectedProperties, routerQueries: router.query });
+        const updatedState = getDefaultValues({
+            allSelects, //
+            expectedProperties,
+            routerQueries: router.query,
+            lookForASeachingPhrase: Boolean(props.searchingPhrase),
+        });
         setState((currentState) => ({ ...currentState, ...updatedState }));
-
+        setTemporarySearchingPhrase(updatedState["searchingPhrase"] ? updatedState["searchingPhrase"] : "");
         if (Object.keys(router.query).length === 0)
             setLoadingTimeout(
                 setTimeout(() => {
@@ -74,41 +84,81 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
         return () => {
             isMounted = false;
         };
-    }, [router.query, expectedProperties, allSelects, loadingTimeout]);
-
+    }, [router.query, expectedProperties, allSelects, loadingTimeout, props.searchingPhrase]);
     //
     useEffect(() => updateURLQueries({ state, routerQueries: router.query }), [state, router.query]);
+    // Seachirng bar special DEBOUNCE logic
+    const [temporarySearchingPhrase, setTemporarySearchingPhrase] = useState<string>("");
+    const [debounce, setDebounce] = useState<number | null>(null);
+
+    const changeSearchingPhrase = async (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        setTemporarySearchingPhrase(value);
+        if (debounce !== null) clearTimeout(debounce);
+        setDebounce(
+            setTimeout(async () => {
+                setDebounce(null);
+                changeProperty("searchingPhrase", e);
+                changeProperty("page", { target: { value: "1" } } as any);
+            }, SEARCHING_DELAY) as unknown as number
+        );
+    };
 
     return (
-        <URLQueriesManagerWrapper>
-            {(() => {
-                if (loading)
-                    return (
-                        <Skeletons
-                            amountOfSelects={allSelects.length} //
-                            includeSearchingBar={Boolean(props.searchingPhrase)}
-                        ></Skeletons>
-                    );
-                else {
-                    return (
-                        <>
-                            <ExtraSelects
-                                state={state} //
-                                update={changeProperty}
-                                extraSelects={props.extraSelects}
-                            ></ExtraSelects>
+        <>
+            <URLQueriesManagerWrapper>
+                {(() => {
+                    if (loading)
+                        return (
+                            <Skeletons
+                                amountOfSelects={allSelects.length} //
+                                includeSearchingBar={Boolean(props.searchingPhrase)}
+                            ></Skeletons>
+                        );
+                    else {
+                        return (
+                            <>
+                                {(() => {
+                                    if (props.searchingPhrase) {
+                                        return (
+                                            <SearchingBar
+                                                value={temporarySearchingPhrase} //
+                                                onChange={changeSearchingPhrase}
+                                                {...(props.searchingPhrase !== true && props.searchingPhrase)}
+                                            ></SearchingBar>
+                                        );
+                                    }
+                                })()}
+                                <ExtraSelects
+                                    state={state} //
+                                    update={changeProperty}
+                                    extraSelects={props.extraSelects}
+                                ></ExtraSelects>
 
-                            <SelectOrder
-                                {...selectOrderData} //
-                                options={selectOrderData.options as SelectExtraOrderOption[]}
-                                value={state["order"]}
-                                update={(e) => changeProperty("order", e as any)}
-                            ></SelectOrder>
-                        </>
+                                <SelectOrder
+                                    {...selectOrderData} //
+                                    options={selectOrderData.options as SelectExtraOrderOption[]}
+                                    value={state["order"]}
+                                    update={(e) => changeProperty("order", e as any)}
+                                ></SelectOrder>
+                            </>
+                        );
+                    }
+                })()}
+            </URLQueriesManagerWrapper>
+            {/* Render debounce bar to highlight searching bar delay */}
+            {(() => {
+                if (props.searchingPhrase) {
+                    return (
+                        <DebounceBar
+                            duration={SEARCHING_DELAY} //
+                            key={debounce}
+                            playAnimation={debounce !== null}
+                        ></DebounceBar>
                     );
                 }
             })()}
-        </URLQueriesManagerWrapper>
+        </>
     );
 };
 

@@ -10,11 +10,11 @@ interface URLQueriesSkeletonsProps {
 }
 
 const URLQueriesSkeletons: FunctionComponent<URLQueriesSkeletonsProps> = (props) => {
-    const createSkeleton = (width: string): ReactNode => <Skeleton sx={{ width, height: "40px" }} variant="rectangular"></Skeleton>;
+    const createSkeleton = (width: string, i: any): ReactNode => <Skeleton key={i} sx={{ width, height: "40px" }} variant="rectangular"></Skeleton>;
 
     const Skeletons: ReactNode[] = [];
-    for (let i = 0; i < props.amountOfSelects; i++) Skeletons.push(createSkeleton("220px"));
-    if (props.includeSearchingBar) Skeletons.unshift(createSkeleton("400px"));
+    for (let i = 0; i < props.amountOfSelects; i++) Skeletons.push(createSkeleton("220px", i));
+    if (props.includeSearchingBar) Skeletons.unshift(createSkeleton("450px", "searching-bar"));
 
     return <>{Skeletons}</>;
 };

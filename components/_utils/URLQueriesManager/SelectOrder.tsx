@@ -15,7 +15,7 @@ interface SelectOrderProps extends Omit<SelectProps, "options"> {
 }
 
 const SelectOrder: FunctionComponent<SelectOrderProps> = (props) => {
-    const { options, value, sx, icon } = props;
+    const { options, value, sx, icon, defaultValue } = props;
     const [compounded, setCompoundedValue] = useState<string>("");
 
     const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -37,6 +37,7 @@ const SelectOrder: FunctionComponent<SelectOrderProps> = (props) => {
             sx={sx}
             data-compounded-value={compounded}
             onChange={(e) => onChange(e as any)}
+            defaultValue={defaultValue}
         ></SelectWithIcon>
     );
 };

@@ -15,7 +15,7 @@ const ExtraSelects: FunctionComponent<ExtraSelectsProps> = (props) => {
         <>
             {props.extraSelects &&
                 props.extraSelects.map((item, index) => {
-                    const { key, options, icon, sx } = item;
+                    const { key, options, icon, sx, defaultValue } = item;
                     return (
                         <SelectWithIcon
                             key={key} //
@@ -24,6 +24,7 @@ const ExtraSelects: FunctionComponent<ExtraSelectsProps> = (props) => {
                             icon={icon}
                             sx={sx}
                             onChange={(e) => props.update(key, e)}
+                            defaultValue={defaultValue}
                         ></SelectWithIcon>
                     );
                 })}

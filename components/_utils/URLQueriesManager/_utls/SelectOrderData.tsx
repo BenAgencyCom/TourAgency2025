@@ -35,5 +35,6 @@ export const selectOrder = (extraOrderOptions?: SelectExtraOrderOption[]): Selec
         icon: <SortByAlpha />,
         key: "order",
         options: options,
+        defaultValue: "newest",
     };
 };
