@@ -2,16 +2,13 @@
 import type { FunctionComponent } from "react";
 import type { GetStaticProps, GetStaticPropsContext } from "next";
 import type { Destination } from "@/@types/pages/destinations/ManyDestinations";
-// Material UI Components
-import Container from "@mui/material/Container";
 // Other components
 import Head from "next/Head";
 // Material UI Icons
 import Flag from "@mui/icons-material/Flag";
-
 // Styled COmponents
-
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
+import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
 interface DestinationsProps {
     destinations: Destination[];
@@ -24,8 +21,15 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
                 <title>Landmarks to Discover</title>
             </Head>
 
-            <Container sx={{ mt: "100px", color: "text.primary" }}>
-                <h1>Essa</h1>
+            <ContentContainter
+                id="landmarks-wrapper" //
+                sx={{ minHeight: "1000px", pt: "40px" }}
+                backgroundMap
+                header={{
+                    background: "Landmarks",
+                    main: "Places worth to see",
+                }}
+            >
                 <URLQueriesManager
                     extraOrderOptions={[
                         { label: "Biggest", value: "biggest", "data-compounded-value": "orderBy=population&sort=desc" },
@@ -54,7 +58,7 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
                     ]}
                 ></URLQueriesManager>
                 {/*  */}
-            </Container>
+            </ContentContainter>
         </>
     );
 };

@@ -1,4 +1,5 @@
 // Tools
+import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 import { useState, useEffect, useMemo } from "react";
 import { selectOrder } from "./_utls/SelectOrderData";
@@ -8,8 +9,18 @@ import updateURLQueries from "./_utls/updateURLQueries";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { SelectProps, SelectExtraOrderOption } from "./@types";
 // Other Components
+import Skeletons from "./Skeletons";
 import SelectOrder from "./SelectOrder";
 import ExtraSelects from "./ExtraSelects";
+// Styled components
+
+const URLQueriesManagerWrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    ".MuiSkeleton-root, .MuiInputBase-root": {
+        marginRight: "20px",
+    },
+}));
 
 interface URLQueriesManagerProps {
     searchingPhrase?: true;
@@ -69,9 +80,15 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
     useEffect(() => updateURLQueries({ state, routerQueries: router.query }), [state, router.query]);
 
     return (
-        <>
+        <URLQueriesManagerWrapper>
             {(() => {
-                if (loading) return <h3>Loading...</h3>;
+                if (loading)
+                    return (
+                        <Skeletons
+                            amountOfSelects={allSelects.length} //
+                            includeSearchingBar={Boolean(props.searchingPhrase)}
+                        ></Skeletons>
+                    );
                 else {
                     return (
                         <>
@@ -91,7 +108,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                     );
                 }
             })()}
-        </>
+        </URLQueriesManagerWrapper>
     );
 };
 
