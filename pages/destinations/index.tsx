@@ -13,7 +13,6 @@ import Box from "@mui/material/Box";
 import Head from "next/Head";
 import Sort from "@/components/destinations/bulk/Sort";
 import Pagination from "@/components/_utils/Pagination";
-import LandingHeader from "@/components/destinations/bulk/LandingHeader";
 import ThereAreNoResult from "@/components/_utils/ThereAreNoResults";
 import SingleDestination from "@/components/destinations/bulk/SingleDestination";
 // Styled Components
@@ -74,8 +73,15 @@ const Destinations: FunctionComponent = (props) => {
             <Head>
                 <title>Destinations</title>
             </Head>
-            <ContentContainter id="destinations-wrapper" sx={{ minHeight: "1000px", pt: "40px" }} backgroundMap>
-                <LandingHeader></LandingHeader>
+            <ContentContainter
+                id="destinations-wrapper" //
+                sx={{ minHeight: "1000px", pt: "40px" }}
+                backgroundMap
+                header={{
+                    main: "Explore the diversity of the World",
+                    background: "Destinations",
+                }}
+            >
                 <Sort refreshData={refreshData} resultsInTotal={paginationProperties?.recordsInTotal ?? 0}></Sort>
 
                 <Box sx={{ mt: "35px", position: "relative" }}>

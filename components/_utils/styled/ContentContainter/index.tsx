@@ -4,6 +4,7 @@ import { styled } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { MUIStyledCommonProps } from "@mui/system";
 // Other components
+import Header from "./Header";
 import BackgroundMap from "./BackgroundMap";
 // Styled Components
 const Wrapper = styled("section")(({ theme }) => ({
@@ -31,13 +32,18 @@ const Wrapper = styled("section")(({ theme }) => ({
 interface ContentContainterProps extends MUIStyledCommonProps {
     id?: string;
     backgroundMap?: true;
+    header?: {
+        background: string;
+        main: string;
+    };
 }
 
 const ContentContainter: FunctionComponent<ContentContainterProps> = (props) => {
-    const { backgroundMap, children, ...propsToForward } = props;
+    const { backgroundMap, children, header, ...propsToForward } = props;
 
     return (
         <Wrapper {...propsToForward}>
+            {header && <Header main={header.main} background={header.background}></Header>}
             {backgroundMap && <BackgroundMap></BackgroundMap>}
             {children}
         </Wrapper>
