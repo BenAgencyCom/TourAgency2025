@@ -45,7 +45,7 @@ const ContentContainter: FunctionComponent<ContentContainterProps> = (props) => 
         <Wrapper {...propsToForward}>
             {header && <Header main={header.main} background={header.background}></Header>}
             {backgroundMap && <BackgroundMap></BackgroundMap>}
-            {children}
+            <div style={{ position: "relative", zIndex: "1" }}>{children}</div>
         </Wrapper>
     );
 };

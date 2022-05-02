@@ -2,6 +2,7 @@
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 // Styled components
@@ -45,6 +46,7 @@ interface PaginationProps {
     paginationProperties: PaginationProperties;
     scrollToElement?: string;
     callbackDuringScrolling?: (pageNumber: number) => any;
+    sx?: SxProps;
 }
 
 const Pagination: FunctionComponent<PaginationProps> = (props) => {
@@ -71,7 +73,7 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
     };
 
     return (
-        <FlexBox sx={{ marginBottom: "50px" }} horizontal="center">
+        <FlexBox sx={{ marginBottom: "50px", ...props.sx }} horizontal="center">
             {Array.from(Array(pagesInTotal).keys()).map((item, index) => {
                 const page = index + 1;
                 const isCurrent = page === currentPage;

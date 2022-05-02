@@ -10,7 +10,7 @@ interface URLQueriesSkeletonsProps {
 }
 
 const URLQueriesSkeletons: FunctionComponent<URLQueriesSkeletonsProps> = (props) => {
-    const createSkeleton = (width: string, i: any): ReactNode => <Skeleton key={i} sx={{ width, height: "40px" }} variant="rectangular"></Skeleton>;
+    const createSkeleton = (width: string, i: any): ReactNode => <Skeleton key={i} sx={{ width, height: "100%" }} variant="rectangular"></Skeleton>;
 
     const Skeletons: ReactNode[] = [];
     for (let i = 0; i < props.amountOfSelects; i++) Skeletons.push(createSkeleton("220px", i));

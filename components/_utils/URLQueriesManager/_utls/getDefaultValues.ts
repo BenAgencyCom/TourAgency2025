@@ -39,11 +39,14 @@ export default (params: GetDefaultValuesParams): Record<string, any> => {
             useDefaultValue();
         }
     });
-
     // Searching phrase
     if (lookForASeachingPhrase) {
         const { searchingPhrase } = routerQueries;
         if (searchingPhrase && searchingPhrase.length > 0) updatedState["searchingPhrase"] = searchingPhrase;
     }
+    // Page
+    const { page } = routerQueries;
+    if (page && !isNaN(Number(page))) updatedState["page"] = page;
+
     return updatedState;
 };

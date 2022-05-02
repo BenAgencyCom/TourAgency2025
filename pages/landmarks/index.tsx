@@ -9,6 +9,7 @@ import Head from "next/Head";
 import Public from "@mui/icons-material/Public";
 import AccountBalance from "@mui/icons-material/AccountBalance";
 // Styled COmponents
+import FlexBox from "@/components/_utils/styled/FlexBox";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
@@ -17,6 +18,10 @@ interface DestinationsProps {
 }
 
 const Destinations: FunctionComponent<DestinationsProps> = (props) => {
+    const queryForData = (urlQueries: string) => {
+        console.log(`query for data with: ${urlQueries}`);
+    };
+
     return (
         <>
             <Head>
@@ -33,6 +38,7 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
                 }}
             >
                 <URLQueriesManager
+                    queryForData={queryForData}
                     searchingPhrase
                     extraSelects={[
                         {
@@ -64,13 +70,30 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
                                 { label: "Africa", value: "Africa" },
                             ] as { label: string; value: Continent }[],
                             defaultValue: "all",
+                            omitIfDeafult: true,
                             sx: {
                                 width: "250px",
                             },
                         },
                     ]}
-                ></URLQueriesManager>
-                {/*  */}
+                    paginationProperties={{
+                        currentPage: 2,
+                        pagesInTotal: 5,
+                        perPage: 3,
+                        recordsInTotal: 10,
+                        idOfElementToScrollTo: "landmarks-wrapper",
+                    }}
+                >
+                    <FlexBox>
+                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
+                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
+                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
+                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
+                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
+                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
+                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
+                    </FlexBox>
+                </URLQueriesManager>
             </ContentContainter>
         </>
     );
