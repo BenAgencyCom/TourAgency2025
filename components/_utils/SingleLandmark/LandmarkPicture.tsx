@@ -3,8 +3,9 @@ import { styled } from "@mui/system";
 import { landmarkPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { FunctionComponent } from "react";
-// Other Components
-import Image from "next/Image";
+// Styled Components
+import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
+
 const Wrapper = styled("div")(({ theme }) => ({
     width: "100%",
     height: "290px",
@@ -21,11 +22,11 @@ interface BackgroundPictureProps {
 const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => {
     return (
         <Wrapper className="single-landmark-picture">
-            <Image
+            <SkeletonImage
                 layout="fill" //
                 alt="bg"
                 src={landmarkPictureURL(props.picture, props.resolution)}
-            ></Image>
+            ></SkeletonImage>
         </Wrapper>
     );
 };

@@ -7,10 +7,11 @@ import type { FunctionComponent } from "react";
 // Material UI Components
 import Skeleton from "@mui/material/Skeleton";
 // Other components
-import Image from "next/Image";
 import { ImageControls } from "@/components/_utils/ImageControls";
 import ImageModal from "@/components/_utils/ImageModal";
 // Styled Components
+import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
+
 const ImageFieldWrapper = styled("div")(({ theme }) => ({
     position: "relative",
     "&::before": {
@@ -61,13 +62,13 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
                 if (props.imageURL) {
                     return (
                         <>
-                            <Image
+                            <SkeletonImage
                                 src={props.imageURL} //
                                 layout="fill"
                                 objectFit="cover"
                                 objectPosition="center"
                                 alt="image"
-                            ></Image>
+                            ></SkeletonImage>
                             <ImageControls openModal={handleOpenModal} url={props.imageURL}></ImageControls>
                         </>
                     );

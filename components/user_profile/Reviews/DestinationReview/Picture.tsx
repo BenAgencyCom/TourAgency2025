@@ -4,8 +4,9 @@ import { destinationPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
-import Image from "next/Image";
 // Styled components
+import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
+
 const PictureWrapper = styled("div")(({ theme }) => ({
     position: "relative",
     width: "100%",
@@ -17,13 +18,13 @@ const PictureWrapper = styled("div")(({ theme }) => ({
 const Picture: FunctionComponent<{ folder: string }> = (props) => {
     return (
         <PictureWrapper>
-            <Image
+            <SkeletonImage
                 layout="fill" //
                 alt={props.folder}
                 objectFit="cover"
                 objectPosition="center"
                 src={destinationPictureURL(props.folder, "480p", "thumbnail")}
-            ></Image>
+            ></SkeletonImage>
         </PictureWrapper>
     );
 };

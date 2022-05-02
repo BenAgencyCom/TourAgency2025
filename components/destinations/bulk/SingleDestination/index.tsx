@@ -5,6 +5,7 @@ import { styled } from "@mui/system";
 import type { Destination } from "@/@types/pages/destinations/ManyDestinations";
 import type { FunctionComponent } from "react";
 // Material UI Components
+import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 // Other components
 import SingleLandmark from "./SingleLandmark";
@@ -56,26 +57,29 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
     const localization: string[] = [continent.replaceAll("_", " "), country];
 
     return (
-        <Wrapper horizontal="between">
-            <DestinationPicture
-                picture={folder} //
-                resolution="480p"
-            ></DestinationPicture>
-            <FlexBox column horizontal="start" className="single-destination-information">
-                <FieldBackgroundMap continent={continent}></FieldBackgroundMap>
-                <LocalizationBreadCrumbs crumbs={localization}></LocalizationBreadCrumbs>
-                <Typography variant="h2">{city}</Typography>
-                <Typography variant="body2">{shortDescription}</Typography>
-                <LandmarksHeader></LandmarksHeader>
+        <Fade in={true}>
+            <Wrapper horizontal="between">
+                <DestinationPicture
+                    picture={folder} //
+                    resolution="480p"
+                    city={city}
+                ></DestinationPicture>
+                <FlexBox column horizontal="start" className="single-destination-information">
+                    <FieldBackgroundMap continent={continent}></FieldBackgroundMap>
+                    <LocalizationBreadCrumbs crumbs={localization}></LocalizationBreadCrumbs>
+                    <Typography variant="h2">{city}</Typography>
+                    <Typography variant="body2">{shortDescription}</Typography>
+                    <LandmarksHeader></LandmarksHeader>
 
-                <FlexBox horizontal="between" className="landmarks-wrapper">
-                    {landmarks.map((item, index) => {
-                        return <SingleLandmark url={item.picture} key={item.picture}></SingleLandmark>;
-                    })}
+                    <FlexBox horizontal="between" className="landmarks-wrapper">
+                        {landmarks.map((item, index) => {
+                            return <SingleLandmark url={item.picture} key={item.picture}></SingleLandmark>;
+                        })}
+                    </FlexBox>
+                    <ReadMore url={`/destinations/${slug}`}></ReadMore>
                 </FlexBox>
-                <ReadMore url={`/destinations/${slug}`}></ReadMore>
-            </FlexBox>
-        </Wrapper>
+            </Wrapper>
+        </Fade>
     );
 };
 

@@ -5,7 +5,7 @@ import { destinationPictureURL, landmarkPictureURL } from "@/utils/client/imageU
 import type { FunctionComponent } from "react";
 import type { MUIStyledCommonProps } from "@mui/system";
 // Other Components
-import Image from "next/Image";
+import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
 // Styled Components
 interface Props {
     inactive?: boolean;
@@ -52,13 +52,13 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
     const src = props.inactive ? destinationPictureURL(url, "360p", "thumbnail") : landmarkPictureURL(url, "360p");
     return (
         <Wrapper {...propsToForward} className="single-landmark">
-            <Image
+            <SkeletonImage
                 layout="fill" //
                 alt="bg"
                 objectFit="cover"
                 objectPosition="center"
                 src={src}
-            ></Image>
+            ></SkeletonImage>
         </Wrapper>
     );
 };
