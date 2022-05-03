@@ -1,3 +1,6 @@
+// Tools
+import { useState } from "react";
+import axios from "axios";
 // Types
 import type { FunctionComponent } from "react";
 import type { Continent, LandmarkType } from "@prisma/client";
@@ -18,8 +21,11 @@ interface DestinationsProps {
 }
 
 const Destinations: FunctionComponent<DestinationsProps> = (props) => {
-    const queryForData = (urlQueries: string) => {
-        console.log(`query for data with: ${urlQueries}`);
+    const [response, setResponse] = useState<any>(null);
+
+    const queryForData = async (urlQueries: string) => {
+        const res = await axios.get(`/api/landmark/bulk${urlQueries}`);
+        setResponse(res.data);
     };
 
     return (
@@ -85,13 +91,7 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
                     }}
                 >
                     <FlexBox>
-                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
-                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
-                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
-                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
-                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
-                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
-                        <div style={{ width: "200px", height: "200px", backgroundColor: "red", marginRight: "20px" }}></div>
+                        <span>{JSON.stringify(response)}</span>
                     </FlexBox>
                 </URLQueriesManager>
             </ContentContainter>

@@ -18,8 +18,8 @@ import DebounceBar from "./DebounceBar";
 import ExtraSelects from "./ExtraSelects";
 import SearchingBar from "./SearchingBar";
 // Styled components
-import ResultsInTotal from "@/components/_utils/ResultsInTotal";
 import Pagination from "@/components/_utils/Pagination";
+import ResultsInTotal from "@/components/_utils/ResultsInTotal";
 
 const URLQueriesManagerWrapper = styled("div")(({ theme }) => ({
     display: "flex",
@@ -31,19 +31,43 @@ const URLQueriesManagerWrapper = styled("div")(({ theme }) => ({
 }));
 
 interface URLQueriesManagerProps {
-    searchingPhrase?: InputBaseProps | boolean;
-    extraSelects?: SelectProps[];
-    extraOrderOptions?: SelectExtraOrderOption[];
-    paginationProperties?: PaginationProperties & { idOfElementToScrollTo: string };
+    /**
+     * The callback which is going be fired  after each significant
+     * modification of the rendered input. The callback will be
+     * automatically passed one argument type of string containing
+     * generated based on input fields query string
+     * ```ts
+     * const callbackExample = async (queryString:string) =>{
+     *      const response = await axios.get(`/api/dogs${queryString}`);
+     * }
+     * ```
+     * **Note**:
+     * All characters like exclamation mark at the begining and all ampersands between
+     * properties are already been included, so there is no need to worry about them
+     */
     queryForData: (urlQueries: string) => any;
+    /**
+     * Could be either `true` to simply text input and handle all
+     * operations related with it OR to be more precise about the input appearance
+     * the value could match **Material UI** `InputBaseProps` interface
+     */
+    searchingPhrase?: InputBaseProps | boolean;
+    /**An array with details about extra **FILTERING** ways */
+    extraSelects?: SelectProps[];
+    /**An array with details about extra **FILTERING** ways */
+    extraOrderOptions?: SelectExtraOrderOption[];
+    /**An object with all the details needed to process and handle data pagination */
+    paginationProperties?: PaginationProperties & {
+        /**In order to smooth scroll to the top of the data, it is mandatory to
+         * pass an id of the element as the top border of scrolling*/
+        idOfElementToScrollTo: string;
+    };
 }
 /**
  * ### Purpose
  * The purpose of this component is to **handle all operations** related with
  * dynamically changing URL queries without the neccesity of refreshing the page and moreover
- * to **compress all properties into one query string** so as to use it while fetching data
- *
- * ### Props
+ * to **compress all properties into one query string** in order to fetch specific data from api
  */
 const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => {
     const SEARCHING_DELAY = 500; // [ms] Debounce purpose
@@ -58,7 +82,6 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
     const allSelects = useMemo<SelectProps[]>(() => [...(props.extraSelects ?? []), selectOrderData], [props.extraSelects, selectOrderData]);
     const expectedProperties = useMemo<string[]>(() => allSelects.map((prop) => prop.key), [allSelects]);
 
-    //
     const changeProperty = (propertyName: string, e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         setState((currentState) => {
             return { ...currentState, ...{ [propertyName]: e.target.value } };
@@ -77,6 +100,18 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
         });
         setState((currentState) => ({ ...currentState, ...updatedState }));
         setTemporarySearchingPhrase(updatedState["searchingPhrase"] ? updatedState["searchingPhrase"] : "");
+        //
+        // This might be an issue noticeable only when in the development mode while nextjs
+        // renders everything "meticulously" and consumes a lot of time on it
+        //
+        // 1. Initially, when `router.query` is not fully accessable,
+        //    impose one second long timeout before displaying the content,
+        //    which can be canceled automatically by changed router object
+        //
+        // 2. When `router.query` is instantly accessable then keep on holding
+        //    skeletons alive for very short time period so as to ensure that
+        //    all data have been loaded
+        //
         if (Object.keys(router.query).length === 0)
             setLoadingTimeout(
                 setTimeout(() => {
