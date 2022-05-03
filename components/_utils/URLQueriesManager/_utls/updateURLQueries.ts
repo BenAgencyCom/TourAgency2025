@@ -7,11 +7,10 @@ interface UpdateURLQueriesParams {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (params: UpdateURLQueriesParams) => {
     const { routerQueries, state } = params;
-
     const queryProperties = [];
     for (const key in state) {
         const value = state[key];
-        routerQueries["key"] = value;
+        routerQueries[key] = value;
         queryProperties.push(`${key}=${value}`);
     }
 

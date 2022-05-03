@@ -20,6 +20,7 @@ export default (params: GenerateQueryStringParams) => {
     const result: string[] = [];
     // Page
     result.push(`page=${state["page"] ?? 1}`);
+    // Order
     result.push(getCompoundedOrder(params));
     // Searching phrase
     const searchingPhrase = state["searchingPhrase"];
@@ -28,6 +29,7 @@ export default (params: GenerateQueryStringParams) => {
     allSelects.forEach((select) => {
         const { defaultValue, omitIfDeafult, key, options } = select;
         const valueInState = state[key];
+        if (key === "order") return;
         // Check whether default:
         if (valueInState === defaultValue && omitIfDeafult) return;
         // Ensure that value is appropriate

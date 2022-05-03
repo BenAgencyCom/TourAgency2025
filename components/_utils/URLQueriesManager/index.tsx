@@ -46,7 +46,8 @@ interface URLQueriesManagerProps {
  * ### Props
  */
 const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => {
-    const SEARCHING_DELAY = 500; // Debounce purpose
+    const SEARCHING_DELAY = 500; // [ms] Debounce purpose
+    const KEEPING_SKELETONS_ALIVE = 100; // [ms]
 
     const [state, setState] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState<boolean>(true);
@@ -86,7 +87,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
             if (loadingTimeout) clearTimeout(loadingTimeout);
             setTimeout(() => {
                 if (isMounted) setLoading(false);
-            }, 80);
+            }, KEEPING_SKELETONS_ALIVE);
         }
 
         return () => {
@@ -103,8 +104,8 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
         const currentQueryString = JSON.stringify(state);
         if (currentQueryString === latestQueryCallString) return;
 
-        props.queryForData(generateQueryString({ allSelects, state }));
         setLatestQueryCallString(currentQueryString);
+        props.queryForData(generateQueryString({ allSelects, state }));
     }, [latestQueryCallString, state, props, allSelects, loadingTimeout]);
 
     // Seachirng bar special DEBOUNCE logic
@@ -118,8 +119,15 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
         setDebounce(
             setTimeout(async () => {
                 setDebounce(null);
-                changeProperty("searchingPhrase", e);
-                changeProperty("page", { target: { value: "1" } } as any);
+                setState((currentState) => {
+                    return {
+                        ...currentState,
+                        ...{
+                            searchingPhrase: value,
+                            page: "1",
+                        },
+                    };
+                });
             }, SEARCHING_DELAY) as unknown as number
         );
     };

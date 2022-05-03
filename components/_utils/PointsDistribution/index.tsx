@@ -20,7 +20,6 @@ interface PointsDistributionProps {
 
 const PointsDistributionComponent: FunctionComponent<PointsDistributionProps> = (props) => {
     const { predominant, reviewsInTotal, pointsDistribution, averageScore } = props;
-    console.log(predominant);
     return (
         <FlexBox column sx={props.sx}>
             {(() => {
