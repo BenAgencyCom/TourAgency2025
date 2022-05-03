@@ -23,10 +23,21 @@ import ResultsInTotal from "@/components/_utils/ResultsInTotal";
 
 const URLQueriesManagerWrapper = styled("div")(({ theme }) => ({
     display: "flex",
+    flexWrap: "wrap",
     marginBottom: "20px",
-    height: "46px",
     ".MuiSkeleton-root, .MuiInputBase-root": {
-        marginRight: "20px",
+        marginRight: "10px",
+        marginBottom: "10px",
+        height: "46px",
+    },
+    ["@media (max-width:800px)"]: {
+        flexDirection: "column",
+        ".MuiSkeleton-root, .MuiInputBase-root": {
+            marginRight: "0px",
+            marginBottom: "10px",
+            height: "46px",
+            width: "100%",
+        },
     },
 }));
 
