@@ -44,7 +44,7 @@ const Sort: FunctionComponent<SortProps> = (props) => {
             <FlexBox>
                 <SelectWithIcon
                     value={order}
-                    onChange={(e) => setSelectValue(e, "order")}
+                    onChange={(e) => setSelectValue(e as any, "order")}
                     options={[
                         { label: "Newest", value: "newest" },
                         { label: "Oldest", value: "oldest" },
@@ -56,7 +56,7 @@ const Sort: FunctionComponent<SortProps> = (props) => {
                 ></SelectWithIcon>
                 <SelectWithIcon
                     value={type}
-                    onChange={(e) => setSelectValue(e, "type")}
+                    onChange={(e) => setSelectValue(e as any, "type")}
                     options={[
                         { label: "All types", value: "all" },
                         { label: "Positive", value: "POSITIVE" },

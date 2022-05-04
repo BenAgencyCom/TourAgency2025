@@ -24,9 +24,6 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
     padding: "10px",
     cursor: "default",
     position: "relative",
-    ".read-more": {
-        marginTop: "10px",
-    },
     h3: {
         fontWeight: 900,
         letterSpacing: "-1px",

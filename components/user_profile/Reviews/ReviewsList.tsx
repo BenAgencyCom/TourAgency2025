@@ -17,7 +17,7 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
     minHeight: "1000px",
     flexWrap: "wrap",
     alignItems: "flex-start",
-    margin: "60px 0 ",
+    margin: "0 0 60px 0 ",
 }));
 
 interface ReviewsListProps {

@@ -34,16 +34,6 @@ export default {
             ".single-landmark": {
                 height: "200px",
             },
-            "a.read-more": {
-                marginTop: "50px",
-                alignSelf: "center",
-                width: "100%",
-                maxWidth: "400px",
-                button: {
-                    height: "45px",
-                    width: "100%",
-                },
-            },
         },
     },
     ["@media (max-width:800px)"]: {
@@ -78,9 +68,6 @@ export default {
                     height: "280px",
                     marginBottom: "10px",
                 },
-            },
-            "a.read-more": {
-                marginTop: "20px",
             },
         },
     },

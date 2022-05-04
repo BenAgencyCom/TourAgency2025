@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { selectOrder } from "./_utls/SelectOrderData";
 import getDefaultValues from "./_utls/getDefaultValues";
 import updateURLQueries from "./_utls/updateURLQueries";
-import generateQueryString from "./_utls/generateQueryString";
 import { useState, useEffect, useMemo, useRef } from "react";
+import generateQueryString from "./_utls/generateQueryString";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { InputBaseProps } from "@mui/material/InputBase";
@@ -96,7 +96,13 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
 
     const changeProperty = (propertyName: string, e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         setState((currentState) => {
-            return { ...currentState, ...{ [propertyName]: e.target.value } };
+            return {
+                ...currentState,
+                ...{
+                    [propertyName]: e.target.value,
+                    ...(propertyName !== "page" && { page: "1" }),
+                },
+            };
         });
     };
     // Set default values
