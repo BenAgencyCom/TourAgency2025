@@ -1,31 +1,53 @@
 // Tools
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+import { styled } from "@mui/system";
+import { useRouter } from "next/router";
 // Types
 import type { FunctionComponent } from "react";
 import type { Continent, LandmarkType } from "@prisma/client";
-import type { GetStaticProps, GetStaticPropsContext } from "next";
-import type { Destination } from "@/@types/pages/destinations/ManyDestinations";
+import type { Landmark } from "@/@types/pages/landmarks/ManyLandmarks";
+import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 // Other components
 import Head from "next/Head";
 // Material UI Icons
 import Public from "@mui/icons-material/Public";
 import AccountBalance from "@mui/icons-material/AccountBalance";
-// Styled COmponents
-import FlexBox from "@/components/_utils/styled/FlexBox";
+// Other components
+import SingleLandmark from "@/components/_utils/SingleLandmark";
+import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
+// Styled Components
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
+import Loading from "@/components/_utils/Loading";
 
-interface DestinationsProps {
-    destinations: Destination[];
-}
+const LandmarksWrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    width: "100%",
+    flexWrap: "wrap",
+    minHeight: "1000px",
+}));
 
-const Destinations: FunctionComponent<DestinationsProps> = (props) => {
-    const [response, setResponse] = useState<any>(null);
+const BulkLandmarks: FunctionComponent = () => {
+    const PER_PAGE = 12;
+
+    const router = useRouter();
+    const [loading, setLoading] = useState<boolean>(true);
+    const [landmarks, setLandmarks] = useState<Landmark[]>([]);
+    const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
 
     const queryForData = async (urlQueries: string) => {
-        const res = await axios.get(`/api/landmark/bulk${urlQueries}`);
-        setResponse(res.data);
+        try {
+            setLoading(true);
+            const res = await axios.get(`/api/landmark/bulk${urlQueries}&perPage=${PER_PAGE}`);
+            if (res.data) {
+                setPaginationProperties(res.data.pagination ?? null);
+                setLandmarks(res.data.data ?? []);
+                setLoading(false);
+            }
+        } catch (e: unknown) {
+            router.push("/500");
+        }
     };
 
     return (
@@ -36,7 +58,7 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
 
             <ContentContainter
                 id="landmarks-wrapper" //
-                sx={{ minHeight: "1000px", pt: "40px" }}
+                sx={{ pt: "40px" }}
                 backgroundMap
                 header={{
                     background: "Landmarks",
@@ -51,14 +73,14 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
                             key: "certainLandmarkType",
                             icon: <AccountBalance />,
                             options: [
-                                { label: "All types", value: "ALL" }, //
-                                { label: "Antique", value: "ANTIQUE" }, //
-                                { label: "Art", value: "ART" }, //
-                                { label: "Building", value: "BUILDING" }, //
-                                { label: "Monument", value: "MONUMENT" }, //
-                                { label: "Nature", value: "NATURE" }, //
-                                { label: "Relic", value: "RELIC" }, //
-                                { label: "Restaurant", value: "RESTAURANT" }, //
+                                { label: "All types", value: "ALL" },
+                                { label: "Antique", value: "ANTIQUE" },
+                                { label: "Art", value: "ART" },
+                                { label: "Building", value: "BUILDING" },
+                                { label: "Monument", value: "MONUMENT" },
+                                { label: "Nature", value: "NATURE" },
+                                { label: "Relic", value: "RELIC" },
+                                { label: "Restaurant", value: "RESTAURANT" },
                             ] as { label: string; value: LandmarkType | "ALL" }[],
                             defaultValue: "ALL",
                             omitIfDeafult: true,
@@ -82,27 +104,47 @@ const Destinations: FunctionComponent<DestinationsProps> = (props) => {
                             },
                         },
                     ]}
-                    paginationProperties={{
-                        currentPage: 2,
-                        pagesInTotal: 5,
-                        perPage: 3,
-                        recordsInTotal: 10,
-                        idOfElementToScrollTo: "landmarks-wrapper",
-                    }}
+                    paginationProperties={
+                        paginationProperties && !loading
+                            ? {
+                                  ...paginationProperties,
+                                  idOfElementToScrollTo: "landmarks-wrapper",
+                              }
+                            : undefined
+                    }
                 >
-                    <FlexBox>
-                        <span>{JSON.stringify(response)}</span>
-                    </FlexBox>
+                    <LandmarksWrapper>
+                        {(() => {
+                            if (loading) {
+                                return <Loading sx={{ top: "30%" }} />;
+                            } else {
+                                if (landmarks.length === 0) {
+                                    return (
+                                        <ThereAreNoResults
+                                            router={router} //
+                                            header="There are no landmarks"
+                                            routerQueriesToHandle={[{ queryName: "certainLandmarkType", msg: (val: string) => `Of type ${val}` }]}
+                                            searchingPhraseExplanation="title, country or city name"
+                                        ></ThereAreNoResults>
+                                    );
+                                } else {
+                                    return landmarks.map((item, index) => {
+                                        return (
+                                            <SingleLandmark
+                                                key={item.slug} //
+                                                data={item}
+                                                imageResolution="360p"
+                                            ></SingleLandmark>
+                                        );
+                                    });
+                                }
+                            }
+                        })()}
+                    </LandmarksWrapper>
                 </URLQueriesManager>
             </ContentContainter>
         </>
     );
 };
 
-export default Destinations;
-
-export const getStaticProps: GetStaticProps = (ctx: GetStaticPropsContext) => {
-    return {
-        props: {},
-    };
-};
+export default BulkLandmarks;
