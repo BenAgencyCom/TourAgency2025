@@ -153,7 +153,6 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
     // Query for data
     //
     useEffect(() => {
-        let isMounted = true;
         // 1. Avoid calling callback when `URLQueriesManager` hasn't fully loaded
         if (Object.keys(state).length === 0 || loadingTimeout) return;
         // 2. Avoid calling callback when trying to make a request with IDENDICAL parameters
@@ -169,18 +168,18 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
             const minHeight = wrapperNode.current.getBoundingClientRect().height;
             setMinHeight(minHeight);
             // 3.2 Reverse temporary changes
-            setTimeout(() => {
-                if (isMounted) setMinHeight(0);
-            }, 750);
+            // ---
+            // (we mustn't ensure that the component is mounted in order to reverse the change after timeout)
+            // if we do so, nothing would be reversed, because in this
+            // timeout the component will be rendered back again
+            // otherwise it does not matter as long as there is no nerd
+            // searching the console log to prove this technology is "bad"
+            setTimeout(() => setMinHeight(0), 750);
         }
         // 4. Call the callback
         setTimeout(() => {
             props.queryForData(generateQueryString({ allSelects, state }));
         }, 1);
-        // *. Avoid mutating unexisting state
-        return () => {
-            isMounted = false;
-        };
     }, [latestQueryCallString, state, props, allSelects, loadingTimeout]);
 
     // Seachirng bar special DEBOUNCE logic

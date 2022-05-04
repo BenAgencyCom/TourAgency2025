@@ -1,20 +1,19 @@
 // Tools
+import axios from "axios";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-import FetchData from "@/components/destinations/bulk/utils/FetchData";
-import { UpdateCurrentURLsQueries } from "@/components/destinations/bulk/utils/URLBuilder";
 // Types
 import type { FunctionComponent } from "react";
+import type { Continent } from "@prisma/client";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { Destination } from "@/@types/pages/destinations/ManyDestinations";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other components
 import Head from "next/Head";
-import Sort from "@/components/destinations/bulk/Sort";
-import Pagination from "@/components/_utils/Pagination";
-import ThereAreNoResult from "@/components/_utils/ThereAreNoResults";
+import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
+import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import SingleDestination from "@/components/destinations/bulk/SingleDestination";
+// Material UI Icons
+import Public from "@mui/icons-material/Public";
 // Styled Components
 import Loading from "@/components/_utils/Loading";
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
@@ -27,46 +26,19 @@ const Destinations: FunctionComponent = (props) => {
     const [destinations, setDestinations] = useState<Destination[]>([]);
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
 
-    const refreshData = async (pageNumber?: number) => {
-        // Smooth scrolling, trick with fixing height
-        const element = document.getElementById("destinations-wrapper");
-        if (element) {
-            const setMinHeight = (px: number) => ((element as HTMLElement).style.minHeight = `${px}px`);
-            const minHeight = element.getBoundingClientRect().height;
-            setMinHeight(minHeight);
-            // Reverse temporary changes
-            setTimeout(() => setMinHeight(0), 1000);
-        }
-        //
-        if (pageNumber) router.query.page = String(pageNumber);
-        setLoading(true);
-        UpdateCurrentURLsQueries(router);
-        const result = await FetchData({ router, perPage: PER_PAGE });
-        if (result) {
-            setDestinations(result.data);
-            setPaginationProperties(result.paginationProperties);
-        }
-        setLoading(false);
-    };
-
-    useEffect(() => {
-        let isMounted = true;
-        (async () => {
-            // Wait until router.query will have been fully loaded
-            if (Object.keys(router.query).length === 0) await new Promise((resolve) => setTimeout(resolve, 300));
-
-            const result = await FetchData({ router, perPage: PER_PAGE });
-            if (isMounted && result) {
-                setDestinations(result.data);
-                setPaginationProperties(result.paginationProperties);
+    const queryForData = async (urlQueries: string) => {
+        try {
+            setLoading(true);
+            const res = await axios.get(`/api/destination/bulk${urlQueries}&perPage=${PER_PAGE}`);
+            if (res.data) {
+                setPaginationProperties(res.data.pagination ?? null);
+                setDestinations(res.data.data ?? []);
                 setLoading(false);
             }
-        })();
-
-        return () => {
-            isMounted = false;
-        };
-    }, [router]);
+        } catch (e: unknown) {
+            router.push("/500");
+        }
+    };
 
     return (
         <>
@@ -82,35 +54,74 @@ const Destinations: FunctionComponent = (props) => {
                     background: "Destinations",
                 }}
             >
-                <Sort refreshData={refreshData} resultsInTotal={paginationProperties?.recordsInTotal ?? 0}></Sort>
-
-                <Box sx={{ mt: "35px", position: "relative" }}>
+                <URLQueriesManager
+                    queryForData={queryForData}
+                    searchingPhrase
+                    extraOrderOptions={[
+                        {
+                            label: "Biggest",
+                            value: "biggest",
+                            "data-compounded-value": "orderBy=population&sort=desc",
+                        },
+                        {
+                            label: "Smallest",
+                            value: "smallest",
+                            "data-compounded-value": "orderBy=population&sort=asc",
+                        },
+                    ]}
+                    extraSelects={[
+                        {
+                            key: "continent",
+                            icon: <Public />,
+                            options: [
+                                { label: "All continents", value: "all" },
+                                { label: "Europe", value: "Europe" },
+                                { label: "North America", value: "North_America" },
+                                { label: "South America", value: "South_America" },
+                                { label: "Asia", value: "Asia" },
+                                { label: "Australia", value: "Australia_Oceania" },
+                                { label: "Africa", value: "Africa" },
+                            ] as { label: string; value: Continent }[],
+                            defaultValue: "all",
+                            omitIfDeafult: true,
+                            sx: {
+                                width: "250px",
+                            },
+                        },
+                    ]}
+                    paginationProperties={
+                        paginationProperties && !loading
+                            ? {
+                                  ...paginationProperties,
+                                  idOfElementToScrollTo: "destinations-wrapper",
+                              }
+                            : undefined
+                    }
+                >
                     {(() => {
                         if (loading) {
-                            return <Loading sx={{ mt: "200px" }}></Loading>;
+                            return <Loading sx={{ top: "400px" }} />;
                         } else {
-                            if (destinations.length === 0 && router) return <ThereAreNoResult router={router}></ThereAreNoResult>;
-                            else
+                            if (destinations.length === 0) {
+                                return (
+                                    <ThereAreNoResults
+                                        router={router} //
+                                        header="There are no landmarks"
+                                        routerQueriesToHandle={[{ queryName: "certainLandmarkType", msg: (val: string) => `Of type ${val}` }]}
+                                        searchingPhraseExplanation="title, country or city name"
+                                    ></ThereAreNoResults>
+                                );
+                            } else {
                                 return destinations.map((destination) => (
                                     <SingleDestination
                                         destination={destination} //
                                         key={destination.slug}
                                     ></SingleDestination>
                                 ));
+                            }
                         }
                     })()}
-                    {(() => {
-                        if (paginationProperties && paginationProperties.pagesInTotal > 1 && !loading) {
-                            return (
-                                <Pagination
-                                    paginationProperties={paginationProperties} //
-                                    scrollToElement="destinations-wrapper"
-                                    callbackDuringScrolling={refreshData}
-                                ></Pagination>
-                            );
-                        }
-                    })()}
-                </Box>
+                </URLQueriesManager>
             </ContentContainter>
         </>
     );
