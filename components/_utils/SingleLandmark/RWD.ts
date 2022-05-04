@@ -2,6 +2,13 @@
 import type { SxProps } from "@mui/system";
 
 export default {
+    width: "calc((100% - 40px)/ 3)",
+    marginLeft: "20px",
+    boxSizing: "border-box",
+    marginBottom: "20px",
+    "&:nth-of-type(1),&:nth-of-type(4),&:nth-of-type(7),&:nth-of-type(10),&:nth-of-type(13),&:nth-of-type(16),&:nth-of-type(19),&:nth-of-type(22),&:nth-of-type(25),&:nth-of-type(28)": {
+        marginLeft: "0px",
+    },
     ["@media (max-width:1600px)"]: {
         h3: {
             fontSize: "2.2rem",
@@ -41,7 +48,7 @@ export default {
         width: "100%",
         margin: "60px 0 0 0",
         height: "auto",
-        "&:nth-of-type(1)": {
+        ",&:nth-of-type(1)": {
             marginTop: "0px",
         },
         "div.single-landmark-picture": {

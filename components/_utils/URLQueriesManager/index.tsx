@@ -1,11 +1,11 @@
 // Tools
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
-import { useState, useEffect, useMemo } from "react";
 import { selectOrder } from "./_utls/SelectOrderData";
 import getDefaultValues from "./_utls/getDefaultValues";
 import updateURLQueries from "./_utls/updateURLQueries";
 import generateQueryString from "./_utls/generateQueryString";
+import { useState, useEffect, useMemo, useRef } from "react";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { InputBaseProps } from "@mui/material/InputBase";
@@ -84,6 +84,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
     const SEARCHING_DELAY = 500; // [ms] Debounce purpose
     const KEEPING_SKELETONS_ALIVE = 100; // [ms]
 
+    const wrapperNode = useRef<HTMLElement | null>(null);
     const [state, setState] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState<boolean>(true);
     const [latestQueryCallString, setLatestQueryCallString] = useState<string>("");
@@ -126,13 +127,19 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
         if (Object.keys(router.query).length === 0)
             setLoadingTimeout(
                 setTimeout(() => {
-                    if (isMounted) setLoading(false);
+                    if (isMounted) {
+                        setLoading(false);
+                        setLoadingTimeout(false);
+                    }
                 }, 1000)
             );
         else {
             if (loadingTimeout) clearTimeout(loadingTimeout);
             setTimeout(() => {
-                if (isMounted) setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                    setLoadingTimeout(false);
+                }
             }, KEEPING_SKELETONS_ALIVE);
         }
 
@@ -146,12 +153,34 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
     // Query for data
     //
     useEffect(() => {
+        let isMounted = true;
+        // 1. Avoid calling callback when `URLQueriesManager` hasn't fully loaded
         if (Object.keys(state).length === 0 || loadingTimeout) return;
+        // 2. Avoid calling callback when trying to make a request with IDENDICAL parameters
         const currentQueryString = JSON.stringify(state);
         if (currentQueryString === latestQueryCallString) return;
-
         setLatestQueryCallString(currentQueryString);
-        props.queryForData(generateQueryString({ allSelects, state }));
+        // 3. Smooth scrolling, trick with fixing height
+        if (wrapperNode.current) {
+            const setMinHeight = (px: number) => {
+                if (wrapperNode.current) wrapperNode.current.style.minHeight = `${px}px`;
+            };
+            // 3.1 Avoid instant dwindlling of wrapper
+            const minHeight = wrapperNode.current.getBoundingClientRect().height;
+            setMinHeight(minHeight);
+            // 3.2 Reverse temporary changes
+            setTimeout(() => {
+                if (isMounted) setMinHeight(0);
+            }, 750);
+        }
+        // 4. Call the callback
+        setTimeout(() => {
+            props.queryForData(generateQueryString({ allSelects, state }));
+        }, 1);
+        // *. Avoid mutating unexisting state
+        return () => {
+            isMounted = false;
+        };
     }, [latestQueryCallString, state, props, allSelects, loadingTimeout]);
 
     // Seachirng bar special DEBOUNCE logic
@@ -179,7 +208,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
     };
 
     return (
-        <>
+        <div ref={wrapperNode as any}>
             <URLQueriesManagerWrapper id="url-queries-manager-wrapper">
                 {(() => {
                     if (loading)
@@ -238,7 +267,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
             {props.children}
             {/*  */}
             {/*  */}
-            {props.paginationProperties && (
+            {props.paginationProperties && props.paginationProperties.pagesInTotal > 1 && (
                 <Pagination
                     paginationProperties={props.paginationProperties} //
                     scrollToElement={props.paginationProperties.idOfElementToScrollTo}
@@ -246,7 +275,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                     sx={{ marginTop: "50px" }}
                 ></Pagination>
             )}
-        </>
+        </div>
     );
 };
 

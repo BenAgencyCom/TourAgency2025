@@ -7,6 +7,7 @@ import type { FunctionComponent } from "react";
 import type { ReviewType } from "@prisma/client";
 import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
 // Material UI Components
+import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 // Other Components
 import ReadMore from "@/components/_utils/ReadMore";
@@ -58,50 +59,52 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
     })();
 
     return (
-        <SingleLandmarkWrapper
-            sx={{ width: `calc(33% - 10px)`, ...props.sx }} //
-            column
-            horizontal="start"
-            className="single-landmark"
-        >
-            {(() => {
-                if (userReview) {
-                    return (
-                        <ReviewScore
-                            type={userReview.type}
-                            sx={{
-                                position: "absolute", //
-                                top: "20px",
-                                left: "20px",
-                                zIndex: "10",
-                                fontSize: "3rem",
-                                width: "90px",
-                                height: "90px",
-                                borderRadius: "5px",
-                            }}
-                        >
-                            {userReview.points}
-                        </ReviewScore>
-                    );
-                }
-            })()}
+        <Fade in={true}>
+            <SingleLandmarkWrapper
+                sx={props.sx} //
+                column
+                horizontal="start"
+                className="single-landmark"
+            >
+                {(() => {
+                    if (userReview) {
+                        return (
+                            <ReviewScore
+                                type={userReview.type}
+                                sx={{
+                                    position: "absolute", //
+                                    top: "20px",
+                                    left: "20px",
+                                    zIndex: "10",
+                                    fontSize: "3rem",
+                                    width: "90px",
+                                    height: "90px",
+                                    borderRadius: "5px",
+                                }}
+                            >
+                                {userReview.points}
+                            </ReviewScore>
+                        );
+                    }
+                })()}
 
-            <LandmarkPicture picture={picture} resolution={imageResolution ?? "480p"}></LandmarkPicture>
-            <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ fontSize: "1.2rem" }}></LocalizationBreadCrumbs>
-            <h3>{title}</h3>
+                <LandmarkPicture picture={picture} resolution={imageResolution ?? "480p"}></LandmarkPicture>
+                <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ fontSize: "1.2rem" }}></LocalizationBreadCrumbs>
+                <h3>{title}</h3>
 
-            {(() => {
-                if (amountOfWordsInDescription) {
-                    return (
-                        <Typography variant="body2" sx={{ flexGrow: 1 }}>
-                            {shortDescription.slice(0, amountOfWordsInDescription)}...
-                        </Typography>
-                    );
-                }
-            })()}
+                {(() => {
+                    if (amountOfWordsInDescription) {
+                        return (
+                            <Typography variant="body2" sx={{ flexGrow: 1 }}>
+                                {shortDescription.slice(0, amountOfWordsInDescription)}...
+                            </Typography>
+                        );
+                    }
+                })()}
 
-            <ReadMore url={`/landmarks/${slug}`}></ReadMore>
-        </SingleLandmarkWrapper>
+                <ReadMore url={`/landmarks/${slug}`}></ReadMore>
+            </SingleLandmarkWrapper>
+        </Fade>
     );
 };
 

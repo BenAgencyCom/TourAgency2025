@@ -116,7 +116,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
      * }
      * ```
      */
-    public converURLQueriesIntoPrismaBody(): URLQueriesConvertedIntoPrismaBody {
+    protected converURLQueriesIntoPrismaBody(): URLQueriesConvertedIntoPrismaBody {
         const { orderBy, sort } = this.quriesFromRequest;
 
         return {
@@ -135,7 +135,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
      *
      * ```
      */
-    public establishPaginationProperties(recordsInTotal: number): PaginationProperties | false {
+    protected establishPaginationProperties(recordsInTotal: number): PaginationProperties | false {
         return _establishPaginationProperties({
             recordsInTotal,
             page: this.quriesFromRequest.page,

@@ -471,4 +471,4 @@ export default [
             ] as DestinationContentField[])
         ),
     },
-] as SeederDataList<Destination>;
+].reverse() as SeederDataList<Destination>;

@@ -87,6 +87,7 @@ class CreateNewDestination extends FileUploader {
                             title: landmark.title,
                             type: landmark.type,
                             tags: landmark.tags,
+                            title_lowercase: landmark.title.toLowerCase(),
                         })),
                     },
                 },

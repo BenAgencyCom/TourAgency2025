@@ -13,7 +13,7 @@ import BlurOff from "@mui/icons-material/BlurOff";
 // Styled components
 
 const Divider = styled("hr")(({ theme }) => ({
-    marginTop: "300px",
+    marginTop: "280px",
     width: "350px",
     height: "1px",
     opacity: ".3",
@@ -27,7 +27,7 @@ const FlexBoxColumnCenter = styled("div")(({ theme }) => ({
 }));
 
 const NoResultsWrapper = styled(FlexBoxColumnCenter)(({ theme }) => ({
-    marginTop: "50px",
+    margin: "100px auto 0 auto",
     svg: {
         fontSize: "10rem",
         color: theme.palette.primary.main,
@@ -51,11 +51,21 @@ const NoResultsWrapper = styled(FlexBoxColumnCenter)(({ theme }) => ({
         fontStyle: "italic",
         fontSize: "1.3rem",
     },
+    "div.more-information": {
+        "span.single-more-information-point": {
+            marginTop: "5px",
+            "&:nth-of-type(1)": {
+                marginTop: "0",
+            },
+        },
+    },
 }));
 interface ThereAreNoResultsProps {
     router?: NextRouter;
     header?: string;
     moreInformation?: ReactNode[];
+    routerQueriesToHandle?: [{ queryName: string; msg: (value: string) => string }];
+    searchingPhraseExplanation?: string;
 }
 const ThereAreNoResults: FunctionComponent<ThereAreNoResultsProps> = (props) => {
     const [playEasterEgg, setPlayEasterEgg] = useState<boolean>(false);
@@ -72,7 +82,7 @@ const ThereAreNoResults: FunctionComponent<ThereAreNoResultsProps> = (props) => 
         const addToExplanation = (contentToBeAdded: string): ReactNode => {
             const asterisks: ReactNode = <span className="asterisks">{explanations.map(() => "*") + "*"}</span>;
             explanations.push(
-                <span>
+                <span key={explanations.length}>
                     {asterisks}
                     {contentToBeAdded}
                 </span>
@@ -81,24 +91,48 @@ const ThereAreNoResults: FunctionComponent<ThereAreNoResultsProps> = (props) => 
         };
 
         const { query } = props.router;
+        const addToMoreInformation = (body: ReactNode) => {
+            moreInformation.push(
+                <span key={moreInformation.length} className="single-more-information-point">
+                    {body}
+                </span>
+            );
+        };
         Object.keys(query).forEach((key) => {
             if (key === "continent") {
                 if (query[key] === "all") return;
-
-                moreInformation.push(
-                    <span>
-                        In <strong>{(query[key] as any).replace("_", " ")} </strong>
-                    </span>
+                addToMoreInformation(
+                    <>
+                        In <strong>{(query[key] as any).replace("_", " ")} </strong>{" "}
+                    </>
                 );
             } else if (key === "searchingPhrase" && query[key]?.length) {
                 if ((query[key] as any).toLowerCase() === "jebac gorzen" && !playEasterEgg) setPlayEasterEgg(true);
 
-                const asterisks = addToExplanation("The algorithm looks for records containing searching phrase in their either country or city name only");
-                moreInformation.push(
-                    <span>
+                const asterisks = props.searchingPhraseExplanation
+                    ? addToExplanation(`The algorithm looks for records containing searching phrase only in their ${props.searchingPhraseExplanation}`)
+                    : null;
+
+                addToMoreInformation(
+                    <>
                         Containing phrase <strong>{query[key]} </strong> {asterisks}
-                    </span>
+                    </>
                 );
+            } else if (props.routerQueriesToHandle && props.routerQueriesToHandle.length) {
+                for (let { queryName, msg } of props.routerQueriesToHandle) {
+                    if (queryName === key) {
+                        const value = query[key] as string;
+                        const capitalizedValue = value[0] + value.slice(1).toLowerCase();
+                        const splitted = msg(value).split(value);
+                        addToMoreInformation(
+                            <>
+                                {splitted[0]}
+                                <strong>{capitalizedValue} </strong>
+                                {splitted[1]}
+                            </>
+                        );
+                    }
+                }
             }
         });
     }
@@ -112,7 +146,7 @@ const ThereAreNoResults: FunctionComponent<ThereAreNoResultsProps> = (props) => 
                         <>
                             <BlurOff></BlurOff>
                             <h3>{props.header ?? "Nothing to explore"}</h3>
-                            {moreInformation.length > 0 && <FlexBoxColumnCenter>{moreInformation}</FlexBoxColumnCenter>}
+                            {moreInformation.length > 0 && <FlexBoxColumnCenter className="more-information">{moreInformation}</FlexBoxColumnCenter>}
                             {explanations.length > 0 && (
                                 <>
                                     <Divider></Divider>
