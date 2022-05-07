@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-import type { ReviewingType } from "@/@types/SortReviews";
 import type { LandmarkReview, DestinationReview } from "@/@types/pages/UserProfile";
 // Other components
 const SingleLandmarkReview = dynamic(() => import("@/components/_utils/SingleLandmark"), { loading: () => <Loading /> });
@@ -22,7 +21,7 @@ const Wrapper = styled(FlexBox)(({ theme }) => ({
 
 interface ReviewsListProps {
     reviews: LandmarkReview[] | DestinationReview[];
-    fetchedReviewsType: ReviewingType | null;
+    fetchedReviewsType: "landmark" | "destination" | null;
     somethingIsLoading: boolean;
 }
 
