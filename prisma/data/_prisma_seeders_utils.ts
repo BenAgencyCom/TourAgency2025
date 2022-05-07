@@ -31,7 +31,7 @@ export const randomReviewScore = (): number => {
     return Number(Math.min(drawn * 1.1, 10).toFixed(1));
 };
 
-export const randomComment = (): string => faker.lorem.sentences(3).slice(0, 150);
+export const randomComment = (): string => faker.lorem.sentences(randomNumberFromRange(3, 10));
 export const randomTags = (): string[] => faker.lorem.words(randomNumberFromRange(3, 5)).split(" ");
 
 export const randomNumberFromRange = (min: number, max: number) => {

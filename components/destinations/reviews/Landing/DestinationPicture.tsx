@@ -23,6 +23,7 @@ const DestinationPicture: FunctionComponent<{ picture: string }> = (props) => {
                 alt=""
                 objectFit="cover"
                 objectPosition="center"
+                priority
             ></Image>
         </DestinationPictureWrapper>
     );

@@ -1,6 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 // Other Components
 import Link from "next/link";
@@ -27,11 +28,11 @@ const ReadMore = styled("a")(({ theme }) => ({
     },
 }));
 
-const ReadMoreWrapper: FunctionComponent<{ url: string }> = (props) => {
+const ReadMoreWrapper: FunctionComponent<{ url: string; sx?: SxProps }> = (props) => {
     return (
         <Link passHref href={props.url}>
             <ReadMore tabIndex={-1} className="read-more">
-                <ButtonWithLineTransition primary reverse>
+                <ButtonWithLineTransition primary reverse sx={props.sx}>
                     Read more
                 </ButtonWithLineTransition>
             </ReadMore>

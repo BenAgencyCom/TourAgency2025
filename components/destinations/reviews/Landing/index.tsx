@@ -11,7 +11,8 @@ import Header from "./Header";
 import DestinationPicture from "./DestinationPicture";
 import BreadcrumbsNavigation from "./BreadCrumbsNavigation";
 import PointsDistributionComponent from "@/components/_utils/PointsDistribution";
-import MoreInformation from "./MoreInformation";
+import PointsDistributionComponentSkeleton from "@/components/_utils/PointsDistribution/SkeletonLoading";
+import ReadMore from "@/components/_utils/ReadMore";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -21,14 +22,15 @@ const LeftSideContent = styled(FlexBox)(({ theme }) => ({
 }));
 
 interface LandingProps {
-    statistics: Statistics;
-    pointsDistribution: PointsDistribution;
+    statistics: Statistics | null;
+    pointsDistribution: PointsDistribution | null;
     destination: Destination;
 }
 
 const Landing: FunctionComponent<LandingProps> = (props) => {
     // Establish predominant review's type:
-    const predominant: ReviewType = ((): ReviewType => {
+    const predominant: ReviewType | "_loading" = ((): ReviewType | "_loading" => {
+        if (!props.pointsDistribution) return "_loading";
         const { MIXED, NEGATIVE, POSITIVE } = props.pointsDistribution;
         if (POSITIVE >= NEGATIVE && POSITIVE >= MIXED) return "POSITIVE";
         else if (MIXED > POSITIVE && MIXED >= NEGATIVE) return "MIXED";
@@ -36,25 +38,30 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
     })();
 
     return (
-        <FlexBox horizontal="between" sx={{ mt: "50px", width: "100%" }}>
+        <FlexBox horizontal="between" sx={{ mt: "50px", width: "100%", mb: "100px" }}>
             <LeftSideContent column vertical="evenly">
                 <FlexBox column>
-                    <BreadcrumbsNavigation destination={props.destination}></BreadcrumbsNavigation>
-                    <Header main={props.destination.city} background="Reviews"></Header>
-                    <Stars score={props.statistics.averageScore}></Stars>
+                    <BreadcrumbsNavigation destination={props.destination} />
+                    <Header main={props.destination.city} background="Reviews" />
+                    <Stars score={props.statistics?.averageScore} />
                 </FlexBox>
 
-                <PointsDistributionComponent
-                    averageScore={props.statistics.averageScore}
-                    predominant={predominant}
-                    reviewsInTotal={props.statistics.recordsInTotal}
-                    pointsDistribution={props.pointsDistribution}
-                ></PointsDistributionComponent>
-
-                <MoreInformation slug={props.destination.slug}></MoreInformation>
+                {(() => {
+                    if (props.pointsDistribution && props.statistics && predominant !== "_loading") {
+                        return (
+                            <PointsDistributionComponent
+                                averageScore={props.statistics.averageScore}
+                                predominant={predominant}
+                                reviewsInTotal={props.statistics.recordsInTotal}
+                                pointsDistribution={props.pointsDistribution}
+                            />
+                        );
+                    } else return <PointsDistributionComponentSkeleton />;
+                })()}
+                <ReadMore url={`/destinations/${props.destination.slug}`} sx={{ height: "46px !important" }}></ReadMore>
             </LeftSideContent>
 
-            <DestinationPicture picture={props.destination.folder}></DestinationPicture>
+            <DestinationPicture picture={props.destination.folder} />
         </FlexBox>
     );
 };

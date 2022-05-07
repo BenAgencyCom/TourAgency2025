@@ -25,6 +25,7 @@ const URLQueriesManagerWrapper = styled("div")(({ theme }) => ({
     display: "flex",
     flexWrap: "wrap",
     marginBottom: "20px",
+    position: "relative",
     ".MuiSkeleton-root, .MuiInputBase-root": {
         marginRight: "10px",
         marginBottom: "10px",
@@ -73,6 +74,7 @@ interface URLQueriesManagerProps {
          * pass an id of the element as the top border of scrolling*/
         idOfElementToScrollTo: string;
     };
+    disableResultsInTotal?: true;
 }
 /**
  * ### Purpose
@@ -266,7 +268,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                     );
                 }
             })()}
-            {props.paginationProperties && <ResultsInTotal resultsInTotal={props.paginationProperties.recordsInTotal}></ResultsInTotal>}
+            {props.paginationProperties && !props.disableResultsInTotal && <ResultsInTotal resultsInTotal={props.paginationProperties.recordsInTotal}></ResultsInTotal>}
             {/*  */}
             {/*  */}
             {props.children}

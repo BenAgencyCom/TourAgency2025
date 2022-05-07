@@ -2,6 +2,9 @@
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { ReviewType } from "@prisma/client";
+// Material UI Components
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 // Other components
 import BasedOn from "./BasedOn";
 import AverageScore from "./AverageScore";
@@ -22,15 +25,16 @@ const PointsDistributionComponent: FunctionComponent<PointsDistributionProps> = 
     const { predominant, reviewsInTotal, pointsDistribution, averageScore } = props;
     return (
         <FlexBox column sx={props.sx}>
-            {(() => {
-                if (!props.hideBasedOn) {
-                    return (
-                        <BasedOn>
-                            Based on <strong>{reviewsInTotal}</strong> reviews
-                        </BasedOn>
-                    );
-                }
-            })()}
+            <Box sx={{ my: "20px" }}>
+                <Typography variant="h4" sx={{ my: "0px" }}>
+                    Reviews distribution
+                </Typography>
+                {!props.hideBasedOn && (
+                    <BasedOn>
+                        Based on <strong>{reviewsInTotal}</strong> reviews
+                    </BasedOn>
+                )}
+            </Box>
 
             <FlexBox horizontal="between" sx={{ flexGrow: 1 }}>
                 <AverageScore averageScore={averageScore} thereAreNoReviewsAtAll={props.reviewsInTotal === 0} predominant={predominant}></AverageScore>

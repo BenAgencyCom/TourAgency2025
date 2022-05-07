@@ -9,7 +9,7 @@ import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 
 const MainText = styled(Typography)(({ theme }) => ({
     marginTop: "30px",
-    fontSize: "4rem",
+    fontSize: "6rem",
     fontWeight: "900",
     letterSpacing: "-2px",
     position: "relative",

@@ -1,19 +1,21 @@
 // Tools
+import axios from "axios";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import PrefetchData from "./_utils/PrefetchData";
-import _RefreshData from "./_utils/RefreshData";
 // Types
 import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/destinations/Reviews";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { Review, PointsDistribution, Statistics } from "@/@types/pages/api/ReviewsAPI";
 // Other components
-import Sort from "./Sort";
 import Landing from "./Landing";
 import Reviews from "./Reviews";
-import Pagination from "@/components/_utils/Pagination";
-import Loading from "@/components/_utils/Loading";
+import URLQueriesManager from "@/components/_utils/URLQueriesManager";
+import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
+// Material UI Icons
+import Star from "@mui/icons-material/Star";
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
@@ -21,88 +23,109 @@ interface ContentParams {
     destination: Destination;
 }
 const Content: FunctionComponent<ContentParams> = (props) => {
+    const { width } = useAppSelector((state) => state.windowSizes);
+    const REVIEWS_PER_PAGE = width > 800 ? 12 : 8;
+
     const [reviews, setReviews] = useState<Review[]>([]);
-    const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
-    const [pointsDistribution, setPointsDistribution] = useState<PointsDistribution | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
     const [statistics, setStatistics] = useState<Statistics | null>(null);
-    const [reviewsAreLoading, setReviewsAreLoading] = useState<boolean>(true);
+    const [pointsDistribution, setPointsDistribution] = useState<PointsDistribution | null>(null);
+    const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
 
     const router = useRouter();
-    const perPage = 15;
-    const destinationID = props.destination.id;
 
-    const refreshData = async (page: number) => {
-        setReviewsAreLoading(true);
-        const refreshedData = await _RefreshData({ destinationID, perPage, router, page });
-        if (!refreshedData) return;
+    const queryForData = async (urlQueries: string) => {
+        const destinationID = props.destination.id;
 
-        const { reviews, paginationProperties } = refreshedData;
-        setPaginationProperties(paginationProperties);
-        setReviews(reviews);
+        try {
+            setLoading(true);
+            const applyPointsDistribution = !statistics || !pointsDistribution;
+            const res = await axios.get(`/api/destination/${destinationID}/reviews${urlQueries}&perPage=${REVIEWS_PER_PAGE}${applyPointsDistribution ? "&applyPointsDistribution=1" : ""} `);
+            if (res.data) {
+                const { pagination, reviews, pointsDistribution, statistics } = res.data;
 
-        setReviewsAreLoading(false);
+                setLoading(false);
+                setReviews(reviews);
+                setPaginationProperties(pagination);
+
+                if (statistics) setStatistics(statistics);
+                if (pointsDistribution) setPointsDistribution(pointsDistribution);
+            }
+        } catch (e: unknown) {
+            router.push("/500");
+        }
     };
 
-    // Prefetch data
-    useEffect(() => {
-        let isMounted = true;
-        (async () => {
-            const prefetchedData = await PrefetchData({ destinationID, perPage, router });
-            if (!prefetchedData) return;
-            const { reviews, paginationProperties, pointsDistribution, statistics } = prefetchedData;
-
-            if (isMounted) {
-                setReviewsAreLoading(false);
-                setPaginationProperties(paginationProperties);
-                setReviews(reviews);
-                setPointsDistribution(pointsDistribution);
-                setStatistics(statistics);
-            }
-        })();
-
-        return () => {
-            isMounted = false;
-        };
-    }, [props.destination, router, router.query, destinationID]);
-
     return (
-        <ContentContainter id="reviews-wrapper">
-            {(() => {
-                if (!statistics || !pointsDistribution || !paginationProperties) {
-                    return <Loading></Loading>;
-                } else {
-                    return (
-                        <>
-                            <Landing
-                                destination={props.destination} //
-                                statistics={statistics}
-                                pointsDistribution={pointsDistribution}
-                            ></Landing>
+        <ContentContainter id="single-destination-reviews" backgroundMap>
+            <Landing
+                destination={props.destination} //
+                statistics={statistics}
+                pointsDistribution={pointsDistribution}
+            ></Landing>
 
-                            <Sort
-                                refreshData={refreshData} //
-                                recordsInTotal={paginationProperties?.recordsInTotal ?? false}
-                                reviewsAreLoading={reviewsAreLoading}
-                            ></Sort>
-
-                            <Reviews
-                                reviews={reviews} //
-                                paginationProperties={paginationProperties}
-                                slug={props.destination.slug}
-                                reviewsAreLoading={reviewsAreLoading}
-                            ></Reviews>
-
-                            <Pagination
-                                paginationProperties={paginationProperties} //
-                                scrollToElement="reviews-wrapper"
-                                callbackDuringScrolling={(pageNumber: number) => {
-                                    refreshData(pageNumber);
-                                }}
-                            ></Pagination>
-                        </>
-                    );
+            <URLQueriesManager
+                queryForData={queryForData}
+                disableResultsInTotal
+                extraOrderOptions={[
+                    {
+                        label: "Best score",
+                        value: "best",
+                        "data-compounded-value": "orderBy=points&sort=desc",
+                    },
+                    {
+                        label: "Worst score",
+                        value: "worst",
+                        "data-compounded-value": "orderBy=points&sort=asc",
+                    },
+                ]}
+                extraSelects={[
+                    {
+                        key: "certianReviewType",
+                        icon: <Star />,
+                        options: [
+                            { label: "All types", value: "all" },
+                            { label: "Positive", value: "POSITIVE" },
+                            { label: "Negative", value: "NEGATIVE" },
+                            { label: "Mixed", value: "MIXED" },
+                        ],
+                        defaultValue: "all",
+                        omitIfDeafult: true,
+                    },
+                ]}
+                paginationProperties={
+                    paginationProperties && !loading
+                        ? {
+                              ...paginationProperties,
+                              idOfElementToScrollTo: "single-destination-reviews",
+                          }
+                        : undefined
                 }
-            })()}
+            >
+                {(() => {
+                    if (loading || !statistics || !pointsDistribution || !paginationProperties) {
+                        // return <Loading sx={{ bottom: "-400px" }} />;
+                    } else {
+                        if (reviews.length === 0) {
+                            return (
+                                <ThereAreNoResults
+                                    router={router} //
+                                    header="There are no reviews"
+                                ></ThereAreNoResults>
+                            );
+                        } else {
+                            return (
+                                <Reviews
+                                    reviews={reviews} //
+                                    paginationProperties={paginationProperties}
+                                    slug={props.destination.slug}
+                                    reviewsAreLoading={loading}
+                                ></Reviews>
+                            );
+                        }
+                    }
+                })()}
+            </URLQueriesManager>
         </ContentContainter>
     );
 };
