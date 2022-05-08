@@ -1,6 +1,6 @@
 // Tools
-import RWD from "./RWD";
-import { styled, alpha } from "@mui/system";
+import { styled } from "@mui/system";
+import _SingleReviewWrapperStyles from "./_SingleReviewWrapperStyles";
 // Types
 import type { FunctionComponent } from "react";
 import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
@@ -18,21 +18,14 @@ import { useAppSelector } from "@/hooks/useRedux";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
-    width: "100%",
-    marginTop: "40px",
-    padding: "20px",
-    boxSizing: "border-box",
-    background: alpha("#fff", 0.3),
-    borderRadius: 10,
-    border: `2px solid ${theme.palette.background.lightPaper}`,
+    ...(_SingleReviewWrapperStyles as any),
+    //
     hr: {
         borderColor: theme.palette.background.lightPaper,
     },
     "&:nth-of-type(1)": {
         marginTop: "0px !important",
     },
-    //
-    ...(RWD as any),
 }));
 
 interface SingleReviewProps {

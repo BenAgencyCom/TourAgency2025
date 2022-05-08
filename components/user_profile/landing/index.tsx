@@ -43,15 +43,12 @@ const UserProfileLanding: FunctionComponent<UserProfileLanding> = (props) => {
                     </ReviewScore>
                 </ListPoint>
 
-                <Typography variant="h4" sx={{ my: "20px" }}>
-                    Reviews distribution
-                </Typography>
                 <PointsDistributionComponent
-                    hideBasedOn
                     averageScore={averageScore}
                     pointsDistribution={props.pointsDistribution}
                     predominant={predominantReviewType}
                     reviewsInTotal={reviewsInTotal}
+                    sx={{ mt: "20px" }}
                 ></PointsDistributionComponent>
             </FlexBox>
         </FlexBox>

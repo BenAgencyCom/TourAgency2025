@@ -15,7 +15,7 @@ const ImageWrapper = styled("div")(({ theme }) => ({
 }));
 
 const SkeletonImage: FunctionComponent<ImageProps> = (props) => {
-    const [imageIsStillLoading, setImageIsStillLoading] = useState<boolean>(false);
+    const [imageIsStillLoading, setImageIsStillLoading] = useState<boolean>(true);
 
     return (
         <ImageWrapper>

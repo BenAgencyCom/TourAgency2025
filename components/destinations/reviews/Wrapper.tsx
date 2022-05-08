@@ -18,6 +18,7 @@ import Star from "@mui/icons-material/Star";
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
+import SingleReviewSkeletonLoading from "@/components/_utils/SingleReview/SkeletonLoading";
 
 interface ContentParams {
     destination: Destination;
@@ -104,7 +105,13 @@ const Content: FunctionComponent<ContentParams> = (props) => {
             >
                 {(() => {
                     if (loading || !statistics || !pointsDistribution || !paginationProperties) {
-                        // return <Loading sx={{ bottom: "-400px" }} />;
+                        return (
+                            <>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                            </>
+                        );
                     } else {
                         if (reviews.length === 0) {
                             return (
