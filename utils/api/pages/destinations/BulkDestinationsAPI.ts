@@ -45,6 +45,9 @@ export default class BulkLandmarksAPI extends BulkDataAPI<Prisma.DestinationSele
                     picture: true,
                 },
                 take: 3,
+                orderBy: {
+                    createdAt: "desc",
+                },
             },
         });
     }
