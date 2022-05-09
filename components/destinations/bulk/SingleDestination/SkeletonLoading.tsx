@@ -2,6 +2,7 @@
 import RWD from "./RWD";
 import { styled } from "@mui/system";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { MUIStyledCommonProps } from "@mui/system";
 // Material UI Components
@@ -17,7 +18,7 @@ const SkeletonWrapper = styled("div")(({ theme }) => ({
 const PointsDistributionSkeletonLoading: FunctionComponent<MUIStyledCommonProps> = (props) => {
     return (
         <Fade in={true}>
-            <SkeletonWrapper sx={{ ...props.sx, ...{ height: "500px" } }}>
+            <SkeletonWrapper sx={{ ...props.sx }} className="skeleton">
                 {/* PICTRURE */}
                 <Skeleton
                     className="single-destination-picture"
@@ -25,20 +26,20 @@ const PointsDistributionSkeletonLoading: FunctionComponent<MUIStyledCommonProps>
                     variant="rectangular"
                 />
                 {/* Information */}
-                <FlexBox column className="single-destination-information">
+                <FlexBox column className="single-destination-information skeleton">
                     {/* Localization */}
                     <Skeleton sx={{ height: "30px", width: "250px", mb: "10px" }} variant="rectangular" />
                     {/* City name */}
                     <Skeleton sx={{ height: "60px", width: "350px", mb: "10px" }} variant="rectangular" />
                     {/* Description */}
-                    <Skeleton sx={{ flexGrow: "1", width: "100%", mb: "10px" }} variant="rectangular" />
+                    <Skeleton sx={{ flexGrow: "1", width: "100%", mb: "10px" }} variant="rectangular" className="description" />
                     {/* Landmarks header */}
                     <Skeleton sx={{ height: "40px", width: "300px", mb: "10px" }} variant="rectangular" />
                     {/* Landmarks */}
                     <FlexBox
                         horizontal="between"
                         className="landmarks-wrapper" //
-                        sx={{ m: " 0 0 10px 0 !important", height: "80px" }}
+                        sx={{ m: "0 0 10px 0 !important", height: "80px" }}
                     >
                         <Skeleton
                             className="single-landmark" //
@@ -57,7 +58,7 @@ const PointsDistributionSkeletonLoading: FunctionComponent<MUIStyledCommonProps>
                         />
                     </FlexBox>
                     {/* Read more */}
-                    <Skeleton sx={{ height: "40px", width: "150px" }} variant="rectangular" />
+                    <Skeleton sx={{ height: "40px", width: "150px" }} variant="rectangular" className="read-more" />
                 </FlexBox>
             </SkeletonWrapper>
         </Fade>

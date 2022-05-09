@@ -15,6 +15,7 @@ export default {
     justifyContent: "space-between",
     ".single-destination-picture": {
         width: "calc(50% - 10px)",
+        height: "450px",
     },
     ".single-destination-information": {
         width: "calc(50% - 10px)",
@@ -68,6 +69,28 @@ export default {
             ".single-landmark": {
                 height: "200px",
             },
+            "&.skeleton": {
+                padding: "0",
+            },
+        },
+        "&.skeleton": {
+            padding: "20px",
+            ".single-destination-picture": {
+                marginBottom: "10px",
+            },
+            ".landmarks-wrapper": {
+                height: "200px",
+            },
+            ".description": {
+                height: "200px",
+            },
+            ".read-more": {
+                marginTop: "50px",
+                alignSelf: "center",
+                width: "100%",
+                maxWidth: "400px",
+                height: "40px",
+            },
         },
     },
     ["@media (max-width:800px)"]: {
@@ -89,6 +112,9 @@ export default {
         ".single-destination-picture": {
             height: "350px",
         },
+        "&.skeleton": {
+            padding: "10px",
+        },
     },
     ["@media (max-width:500px)"]: {
         ".single-destination-picture": {
@@ -102,6 +128,11 @@ export default {
                     height: "280px",
                     marginBottom: "10px",
                 },
+            },
+        },
+        "&.skeleton": {
+            ".landmarks-wrapper": {
+                height: "840px",
             },
         },
     },
