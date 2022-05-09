@@ -1,7 +1,41 @@
+import { alpha } from "@mui/system";
 // Types
 import type { SxProps } from "@mui/system";
 
 export default {
+    marginBottom: "60px",
+    background: alpha("#fff", 0.9),
+    borderRadius: "10px",
+    boxSizing: "border-box",
+    padding: "20px",
+    position: "relative",
+    overflow: "hidden",
+    cursor: "default",
+    display: "flex",
+    justifyContent: "space-between",
+    ".single-destination-picture": {
+        width: "calc(50% - 10px)",
+    },
+    ".single-destination-information": {
+        width: "calc(50% - 10px)",
+        position: "relative",
+        zIndex: "1",
+        ".background-map": {
+            maxWidth: "500px",
+            width: "100%",
+            top: "-22%",
+            right: "-8%",
+            zIndex: -1,
+        },
+        ".landmarks-wrapper": {
+            flexGrow: 1,
+            width: "100%",
+            mb: "20px",
+            ".single-landmark": {
+                width: "calc(32.5%)",
+            },
+        },
+    },
     ["@media (max-width:1200px)"]: {
         ".single-destination-picture": {
             width: "calc(45% - 10px)",

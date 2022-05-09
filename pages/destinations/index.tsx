@@ -12,10 +12,10 @@ import Head from "next/Head";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import SingleDestination from "@/components/destinations/bulk/SingleDestination";
+import SingleDestinationSkeletonLoading from "@/components/destinations/bulk/SingleDestination/SkeletonLoading";
 // Material UI Icons
 import Public from "@mui/icons-material/Public";
 // Styled Components
-import Loading from "@/components/_utils/Loading";
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
 const Destinations: FunctionComponent = (props) => {
@@ -100,7 +100,19 @@ const Destinations: FunctionComponent = (props) => {
                 >
                     {(() => {
                         if (loading) {
-                            return <Loading sx={{ top: "400px" }} />;
+                            return (
+                                <>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <SingleDestinationSkeletonLoading></SingleDestinationSkeletonLoading>
+                                    <SingleDestinationSkeletonLoading></SingleDestinationSkeletonLoading>
+                                    <SingleDestinationSkeletonLoading></SingleDestinationSkeletonLoading>
+                                    <SingleDestinationSkeletonLoading></SingleDestinationSkeletonLoading>
+                                </>
+                            );
                         } else {
                             if (destinations.length === 0) {
                                 return (

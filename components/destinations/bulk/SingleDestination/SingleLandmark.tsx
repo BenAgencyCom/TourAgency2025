@@ -13,9 +13,8 @@ interface Props {
 const Wrapper = styled("div", {
     shouldForwardProp: (propname: string) => !["inactive"].includes(propname),
 })<Props>(({ theme, ...props }) => ({
-    width: "calc(32.5%)",
-    height: "150px",
     position: "relative",
+    height: "150px",
     overflow: "hidden",
     borderRadius: "5px",
     opacity: "0.95",

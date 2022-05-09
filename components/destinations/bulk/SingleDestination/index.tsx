@@ -17,35 +17,7 @@ import LocalizationBreadCrumbs from "@/components/_utils/LocalizationBreadCrumbs
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const Wrapper = styled(FlexBox)(({ theme }) => ({
-    marginBottom: "60px",
-    background: "#fff",
-    borderRadius: "10px",
-    boxSizing: "border-box",
-    padding: "20px",
-    position: "relative",
-    overflow: "hidden",
-    cursor: "default",
-    ".single-destination-picture": {
-        width: "calc(50% - 10px)",
-    },
-    ".single-destination-information": {
-        width: "calc(50% - 10px)",
-        position: "relative",
-        zIndex: "1",
-        ".background-map": {
-            maxWidth: "500px",
-            width: "100%",
-            top: "-22%",
-            right: "-8%",
-            zIndex: -1,
-        },
-        ".landmarks-wrapper": {
-            flexGrow: 1,
-            width: "100%",
-            mb: "20px",
-        },
-    },
+const Wrapper = styled("div")(({ theme }) => ({
     ...(RWD as any),
 }));
 
@@ -58,7 +30,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
 
     return (
         <Fade in={true}>
-            <Wrapper horizontal="between">
+            <Wrapper>
                 <DestinationPicture
                     picture={folder} //
                     resolution="480p"
