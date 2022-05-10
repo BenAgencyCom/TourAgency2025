@@ -4,9 +4,9 @@ import { styled } from "@mui/system";
 import stated from "@/utils/client/stated";
 import restrictions from "@/utils/restrictions/createDestination";
 // Types
-import { FieldType } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
 import type { FunctionComponent } from "react";
-import type { SplittedSubfieldField, ParagraphContentField, ImageContentField } from "@/@types/DestinationDescription";
+import type { SplittedSubfieldField, ParagraphContentField, ImageContentField } from "@/@types/Description";
 // Material UI Icons
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";

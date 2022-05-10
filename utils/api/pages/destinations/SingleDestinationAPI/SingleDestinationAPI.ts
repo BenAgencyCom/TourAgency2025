@@ -2,7 +2,7 @@
 import BulkReviewsAPI from "@/utils/api/pages/BulkReviewsAPI";
 import { prisma } from "@/prisma/db";
 // Types
-import type { DestinationContentField } from "@/@types/DestinationDescription";
+import type { DestinationContentField } from "@/@types/Description";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { DestinationFromQuery, RatingsSummary, DataFromAPI } from "./@types";
 

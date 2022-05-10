@@ -4,7 +4,7 @@ import colorTheme from "@/colorTheme";
 import type { FunctionComponent } from "react";
 // Other components
 import Section from "@/components/destinations/single/_utils/Section";
-import SingleDestinationContent from "@/components/destinations/single/Description/SingleDestinationContent";
+import Description from "@/components/_utils/Description";
 // Material UI Icons
 import MenuBook from "@mui/icons-material/MenuBook";
 // Redux
@@ -24,10 +24,10 @@ const DestinationWrapper: FunctionComponent = () => {
                 biggerHeader: "About",
             }}
         >
-            <SingleDestinationContent
+            <Description
                 data={description} //
                 imageLoader={imageLoader}
-            ></SingleDestinationContent>
+            ></Description>
         </Section>
     );
 };

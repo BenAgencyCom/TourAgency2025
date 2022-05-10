@@ -2,7 +2,7 @@ import type { NextApiRequest } from "next";
 import type { CountryType } from "@/data/countries";
 import { Continent } from "@prisma/client";
 import { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
-import { DestinationContentField } from "@/@types/DestinationDescription";
+import { DestinationContentField } from "@/@types/Description";
 
 type JSON<T> = T | string;
 

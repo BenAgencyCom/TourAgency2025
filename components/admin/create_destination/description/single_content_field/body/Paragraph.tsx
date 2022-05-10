@@ -6,7 +6,7 @@ import { ListItem } from "@/@types/redux";
 import type { Theme } from "@mui/system";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { Restriction } from "@/@types/Restriction";
-import type { ParagraphContentField } from "@/@types/DestinationDescription";
+import type { ParagraphContentField } from "@/@types/Description";
 // Material UI Components
 import TextField from "@mui/material/TextField";
 

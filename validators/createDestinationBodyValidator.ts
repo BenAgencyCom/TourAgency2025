@@ -1,7 +1,7 @@
 // Tools
 import joi from "joi";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
-import { FieldType } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
 import createBetterJoiErrors from "@/utils/api/betterJoiErrors";
 import restrictions from "@/utils/restrictions/createDestination";
 import GeneralInformationJoiSchema from "@/validators/helpers/create_destination/generalInformationJoiSchema";
@@ -12,7 +12,7 @@ import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
 import { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
 import type { SubmittedFilesCollection } from "@/utils/api/HandleMultipartFormDataRequest";
 import type { CreateDestinationRequest, CreateDestinationRequestPardesBody } from "@/@types/router/destination";
-import type { DestinationContentField, SplittedContentField, SplittedSubfieldField } from "@/@types/DestinationDescription";
+import type { DestinationContentField, SplittedContentField, SplittedSubfieldField } from "@/@types/Description";
 
 interface ValidationResult {
     fields: CreateDestinationRequestPardesBody;

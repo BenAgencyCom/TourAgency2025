@@ -5,7 +5,7 @@ import { lengthRestrictionMessage, validateLength } from "@/utils/client/lenghRe
 import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { Restriction } from "@/@types/Restriction";
-import type { HeaderContentField } from "@/@types/DestinationDescription";
+import type { HeaderContentField } from "@/@types/Description";
 // Material UI Components
 import TextField from "@mui/material/TextField";
 

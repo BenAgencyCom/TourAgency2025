@@ -6,8 +6,8 @@ import { styled } from "@mui/system";
 import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 import { Theme } from "@mui/system";
-import { FieldType } from "@/@types/DestinationDescription";
-import type { DestinationContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
+import type { DestinationContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "@/@types/Description";
 import type { DraggableProvided } from "react-beautiful-dnd";
 // Material UI Components
 import Card from "@mui/material/Card";

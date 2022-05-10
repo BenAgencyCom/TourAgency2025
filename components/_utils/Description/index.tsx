@@ -2,15 +2,15 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-import { FieldType } from "@/@types/DestinationDescription";
-import type { DestinationContentField } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
+import type { DestinationContentField } from "@/@types/Description";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
-import Header from "@/components/destinations/single/Description/Header";
-import Paragraph from "@/components/destinations/single/Description/Paragraph";
-import ImageField from "@/components/destinations/single/Description/Image";
-import Splitted from "@/components/destinations/single/Description/Splitted";
+import Header from "./Header";
+import ImageField from "./Image";
+import Splitted from "./Splitted";
+import Paragraph from "./Paragraph";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 
 interface SingleDestinationContentProps {

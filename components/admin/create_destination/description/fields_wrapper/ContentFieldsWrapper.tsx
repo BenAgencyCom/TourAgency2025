@@ -6,7 +6,7 @@ import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ReactNode } from "react";
 import type { DropResult } from "react-beautiful-dnd";
 import type { StatedDataField } from "@/@types/StagedDataField";
-import type { DestinationContentField } from "@/@types/DestinationDescription";
+import type { DestinationContentField } from "@/@types/Description";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components

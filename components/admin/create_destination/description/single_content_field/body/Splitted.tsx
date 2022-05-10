@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 import { ListItem } from "@/@types/redux";
 import type { Restriction } from "@/@types/Restriction";
 import type { FunctionComponent } from "react";
-import type { SplittedContentField } from "@/@types/DestinationDescription";
+import type { SplittedContentField } from "@/@types/Description";
 // Material UI Icons
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";

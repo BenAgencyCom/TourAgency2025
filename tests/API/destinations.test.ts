@@ -12,8 +12,8 @@ import fse from "fs-extra";
 // Types
 import type { Destination, Landmark } from "@prisma/client";
 import type { UserHelper } from "./data/users";
-import { FieldType } from "@/@types/DestinationDescription";
-import type { DestinationContentField } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
+import type { DestinationContentField } from "@/@types/Description";
 import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
 // helpers
 import { uploadDir } from "@/utils/paths";

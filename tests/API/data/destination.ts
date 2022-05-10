@@ -6,7 +6,7 @@ import FormData from "form-data";
 import path from "path";
 // Types
 import type { CreateDestinationRequest } from "@/@types/router/destination";
-import { FieldType } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
 
 export const data = {
     city: faker.address.cityName(),

@@ -5,8 +5,8 @@ import stated from "@/utils/client/stated";
 // Types
 import { ListItem } from "@/@types/redux";
 import type { FunctionComponent } from "react";
-import { FieldType } from "@/@types/DestinationDescription";
-import type { DestinationContentField, SplittedContentField } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
+import type { DestinationContentField, SplittedContentField } from "@/@types/Description";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";

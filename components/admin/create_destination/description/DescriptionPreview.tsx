@@ -1,7 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
-import type { DestinationContentField } from "@/@types/DestinationDescription";
+import type { DestinationContentField } from "@/@types/Description";
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StagedDataField";
 // Material UI Components
@@ -10,7 +10,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
 // Other components
-import SingleDestinationContent from "@/components/destinations/single/Description/SingleDestinationContent";
+import Description from "@/components/_utils/Description";
 
 const CustomDialogContent = styled(DialogContent)(({ theme }) => ({
     "&::-webkit-scrollbar": { width: "10px" },
@@ -43,10 +43,10 @@ const DescriptionPreview: FunctionComponent<DescriptionPreviewProps> = (props) =
             </CustomDialogTitle>
 
             <CustomDialogContent>
-                <SingleDestinationContent
+                <Description
                     data={props.data} //
                     imageLoader={(url: string) => url}
-                ></SingleDestinationContent>
+                ></Description>
             </CustomDialogContent>
         </Dialog>
     );

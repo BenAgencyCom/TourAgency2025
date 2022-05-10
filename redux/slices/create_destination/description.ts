@@ -1,7 +1,7 @@
 import store from "@/redux/store";
 import createBetterSlice from "@/redux/slices/_redux_templates/createSliceWithListManagement";
-import { DestinationContentField, HeaderContentField, ParagraphContentField, SplittedContentField, ImageContentField } from "@/@types/DestinationDescription";
-import { FieldType } from "@/@types/DestinationDescription";
+import { DestinationContentField, HeaderContentField, ParagraphContentField, SplittedContentField, ImageContentField } from "@/@types/Description";
+import { FieldType } from "@/@types/Description";
 import { PayloadAction, CaseReducer } from "@reduxjs/toolkit";
 
 interface CustomState extends StringKeyedObject {

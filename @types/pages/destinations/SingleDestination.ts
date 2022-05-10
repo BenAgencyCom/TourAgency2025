@@ -1,5 +1,5 @@
 import type { Destination as _Destination, Landmark as _Landmark } from "@prisma/client";
-import type { DestinationContentField } from "@/@types/DestinationDescription";
+import type { DestinationContentField } from "@/@types/Description";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 
 export type ScoreColor = "success" | "error" | "warning";

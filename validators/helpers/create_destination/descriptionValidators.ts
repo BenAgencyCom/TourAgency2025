@@ -2,9 +2,9 @@
 import joi from "joi";
 import restrictions from "@/utils/restrictions/createDestination";
 import { ValidationError } from "@/utils/api/Errors";
-import { FieldType } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
 // Types
-import type { DestinationContentField } from "@/@types/DestinationDescription";
+import type { DestinationContentField } from "@/@types/Description";
 
 const { header, paragraph } = restrictions.description;
 // Schemas

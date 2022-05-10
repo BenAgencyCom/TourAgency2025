@@ -1,7 +1,7 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-import type { ParagraphContentField } from "@/@types/DestinationDescription";
+import type { ParagraphContentField } from "@/@types/Description";
 // Material UI Components
 import Typography from "@mui/material/Typography";
 

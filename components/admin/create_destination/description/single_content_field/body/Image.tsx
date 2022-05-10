@@ -5,7 +5,7 @@ import { styled } from "@mui/system";
 // Types
 import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { ImageContentField } from "@/@types/DestinationDescription";
+import type { ImageContentField } from "@/@types/Description";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";

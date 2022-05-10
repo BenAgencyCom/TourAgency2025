@@ -1,10 +1,10 @@
 // Types
-import { FieldType } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
 import type { FunctionComponent } from "react";
-import type { SplittedSubfieldField } from "@/@types/DestinationDescription";
+import type { SplittedSubfieldField } from "@/@types/Description";
 // Other components
-import Paragraph from "@/components/destinations/single/Description/Paragraph";
-import ImageField from "@/components/destinations/single/Description/Image";
+import ImageField from "./Image";
+import Paragraph from "./Paragraph";
 
 interface SplittedSubfiledProps {
     data: SplittedSubfieldField;

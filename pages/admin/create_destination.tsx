@@ -7,8 +7,8 @@ import GuardedRoute from "@/utils/client/GuardedRoute";
 import type { GetServerSideProps } from "next";
 import type { FunctionComponent } from "react";
 import type { Continent } from "@prisma/client";
-import { FieldType } from "@/@types/DestinationDescription";
-import type { ImageContentField } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
+import type { ImageContentField } from "@/@types/Description";
 import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 import type { CountryType } from "@/data/countries";
 // Material UI Components

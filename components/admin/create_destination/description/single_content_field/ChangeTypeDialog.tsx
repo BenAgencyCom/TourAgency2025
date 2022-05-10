@@ -4,7 +4,7 @@ import stated from "@/utils/client/stated";
 // Types
 import type { StatedDataField } from "@/@types/StagedDataField";
 import type { FunctionComponent } from "react";
-import { FieldType } from "@/@types/DestinationDescription";
+import { FieldType } from "@/@types/Description";
 // Material UI Components
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
