@@ -41,7 +41,7 @@ export default class BulkLandmarksAPI extends BulkDataAPI<Prisma.LandmarkSelect,
         return await this._getData<Landmark>({
             slug: true,
             title: true,
-            picture: true,
+            folder: true,
             type: true,
             shortDescription: true,
             destination: {

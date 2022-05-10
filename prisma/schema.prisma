@@ -72,11 +72,10 @@ model Landmark {
   destinationId    String       @map("destination_id")
   slug             String       @unique
   title            String
-  description      String
+  description      Json
   shortDescription String
-  picture          String
+  folder          String
   type             LandmarkType
-  tags             String[]
   createdAt        DateTime     @default(now())
   // For seaching purpose
   title_lowercase  String
@@ -171,4 +170,5 @@ enum LandmarkType {
   RELIC
   ART
   NATURE
+  MUSEUM
 }

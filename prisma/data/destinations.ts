@@ -4,6 +4,58 @@ import { generateDescriptionHeader, generateShortDescription, generateDescriptio
 import type { SeederDataList, Destination } from "./@types";
 import type { DestinationContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "../../@types/DestinationDescription";
 
+const createDescription = () => {
+    return JSON.parse(
+        JSON.stringify([
+            {
+                type: 2,
+                src: null,
+                url: "description_1",
+            } as ImageContentField,
+            {
+                type: 0,
+                header: generateDescriptionHeader(),
+            } as HeaderContentField,
+            {
+                type: 1,
+                content: generateDescriptionParagraph(),
+            } as ParagraphContentField,
+            {
+                type: 3,
+                left: {
+                    type: 1,
+                    content: generateDescriptionSplittedParagraph(),
+                } as ParagraphContentField,
+                right: {
+                    type: 2,
+                    src: null,
+                    url: "description_2",
+                } as ImageContentField,
+            } as SplittedContentField,
+            {
+                type: 0,
+                header: generateDescriptionHeader(),
+            } as HeaderContentField,
+            {
+                type: 1,
+                content: generateDescriptionParagraph(),
+            } as ParagraphContentField,
+            {
+                type: 3,
+                left: {
+                    type: 2,
+                    src: null,
+                    url: "description_3",
+                } as ImageContentField,
+                right: {
+                    type: 1,
+                    content: generateDescriptionSplittedParagraph(),
+                } as ParagraphContentField,
+            } as SplittedContentField,
+        ] as DestinationContentField[])
+    );
+};
+
 export default [
     {
         id: "KRAKOW",

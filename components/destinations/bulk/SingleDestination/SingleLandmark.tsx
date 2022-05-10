@@ -43,12 +43,12 @@ const Wrapper = styled("div", {
 }));
 interface SingleLandmarkProps extends MUIStyledCommonProps {
     inactive?: boolean;
-    url: string;
+    folder: string;
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
-    const { url, ...propsToForward } = props;
-    const src = props.inactive ? destinationPictureURL(url, "360p", "thumbnail") : landmarkPictureURL(url, "360p");
+    const { folder, ...propsToForward } = props;
+    const src = props.inactive ? destinationPictureURL(folder, "360p", "thumbnail") : landmarkPictureURL(folder, "360p", "thumbnail");
     return (
         <Wrapper {...propsToForward} className="single-landmark">
             <SkeletonImage

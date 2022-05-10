@@ -35,7 +35,7 @@ export default class SingleDestinationAPI {
                     select: {
                         slug: true,
                         title: true,
-                        picture: true,
+                        folder: true,
                         type: true,
                         shortDescription: true,
                         destination: {

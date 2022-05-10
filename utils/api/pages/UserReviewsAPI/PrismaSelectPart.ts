@@ -1,3 +1,6 @@
+// Namespace
+import { Prisma } from "@prisma/client";
+
 export const selectLandmarkReview = {
     select: {
         type: true,
@@ -7,7 +10,7 @@ export const selectLandmarkReview = {
                 title: true,
                 shortDescription: true,
                 slug: true,
-                picture: true,
+                folder: true,
                 destination: {
                     select: {
                         country: true,
@@ -17,7 +20,8 @@ export const selectLandmarkReview = {
             },
         },
     },
-};
+} as Prisma.LandmarkReviewFindManyArgs;
+
 export const selectDestinationReview = {
     select: {
         type: true,
@@ -34,4 +38,4 @@ export const selectDestinationReview = {
             },
         },
     },
-};
+} as Prisma.DestinationReviewFindManyArgs;

@@ -15,7 +15,7 @@ const Wrapper = styled("div")(({ theme }) => ({
 }));
 
 interface BackgroundPictureProps {
-    picture: string;
+    folder: string;
     resolution: "360p" | "480p" | "720p" | "1080p";
 }
 
@@ -25,7 +25,7 @@ const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => 
             <SkeletonImage
                 layout="fill" //
                 alt="bg"
-                src={landmarkPictureURL(props.picture, props.resolution)}
+                src={landmarkPictureURL(props.folder, props.resolution, "thumbnail")}
             ></SkeletonImage>
         </Wrapper>
     );

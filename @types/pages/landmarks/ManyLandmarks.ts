@@ -3,7 +3,7 @@ import type { Landmark as _Landmark, Destination as _Destination } from "@prisma
 export interface Landmark {
     slug: _Landmark["slug"];
     title: _Landmark["title"];
-    picture: _Landmark["picture"];
+    folder: _Landmark["folder"];
     type: _Landmark["type"];
     shortDescription: _Landmark["shortDescription"];
     destination: {

@@ -45,7 +45,7 @@ interface SingleLandmarkProps {
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
-    const { destination, slug, title, picture, shortDescription } = props.data;
+    const { destination, slug, title, folder, shortDescription } = props.data;
     const { imageResolution, userReview } = props;
 
     const amountOfWordsInDescription: number = (() => {
@@ -85,7 +85,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                     }
                 })()}
 
-                <LandmarkPicture picture={picture} resolution={imageResolution ?? "480p"}></LandmarkPicture>
+                <LandmarkPicture folder={folder} resolution={imageResolution ?? "480p"}></LandmarkPicture>
                 <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ fontSize: "1.2rem" }}></LocalizationBreadCrumbs>
                 <h3>{title}</h3>
 

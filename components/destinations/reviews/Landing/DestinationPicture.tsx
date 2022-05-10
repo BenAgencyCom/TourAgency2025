@@ -18,7 +18,7 @@ const DestinationPicture: FunctionComponent<{ picture: string }> = (props) => {
     return (
         <DestinationPictureWrapper>
             <Image
-                src={destinationPictureURL(props.picture, "1080p", "thumbnail")} //
+                src={destinationPictureURL(props.folder, "1080p", "thumbnail")} //
                 layout="fill"
                 alt=""
                 objectFit="cover"

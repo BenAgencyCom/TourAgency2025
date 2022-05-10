@@ -9,6 +9,6 @@ export interface Destination {
     shortDescription: _Destination["shortDescription"];
     folder: _Destination["folder"];
     landmarks: {
-        picture: _Landmark["picture"];
+        folder: _Landmark["folder"];
     }[];
 }

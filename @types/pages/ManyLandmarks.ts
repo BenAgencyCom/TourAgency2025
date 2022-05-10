@@ -23,8 +23,7 @@ export interface Response extends NextApiResponse {
 export interface Landmark {
     slug: _Landmark["slug"];
     title: _Landmark["title"];
-    picture: _Landmark["picture"];
-    tags: _Landmark["tags"];
+    folder: _Landmark["folder"];
     type: _Landmark["type"];
     destination: {
         city: _Destination["city"];

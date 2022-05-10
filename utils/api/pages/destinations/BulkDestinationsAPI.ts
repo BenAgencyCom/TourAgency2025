@@ -42,7 +42,7 @@ export default class BulkLandmarksAPI extends BulkDataAPI<Prisma.DestinationSele
             folder: true,
             landmarks: {
                 select: {
-                    picture: true,
+                    folder: true,
                 },
                 take: 3,
                 orderBy: {
