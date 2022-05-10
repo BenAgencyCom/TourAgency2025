@@ -32,7 +32,7 @@ const UserProfileLanding: FunctionComponent<UserProfileLanding> = (props) => {
                 <Header>{`${name} ${surname}`}</Header>
                 <ListPoint label="Age">{age}</ListPoint>
                 <ListPoint label="Country">
-                    <Flag country={country} countryCode={countryCode} sx={{ height: "28px" }}></Flag>
+                    <Flag country={country} countryCode={countryCode} sx={{ height: "28px", width: "50px" }}></Flag>
                 </ListPoint>
                 <ListPoint label="Member since">{memberSince.slice(0, 10)}</ListPoint>
                 <ListPoint label="Reviews in total">{reviewsInTotal}</ListPoint>

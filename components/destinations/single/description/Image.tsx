@@ -54,7 +54,7 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
         <ImageFieldWrapper
             sx={{
                 width: `${width}% !important`, //
-                my: props.split ? 0 : 2,
+                my: "20px",
             }}
             className={[type, pseudoElementRotation].join(" ")}
         >

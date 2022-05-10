@@ -12,6 +12,7 @@ const Header = styled(Typography)(({ theme }) => ({
     letterSpacing: "-2px",
     paddingLeft: "40px",
     position: "relative",
+    marginTop: "60px",
 }));
 const Dot = styled("span")(({ theme }) => ({
     position: "absolute",

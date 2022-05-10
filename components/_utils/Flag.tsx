@@ -1,5 +1,5 @@
 // Tools
-import { styled } from "@mui/system";
+import { styled, alpha } from "@mui/system";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
@@ -7,13 +7,23 @@ import type { FunctionComponent } from "react";
 import Tooltip from "@mui/material/Tooltip";
 // Styled component
 const Wrapper = styled("div")(({ theme }) => ({
-    width: "60px",
-    height: "40px",
-    overflow: "hidden",
+    width: "100px",
+    height: "60px",
+    position: "relative",
     img: {
         width: "100%",
         height: "100%",
-        objectFit: "contain",
+        objectFit: "cover",
+        position: "relative",
+        zIndex: "1",
+    },
+    ["@media (max-width:400px)"]: {
+        width: "70px",
+        height: "40px",
+    },
+    ["@media (max-width:330px)"]: {
+        width: "60px",
+        height: "40px",
     },
 }));
 

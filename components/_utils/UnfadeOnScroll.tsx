@@ -1,5 +1,5 @@
 // Tools
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 // Types
 import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
@@ -34,22 +34,24 @@ const UnfadeOnScroll: FunctionComponent<UnfadeOnScrollProps> = (props) => {
         }
     }, [scrollY, windowInnerHeight, fade, animationRatio]);
 
-    return (
-        <Fade in={fade}>
-            <Box
-                sx={{
-                    ...props.sx,
-                    ...{
-                        transitionDuration: `${props.duration ?? 500}ms !important`,
-                    },
-                    ...(fade && props.stylesOnUnfold),
-                }}
-                ref={element}
-            >
-                {props.children}
-            </Box>
-        </Fade>
-    );
+    return useMemo(() => {
+        return (
+            <Fade in={fade}>
+                <Box
+                    sx={{
+                        ...props.sx,
+                        ...{
+                            transitionDuration: `${props.duration ?? 500}ms !important`,
+                        },
+                        ...(fade && props.stylesOnUnfold),
+                    }}
+                    ref={element}
+                >
+                    {props.children}
+                </Box>
+            </Fade>
+        );
+    }, [fade, props.children, props.duration, props.stylesOnUnfold, props.sx]);
 };
 
 export default UnfadeOnScroll;
