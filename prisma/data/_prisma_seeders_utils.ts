@@ -45,3 +45,12 @@ export const getUserIds = (amount: number): string[] => {
 export const getRandomCountry = (): [string, string] => {
     return countries[randomNumberFromRange(0, countries.length - 1)];
 };
+
+export const capitalize = (text: string): string => text[0].toUpperCase() + text.slice(1);
+
+// Content related staff
+
+export const generateShortDescription = () => capitalize(faker.lorem.words(randomNumberFromRange(20, 30))).slice(0, 150);
+export const generateDescriptionHeader = () => capitalize(faker.lorem.words(randomNumberFromRange(4, 20)));
+export const generateDescriptionParagraph = () => capitalize(faker.lorem.words(randomNumberFromRange(130, 150))).slice(0, 1024);
+export const generateDescriptionSplittedParagraph = () => capitalize(faker.lorem.words(randomNumberFromRange(65, 75))).slice(0, 512);
