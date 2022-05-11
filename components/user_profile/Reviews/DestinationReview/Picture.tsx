@@ -15,7 +15,7 @@ const PictureWrapper = styled("div")(({ theme }) => ({
     overflow: "hidden",
 }));
 
-const Picture: FunctionComponent<{ folder: string }> = (props) => {
+const Picture: FunctionComponent<{ folder: string; country: string; city: string }> = (props) => {
     return (
         <PictureWrapper>
             <SkeletonImage
@@ -24,6 +24,11 @@ const Picture: FunctionComponent<{ folder: string }> = (props) => {
                 objectFit="cover"
                 objectPosition="center"
                 src={destinationPictureURL(props.folder, "480p", "thumbnail")}
+                advanceModalProperties={{
+                    sectionName: props.country,
+                    title: props.city,
+                }}
+                modalMaxResolution="1080p"
             ></SkeletonImage>
         </PictureWrapper>
     );

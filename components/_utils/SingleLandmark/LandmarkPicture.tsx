@@ -16,6 +16,8 @@ const Wrapper = styled("div")(({ theme }) => ({
 
 interface BackgroundPictureProps {
     folder: string;
+    title: string;
+    city: string;
     resolution: "360p" | "480p" | "720p" | "1080p";
 }
 
@@ -26,6 +28,11 @@ const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => 
                 layout="fill" //
                 alt="bg"
                 src={landmarkPictureURL(props.folder, props.resolution, "thumbnail")}
+                modalMaxResolution="1080p"
+                advanceModalProperties={{
+                    title: props.title,
+                    sectionName: props.city,
+                }}
             ></SkeletonImage>
         </Wrapper>
     );

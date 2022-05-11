@@ -35,12 +35,13 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                     picture={folder} //
                     resolution="480p"
                     city={city}
+                    country={country}
                 ></DestinationPicture>
                 <FlexBox column horizontal="start" className="single-destination-information">
                     <FieldBackgroundMap continent={continent}></FieldBackgroundMap>
                     <LocalizationBreadCrumbs crumbs={localization}></LocalizationBreadCrumbs>
                     <Typography variant="h2">{city}</Typography>
-                    <Typography variant="body2">{shortDescription}</Typography>
+                    <Typography variant="body2">{shortDescription.slice(0, 130)}...</Typography>
                     <LandmarksHeader></LandmarksHeader>
 
                     <FlexBox horizontal="between" className="landmarks-wrapper">

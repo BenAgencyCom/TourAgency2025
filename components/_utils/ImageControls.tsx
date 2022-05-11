@@ -1,4 +1,6 @@
+// Tools
 import { alpha } from "@mui/system";
+import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
@@ -9,7 +11,15 @@ import Button from "@mui/material/Button";
 // Material UI Icons
 import Settings from "@mui/icons-material/Settings";
 import ZoomIn from "@mui/icons-material/ZoomIn";
-
+// Styled components
+const ImageControlsWrapper = styled(ButtonGroup)(({ theme }) => ({
+    position: "absolute",
+    bottom: "10px",
+    right: "10px",
+    zIndex: 1,
+    background: theme.palette.primary.main,
+    backdropFilter: "blur(5px)",
+}));
 interface ImageControlsProps {
     openModal: () => void;
 
@@ -22,17 +32,7 @@ export const ImageControls: FunctionComponent<ImageControlsProps> = (props) => {
     const tabIndex = props.tabIndex ? props.tabIndex : 1;
 
     return (
-        <ButtonGroup
-            sx={{
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-                zIndex: 1,
-                bgcolor: (theme) => alpha(theme.palette.text.primary, 0.8),
-                backdropFilter: "blur(5px)",
-            }}
-            variant="contained"
-        >
+        <ImageControlsWrapper variant="contained">
             {(() => {
                 if (props.openFileSelectDialog) {
                     return (
@@ -52,7 +52,7 @@ export const ImageControls: FunctionComponent<ImageControlsProps> = (props) => {
                     </IconButton>
                 </span>
             </Tooltip>
-        </ButtonGroup>
+        </ImageControlsWrapper>
     );
 };
 

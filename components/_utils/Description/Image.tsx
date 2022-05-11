@@ -1,14 +1,9 @@
 // Tools
 import { styled, alpha } from "@mui/system";
-import { useState } from "react";
-import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
 import Skeleton from "@mui/material/Skeleton";
-// Other components
-import { ImageControls } from "@/components/_utils/ImageControls";
-import ImageModal from "@/components/_utils/ImageModal";
 // Styled Components
 import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
 
@@ -37,9 +32,6 @@ interface ImageFieldProps {
 }
 
 const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
-    const [openModal, setOpenModal] = useState<boolean>(false);
-    const handleOpenModal = () => setOpenModal(true);
-
     const width: number = (() => {
         if (props.split) {
             return props.extend ? 59 : 49;
@@ -68,19 +60,14 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
                                 objectFit="cover"
                                 objectPosition="center"
                                 alt="image"
+                                modalMaxResolution="1080p"
                             ></SkeletonImage>
-                            <ImageControls openModal={handleOpenModal} url={props.imageURL}></ImageControls>
                         </>
                     );
                 } else {
                     return <Skeleton animation="wave" variant="rectangular" sx={{ height: "100%" }}></Skeleton>;
                 }
             })()}
-
-            <ImageModal
-                open={stated<boolean>(openModal, setOpenModal)} //
-                imageURL={props.imageURL}
-            ></ImageModal>
         </ImageFieldWrapper>
     );
 };

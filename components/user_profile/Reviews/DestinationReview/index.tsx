@@ -32,7 +32,7 @@ const SingleDestinationReview: FunctionComponent<DestinationReviewProps> = (prop
     const { type, points } = props.data;
     return (
         <DestinationReviewWrapper sx={props.sx}>
-            <Picture folder={folder}></Picture>
+            <Picture folder={folder} country={country} city={city}></Picture>
             <Review type={type} points={points}></Review>
 
             <FlexBox column sx={{ position: "relative" }}>

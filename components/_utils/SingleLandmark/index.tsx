@@ -85,7 +85,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                     }
                 })()}
 
-                <LandmarkPicture folder={folder} resolution={imageResolution ?? "480p"}></LandmarkPicture>
+                <LandmarkPicture title={title} city={destination.city} folder={folder} resolution={imageResolution ?? "480p"}></LandmarkPicture>
                 <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ fontSize: "1.2rem" }}></LocalizationBreadCrumbs>
                 <h3>{title}</h3>
 
