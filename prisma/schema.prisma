@@ -74,7 +74,7 @@ model Landmark {
   title            String
   description      Json
   shortDescription String
-  folder          String
+  folder           String
   type             LandmarkType
   createdAt        DateTime     @default(now())
   // For seaching purpose
@@ -167,7 +167,6 @@ enum LandmarkType {
   MONUMENT
   ANTIQUE
   BUILDING
-  RELIC
   ART
   NATURE
   MUSEUM

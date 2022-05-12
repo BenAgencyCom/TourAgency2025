@@ -28,7 +28,7 @@ export default class BulkLandmarksAPI extends BulkDataAPI<Prisma.LandmarkSelect,
                 {
                     name: "certainLandmarkType",
                     compareWith: "type",
-                    values: ["ANTIQUE", "ART", "BUILDING", "MONUMENT", "NATURE", "RELIC", "RESTAURANT"] as LandmarkType[],
+                    values: ["ANTIQUE", "ART", "BUILDING", "MONUMENT", "NATURE", "MUSEUM", "RESTAURANT"] as LandmarkType[],
                 },
                 {
                     name: "searchingPhrase",

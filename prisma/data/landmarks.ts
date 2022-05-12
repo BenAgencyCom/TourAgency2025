@@ -92,7 +92,7 @@ export default [
         folder: "krakow_wawel",
         _imagesDir: "landmarks/krakow_wawel",
         slug: "krakow_wawel",
-        title: "Zamek krolewski na wawelu",
+        title: "Zamek krolewski na Wawelu",
         title_lowercase: "zamek krolewski na Wawelu",
         shortDescription: generateShortDescription(),
         description: createDescription(),
@@ -100,7 +100,7 @@ export default [
     // WARSZAWA
     {
         id: "5",
-        type: "BUILDING",
+        type: "MUSEUM",
         destinationId: "WARSZAWA",
         folder: "www_centrum_nauki_kopernik",
         _imagesDir: "landmarks/www_centrum_nauki_kopernik",

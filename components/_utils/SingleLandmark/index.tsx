@@ -1,6 +1,7 @@
 // Tools
-import { styled } from "@mui/system";
 import RWD from "./RWD";
+import { styled } from "@mui/system";
+import { GetLandmarkIcon } from "@/utils/client/getLandmarkIcon";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
@@ -31,6 +32,19 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
         fontSize: "2.5rem",
         lineHeight: "40px",
     },
+    ">*": {
+        position: "relative",
+        zIndex: "1",
+    },
+    "span.landmark-type": {
+        position: "absolute",
+        bottom: "0px",
+        right: "0px",
+        opacity: ".05",
+        svg: {
+            fontSize: "10rem",
+        },
+    },
     ...(RWD as any),
 }));
 
@@ -45,7 +59,7 @@ interface SingleLandmarkProps {
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
-    const { destination, slug, title, folder, shortDescription } = props.data;
+    const { destination, slug, title, folder, shortDescription, type } = props.data;
     const { imageResolution, userReview } = props;
 
     const amountOfWordsInDescription: number = (() => {
@@ -88,7 +102,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                 <LandmarkPicture title={title} city={destination.city} folder={folder} resolution={imageResolution ?? "480p"}></LandmarkPicture>
                 <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ fontSize: "1.2rem" }}></LocalizationBreadCrumbs>
                 <h3>{title}</h3>
-
+                <span className="landmark-type">{GetLandmarkIcon(type)}</span>
                 {(() => {
                     if (amountOfWordsInDescription) {
                         return (
