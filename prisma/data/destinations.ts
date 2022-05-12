@@ -70,55 +70,7 @@ export default [
         population: 700000,
         shortDescription: generateShortDescription(),
         slug: "krakow",
-        description: JSON.parse(
-            JSON.stringify([
-                {
-                    type: 2,
-                    src: null,
-                    url: "description_1",
-                } as ImageContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                    right: {
-                        type: 2,
-                        src: null,
-                        url: "description_2",
-                    } as ImageContentField,
-                } as SplittedContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 2,
-                        src: null,
-                        url: "description_3",
-                    } as ImageContentField,
-                    right: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                } as SplittedContentField,
-            ] as DestinationContentField[])
-        ),
+        description: createDescription(),
     },
     {
         id: "WARSZAWA",
@@ -133,55 +85,7 @@ export default [
         population: 1700000,
         shortDescription: generateShortDescription(),
         slug: "wwa",
-        description: JSON.parse(
-            JSON.stringify([
-                {
-                    type: 2,
-                    src: null,
-                    url: "description_1",
-                } as ImageContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                    right: {
-                        type: 2,
-                        src: null,
-                        url: "description_2",
-                    } as ImageContentField,
-                } as SplittedContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 2,
-                        src: null,
-                        url: "description_3",
-                    } as ImageContentField,
-                    right: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                } as SplittedContentField,
-            ] as DestinationContentField[])
-        ),
+        description: createDescription(),
     },
     {
         id: "VANCOUVER",
@@ -196,55 +100,7 @@ export default [
         population: 675218,
         shortDescription: generateShortDescription(),
         slug: "vancouver",
-        description: JSON.parse(
-            JSON.stringify([
-                {
-                    type: 2,
-                    src: null,
-                    url: "description_1",
-                } as ImageContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                    right: {
-                        type: 2,
-                        src: null,
-                        url: "description_2",
-                    } as ImageContentField,
-                } as SplittedContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 2,
-                        src: null,
-                        url: "description_3",
-                    } as ImageContentField,
-                    right: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                } as SplittedContentField,
-            ] as DestinationContentField[])
-        ),
+        description: createDescription(),
     },
     {
         id: "RIO_DE_JANEIRO",
@@ -259,55 +115,7 @@ export default [
         population: 6752180,
         shortDescription: generateShortDescription(),
         slug: "rio_de_janeiro",
-        description: JSON.parse(
-            JSON.stringify([
-                {
-                    type: 2,
-                    src: null,
-                    url: "description_1",
-                } as ImageContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                    right: {
-                        type: 2,
-                        src: null,
-                        url: "description_2",
-                    } as ImageContentField,
-                } as SplittedContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 2,
-                        src: null,
-                        url: "description_3",
-                    } as ImageContentField,
-                    right: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                } as SplittedContentField,
-            ] as DestinationContentField[])
-        ),
+        description: createDescription(),
     },
     {
         id: "CAPE_TOWN",
@@ -322,55 +130,7 @@ export default [
         population: 4752180,
         shortDescription: generateShortDescription(),
         slug: "cape_town",
-        description: JSON.parse(
-            JSON.stringify([
-                {
-                    type: 2,
-                    src: null,
-                    url: "description_1",
-                } as ImageContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                    right: {
-                        type: 2,
-                        src: null,
-                        url: "description_2",
-                    } as ImageContentField,
-                } as SplittedContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 2,
-                        src: null,
-                        url: "description_3",
-                    } as ImageContentField,
-                    right: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                } as SplittedContentField,
-            ] as DestinationContentField[])
-        ),
+        description: createDescription(),
     },
     {
         id: "HAMBURG",
@@ -385,55 +145,7 @@ export default [
         population: 1852180,
         shortDescription: generateShortDescription(),
         slug: "hamburg",
-        description: JSON.parse(
-            JSON.stringify([
-                {
-                    type: 2,
-                    src: null,
-                    url: "description_1",
-                } as ImageContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                    right: {
-                        type: 2,
-                        src: null,
-                        url: "description_2",
-                    } as ImageContentField,
-                } as SplittedContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 2,
-                        src: null,
-                        url: "description_3",
-                    } as ImageContentField,
-                    right: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                } as SplittedContentField,
-            ] as DestinationContentField[])
-        ),
+        description: createDescription(),
     },
     {
         id: "TOKYO",
@@ -448,54 +160,6 @@ export default [
         population: 13752180,
         shortDescription: generateShortDescription(),
         slug: "tokyo",
-        description: JSON.parse(
-            JSON.stringify([
-                {
-                    type: 2,
-                    src: null,
-                    url: "description_1",
-                } as ImageContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                    right: {
-                        type: 2,
-                        src: null,
-                        url: "description_2",
-                    } as ImageContentField,
-                } as SplittedContentField,
-                {
-                    type: 0,
-                    header: generateDescriptionHeader(),
-                } as HeaderContentField,
-                {
-                    type: 1,
-                    content: generateDescriptionParagraph(),
-                } as ParagraphContentField,
-                {
-                    type: 3,
-                    left: {
-                        type: 2,
-                        src: null,
-                        url: "description_3",
-                    } as ImageContentField,
-                    right: {
-                        type: 1,
-                        content: generateDescriptionSplittedParagraph(),
-                    } as ParagraphContentField,
-                } as SplittedContentField,
-            ] as DestinationContentField[])
-        ),
+        description: createDescription(),
     },
 ].reverse() as SeederDataList<Destination>;
