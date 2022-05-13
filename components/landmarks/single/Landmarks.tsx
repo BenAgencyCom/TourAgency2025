@@ -2,22 +2,26 @@
 import colorTheme from "@/colorTheme";
 // Types
 import type { FunctionComponent } from "react";
+import type { AdditionalLandmark } from "@/@types/pages/landmarks/SingleLandmark";
 // Other components
 import Section from "@/components/_utils/Section";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import SingleLandmark from "@/components/_utils/SingleLandmark";
 // Material UI Icons
 import Map from "@mui/icons-material/Map";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const Landmarks: FunctionComponent = () => {
-    const { landmarks, country } = useAppSelector((state) => state.singleDestination.data);
+interface LandmarksProps {
+    country: string;
+    landmarks: AdditionalLandmark[];
+}
+
+const Landmarks: FunctionComponent<LandmarksProps> = (props) => {
+    const { country, landmarks } = props;
     return (
         <Section
-            id="landmarks"
+            id="similar-landmarks"
             background={colorTheme.palette.background.lightPaper}
             mobileIcon={<Map></Map>}
             header={{
@@ -52,7 +56,7 @@ const Landmarks: FunctionComponent = () => {
                         return (
                             <SingleLandmark
                                 key={item.slug} //
-                                data={item}
+                                data={item as any}
                                 sx={{
                                     ml: index ? "20px" : 0,
                                 }}

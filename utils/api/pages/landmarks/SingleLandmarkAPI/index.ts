@@ -56,13 +56,13 @@ export default class SingleLandmarkAPI {
     //
     protected async queryForReviews(): Promise<Review[]> {
         if (!this.ReviewsAPI) throw new Error();
-        return (await this.ReviewsAPI.call({ limit: 7, orderBy: "createdAt", sort: "desc" })).reviews;
+        return (await this.ReviewsAPI.call({ limit: 3, orderBy: "createdAt", sort: "desc" })).reviews;
     }
 
     //
     protected async queryForAdditionalLandmarks(): Promise<AdditionalLandmark[]> {
         // Try to find 3 landmarks in the same city as the main landmark
-        const landmarksInTheSameCity = await prisma.landmark.findMany({
+        const landmarksInTheSameCity = (await prisma.landmark.findMany({
             where: {
                 destination: {
                     city: this.mainLandmark.destination.city,
@@ -73,11 +73,11 @@ export default class SingleLandmarkAPI {
             },
             take: 3,
             ...(SelectAdditionalLandmarks as any),
-        });
+        })) as unknown[] as AdditionalLandmark[];
         const amountOfLandmarksInTheSameCity = landmarksInTheSameCity.length;
         if (amountOfLandmarksInTheSameCity === 3) return landmarksInTheSameCity;
         // If there are less than 3 landmarks in main landmarks's city, then look for remaining landmarks in the same country
-        const landmarksInTheSameCountry = await prisma.landmark.findMany({
+        const landmarksInTheSameCountry = (await prisma.landmark.findMany({
             where: {
                 destination: {
                     city: this.mainLandmark.destination.city,
@@ -90,11 +90,11 @@ export default class SingleLandmarkAPI {
             },
             take: 3 - amountOfLandmarksInTheSameCity,
             ...(SelectAdditionalLandmarks as any),
-        });
+        })) as unknown[] as AdditionalLandmark[];
         const amountOfLandmarksInTheSameCountry = landmarksInTheSameCountry.length;
         if (amountOfLandmarksInTheSameCity + amountOfLandmarksInTheSameCountry === 3) return [...landmarksInTheSameCity, ...landmarksInTheSameCountry];
         // Otherwise take any other landmarks
-        const anyOtherLandmarks = await prisma.landmark.findMany({
+        const anyOtherLandmarks = (await prisma.landmark.findMany({
             where: {
                 destination: {
                     city: this.mainLandmark.destination.city,
@@ -107,7 +107,7 @@ export default class SingleLandmarkAPI {
             },
             take: 3 - amountOfLandmarksInTheSameCity - amountOfLandmarksInTheSameCountry,
             ...(SelectAdditionalLandmarks as any),
-        });
+        })) as unknown[] as AdditionalLandmark[];
 
         return [...landmarksInTheSameCity, ...landmarksInTheSameCountry, ...anyOtherLandmarks];
     }

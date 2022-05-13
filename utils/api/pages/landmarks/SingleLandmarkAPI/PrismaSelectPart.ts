@@ -16,6 +16,7 @@ export const SelectMainLandmark = {
                 continent: true,
                 shortDescription: true,
                 folder: true,
+                slug: true,
             },
         },
     },
@@ -23,11 +24,20 @@ export const SelectMainLandmark = {
 
 export const SelectAdditionalLandmarks = {
     select: {
+        id: true,
         slug: true,
         title: true,
         folder: true,
         type: true,
         shortDescription: true,
+        destination: {
+            select: {
+                city: true,
+                country: true,
+                continent: true,
+                slug: true,
+            },
+        },
     },
     orderBy: {
         createdAt: "desc",

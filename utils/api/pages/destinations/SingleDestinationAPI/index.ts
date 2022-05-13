@@ -37,7 +37,7 @@ export default class SingleDestinationAPI {
 
     private async queryForReviews(): Promise<Review[]> {
         if (!this.ReviewsAPI) throw new Error();
-        return (await this.ReviewsAPI.call({ limit: 7, orderBy: "createdAt", sort: "desc" })).reviews;
+        return (await this.ReviewsAPI.call({ limit: 3, orderBy: "createdAt", sort: "desc" })).reviews;
     }
 
     public async main(): Promise<DataFromAPI> {
