@@ -33,6 +33,10 @@ const createDescription = () => {
                 } as ImageContentField,
             } as SplittedContentField,
             {
+                type: 0,
+                header: generateDescriptionHeader(),
+            } as HeaderContentField,
+            {
                 type: 3,
                 left: {
                     type: 1,
