@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 // Other components
 import ContinueButton from "./ContinueButton";
-import SectionHeader from "@/components/destinations/single/_utils/SectionHeader";
+import SectionHeader from "@/components/_utils/Section/SectionHeader";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components

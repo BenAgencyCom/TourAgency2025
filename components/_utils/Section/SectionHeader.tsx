@@ -7,8 +7,8 @@ import ContinueButton from "./ContinueButton";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
-import Header from "./styled/Header";
-import Wrapper from "./styled/Wrapper";
+import Header from "./styled_components/_Header";
+import Wrapper from "./styled_components/Wrapper";
 import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 
 interface SectionHeaderProps {
