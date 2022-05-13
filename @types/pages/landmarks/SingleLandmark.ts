@@ -37,6 +37,15 @@ export interface Review extends SimpleReview {
     };
 }
 
+export interface Destination {
+    city: _Destination["city"];
+    country: _Destination["country"];
+    continent: _Destination["continent"];
+    shortDescription: _Destination["shortDescription"];
+    folder: _Destination["folder"];
+    slug: _Destination["slug"];
+}
+
 export interface Landmark {
     id: _Landmark["id"];
     slug: _Landmark["slug"];
@@ -45,19 +54,20 @@ export interface Landmark {
     type: _Landmark["type"];
     shortDescription: _Landmark["shortDescription"];
     description: DestinationContentField[];
-    destination: {
-        city: _Destination["city"];
-        country: _Destination["country"];
-        continent: _Destination["continent"];
-        shortDescription: _Destination["shortDescription"];
-        folder: _Destination["folder"];
-    };
+    destination: Destination;
 }
 
 export interface AdditionalLandmark {
+    id: _Landmark["id"];
     slug: _Landmark["slug"];
     title: _Landmark["title"];
     folder: _Landmark["folder"];
     type: _Landmark["type"];
     shortDescription: _Landmark["shortDescription"];
+    destination: {
+        city: _Destination["city"];
+        country: _Destination["country"];
+        continent: _Destination["continent"];
+        slug: _Destination["slug"];
+    };
 }
