@@ -3,14 +3,19 @@ import { Prisma } from "@prisma/client";
 
 export const selectLandmarkReview = {
     select: {
+        id: true,
         type: true,
         points: true,
+        review: true,
+        tags: true,
+        createdAt: true,
         landmark: {
             select: {
                 title: true,
                 shortDescription: true,
                 slug: true,
                 folder: true,
+                type: true,
                 destination: {
                     select: {
                         country: true,
@@ -24,8 +29,12 @@ export const selectLandmarkReview = {
 
 export const selectDestinationReview = {
     select: {
+        id: true,
         type: true,
         points: true,
+        review: true,
+        tags: true,
+        createdAt: true,
         destination: {
             select: {
                 city: true,

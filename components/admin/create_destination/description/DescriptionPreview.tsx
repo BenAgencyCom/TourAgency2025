@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 // Types
 import type { DestinationContentField } from "@/@types/Description";
 import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI Components
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";

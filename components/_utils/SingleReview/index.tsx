@@ -23,6 +23,9 @@ const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
     hr: {
         borderColor: theme.palette.background.lightPaper,
     },
+    p: {
+        userSelect: "select",
+    },
     "&:nth-of-type(1)": {
         marginTop: "0px !important",
     },

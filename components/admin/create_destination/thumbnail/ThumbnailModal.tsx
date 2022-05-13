@@ -1,6 +1,6 @@
 // Types
 import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Other Components
 import ImageModal from "@/components/_utils/ImageModal";
 

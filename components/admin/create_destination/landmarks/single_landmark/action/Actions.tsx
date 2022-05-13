@@ -1,6 +1,6 @@
 // Types
 import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 // Material UI Components
 import Box from "@mui/material/Box";

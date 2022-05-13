@@ -4,7 +4,7 @@ import PasswordStrengthBar from "react-password-strength-bar";
 import axios from "axios";
 // Types
 import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // My components
 import TextInput from "@/components/register/_formFields/TextInput";
 import PasswordInput from "@/components/register/_formFields/PasswordInput";

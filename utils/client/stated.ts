@@ -1,4 +1,4 @@
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 
 /**
  * Merges both `value` and `setValue` from `React.useState` in one object, that can be subsequently easily passed further down in DOM

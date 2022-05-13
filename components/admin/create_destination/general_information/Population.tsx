@@ -2,7 +2,7 @@
 import { validateLength } from "@/utils/client/lenghRestrictionHelpers";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 import type { Restriction } from "@/@types/Restriction";
 // Material UI Components
 import TextField from "@mui/material/TextField";

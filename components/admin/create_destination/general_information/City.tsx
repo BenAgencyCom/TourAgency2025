@@ -4,7 +4,7 @@ import { validateLength, lengthRestrictionMessage } from "@/utils/client/lenghRe
 import type { Theme } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { Restriction } from "@/@types/Restriction";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI Components
 import TextField from "@mui/material/TextField";
 

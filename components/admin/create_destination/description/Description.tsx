@@ -2,7 +2,7 @@ import stated from "@/utils/client/stated";
 import { useState, useEffect } from "react";
 import { validateDescription } from "@/validators/helpers/create_destination/descriptionValidators";
 // Types
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 import type { FunctionComponent } from "react";
 import { helpers } from "@/redux/slices/create_destination/description";
 // Material UI Components

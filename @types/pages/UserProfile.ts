@@ -29,7 +29,7 @@ export interface LatestReview {
 export interface Landmark {
     slug: _Landmark["slug"];
     title: _Landmark["title"];
-    picture: _Landmark["picture"];
+    folder: _Landmark["folder"];
     type: _Landmark["type"];
     shortDescription: _Landmark["shortDescription"];
     destination: {
@@ -49,8 +49,12 @@ export interface Destination {
 }
 
 interface Review {
+    id: _DestinationReview["id"];
     points: _DestinationReview["points"];
     type: _DestinationReview["type"];
+    review: _DestinationReview["review"];
+    tags: _DestinationReview["tags"];
+    createdAt: _DestinationReview["createdAt"];
 }
 
 export interface LandmarkReview extends Review {

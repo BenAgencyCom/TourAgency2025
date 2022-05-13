@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 // Types
 import { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // My components
 import StepHeader from "@/components/register/stepper/StepHeader";
 import StepNavigaton from "@/components/register/stepper/StepNavagation";

@@ -2,7 +2,7 @@ import { useState } from "react";
 // Types
 import type { FunctionComponent } from "react";
 import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 import { ListItem } from "@/@types/redux";
 // Material UI Components
 import Box from "@mui/material/Box";

@@ -82,6 +82,14 @@ export default {
         "div.single-landmark-picture": {
             height: "250px",
         },
+        "span.landmark-type": {
+            right: "10px",
+            top: "270px",
+            opacity: ".1",
+            svg: {
+                fontSize: "4rem",
+            },
+        },
     },
     ["@media (max-width:400px)"]: {
         h3: {

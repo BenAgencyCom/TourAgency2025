@@ -5,7 +5,7 @@ import useLayoutEffect from "@/hooks/useLayoutEffect";
 import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ReactNode, MutableRefObject } from "react";
 import type { DroppableProvided, DropResult } from "react-beautiful-dnd";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 import type { DestinationContentField } from "@/@types/Description";
 // Material UI Icons
 import Box from "@mui/material/Box";

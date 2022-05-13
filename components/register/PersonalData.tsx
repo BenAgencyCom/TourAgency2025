@@ -1,6 +1,6 @@
 import type { FunctionComponent } from "react";
 import type { CountryType } from "@/data/countries";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 import { useState, useEffect } from "react";
 import joi from "joi";
 // My components

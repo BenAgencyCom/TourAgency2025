@@ -1,20 +1,23 @@
 // Tools
 import RWD from "./RWD";
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import { styled } from "@mui/system";
-import { GetLandmarkIcon } from "@/utils/client/getLandmarkIcon";
+import stated from "@/utils/client/stated";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
-import type { ReviewType } from "@prisma/client";
+import type { SimpleReview } from "@/@types/pages/landmarks/SingleLandmark";
 import type { Landmark } from "@/@types/pages/destinations/SingleDestination";
 // Material UI Components
 import Fade from "@mui/material/Fade";
-import Typography from "@mui/material/Typography";
 // Other Components
-import ReadMore from "@/components/_utils/ReadMore";
 import LandmarkPicture from "./LandmarkPicture";
+import ReadMore from "@/components/_utils/ReadMore";
+import LandmarkInformation from "./body/LandmarkInformation";
 import ReviewScore from "@/components/_utils/ReviewScore";
-import LocalizationBreadCrumbs from "@/components/_utils/LocalizationBreadCrumbs";
+const ToggleReviewButton = dynamic(() => import("./ToggleReviewButton"));
+const ReviewInformation = dynamic(() => import("./body/ReviewInformation"));
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -32,10 +35,6 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
         fontSize: "2.5rem",
         lineHeight: "40px",
     },
-    ">*": {
-        position: "relative",
-        zIndex: "1",
-    },
     "span.landmark-type": {
         position: "absolute",
         bottom: "0px",
@@ -45,29 +44,26 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
             fontSize: "10rem",
         },
     },
+    "div.single-landmark-content": {
+        flexGrow: "1",
+        textAlign: "start",
+    },
     ...(RWD as any),
 }));
 
 interface SingleLandmarkProps {
     data: Landmark;
     sx?: SxProps;
-    userReview?: {
-        type: ReviewType;
-        points: number;
-    };
+    userReview?: SimpleReview;
     imageResolution?: "360p" | "480p" | "720p" | "1080p";
 }
 
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
-    const { destination, slug, title, folder, shortDescription, type } = props.data;
+    const { destination, slug, title, folder } = props.data;
     const { imageResolution, userReview } = props;
 
-    const amountOfWordsInDescription: number = (() => {
-        const { length } = props.data.title;
-        if (length > 40) return 35;
-        else if (length > 23) return 60;
-        return 120;
-    })();
+    const [displayReview, setDisplayReview] = useState<boolean>(false);
+    const [extendReview, setExtendReview] = useState<boolean>(false);
 
     return (
         <Fade in={true}>
@@ -82,36 +78,40 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                         return (
                             <ReviewScore
                                 type={userReview.type}
+                                points={userReview.points}
                                 sx={{
                                     position: "absolute", //
                                     top: "20px",
-                                    left: "20px",
+                                    left: extendReview ? "10px" : "20px",
                                     zIndex: "10",
                                     fontSize: "3rem",
                                     width: "90px",
                                     height: "90px",
                                     borderRadius: "5px",
                                 }}
-                            >
-                                {userReview.points}
-                            </ReviewScore>
+                            ></ReviewScore>
                         );
                     }
                 })()}
 
-                <LandmarkPicture title={title} city={destination.city} folder={folder} resolution={imageResolution ?? "480p"}></LandmarkPicture>
-                <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ fontSize: "1.2rem" }}></LocalizationBreadCrumbs>
-                <h3>{title}</h3>
-                <span className="landmark-type">{GetLandmarkIcon(type)}</span>
-                {(() => {
-                    if (amountOfWordsInDescription) {
-                        return (
-                            <Typography variant="body2" sx={{ flexGrow: 1 }}>
-                                {shortDescription.slice(0, amountOfWordsInDescription)}...
-                            </Typography>
-                        );
-                    }
-                })()}
+                {(!props.userReview || !extendReview) && (
+                    <LandmarkPicture title={title} city={destination.city} folder={folder} resolution={imageResolution ?? "480p"}>
+                        {props.userReview && <ToggleReviewButton displayReview={stated(displayReview, setDisplayReview)}></ToggleReviewButton>}
+                    </LandmarkPicture>
+                )}
+
+                <div className="single-landmark-content">
+                    {(() => {
+                        if (props.userReview && displayReview)
+                            return (
+                                <ReviewInformation
+                                    userReview={props.userReview} //
+                                    extendReview={stated(extendReview, setExtendReview)}
+                                ></ReviewInformation>
+                            );
+                        else return <LandmarkInformation data={props.data}></LandmarkInformation>;
+                    })()}
+                </div>
 
                 <ReadMore url={`/landmarks/${slug}`}></ReadMore>
             </SingleLandmarkWrapper>

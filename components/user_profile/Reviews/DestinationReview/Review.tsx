@@ -13,6 +13,7 @@ const Review: FunctionComponent<ReviewProps> = (props) => {
     return (
         <ReviewScore
             type={props.type}
+            points={props.points}
             sx={{
                 position: "absolute", //
                 top: "20px",
@@ -23,9 +24,7 @@ const Review: FunctionComponent<ReviewProps> = (props) => {
                 height: "90px",
                 borderRadius: "5px",
             }}
-        >
-            {props.points}
-        </ReviewScore>
+        ></ReviewScore>
     );
 };
 

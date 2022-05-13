@@ -41,8 +41,12 @@ const ReviewsList: FunctionComponent<ReviewsListProps> = (props) => {
                                     key={review.landmark.slug}
                                     sx={{ mb: "20px", ml: index % 3 ? "20px" : 0 }}
                                     userReview={{
+                                        id: review.id,
+                                        createdAt: review.createdAt as any,
                                         points: review.points,
+                                        tags: review.tags as any,
                                         type: review.type,
+                                        review: review.review,
                                     }}
                                 ></SingleLandmarkReview>
                             );

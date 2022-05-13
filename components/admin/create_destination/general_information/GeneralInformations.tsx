@@ -6,7 +6,7 @@ import GeneralInformationSchema from "@/validators/helpers/create_destination/ge
 import type { FunctionComponent } from "react";
 import type { Continent } from "@prisma/client";
 import type { CountryType } from "@/data/countries";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other Components

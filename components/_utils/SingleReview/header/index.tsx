@@ -7,9 +7,9 @@ import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
 // Other components
 import Date from "./Date";
+import Flag from "@/components/_utils/Flag";
 import ReviewerAvatar from "./ReviewerAvatar";
-const Score = dynamic(() => import("./Score"));
-const Flag = dynamic(() => import("@/components/_utils/Flag"));
+import Score from "@/components/_utils/ReviewScore";
 // Styled component
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -46,7 +46,17 @@ const SingleReviewHeader: FunctionComponent<SingleReviewHeaderProps> = (props) =
                 className="flag"
             ></Flag>
             <FlexBox>
-                <Score color={props.color} points={review.points}></Score>
+                <Score
+                    type={review.type}
+                    points={review.points}
+                    sx={{
+                        width: "90px",
+                        alignSelf: "stretch",
+                        fontSize: "3rem",
+                        color: "#fff",
+                    }}
+                    className="score"
+                ></Score>
                 <ReviewerAvatar avatar={reviewer.avatar} id={reviewer.id}></ReviewerAvatar>
             </FlexBox>
 

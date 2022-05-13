@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Other Components
 import Image from "next/Image";
 import { ImageControls } from "@/components/_utils/ImageControls";

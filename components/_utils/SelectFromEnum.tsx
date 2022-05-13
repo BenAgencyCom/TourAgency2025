@@ -1,5 +1,5 @@
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";

@@ -37,7 +37,7 @@ interface ScrollableBoxProps {
     children: ReactNode;
     maxHeight: string;
     sx?: SxProps;
-    className: string;
+    className?: string;
 }
 const ScrollableBox: FunctionComponent<ScrollableBoxProps> = (props) => {
     const { children, maxHeight, ...propsToForward } = props;

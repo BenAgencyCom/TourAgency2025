@@ -24,6 +24,7 @@ interface BackgroundPictureProps {
 const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => {
     return (
         <Wrapper className="single-landmark-picture">
+            {props.children}
             <SkeletonImage
                 layout="fill" //
                 alt="bg"

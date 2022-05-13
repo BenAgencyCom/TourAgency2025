@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 import { useState, useEffect } from "react";
 // Types
 import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StagedDataField";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI Components
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
@@ -83,6 +83,7 @@ const Wrapper = styled("div")(({ theme }) => ({
         zIndex: "2",
         top: "10px",
         right: "0",
+        color: "#fff",
     },
     ["@media (max-width:1200px)"]: {
         height: "calc(100vh - 200px)",
