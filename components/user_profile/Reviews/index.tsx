@@ -36,7 +36,7 @@ interface ReviewsWrapperProps {
 const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
     const router = useRouter();
 
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<"landmark" | "destination" | false>("landmark");
     const [reviews, setReviews] = useState<LandmarkReview[] | DestinationReview[]>([]);
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
     const [fetchedReviewsType, setFetchedReviewsType] = useState<"landmark" | "destination" | null>(null);
@@ -46,7 +46,7 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
         const PER_PAGE = reviewingType === "destination" ? 4 : 9;
 
         try {
-            setLoading(true);
+            setLoading(reviewingType);
             const res = await axios.get(`/api/user/${props.userID}/reviews${urlQueries}&perPage=${PER_PAGE}`);
             if (res.data) {
                 setPaginationProperties(res.data.pagination ?? null);
@@ -132,7 +132,7 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
                                                     if (!props.thereIsNoDataAtAll)
                                                         return (
                                                             <span>
-                                                                This particular user has not reviewed any <strong>{""}</strong> yet
+                                                                This particular user has not reviewed any <strong>{fetchedReviewsType}</strong> yet
                                                             </span>
                                                         );
                                                     else

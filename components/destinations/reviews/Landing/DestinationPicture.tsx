@@ -14,7 +14,7 @@ const DestinationPictureWrapper = styled("div")(({ theme }) => ({
     overflow: "hidden",
 }));
 
-const DestinationPicture: FunctionComponent<{ picture: string }> = (props) => {
+const DestinationPicture: FunctionComponent<{ folder: string }> = (props) => {
     return (
         <DestinationPictureWrapper>
             <Image

@@ -1,6 +1,7 @@
 // Tools
-import BulkReviewsAPI from "@/utils/api/pages/BulkReviewsAPI";
 import { prisma } from "@/prisma/db";
+import BulkReviewsAPI from "@/utils/api/pages/BulkReviewsAPI";
+import { SelectMainDestination } from "./PrismaSelectPart";
 // Types
 import type { DestinationContentField } from "@/@types/Description";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
@@ -17,39 +18,10 @@ export default class SingleDestinationAPI {
             where: {
                 slug: this.slug,
             },
-            select: {
-                id: true,
-                slug: true,
-                city: true,
-                population: true,
-                continent: true,
-                shortDescription: true,
-                description: true,
-                country: true,
-                folder: true,
-                landmarks: {
-                    take: 3,
-                    orderBy: {
-                        createdAt: "desc",
-                    },
-                    select: {
-                        slug: true,
-                        title: true,
-                        folder: true,
-                        type: true,
-                        shortDescription: true,
-                        destination: {
-                            select: {
-                                city: true,
-                                country: true,
-                            },
-                        },
-                    },
-                },
-            },
+            ...(SelectMainDestination as any),
         });
         if (!destination) throw new Error();
-        return destination;
+        return destination as unknown as DestinationFromQuery;
     }
     private createBulkReviewsApiInstance(id: string) {
         this.ReviewsAPI = new BulkReviewsAPI({ reviewingModelId: id, reviewsType: "destinations" });
@@ -65,7 +37,7 @@ export default class SingleDestinationAPI {
 
     private async queryForReviews(): Promise<Review[]> {
         if (!this.ReviewsAPI) throw new Error();
-        return (await this.ReviewsAPI.call({ limit: 7 })).reviews;
+        return (await this.ReviewsAPI.call({ limit: 7, orderBy: "createdAt", sort: "desc" })).reviews;
     }
 
     public async main(): Promise<DataFromAPI> {

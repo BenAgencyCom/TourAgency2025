@@ -61,7 +61,7 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
                 <ReadMore url={`/destinations/${props.destination.slug}`} sx={{ height: "46px !important" }}></ReadMore>
             </LeftSideContent>
 
-            <DestinationPicture picture={props.destination.folder} />
+            <DestinationPicture folder={props.destination.folder} />
         </FlexBox>
     );
 };

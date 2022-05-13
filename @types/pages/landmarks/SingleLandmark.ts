@@ -1,6 +1,15 @@
-import type { Landmark as _Landmark, Destination as _Destination } from "@prisma/client";
-import type { LandmarkReview, User } from "@prisma/client";
 import type { ReviewType } from "@prisma/client";
+import type { LandmarkReview, User } from "@prisma/client";
+import type { Landmark as _Landmark, Destination as _Destination } from "@prisma/client";
+import type { DestinationContentField } from "@/@types/Description";
+
+export interface DataFromAPI {
+    landmark: Landmark;
+    reviews: Review[];
+    additionalLandmarks: AdditionalLandmark[];
+    reviewsInTotal: number;
+    averageReview: number;
+}
 
 export interface SimpleReview {
     id: LandmarkReview["id"];
@@ -26,4 +35,29 @@ export interface Review extends SimpleReview {
         likes: number;
         dislikes: number;
     };
+}
+
+export interface Landmark {
+    id: _Landmark["id"];
+    slug: _Landmark["slug"];
+    title: _Landmark["title"];
+    folder: _Landmark["folder"];
+    type: _Landmark["type"];
+    shortDescription: _Landmark["shortDescription"];
+    description: DestinationContentField[];
+    destination: {
+        city: _Destination["city"];
+        country: _Destination["country"];
+        continent: _Destination["continent"];
+        shortDescription: _Destination["shortDescription"];
+        folder: _Destination["folder"];
+    };
+}
+
+export interface AdditionalLandmark {
+    slug: _Landmark["slug"];
+    title: _Landmark["title"];
+    folder: _Landmark["folder"];
+    type: _Landmark["type"];
+    shortDescription: _Landmark["shortDescription"];
 }

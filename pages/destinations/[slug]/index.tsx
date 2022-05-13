@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 import { prisma } from "@/prisma/db";
 import { styled } from "@mui/system";
-import SingleDestinationAPI from "@/utils/api/pages/destinations/SingleDestinationAPI/SingleDestinationAPI";
+import SingleDestinationAPI from "@/utils/api/pages/destinations/SingleDestinationAPI";
 // Types
 import type { FunctionComponent } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";

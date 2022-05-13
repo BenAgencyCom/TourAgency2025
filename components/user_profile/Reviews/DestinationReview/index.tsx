@@ -41,7 +41,7 @@ interface DestinationReviewProps {
 }
 
 const SingleDestinationReview: FunctionComponent<DestinationReviewProps> = (props) => {
-    const { folder, city, shortDescription, slug, continent, country } = props.data.destination;
+    const { folder, city, slug, continent, country } = props.data.destination;
     const { type, points } = props.data;
 
     const [displayReview, setDisplayReview] = useState<boolean>(false);
