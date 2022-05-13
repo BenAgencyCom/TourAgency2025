@@ -1,18 +1,9 @@
 // Tools
-import { styled } from "@mui/system";
 import { landmarkPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { FunctionComponent } from "react";
 // Styled Components
 import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
-
-const Wrapper = styled("div")(({ theme }) => ({
-    width: "100%",
-    height: "290px",
-    position: "relative",
-    borderRadius: "3px 20px 3px 20px",
-    overflow: "hidden",
-}));
 
 interface BackgroundPictureProps {
     folder: string;
@@ -23,7 +14,7 @@ interface BackgroundPictureProps {
 
 const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => {
     return (
-        <Wrapper className="single-landmark-picture">
+        <div className="single-landmark-picture" style={{ borderRadius: "3px 20px 3px 20px" }}>
             {props.children}
             <SkeletonImage
                 layout="fill" //
@@ -35,7 +26,7 @@ const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => 
                     sectionName: props.city,
                 }}
             ></SkeletonImage>
-        </Wrapper>
+        </div>
     );
 };
 

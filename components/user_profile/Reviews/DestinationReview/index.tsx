@@ -40,7 +40,7 @@ const SingleDestinationReview: FunctionComponent<DestinationReviewProps> = (prop
                 <FlexBox column horizontal="start" sx={{ position: "relative", zIndex: "1" }}>
                     <LocalizationBreadCrumbs crumbs={[continent, country]}></LocalizationBreadCrumbs>
                     <CityName>{city}</CityName>
-                    <Typography variant="body1" sx={{ mb: "10px" }}>
+                    <Typography variant="body2" sx={{ mb: "10px" }}>
                         {shortDescription}
                     </Typography>
                     <ReadMore url={`/destinations/${slug}`}></ReadMore>

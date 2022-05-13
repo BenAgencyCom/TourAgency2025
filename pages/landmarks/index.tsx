@@ -17,6 +17,7 @@ import AccountBalance from "@mui/icons-material/AccountBalance";
 import SingleLandmark from "@/components/_utils/SingleLandmark";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
+import SkeletonLoading from "@/components/_utils/SingleLandmark/SkeletonLoading";
 // Styled Components
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
 import Loading from "@/components/_utils/Loading";
@@ -116,7 +117,18 @@ const BulkLandmarks: FunctionComponent = () => {
                     <LandmarksWrapper>
                         {(() => {
                             if (loading) {
-                                return <Loading sx={{ top: "30%" }} />;
+                                return (
+                                    <>
+                                        {/* in order to make some phony margin */}
+                                        <div style={{ height: "100px", width: "100%" }} />
+                                        <SkeletonLoading />
+                                        <SkeletonLoading />
+                                        <SkeletonLoading />
+                                        <SkeletonLoading />
+                                        <SkeletonLoading />
+                                        <SkeletonLoading />
+                                    </>
+                                );
                             } else {
                                 if (landmarks.length === 0) {
                                     return (

@@ -84,13 +84,6 @@ export default {
             ".description": {
                 height: "200px",
             },
-            ".read-more": {
-                marginTop: "50px",
-                alignSelf: "center",
-                width: "100%",
-                maxWidth: "400px",
-                height: "40px",
-            },
         },
     },
     ["@media (max-width:800px)"]: {

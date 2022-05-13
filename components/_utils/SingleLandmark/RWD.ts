@@ -6,6 +6,22 @@ export default {
     marginLeft: "20px",
     boxSizing: "border-box",
     marginBottom: "20px",
+    height: "550px",
+    borderRadius: "5px",
+    background: "#fff",
+    padding: "10px",
+    cursor: "default",
+    position: "relative",
+    ".single-landmark-content": {
+        flexGrow: "1",
+        textAlign: "start",
+    },
+    ".single-landmark-picture": {
+        width: "100%",
+        height: "290px",
+        position: "relative",
+        overflow: "hidden",
+    },
     "&:nth-of-type(1),&:nth-of-type(4),&:nth-of-type(7),&:nth-of-type(10),&:nth-of-type(13),&:nth-of-type(16),&:nth-of-type(19),&:nth-of-type(22),&:nth-of-type(25),&:nth-of-type(28)": {
         marginLeft: "0px",
     },
@@ -26,7 +42,7 @@ export default {
     },
     ["@media (max-width:1300px)"]: {
         height: "450px",
-        "div.single-landmark-picture": {
+        ".single-landmark-picture": {
             height: "200px",
         },
         h3: {
@@ -51,7 +67,7 @@ export default {
         ",&:nth-of-type(1)": {
             marginTop: "0px",
         },
-        "div.single-landmark-picture": {
+        ".single-landmark-picture": {
             height: "500px",
         },
         h3: {
@@ -60,12 +76,12 @@ export default {
         },
     },
     ["@media (max-width:800px)"]: {
-        "div.single-landmark-picture": {
+        ".single-landmark-picture": {
             height: "400px",
         },
     },
     ["@media (max-width:700px)"]: {
-        "div.single-landmark-picture": {
+        ".single-landmark-picture": {
             height: "350px",
         },
         h3: {
@@ -74,12 +90,12 @@ export default {
         },
     },
     ["@media (max-width:600px)"]: {
-        "div.single-landmark-picture": {
+        ".single-landmark-picture": {
             height: "300px",
         },
     },
     ["@media (max-width:500px)"]: {
-        "div.single-landmark-picture": {
+        ".single-landmark-picture": {
             height: "250px",
         },
         "span.landmark-type": {

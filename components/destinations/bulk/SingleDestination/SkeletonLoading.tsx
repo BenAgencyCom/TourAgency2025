@@ -2,12 +2,13 @@
 import RWD from "./RWD";
 import { styled } from "@mui/system";
 // Types
-import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { MUIStyledCommonProps } from "@mui/system";
 // Material UI Components
 import Fade from "@mui/material/Fade";
 import Skeleton from "@mui/material/Skeleton";
+// Other components
+import ReadMoreSkeletonLoading from "@/components/_utils/ReadMore/SkeletonLoading";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -58,7 +59,7 @@ const PointsDistributionSkeletonLoading: FunctionComponent<MUIStyledCommonProps>
                         />
                     </FlexBox>
                     {/* Read more */}
-                    <Skeleton sx={{ height: "40px", width: "150px" }} variant="rectangular" className="read-more" />
+                    <ReadMoreSkeletonLoading />
                 </FlexBox>
             </SkeletonWrapper>
         </Fade>

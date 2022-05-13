@@ -22,12 +22,6 @@ const ReviewInformation = dynamic(() => import("./body/ReviewInformation"));
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
-    height: "550px",
-    borderRadius: "5px",
-    background: "#fff",
-    padding: "10px",
-    cursor: "default",
-    position: "relative",
     h3: {
         fontWeight: 900,
         letterSpacing: "-1px",
@@ -44,9 +38,10 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
             fontSize: "10rem",
         },
     },
-    "div.single-landmark-content": {
-        flexGrow: "1",
-        textAlign: "start",
+
+    p: {
+        position: "relative",
+        zIndex: "2",
     },
     ...(RWD as any),
 }));
