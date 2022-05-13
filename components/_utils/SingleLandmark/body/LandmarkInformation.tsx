@@ -24,7 +24,7 @@ const LandmarkInformation: FunctionComponent<LandmarkInformationProps> = (props)
 
     return (
         <>
-            <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ fontSize: "1.2rem", justifyContent: "flex-start" }}></LocalizationBreadCrumbs>
+            <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ justifyContent: "flex-start" }}></LocalizationBreadCrumbs>
             <h3>{title}</h3>
             <span className="landmark-type">{GetLandmarkIcon(type)}</span>
             {(() => {

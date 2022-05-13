@@ -10,7 +10,7 @@ import FlexBox from "@/components/_utils/styled/FlexBox";
 const Wrapper = styled(FlexBox)(({ theme }) => ({
     color: theme.palette.primary.main,
     fontWeight: 500,
-    fontSize: "1.4rem",
+    fontSize: "1.2rem",
     margin: "10px 0 5px 0",
     "span.seperator": {
         margin: "0 5px",

@@ -25,7 +25,7 @@ const LandmarksWrapper = styled("div")(({ theme }) => ({
     display: "flex",
     width: "100%",
     flexWrap: "wrap",
-    minHeight: "1000px",
+    minHeight: "700px",
 }));
 
 interface ReviewsWrapperProps {

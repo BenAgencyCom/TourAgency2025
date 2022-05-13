@@ -4,20 +4,20 @@ import { destinationPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
-// Styled components
 import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
+// Styled components
 
 const PictureWrapper = styled("div")(({ theme }) => ({
     position: "relative",
     width: "100%",
-    height: "350px",
     borderRadius: "10px",
     overflow: "hidden",
 }));
 
 const Picture: FunctionComponent<{ folder: string; country: string; city: string }> = (props) => {
     return (
-        <PictureWrapper>
+        <PictureWrapper className="single-destination-review-picture">
+            {props.children}
             <SkeletonImage
                 layout="fill" //
                 alt={props.folder}
