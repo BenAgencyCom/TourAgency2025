@@ -4,7 +4,7 @@ import colorTheme from "@/colorTheme";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
-import Section from "@/components/destinations/single/_utils/Section";
+import Section from "@/components/_utils/Section";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import Ratings from "@/components/destinations/single/Reviews/Ratings";
 import UserReview from "@/components/destinations/single/Reviews/user_review/UserReview";
