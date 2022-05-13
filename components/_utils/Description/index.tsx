@@ -1,4 +1,5 @@
 // Tools
+import RWD from "./RWD";
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
@@ -13,7 +14,7 @@ import Splitted from "./Splitted";
 import Paragraph from "./Paragraph";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 
-interface SingleDestinationContentProps {
+interface DescriptionProps {
     data: DestinationContentField[];
     imageLoader: (url: string) => string;
 }
@@ -24,9 +25,10 @@ const Wrapper = styled(Box)({
     alignItems: "flex-start",
     width: "100%",
     cursor: "default",
+    ...(RWD as any),
 });
 
-const SingleDestinationContent: FunctionComponent<SingleDestinationContentProps> = (props) => {
+const Description: FunctionComponent<DescriptionProps> = (props) => {
     return (
         <Wrapper>
             {props.data.map((element: DestinationContentField, index: number) => (
@@ -62,4 +64,4 @@ const SingleDestinationContent: FunctionComponent<SingleDestinationContentProps>
     );
 };
 
-export default SingleDestinationContent;
+export default Description;
