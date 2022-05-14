@@ -2,6 +2,7 @@
 import { prisma } from "@/prisma/db";
 import { styled } from "@mui/system";
 import SingleDestinationAPI from "@/utils/api/pages/destinations/SingleDestinationAPI";
+import { destinationPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { FunctionComponent } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
@@ -10,8 +11,8 @@ import type { Destination } from "@/@types/pages/destinations/SingleDestination"
 import Head from "next/Head";
 import Stats from "@/components/destinations/single/Stats";
 import ScrollStepper from "@/components/_utils/ScrollStepper";
-import Landing from "@/components/destinations/single/Landing";
 import Reviews from "@/components/destinations/single/Reviews";
+import ParallaxLanding from "@/components/_utils/ParallaxLanding";
 import Landmarks from "@/components/destinations/single/Landmarks";
 import Description from "@/components/destinations/single/Description";
 // Redux
@@ -48,6 +49,8 @@ interface SingleDestinationProps {
 const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => {
     const { scrollY, width } = useAppSelector((state) => state.windowSizes);
 
+    const { destination } = props;
+
     const dispatch = useAppDispatch();
     dispatch(setData(props.destination));
     dispatch(setRatings(props.ratings));
@@ -59,7 +62,18 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                 <title>{props.destination.city}</title>
             </Head>
             <RWDContentWrapper sx={{ color: "text.primary" }}>
-                <Landing></Landing>
+                <ParallaxLanding
+                    headers={{
+                        main: destination.city,
+                        top: destination.country,
+                        bottom: destination.continent.replace("_", " "),
+                    }}
+                    text={destination.shortDescription}
+                    imagesURLs={{
+                        highResolution: destinationPictureURL(destination.folder, "1080p", "thumbnail"),
+                        lowResolution: destinationPictureURL(destination.folder, "360p", "thumbnail"),
+                    }}
+                ></ParallaxLanding>
 
                 <ScrollStepper
                     steps={[

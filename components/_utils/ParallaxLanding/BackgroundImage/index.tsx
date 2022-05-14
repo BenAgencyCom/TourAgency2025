@@ -1,52 +1,22 @@
 // Tools
-import { styled, alpha } from "@mui/system";
 import { useRef, useEffect, useState } from "react";
 // Types
+import type { ImageURLs } from "../@types";
 import type { FunctionComponent } from "react";
 // Material UI Components
-import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 // Other Components
 import Image from "next/Image";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
-const BackgroundImageWrapper = styled("div")({
-    width: "100%",
-    height: "100%",
-    position: "relative",
-    transitionDelay: "500ms !important",
-    transitionDuration: "1000ms !important",
-});
-const GradientMask = styled("div")({
-    position: "absolute",
-    zIndex: 1,
-    top: 0,
-    width: "100%",
-    height: "100%",
-    background: `linear-gradient(180deg, ${alpha("#121212", 0.1)} 0%, ${alpha("#121212", 0.2)} 41.46%, ${alpha("#121212", 0.627299)} 72.19%, #121212 100%)`,
-    backdropFilter: "blur(5px)",
-});
-const LoadingHiddingMask = styled("div")({
-    position: "absolute",
-    top: 0,
-    width: "100%",
-    height: "100%",
-    background: "#000",
-    zIndex: -1,
-});
-const ScrollingMask = styled(Box)(({ theme }) => ({
-    position: "absolute",
-    top: 0,
-    width: "100%",
-    height: "100%",
-    background: theme.palette.background.paper,
-    zIndex: 3,
-    opacity: 0,
-}));
+import { BackgroundImageWrapper, GradientMask, LoadingHiddingMask, ScrollingMask } from "./styled_components";
 
-const BackgroundImage: FunctionComponent = () => {
-    const { folder } = useAppSelector((state) => state.singleDestination.data);
+interface BackgroundImageProps {
+    imagesURLs: ImageURLs;
+}
+
+const BackgroundImage: FunctionComponent<BackgroundImageProps> = (props) => {
     const { scrollY } = useAppSelector((state) => state.windowSizes);
 
     const scrollingMaskElement = useRef<HTMLElement | null>(null);
@@ -81,12 +51,12 @@ const BackgroundImage: FunctionComponent = () => {
                 <BackgroundImageWrapper>
                     <Image
                         alt="background" //
-                        src={`/upload/destinations/${folder}/thumbnail/1080p.jpg`}
+                        src={props.imagesURLs.highResolution}
                         layout="fill"
                         objectFit="cover"
                         objectPosition="center"
                         placeholder="blur"
-                        blurDataURL={`/upload/destinations/${folder}/thumbnail/360p.jpg`}
+                        blurDataURL={props.imagesURLs.lowResolution}
                     ></Image>
                 </BackgroundImageWrapper>
             </Fade>
