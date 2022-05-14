@@ -1,6 +1,9 @@
 import type { SxProps } from "@mui/system";
 
 export default {
+    ".information": {
+        maxWidth: "calc(100% - 350px)",
+    },
     ["@media (max-width:1500px)"]: {
         h1: {
             fontSize: "8rem",

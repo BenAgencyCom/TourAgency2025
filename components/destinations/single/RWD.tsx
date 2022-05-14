@@ -1,6 +1,11 @@
-import type { SxProps } from "@mui/system";
+// Tools
+import { styled } from "@mui/system";
+// Styled components
+import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
-export default {
+export default styled(ContentContainter)(({ theme }) => ({
+    margin: "0 !important",
+    // RWD
     "#destination-general-stats": {
         //
         ["@media (max-width:1000px)"]: {
@@ -35,4 +40,4 @@ export default {
             },
         },
     },
-} as SxProps;
+}));

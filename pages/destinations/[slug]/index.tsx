@@ -11,13 +11,10 @@ import type { Destination } from "@/@types/pages/destinations/SingleDestination"
 import Head from "next/Head";
 import Stats from "@/components/destinations/single/Stats";
 import ScrollStepper from "@/components/_utils/ScrollStepper";
-import Reviews from "@/components/destinations/single/Reviews";
 import ParallaxLanding from "@/components/_utils/ParallaxLanding";
+import FewLatestReviews from "@/components/_utils/FewLatestReviews";
 import Description from "@/components/destinations/single/Description";
 import ThreeRelatedLandmarks from "@/components/_utils/ThreeRelatedLandmarks";
-// Redux
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { setData, setRatings, setTotalReviews } from "@/redux/slices/singleDestination";
 // Styled components
 import RWDContentWrapper from "@/components/destinations/single/RWD";
 
@@ -47,14 +44,7 @@ interface SingleDestinationProps {
 }
 
 const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => {
-    const { scrollY } = useAppSelector((state) => state.windowSizes);
-
-    const { destination } = props;
-
-    const dispatch = useAppDispatch();
-    dispatch(setData(props.destination));
-    dispatch(setRatings(props.ratings));
-    dispatch(setTotalReviews(props.totalReviews));
+    const { destination, totalReviews } = props;
 
     return (
         <>
@@ -84,7 +74,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                     ]}
                 ></ScrollStepper>
 
-                <Content sx={{ "&::before": { opacity: scrollY ? 1 : 0 } }}>
+                <Content>
                     <Stats></Stats>
                     <Description description={destination.description} folder={destination.folder}></Description>
                     <ThreeRelatedLandmarks
@@ -95,7 +85,11 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                             text: "More beautiful places",
                         }}
                     ></ThreeRelatedLandmarks>
-                    <Reviews></Reviews>
+                    <FewLatestReviews
+                        reviews={destination.reviews} //
+                        reviewsInTotal={totalReviews}
+                        url={`/destinations/${destination.slug}/reviews`}
+                    ></FewLatestReviews>
                 </Content>
             </RWDContentWrapper>
         </>

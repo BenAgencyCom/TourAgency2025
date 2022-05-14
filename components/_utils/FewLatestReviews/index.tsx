@@ -4,20 +4,20 @@ import colorTheme from "@/colorTheme";
 import type { FunctionComponent } from "react";
 import type { Review } from "@/@types/pages/landmarks/SingleLandmark";
 // Other components
+import AllReviews from "./AllReviews";
 import Section from "@/components/_utils/Section";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
-import AllReviews from "@/components/destinations/single/Reviews/AllReviews";
 // Material UI Icons
 import ShowChart from "@mui/icons-material/ShowChart";
 
 interface ReviewsProps {
     reviews: Review[];
-    slug: string;
+    url: string;
     reviewsInTotal: number;
 }
 
 const Reviews: FunctionComponent<ReviewsProps> = (props) => {
-    const { reviews, slug, reviewsInTotal } = props;
+    const { reviews, url, reviewsInTotal } = props;
     return (
         <Section
             id="reviews"
@@ -26,7 +26,7 @@ const Reviews: FunctionComponent<ReviewsProps> = (props) => {
             header={{
                 text: "Users experiences",
                 buttonMsg: `See all reviews`,
-                url: `/landmarks/${slug}/reviews`,
+                url: url,
                 biggerHeader: "reviews",
             }}
         >
@@ -34,7 +34,7 @@ const Reviews: FunctionComponent<ReviewsProps> = (props) => {
                 <AllReviews
                     reviews={reviews} //
                     totalReviews={reviewsInTotal}
-                    slug={slug}
+                    url={url}
                 ></AllReviews>
             </UnfadeOnScroll>
         </Section>

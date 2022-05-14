@@ -1,4 +1,5 @@
 // Tools
+import { styled } from "@mui/system";
 import colorTheme from "@/colorTheme";
 // Types
 import type { FunctionComponent } from "react";
@@ -10,7 +11,31 @@ import SingleLandmark from "@/components/_utils/SingleLandmark";
 // Material UI Icons
 import Map from "@mui/icons-material/Map";
 // Styled Components
-import FlexBox from "@/components/_utils/styled/FlexBox";
+
+const Wrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    ["@media (max-width:1200px)"]: {
+        flexDirection: "column",
+    },
+    ["@media (max-width:1200px) and (min-width:1000px)"]: {
+        "div.single-landmark": {
+            width: "100%",
+            margin: "60px 0 0 0",
+            height: "auto",
+            "&:nth-of-type(1)": {
+                marginTop: "0px",
+            },
+            "div.single-landmark-picture": {
+                height: "500px",
+            },
+            h3: {
+                fontSize: "3rem",
+            },
+        },
+    },
+}));
 
 interface LandmarksProps {
     relatedPlace: string;
@@ -55,7 +80,7 @@ const Landmarks: FunctionComponent<LandmarksProps> = (props) => {
             }}
         >
             <UnfadeOnScroll animationRatio={0.6} duration={700}>
-                <FlexBox center className="landmarks-wrapper">
+                <Wrapper className="landmarks-wrapper">
                     {landmarks.map((item, index) => {
                         return (
                             <SingleLandmark
@@ -67,7 +92,7 @@ const Landmarks: FunctionComponent<LandmarksProps> = (props) => {
                             ></SingleLandmark>
                         );
                     })}
-                </FlexBox>
+                </Wrapper>
             </UnfadeOnScroll>
         </Section>
     );

@@ -8,12 +8,12 @@ import type { FunctionComponent } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { DataFromAPI } from "@/@types/pages/landmarks/SingleLandmark";
 // Other components
-import Reviews from "@/components/landmarks/single/Reviews";
 import ScrollStepper from "@/components/_utils/ScrollStepper";
-import ThreeRelatedLandmarks from "@/components/_utils/ThreeRelatedLandmarks";
 import ParallaxLanding from "@/components/_utils/ParallaxLanding";
 import Destination from "@/components/landmarks/single/Destination";
 import Description from "@/components/landmarks/single/Description";
+import FewLatestReviews from "@/components/_utils/FewLatestReviews";
+import ThreeRelatedLandmarks from "@/components/_utils/ThreeRelatedLandmarks";
 
 const Content = styled("div")(({ theme }) => ({
     width: "100vw",
@@ -54,8 +54,8 @@ const SingleLandmark: FunctionComponent<DataFromAPI> = (props) => {
             <ScrollStepper
                 steps={[
                     { title: "Landing", elementID: "landing-wrapper" },
-                    { title: "Landmarks", elementID: "similar-landmarks" },
                     { title: "Destination", elementID: "destination-wrapper" },
+                    { title: "Landmarks", elementID: "similar-landmarks" },
                     { title: "Description", elementID: "description-wrapper" },
                     { title: "Reviews", elementID: "reviews" },
                 ]}
@@ -71,7 +71,12 @@ const SingleLandmark: FunctionComponent<DataFromAPI> = (props) => {
                         text: "More beautiful places",
                     }}
                 ></ThreeRelatedLandmarks>
-                <Reviews reviews={reviews} reviewsInTotal={reviewsInTotal} slug={landmark.slug}></Reviews>
+
+                <FewLatestReviews
+                    reviews={reviews} //
+                    reviewsInTotal={reviewsInTotal}
+                    url={`/landmarks/${landmark.slug}/reviews`}
+                ></FewLatestReviews>
             </Content>
         </>
     );

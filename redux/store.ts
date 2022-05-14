@@ -3,7 +3,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import authenticationSlice from "@/redux/slices/authentication";
 import snackbarSlice from "@/redux/slices/snackbar";
 import windowSizes from "@/redux/slices/windowSizes";
-import singleDestination from "@/redux/slices/singleDestination";
 // Create destination
 import landmarksReducer from "@/redux/slices/create_destination/landmarks";
 import destinationReducer from "@/redux/slices/create_destination/description";
@@ -19,7 +18,6 @@ const store = configureStore({
         authentication: authenticationSlice.reducer,
         snackbar: snackbarSlice.reducer,
         // /destinations/:slug
-        singleDestination: singleDestination.reducer,
         // ADMIN/create new destination
         landmarks: landmarksReducer,
         description: destinationReducer,

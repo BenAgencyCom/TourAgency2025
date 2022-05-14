@@ -25,7 +25,7 @@ interface AllReviewsProps {
     reviews: Review[];
     sx?: SxProps;
     totalReviews: number;
-    slug: string;
+    url: string;
 }
 const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
     const { width } = useAppSelector((state) => state.windowSizes);
@@ -55,7 +55,7 @@ const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
                 if (width > 1000) {
                     return (
                         <SeeAllReviews variant="outlined">
-                            <Link href={`/destinations/${props.slug}/reviews`} passHref>
+                            <Link href={props.url} passHref>
                                 <span>
                                     See all <strong>{props.totalReviews}</strong> reviews
                                 </span>
