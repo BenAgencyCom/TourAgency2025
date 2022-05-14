@@ -1,24 +1,23 @@
 // Tools
 import { styled } from "@mui/system";
-import { destinationPictureURL } from "@/utils/client/imageURLs";
+import { landmarkPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
 import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
 // Styled components
-const DestinationPictureWrapper = styled("div")(({ theme }) => ({
-    height: "600px",
+const LandmarkPictureWrapper = styled("div")(({ theme }) => ({
     width: "700px",
     position: "relative",
     borderRadius: "0px 50px 0px 50px",
     overflow: "hidden",
 }));
 
-const DestinationPicture: FunctionComponent<{ folder: string }> = (props) => {
+const LandmarkPicture: FunctionComponent<{ folder: string }> = (props) => {
     return (
-        <DestinationPictureWrapper>
+        <LandmarkPictureWrapper>
             <SkeletonImage
-                src={destinationPictureURL(props.folder, "720p", "thumbnail")} //
+                src={landmarkPictureURL(props.folder, "720p", "thumbnail")} //
                 layout="fill"
                 alt=""
                 objectFit="cover"
@@ -26,8 +25,8 @@ const DestinationPicture: FunctionComponent<{ folder: string }> = (props) => {
                 priority
                 modalMaxResolution="1080p"
             ></SkeletonImage>
-        </DestinationPictureWrapper>
+        </LandmarkPictureWrapper>
     );
 };
 
-export default DestinationPicture;
+export default LandmarkPicture;

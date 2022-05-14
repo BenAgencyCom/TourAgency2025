@@ -12,8 +12,6 @@ import Typography from "@mui/material/Typography";
 import SingleReviewHeader from "./header";
 import SingleReviewTags from "./SingleReviewTags";
 import Likes from "./Likes";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -22,6 +20,9 @@ const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
     //
     hr: {
         borderColor: theme.palette.background.lightPaper,
+        ["@media (max-width:700px)"]: {
+            display: "none",
+        },
     },
     p: {
         userSelect: "select",
@@ -36,7 +37,6 @@ interface SingleReviewProps {
 }
 const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     const { review } = props;
-    const { width } = useAppSelector((state) => state.windowSizes);
 
     const color = ((): ScoreColor => {
         const { points } = review;
@@ -48,9 +48,9 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     return (
         <SingleReviewWrapper column>
             <SingleReviewHeader review={review} color={color}></SingleReviewHeader>
-            {width <= 700 && <Divider flexItem sx={{ my: "10px" }}></Divider>}
+            <Divider flexItem sx={{ my: "10px" }}></Divider>
             <SingleReviewTags tags={review.tags} color={color}></SingleReviewTags>
-            <Typography variant="body1">{review.review}</Typography>
+            <Typography variant="body2">{review.review}</Typography>
 
             <Divider flexItem sx={{ my: "10px" }}></Divider>
             <Likes feedback={review.feedback}></Likes>

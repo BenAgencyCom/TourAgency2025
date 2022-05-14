@@ -1,5 +1,5 @@
 const ROUTES_WITH_DISABLED_NAVIGATION: string[] = ["/login"];
-const ROUTES_WITH_REVERSED_CONTRAST: string[] = ["/destinations", "/user/*", "/landmarks", "/destinations/*/reviews", "/404", "/500"];
+const ROUTES_WITH_REVERSED_CONTRAST: string[] = ["/destinations", "/user/*", "/landmarks", "/destinations/*/reviews", "/404", "/500", "/landmarks/*/reviews"];
 
 /**
  * Accepts one parameter of `router.pathname` and determines whether the navbar should be completly hidden

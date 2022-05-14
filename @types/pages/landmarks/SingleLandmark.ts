@@ -1,7 +1,5 @@
-import type { ReviewType } from "@prisma/client";
-import type { LandmarkReview, User } from "@prisma/client";
-import type { Landmark as _Landmark, Destination as _Destination } from "@prisma/client";
 import type { DescriptionContentField } from "@/@types/Description";
+import type { Landmark as _Landmark, Destination as _Destination, LandmarkReview, User, ReviewType } from "@prisma/client";
 
 export interface DataFromAPI {
     landmark: Landmark;

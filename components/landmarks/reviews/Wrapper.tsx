@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 // Types
 import type { FunctionComponent } from "react";
-import type { Destination } from "@/@types/pages/destinations/Reviews";
+import type { Landmark } from "@/@types/pages/landmarks/Reviews";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { Review, PointsDistribution, Statistics } from "@/@types/pages/api/ReviewsAPI";
 // Other components
@@ -19,7 +19,7 @@ import ContentContainter from "@/components/_utils/styled/ContentContainter";
 import SingleReviewSkeletonLoading from "@/components/_utils/SingleReview/SkeletonLoading";
 
 interface ContentParams {
-    destination: Destination;
+    landmark: Landmark;
 }
 const Content: FunctionComponent<ContentParams> = (props) => {
     const REVIEWS_PER_PAGE = 12;
@@ -33,15 +33,14 @@ const Content: FunctionComponent<ContentParams> = (props) => {
     const router = useRouter();
 
     const queryForData = async (urlQueries: string) => {
-        const destinationID = props.destination.id;
+        const landmarkID = props.landmark.id;
 
         try {
             setLoading(true);
             const applyPointsDistribution = !statistics || !pointsDistribution;
-            const res = await axios.get(`/api/destination/${destinationID}/reviews${urlQueries}&perPage=${REVIEWS_PER_PAGE}${applyPointsDistribution ? "&applyPointsDistribution=1" : ""} `);
+            const res = await axios.get(`/api/landmark/${landmarkID}/reviews${urlQueries}&perPage=${REVIEWS_PER_PAGE}${applyPointsDistribution ? "&applyPointsDistribution=1" : ""} `);
             if (res.data) {
                 const { pagination, reviews, pointsDistribution, statistics } = res.data;
-
                 setLoading(false);
                 setReviews(reviews);
                 setPaginationProperties(pagination);
@@ -55,9 +54,9 @@ const Content: FunctionComponent<ContentParams> = (props) => {
     };
 
     return (
-        <ContentContainter id="single-destination-reviews" backgroundMap>
+        <ContentContainter id="single-landmark-reviews" backgroundMap>
             <Landing
-                destination={props.destination} //
+                landmark={props.landmark} //
                 statistics={statistics}
                 pointsDistribution={pointsDistribution}
             ></Landing>
@@ -95,7 +94,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                     paginationProperties && !loading
                         ? {
                               ...paginationProperties,
-                              idOfElementToScrollTo: "single-destination-reviews",
+                              idOfElementToScrollTo: "single-landmark-reviews",
                           }
                         : undefined
                 }

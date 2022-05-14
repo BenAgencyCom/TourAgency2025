@@ -3,14 +3,16 @@ import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { ReviewType } from "@prisma/client";
-import type { Destination } from "@/@types/pages/destinations/Reviews";
+import type { Landmark } from "@/@types/pages/landmarks/Reviews";
 import type { PointsDistribution, Statistics } from "@/@types/pages/api/ReviewsAPI";
+// Material UI Components
+import Typography from "@mui/material/Typography";
 // Other components
 import Stars from "./Stars";
 import Header from "./Header";
-import DestinationPicture from "./DestinationPicture";
-import PointsDistributionComponent from "@/components/_utils/PointsDistribution";
+import LandmarkPicture from "./LandmarkPicture";
 import LocalizationBreadCrumbs from "@/components/_utils/LocalizationBreadCrumbs";
+import PointsDistributionComponent from "@/components/_utils/PointsDistribution";
 import PointsDistributionComponentSkeleton from "@/components/_utils/PointsDistribution/SkeletonLoading";
 import ReadMore from "@/components/_utils/ReadMore";
 // Styled components
@@ -18,13 +20,13 @@ import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const LeftSideContent = styled(FlexBox)(({ theme }) => ({
     paddingRight: "100px",
-    flexGrow: 1,
+    width: "calc(100% - 750px)",
 }));
 
 interface LandingProps {
     statistics: Statistics | null;
     pointsDistribution: PointsDistribution | null;
-    destination: Destination;
+    landmark: Landmark;
 }
 
 const Landing: FunctionComponent<LandingProps> = (props) => {
@@ -37,15 +39,16 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
         return "NEGATIVE";
     })();
 
-    const { continent, country, city } = props.destination;
+    const { continent, country, city } = props.landmark.destination;
 
     return (
         <FlexBox horizontal="between" sx={{ mt: "50px", width: "100%", mb: "100px" }}>
             <LeftSideContent column vertical="evenly">
                 <FlexBox column horizontal="start">
                     <LocalizationBreadCrumbs crumbs={[continent, country, city]} />
-                    <Header main={props.destination.city} background="Reviews" />
+                    <Header main={props.landmark.title} background="Reviews" />
                     <Stars score={props.statistics?.averageScore} />
+                    <Typography variant="body2">{props.landmark.shortDescription}</Typography>
                 </FlexBox>
 
                 {(() => {
@@ -60,10 +63,10 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
                         );
                     } else return <PointsDistributionComponentSkeleton />;
                 })()}
-                <ReadMore url={`/destinations/${props.destination.slug}`} sx={{ height: "46px !important" }}></ReadMore>
+                <ReadMore url={`/landmarks/${props.landmark.slug}`} sx={{ height: "46px !important" }}></ReadMore>
             </LeftSideContent>
 
-            <DestinationPicture folder={props.destination.folder} />
+            <LandmarkPicture folder={props.landmark.folder} />
         </FlexBox>
     );
 };

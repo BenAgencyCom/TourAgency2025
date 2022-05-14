@@ -6,7 +6,7 @@ import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 // Material UI Components
 import Fade from "@mui/material/Fade";
 // Other components
-import AllReviews from "./AllReviews";
+import SingleReview from "@/components/_utils/SingleReview";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 import Loading from "@/components/_utils/Loading";
@@ -14,7 +14,6 @@ import Loading from "@/components/_utils/Loading";
 interface ReviewsProps {
     reviews: Review[];
     paginationProperties: PaginationProperties;
-    slug: string;
     reviewsAreLoading: boolean;
 }
 
@@ -28,7 +27,9 @@ const Reviews: FunctionComponent<ReviewsProps> = (props) => {
                     return (
                         <Fade in={true}>
                             <FlexBox column horizontal="center">
-                                <AllReviews reviews={props.reviews}></AllReviews>
+                                {props.reviews.map((review, index) => {
+                                    return <SingleReview key={index} review={review}></SingleReview>;
+                                })}
                             </FlexBox>
                         </Fade>
                     );

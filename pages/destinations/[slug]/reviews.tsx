@@ -16,7 +16,7 @@ const CertinDestinationReviews: FunctionComponent<CertinDestinationReviewsProps>
     return (
         <>
             <Head>
-                <title>{props.destination.city}- Reviews</title>
+                <title>{props.destination.city} | Reviews</title>
             </Head>
 
             <Content destination={props.destination}></Content>
