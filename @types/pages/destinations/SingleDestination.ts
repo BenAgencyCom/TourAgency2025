@@ -1,5 +1,5 @@
 import type { Destination as _Destination, Landmark as _Landmark } from "@prisma/client";
-import type { DestinationContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 
 export type ScoreColor = "success" | "error" | "warning";
@@ -25,7 +25,7 @@ export interface Destination {
     population: _Destination["population"];
     continent: _Destination["continent"];
     shortDescription: _Destination["shortDescription"];
-    description: DestinationContentField[];
+    description: DescriptionContentField[];
     folder: _Destination["folder"];
     landmarks: Landmark[];
     reviews: Review[];

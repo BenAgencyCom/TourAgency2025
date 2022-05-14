@@ -3,7 +3,7 @@ import { prisma } from "@/prisma/db";
 import BulkReviewsAPI from "@/utils/api/pages/BulkReviewsAPI";
 import { SelectMainDestination } from "./PrismaSelectPart";
 // Types
-import type { DestinationContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { DestinationFromQuery, RatingsSummary, DataFromAPI } from "./@types";
 
@@ -53,7 +53,7 @@ export default class SingleDestinationAPI {
                 city: destination.city,
                 continent: destination.continent,
                 country: destination.country,
-                description: destination.description as DestinationContentField[],
+                description: destination.description as DescriptionContentField[],
                 folder: destination.folder,
                 landmarks: destination.landmarks,
                 population: destination.population,

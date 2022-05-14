@@ -1,7 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
-import type { DestinationContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI Components
@@ -27,7 +27,7 @@ const CustomDialogTitle = styled(DialogTitle)(({ theme }) => ({
 }));
 
 interface DescriptionPreviewProps {
-    data: DestinationContentField[];
+    data: DescriptionContentField[];
     open: StatedDataField<boolean>;
 }
 

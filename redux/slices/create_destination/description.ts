@@ -1,6 +1,6 @@
 import store from "@/redux/store";
 import createBetterSlice from "@/redux/slices/_redux_templates/createSliceWithListManagement";
-import { DestinationContentField, HeaderContentField, ParagraphContentField, SplittedContentField, ImageContentField } from "@/@types/Description";
+import { DescriptionContentField, HeaderContentField, ParagraphContentField, SplittedContentField, ImageContentField } from "@/@types/Description";
 import { FieldType } from "@/@types/Description";
 import { PayloadAction, CaseReducer } from "@reduxjs/toolkit";
 
@@ -15,7 +15,7 @@ const {
     reducer,
     actions,
     helpers: _helpers,
-} = createBetterSlice<DestinationContentField, CustomState, CustomActions>({
+} = createBetterSlice<DescriptionContentField, CustomState, CustomActions>({
     name: "description",
     listBlankItem: {
         type: FieldType.HEADER,
@@ -31,8 +31,8 @@ const {
     } as CustomActions,
 });
 // Define own helpers
-const createContentField = (newFieldType: FieldType): DestinationContentField => {
-    const createField = <T extends DestinationContentField>(data: Omit<T, "type">, propType?: FieldType): T => {
+const createContentField = (newFieldType: FieldType): DescriptionContentField => {
+    const createField = <T extends DescriptionContentField>(data: Omit<T, "type">, propType?: FieldType): T => {
         const type = propType ? propType : (newFieldType as FieldType);
         const dataToBeAdded = { type, ...data };
         return dataToBeAdded as T;

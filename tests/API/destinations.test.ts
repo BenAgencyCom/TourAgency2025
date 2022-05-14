@@ -13,7 +13,7 @@ import fse from "fs-extra";
 import type { Destination, Landmark } from "@prisma/client";
 import type { UserHelper } from "./data/users";
 import { FieldType } from "@/@types/Description";
-import type { DestinationContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
 // helpers
 import { uploadDir } from "@/utils/paths";
@@ -166,7 +166,7 @@ describe("DESTINATIONS", () => {
             });
             directoriesToDelete.push(path.join(uploadDir, "destinations", createdDestination?.folder as string));
             //
-            (createdDestination?.description as unknown as DestinationContentField[]).forEach((item) => {
+            (createdDestination?.description as unknown as DescriptionContentField[]).forEach((item) => {
                 if (item.type === FieldType.IMAGE) descriptionImagesDirectories.push(item.url as string);
                 else if (item.type === FieldType.SPLITTED) {
                     if (item.left.type === FieldType.IMAGE) descriptionImagesDirectories.push(item.left.url as string);

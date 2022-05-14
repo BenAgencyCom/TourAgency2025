@@ -2,7 +2,7 @@
 import { generateDescriptionHeader, generateShortDescription, generateDescriptionParagraph, generateDescriptionSplittedParagraph } from "./_prisma_seeders_utils";
 // Types
 import type { SeederDataList, Destination } from "./@types";
-import type { DestinationContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "../../@types/Description";
+import type { DescriptionContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "../../@types/Description";
 
 const createDescription = () => {
     return JSON.parse(
@@ -52,7 +52,7 @@ const createDescription = () => {
                     content: generateDescriptionSplittedParagraph(),
                 } as ParagraphContentField,
             } as SplittedContentField,
-        ] as DestinationContentField[])
+        ] as DescriptionContentField[])
     );
 };
 

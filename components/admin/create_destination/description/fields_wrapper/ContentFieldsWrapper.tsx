@@ -6,7 +6,7 @@ import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ReactNode } from "react";
 import type { DropResult } from "react-beautiful-dnd";
 import type { StatedDataField } from "@/@types/StatedDataField";
-import type { DestinationContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
@@ -23,7 +23,7 @@ const MainWrapper = styled(Box)(() => ({
 interface ContentFieldsWrapperProps {
     children: ReactNode;
     fullscreen: StatedDataField<boolean>;
-    description: ListItem<DestinationContentField>[];
+    description: ListItem<DescriptionContentField>[];
     _scrollableKey: number;
 }
 

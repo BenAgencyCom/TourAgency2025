@@ -26,4 +26,4 @@ export interface SplittedContentField {
     right: SplittedSubfieldField;
 }
 
-export type DestinationContentField = HeaderContentField | ParagraphContentField | ImageContentField | SplittedContentField;
+export type DescriptionContentField = HeaderContentField | ParagraphContentField | ImageContentField | SplittedContentField;

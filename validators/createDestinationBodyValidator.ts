@@ -12,7 +12,7 @@ import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
 import { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
 import type { SubmittedFilesCollection } from "@/utils/api/HandleMultipartFormDataRequest";
 import type { CreateDestinationRequest, CreateDestinationRequestPardesBody } from "@/@types/router/destination";
-import type { DestinationContentField, SplittedContentField, SplittedSubfieldField } from "@/@types/Description";
+import type { DescriptionContentField, SplittedContentField, SplittedSubfieldField } from "@/@types/Description";
 
 interface ValidationResult {
     fields: CreateDestinationRequestPardesBody;
@@ -43,7 +43,7 @@ class CreateDestinationRequestBodyValidator {
     }
     private validateImages() {
         const expectedImages: string[] = ["thumbnail"];
-        (this.fields.description as unknown as DestinationContentField[]).forEach((item) => {
+        (this.fields.description as unknown as DescriptionContentField[]).forEach((item) => {
             if (item.type === FieldType.IMAGE) expectedImages.push(item.url as string);
             else if (item.type === FieldType.SPLITTED) {
                 if (item.left.type === FieldType.IMAGE) expectedImages.push(item.left.url as string);

@@ -4,7 +4,7 @@ import restrictions from "@/utils/restrictions/createDestination";
 import { ValidationError } from "@/utils/api/Errors";
 import { FieldType } from "@/@types/Description";
 // Types
-import type { DestinationContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 
 const { header, paragraph } = restrictions.description;
 // Schemas
@@ -24,7 +24,7 @@ const validateImage = (img: unknown): boolean => {
         return ["image/png", "image/jpeg"].includes(img.type);
     } else return false;
 };
-export const validateDescription = (description: DestinationContentField[]): boolean => {
+export const validateDescription = (description: DescriptionContentField[]): boolean => {
     const ensure = (condition: boolean) => {
         if (!condition) throw new ValidationError();
     };

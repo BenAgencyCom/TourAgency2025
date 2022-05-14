@@ -1,7 +1,7 @@
 import type { ReviewType } from "@prisma/client";
 import type { LandmarkReview, User } from "@prisma/client";
 import type { Landmark as _Landmark, Destination as _Destination } from "@prisma/client";
-import type { DestinationContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 
 export interface DataFromAPI {
     landmark: Landmark;
@@ -53,7 +53,7 @@ export interface Landmark {
     folder: _Landmark["folder"];
     type: _Landmark["type"];
     shortDescription: _Landmark["shortDescription"];
-    description: DestinationContentField[];
+    description: DescriptionContentField[];
     destination: Destination;
 }
 

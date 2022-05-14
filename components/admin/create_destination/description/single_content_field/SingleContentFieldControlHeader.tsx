@@ -6,7 +6,7 @@ import stated from "@/utils/client/stated";
 import { ListItem } from "@/@types/redux";
 import type { FunctionComponent } from "react";
 import { FieldType } from "@/@types/Description";
-import type { DestinationContentField, SplittedContentField } from "@/@types/Description";
+import type { DescriptionContentField, SplittedContentField } from "@/@types/Description";
 // Material UI Components
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -25,7 +25,7 @@ const Wrapper = styled(Box)({
 });
 
 interface SingleContentFieldControlHeaderProps {
-    field: ListItem<DestinationContentField>;
+    field: ListItem<DescriptionContentField>;
     blockDeleting: boolean;
     handleDeletion: () => void;
     updateType: (newType: FieldType) => void;

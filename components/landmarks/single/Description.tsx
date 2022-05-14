@@ -2,7 +2,7 @@
 import colorTheme from "@/colorTheme";
 // Types
 import type { FunctionComponent } from "react";
-import type { DestinationContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 // Other components
 import Section from "@/components/_utils/Section";
 import Description from "@/components/_utils/Description";
@@ -10,7 +10,7 @@ import Description from "@/components/_utils/Description";
 import MenuBook from "@mui/icons-material/MenuBook";
 
 interface DescriptionProps {
-    description: DestinationContentField[];
+    description: DescriptionContentField[];
     folder: string;
 }
 

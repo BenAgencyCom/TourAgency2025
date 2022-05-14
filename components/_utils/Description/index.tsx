@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import { FieldType } from "@/@types/Description";
-import type { DestinationContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
@@ -15,7 +15,7 @@ import Paragraph from "./Paragraph";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 
 interface DescriptionProps {
-    data: DestinationContentField[];
+    data: DescriptionContentField[];
     imageLoader: (url: string) => string;
 }
 
@@ -31,7 +31,7 @@ const Wrapper = styled(Box)({
 const Description: FunctionComponent<DescriptionProps> = (props) => {
     return (
         <Wrapper>
-            {props.data.map((element: DestinationContentField, index: number) => (
+            {props.data.map((element: DescriptionContentField, index: number) => (
                 <UnfadeOnScroll
                     sx={{ width: "100%" }} //
                     key={index}

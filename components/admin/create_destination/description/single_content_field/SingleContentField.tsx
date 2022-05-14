@@ -7,7 +7,7 @@ import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 import { Theme } from "@mui/system";
 import { FieldType } from "@/@types/Description";
-import type { DestinationContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "@/@types/Description";
+import type { DescriptionContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "@/@types/Description";
 import type { DraggableProvided } from "react-beautiful-dnd";
 // Material UI Components
 import Card from "@mui/material/Card";
@@ -35,7 +35,7 @@ const CustomCard = styled(Card)(({ theme }: { theme: Theme }) => ({
 }));
 
 interface SingleContentFieldProps {
-    field: ListItem<DestinationContentField>;
+    field: ListItem<DescriptionContentField>;
     index: number;
     blockDeleting: boolean;
     fullscreen: boolean;
