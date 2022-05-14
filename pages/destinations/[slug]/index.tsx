@@ -1,5 +1,4 @@
 // Tools
-import dynamic from "next/dynamic";
 import { prisma } from "@/prisma/db";
 import { styled } from "@mui/system";
 import SingleDestinationAPI from "@/utils/api/pages/destinations/SingleDestinationAPI";
@@ -9,12 +8,12 @@ import type { GetStaticPaths, GetStaticProps } from "next";
 import type { Destination } from "@/@types/pages/destinations/SingleDestination";
 // Other components
 import Head from "next/Head";
-import Landing from "@/components/destinations/single/Landing";
-import Description from "@/components/destinations/single/Description";
 import Stats from "@/components/destinations/single/Stats";
-const Stepper = dynamic(() => import("@/components/destinations/single/Stepper"));
-import Landmarks from "@/components/destinations/single/Landmarks";
+import ScrollStepper from "@/components/_utils/ScrollStepper";
+import Landing from "@/components/destinations/single/Landing";
 import Reviews from "@/components/destinations/single/Reviews";
+import Landmarks from "@/components/destinations/single/Landmarks";
+import Description from "@/components/destinations/single/Description";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { setData, setRatings, setTotalReviews } from "@/redux/slices/singleDestination";
@@ -61,7 +60,16 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
             </Head>
             <RWDContentWrapper sx={{ color: "text.primary" }}>
                 <Landing></Landing>
-                {width > 1000 && <Stepper></Stepper>}
+
+                <ScrollStepper
+                    steps={[
+                        { title: "Landing", elementID: "landing-wrapper" },
+                        { title: "Description", elementID: "description" },
+                        { title: "Landmarks", elementID: "landmarks" },
+                        { title: "Reviews", elementID: "reviews" },
+                    ]}
+                ></ScrollStepper>
+
                 <Content sx={{ "&::before": { opacity: scrollY ? 1 : 0 } }}>
                     <Stats></Stats>
                     <Description></Description>

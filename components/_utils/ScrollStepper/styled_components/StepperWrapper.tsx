@@ -23,4 +23,12 @@ export default styled(Stepper, {
             fill: "#fff !important",
         },
     }),
+    ["@media (max-width:1500px)"]: {
+        left: "10px",
+    },
+    ["@media (max-width:1300px)"]: {
+        ".MuiStepLabel-label": {
+            fontSize: "1rem",
+        },
+    },
 }));

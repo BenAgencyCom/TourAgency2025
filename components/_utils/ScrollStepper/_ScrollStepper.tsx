@@ -5,15 +5,22 @@ import type { FunctionComponent } from "react";
 // Material UI Components
 import StepLabel from "@mui/material/StepLabel";
 // Styled components
-import StepperElement from "./StepperElement";
-import StepperWrapper from "./StepperWrapper";
+import StepperElement from "./styled_components/StepperElement";
+import StepperWrapper from "./styled_components/StepperWrapper";
 
-const ScrollStepper: FunctionComponent = () => {
-    const steps = ["Landing", "Description", "Landmarks", "Reviews"];
+interface ScrollStepperProps {
+    steps: {
+        title: string;
+        elementID: string;
+    }[];
+}
+
+const ScrollStepper: FunctionComponent<ScrollStepperProps> = (props) => {
     const [activeStep, setActiveStep] = useState<number>(0);
     const [ultimateIndex, setUltimateIndex] = useState<number | null>(null);
 
-    const sectionsIDsToObseve = useMemo<string[]>(() => ["landing-wrapper", "description", "landmarks", "reviews"], []);
+    const steps = useMemo<string[]>(() => props.steps.map((el) => el.title), [props.steps]);
+    const sectionsIDsToObseve = useMemo<string[]>(() => props.steps.map((el) => el.elementID), [props.steps]);
 
     const onStepperClick = (index: number) => {
         if (ultimateIndex !== null) return;

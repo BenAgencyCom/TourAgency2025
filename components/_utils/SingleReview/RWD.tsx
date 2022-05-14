@@ -34,7 +34,7 @@ export default {
                 height: "90px",
                 margin: "0 0 10px 0",
             },
-            ".landmark-review-score": {
+            ".score": {
                 fontSize: "2.5rem",
                 height: "90px",
                 width: "90px",

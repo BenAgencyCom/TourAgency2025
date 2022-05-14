@@ -39,6 +39,9 @@ const Destination: FunctionComponent<DestinationProps> = (props) => {
             id="destination-wrapper"
             background="transparent"
             mobileIcon={<Map></Map>}
+            sx={{
+                mb: "200px",
+            }}
         >
             <FlexBox horizontal="between">
                 <DestinationPicture

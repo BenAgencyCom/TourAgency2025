@@ -6,7 +6,6 @@ import ContentContainter from "@/components/_utils/styled/ContentContainter";
 import landing from "./landing";
 import landmarks from "./landmarks";
 import general_stats from "./general_stats";
-import left_side_stepper from "./left_side_stepper";
 
 export default styled(ContentContainter)(({ theme }) => ({
     // Some general and frequently toggled properties
@@ -15,5 +14,4 @@ export default styled(ContentContainter)(({ theme }) => ({
     ...(landing as any),
     ...(landmarks as any),
     ...(general_stats as any),
-    ...(left_side_stepper as any),
 }));
