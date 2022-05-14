@@ -23,6 +23,59 @@ const InformationWrapper = styled("div")(({ theme }) => ({
     width: "calc(40% - 20px)",
 }));
 
+const DestinationWrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    justifyContent: "space-between",
+    ["@media (max-width:800px)"]: {
+        flexDirection: "column",
+        ".destination-picture": {
+            height: "400px",
+            width: "100%",
+        },
+        ".destination-information-wrapper": {
+            width: "100%",
+            ".background-map": {
+                height: "300px",
+                order: 1,
+                img: {
+                    objectPosition: "center !important",
+                },
+            },
+            ".read-more": {
+                order: 2,
+            },
+        },
+    },
+    ["@media (max-width:600px)"]: {
+        ".destination-picture": {
+            borderRadius: "0",
+        },
+        ".destination-information-wrapper": {
+            padding: "0 10px",
+            ".background-map": {
+                height: "250px",
+            },
+        },
+    },
+    ["@media (max-width:500px)"]: {
+        ".destination-picture": {
+            height: "350px",
+        },
+        ".destination-information-wrapper": {
+            ".background-map": {
+                height: "200px",
+            },
+        },
+    },
+    ["@media (max-width:400px)"]: {
+        ".destination-information-wrapper": {
+            ".background-map": {
+                height: "150px",
+            },
+        },
+    },
+}));
+
 interface DestinationProps {
     destination: I_Destination;
 }
@@ -41,9 +94,12 @@ const Destination: FunctionComponent<DestinationProps> = (props) => {
             mobileIcon={<Map></Map>}
             sx={{
                 mb: "200px",
+                ["@media (max-width:800px)"]: {
+                    mb: "0px",
+                },
             }}
         >
-            <FlexBox horizontal="between">
+            <DestinationWrapper>
                 <DestinationPicture
                     city={city} //
                     country={country}
@@ -58,7 +114,7 @@ const Destination: FunctionComponent<DestinationProps> = (props) => {
                     <Typography variant="body2">{shortDescription}</Typography>
                     <ReadMore url={`/destinations/${slug}`}></ReadMore>
                 </InformationWrapper>
-            </FlexBox>
+            </DestinationWrapper>
         </Section>
     );
 };
