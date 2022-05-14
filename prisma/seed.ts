@@ -81,7 +81,7 @@ class PrismaSeeder extends ConsolePrettier {
         await this.seedModel("destinationReview", this.destinationReviewData);
         await this.seedModel("landmarkReview", this.landmarksReviews);
         await this.seedModel("destinationReviewLike", this.destinationReviewLike);
-        // await this.seedModel("landmarkReviewLike", this.landmarkReviewLike);
+        await this.seedModel("landmarkReviewLike", this.landmarkReviewLike);
 
         await this.uploadAllImages();
     }

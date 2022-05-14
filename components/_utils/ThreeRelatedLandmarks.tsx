@@ -13,22 +13,26 @@ import Map from "@mui/icons-material/Map";
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 interface LandmarksProps {
-    country: string;
+    relatedPlace: string;
     landmarks: AdditionalLandmark[];
+    header: {
+        text: string;
+    };
+    id: string;
 }
 
 const Landmarks: FunctionComponent<LandmarksProps> = (props) => {
-    const { country, landmarks } = props;
+    const { relatedPlace, landmarks, id } = props;
     return (
         <Section
-            id="similar-landmarks"
+            id={props.id}
             background={colorTheme.palette.background.lightPaper}
             mobileIcon={<Map></Map>}
             header={{
-                text: "Astonishing venues", //
-                buttonMsg: `More in ${country}`,
-                onClick: () => {},
+                text: props.header.text, //
+                buttonMsg: `More in ${relatedPlace}`,
                 biggerHeader: "Landmarks",
+                url: `/landmarks?searchingPhrase=${relatedPlace}`,
             }}
             sx={{
                 paddingBottom: "300px",

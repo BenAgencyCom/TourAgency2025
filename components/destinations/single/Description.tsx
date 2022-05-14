@@ -2,18 +2,19 @@
 import colorTheme from "@/colorTheme";
 // Types
 import type { FunctionComponent } from "react";
+import type { DestinationContentField } from "@/@types/Description";
 // Other components
 import Section from "@/components/_utils/Section";
 import Description from "@/components/_utils/Description";
 // Material UI Icons
 import MenuBook from "@mui/icons-material/MenuBook";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 
-const DestinationWrapper: FunctionComponent = () => {
-    const { description, folder } = useAppSelector((state) => state.singleDestination.data);
-    const imageLoader = (url: string): string => `/upload/destinations/${folder}/description/${url}/1080p.jpg`;
+interface DescriptionProps {
+    folder: string;
+    description: DestinationContentField[];
+}
 
+const DestinationWrapper: FunctionComponent<DescriptionProps> = (props) => {
     return (
         <Section
             id="description"
@@ -25,8 +26,8 @@ const DestinationWrapper: FunctionComponent = () => {
             }}
         >
             <Description
-                data={description} //
-                imageLoader={imageLoader}
+                data={props.description} //
+                imageLoader={(url: string): string => `/upload/destinations/${props.folder}/description/${url}/1080p.jpg`}
             ></Description>
         </Section>
     );

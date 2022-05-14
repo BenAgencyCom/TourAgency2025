@@ -1,15 +1,78 @@
 // Tools
 import { prisma } from "@/prisma/db";
+import { styled } from "@mui/system";
+import { landmarkPictureURL } from "@/utils/client/imageURLs";
 import SingleLandmarkAPI from "@/utils/api/pages/landmarks/SingleLandmarkAPI";
 // Types
 import type { FunctionComponent } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { DataFromAPI } from "@/@types/pages/landmarks/SingleLandmark";
+// Other components
+import Reviews from "@/components/landmarks/single/Reviews";
+import ScrollStepper from "@/components/_utils/ScrollStepper";
+import ThreeRelatedLandmarks from "@/components/_utils/ThreeRelatedLandmarks";
+import ParallaxLanding from "@/components/_utils/ParallaxLanding";
+import Destination from "@/components/landmarks/single/Destination";
+import Description from "@/components/landmarks/single/Description";
+
+const Content = styled("div")(({ theme }) => ({
+    width: "100vw",
+    position: "relative",
+    marginTop: "100vh",
+    paddingTop: "1px",
+    background: theme.palette.background.paper,
+    display: "flex",
+    color: theme.palette.text.primary,
+    flexDirection: "column",
+    "&::before": {
+        content: "''",
+        position: "absolute",
+        top: "-20px",
+        width: "100%",
+        height: "50px",
+        background: theme.palette.background.paper,
+        transform: "rotate(-1deg)",
+    },
+}));
 
 const SingleLandmark: FunctionComponent<DataFromAPI> = (props) => {
+    const { landmark, additionalLandmarks, reviews, reviewsInTotal } = props;
     return (
         <>
-            <span>{JSON.stringify(props)}</span>
+            <ParallaxLanding
+                headers={{
+                    main: landmark.title,
+                    top: landmark.destination.city,
+                    bottom: landmark.destination.country,
+                }}
+                text={props.landmark.shortDescription}
+                imagesURLs={{
+                    highResolution: landmarkPictureURL(landmark.folder, "1080p", "thumbnail"),
+                    lowResolution: landmarkPictureURL(landmark.folder, "360p", "thumbnail"),
+                }}
+            ></ParallaxLanding>
+            <ScrollStepper
+                steps={[
+                    { title: "Landing", elementID: "landing-wrapper" },
+                    { title: "Landmarks", elementID: "similar-landmarks" },
+                    { title: "Destination", elementID: "destination-wrapper" },
+                    { title: "Description", elementID: "description-wrapper" },
+                    { title: "Reviews", elementID: "reviews" },
+                ]}
+            ></ScrollStepper>
+            <Content>
+                <Destination destination={landmark.destination}></Destination>
+                <Description description={landmark.description} folder={landmark.folder}></Description>
+                <ThreeRelatedLandmarks
+                    id="similar-landmarks"
+                    landmarks={additionalLandmarks} //
+                    relatedPlace={landmark.destination.city}
+                    header={{
+                        text: "More beautiful places",
+                    }}
+                ></ThreeRelatedLandmarks>
+                <Reviews reviews={reviews} reviewsInTotal={reviewsInTotal} slug={landmark.slug}></Reviews>
+            </Content>
         </>
     );
 };

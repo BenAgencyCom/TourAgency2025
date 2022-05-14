@@ -13,8 +13,8 @@ import Stats from "@/components/destinations/single/Stats";
 import ScrollStepper from "@/components/_utils/ScrollStepper";
 import Reviews from "@/components/destinations/single/Reviews";
 import ParallaxLanding from "@/components/_utils/ParallaxLanding";
-import Landmarks from "@/components/destinations/single/Landmarks";
 import Description from "@/components/destinations/single/Description";
+import ThreeRelatedLandmarks from "@/components/_utils/ThreeRelatedLandmarks";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { setData, setRatings, setTotalReviews } from "@/redux/slices/singleDestination";
@@ -47,7 +47,7 @@ interface SingleDestinationProps {
 }
 
 const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => {
-    const { scrollY, width } = useAppSelector((state) => state.windowSizes);
+    const { scrollY } = useAppSelector((state) => state.windowSizes);
 
     const { destination } = props;
 
@@ -86,8 +86,15 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
 
                 <Content sx={{ "&::before": { opacity: scrollY ? 1 : 0 } }}>
                     <Stats></Stats>
-                    <Description></Description>
-                    <Landmarks></Landmarks>
+                    <Description description={destination.description} folder={destination.folder}></Description>
+                    <ThreeRelatedLandmarks
+                        id="landmarks"
+                        landmarks={destination.landmarks as any} //
+                        relatedPlace={destination.city}
+                        header={{
+                            text: "More beautiful places",
+                        }}
+                    ></ThreeRelatedLandmarks>
                     <Reviews></Reviews>
                 </Content>
             </RWDContentWrapper>

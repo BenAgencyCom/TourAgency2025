@@ -63,7 +63,7 @@ export default [
         continent: "Europe",
         country: "Poland",
         countryCode: "pl",
-        folder: "krakow",
+        folder: "kraków",
         city_lowercase: "krakow",
         country_lowercase: "poland",
         _imagesDir: "destinations/krakow",
