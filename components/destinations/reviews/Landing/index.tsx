@@ -1,10 +1,10 @@
-// Tools
-import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { ReviewType } from "@prisma/client";
 import type { Destination } from "@/@types/pages/destinations/Reviews";
 import type { PointsDistribution, Statistics } from "@/@types/pages/api/ReviewsAPI";
+// Material UI Components
+import Typography from "@mui/material/Typography";
 // Other components
 import Stars from "./Stars";
 import Header from "./Header";
@@ -15,11 +15,7 @@ import PointsDistributionComponentSkeleton from "@/components/_utils/PointsDistr
 import ReadMore from "@/components/_utils/ReadMore";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
-
-const LeftSideContent = styled(FlexBox)(({ theme }) => ({
-    paddingRight: "100px",
-    flexGrow: 1,
-}));
+import { LeftSideContent } from "@/components/_utils/styled/pages/BulkReviews";
 
 interface LandingProps {
     statistics: Statistics | null;
@@ -41,11 +37,12 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
 
     return (
         <FlexBox horizontal="between" sx={{ mt: "50px", width: "100%", mb: "100px" }}>
-            <LeftSideContent column vertical="evenly">
+            <LeftSideContent>
                 <FlexBox column horizontal="start">
                     <LocalizationBreadCrumbs crumbs={[continent, country, city]} />
-                    <Header main={props.destination.city} background="Reviews" />
+                    <Header main={props.destination.city} backgroundHeader="Reviews" />
                     <Stars score={props.statistics?.averageScore} />
+                    <Typography variant="body2">{props.destination.shortDescription}</Typography>
                 </FlexBox>
 
                 {(() => {

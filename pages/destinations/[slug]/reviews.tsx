@@ -48,6 +48,7 @@ export const getStaticProps: GetStaticProps<{ destination: Destination }, { slug
                 countryCode: true,
                 continent: true,
                 folder: true,
+                shortDescription: true,
             },
         });
         if (!destination) throw new Error();

@@ -20,9 +20,6 @@ const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
     //
     hr: {
         borderColor: theme.palette.background.lightPaper,
-        ["@media (max-width:700px)"]: {
-            display: "none",
-        },
     },
     p: {
         userSelect: "select",
@@ -48,7 +45,6 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     return (
         <SingleReviewWrapper column>
             <SingleReviewHeader review={review} color={color}></SingleReviewHeader>
-            <Divider flexItem sx={{ my: "10px" }}></Divider>
             <SingleReviewTags tags={review.tags} color={color}></SingleReviewTags>
             <Typography variant="body2">{review.review}</Typography>
 

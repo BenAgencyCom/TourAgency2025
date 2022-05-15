@@ -7,4 +7,5 @@ export interface Destination {
     country: _Destination["country"];
     continent: _Destination["continent"];
     folder: _Destination["folder"];
+    shortDescription: _Destination["shortDescription"];
 }

@@ -1,5 +1,3 @@
-// Tools
-import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { ReviewType } from "@prisma/client";
@@ -17,11 +15,7 @@ import PointsDistributionComponentSkeleton from "@/components/_utils/PointsDistr
 import ReadMore from "@/components/_utils/ReadMore";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
-
-const LeftSideContent = styled(FlexBox)(({ theme }) => ({
-    paddingRight: "100px",
-    width: "calc(100% - 750px)",
-}));
+import { LeftSideContent, Wrapper } from "@/components/_utils/styled/pages/BulkReviews";
 
 interface LandingProps {
     statistics: Statistics | null;
@@ -42,11 +36,11 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
     const { continent, country, city } = props.landmark.destination;
 
     return (
-        <FlexBox horizontal="between" sx={{ mt: "50px", width: "100%", mb: "100px" }}>
-            <LeftSideContent column vertical="evenly">
+        <Wrapper>
+            <LeftSideContent>
                 <FlexBox column horizontal="start">
                     <LocalizationBreadCrumbs crumbs={[continent, country, city]} />
-                    <Header main={props.landmark.title} background="Reviews" />
+                    <Header main={props.landmark.title} backgroundHeader="Reviews" />
                     <Stars score={props.statistics?.averageScore} />
                     <Typography variant="body2">{props.landmark.shortDescription}</Typography>
                 </FlexBox>
@@ -67,7 +61,7 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
             </LeftSideContent>
 
             <LandmarkPicture folder={props.landmark.folder} />
-        </FlexBox>
+        </Wrapper>
     );
 };
 
