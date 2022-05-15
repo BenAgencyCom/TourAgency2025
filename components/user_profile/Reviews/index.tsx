@@ -8,8 +8,6 @@ import type { FunctionComponent } from "react";
 import type { ReviewType } from "@prisma/client";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { LandmarkReview, DestinationReview } from "@/@types/pages/UserProfile";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Material UI Icons
 import Star from "@mui/icons-material/Star";
 import Flag from "@mui/icons-material/Flag";
@@ -19,7 +17,8 @@ import ReviewsList from "./ReviewsList";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 // Styled Components
-import Loading from "@/components/_utils/Loading";
+import DestinationReviewSkeletonLoading from "./DestinationReview/SkeletonLoading";
+import LandmarkReviewSkeletonLoading from "@/components/_utils/SingleLandmark/SkeletonLoading";
 
 const GeneralWrapper = styled("div")(({ theme }) => ({
     zIndex: "1",
@@ -49,10 +48,12 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
     const [reviews, setReviews] = useState<LandmarkReview[] | DestinationReview[]>([]);
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
     const [fetchedReviewsType, setFetchedReviewsType] = useState<"landmark" | "destination" | null>(null);
+    const [currentlyFetchingReviewsType, setCurrentlyFetchingReviewsType] = useState<"landmark" | "destination" | null>(null);
 
     const queryForData = async (urlQueries: string) => {
         const reviewingType = (urlQueries.split("type=") as any)[1].split("&")[0] as "landmark" | "destination";
         const PER_PAGE = reviewingType === "destination" ? 4 : 9;
+        setCurrentlyFetchingReviewsType(reviewingType);
 
         try {
             setLoading(reviewingType);
@@ -129,7 +130,32 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
                 <ReviewsWrapper>
                     {(() => {
                         if (loading) {
-                            return <Loading sx={{ top: "30%" }} />;
+                            if (currentlyFetchingReviewsType === "destination") {
+                                return (
+                                    <>
+                                        <div style={{ height: "100px", width: "100%" }} />
+                                        <DestinationReviewSkeletonLoading sx={{ display: "none" }} />
+                                        <DestinationReviewSkeletonLoading />
+                                        <DestinationReviewSkeletonLoading />
+                                        <DestinationReviewSkeletonLoading />
+                                        <DestinationReviewSkeletonLoading />
+                                    </>
+                                );
+                            } else {
+                                return (
+                                    <>
+                                        <div style={{ height: "100px", width: "100%" }} />
+                                        <LandmarkReviewSkeletonLoading sx={{ display: "none" }} />
+                                        <LandmarkReviewSkeletonLoading sx={{ display: "none" }} />
+                                        <LandmarkReviewSkeletonLoading />
+                                        <LandmarkReviewSkeletonLoading />
+                                        <LandmarkReviewSkeletonLoading />
+                                        <LandmarkReviewSkeletonLoading />
+                                        <LandmarkReviewSkeletonLoading />
+                                        <LandmarkReviewSkeletonLoading />
+                                    </>
+                                );
+                            }
                         } else {
                             if (props.thereIsNoDataAtAll || paginationProperties?.recordsInTotal === 0) {
                                 return (
