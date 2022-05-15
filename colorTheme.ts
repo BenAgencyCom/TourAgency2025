@@ -112,10 +112,29 @@ export default responsiveFontSizes(
                     h4: {
                         fontWeight: 700,
                         letterSpacing: "-1px",
+                        fontSize: "2rem !important",
                     },
                     h2: {
                         fontWeight: 900,
                         letterSpacing: "-2px",
+                    },
+                    h1: {
+                        lineHeight: "90px",
+                        fontSize: "5.5rem",
+                        fontWeight: "900",
+                        letterSpacing: "-2px",
+                        ["@media (max-width:1500px)"]: {
+                            fontSize: "5rem",
+                            lineHeight: "70px",
+                        },
+                        ["@media (max-width:700px)"]: {
+                            fontSize: "4rem",
+                            lineHeight: "55px",
+                        },
+                        ["@media (max-width:500px)"]: {
+                            fontSize: "3.5rem",
+                            lineHeight: "50px",
+                        },
                     },
                     body1: {
                         fontSize: "1.5rem",

@@ -1,8 +1,8 @@
+// Tools
+import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { User, PointsDistribution, LatestReview } from "@/@types/pages/UserProfile";
-// Material UI Components
-import Typography from "@mui/material/Typography";
 // Other Components
 import UserAvatar from "./Avatar";
 import ListPoint from "./ListPoint";
@@ -12,6 +12,29 @@ import ReviewScore from "@/components/_utils/ReviewScore";
 import PointsDistributionComponent from "@/components/_utils/PointsDistribution";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
+
+const Wrapper = styled(FlexBox)(({ theme }) => ({
+    marginTop: "50px",
+    cursor: "default",
+    position: "relative",
+    zIndex: "1",
+    ["@media (max-width:1000px)"]: {
+        flexDirection: "column",
+        alignItems: "center",
+    },
+}));
+
+const Information = styled(FlexBox)(({ theme }) => ({
+    flexGrow: "1",
+    marginLeft: "100px",
+    ["@media (max-width:1300px)"]: {
+        marginLeft: "50px",
+    },
+    ["@media (max-width:1000px)"]: {
+        marginLeft: "0",
+        width: "100%",
+    },
+}));
 
 interface UserProfileLanding {
     user: User;
@@ -25,14 +48,14 @@ const UserProfileLanding: FunctionComponent<UserProfileLanding> = (props) => {
     const { latestReview } = props;
 
     return (
-        <FlexBox horizontal="between" sx={{ mt: "50px", cursor: "default", position: "relative", zIndex: "1" }}>
+        <Wrapper horizontal="between">
             <UserAvatar avatar={avatar as string}></UserAvatar>
 
-            <FlexBox column sx={{ flexGrow: `1`, ml: "100px" }}>
+            <Information column>
                 <Header>{`${name} ${surname}`}</Header>
                 <ListPoint label="Age">{age}</ListPoint>
                 <ListPoint label="Country">
-                    <Flag country={country} countryCode={countryCode} sx={{ height: "28px", width: "50px" }}></Flag>
+                    <Flag country={country} countryCode={countryCode} sx={{ height: "28px !important", width: "50px !important" }}></Flag>
                 </ListPoint>
                 <ListPoint label="Member since">{memberSince.slice(0, 10)}</ListPoint>
                 <ListPoint label="Reviews in total">{reviewsInTotal}</ListPoint>
@@ -50,8 +73,8 @@ const UserProfileLanding: FunctionComponent<UserProfileLanding> = (props) => {
                     reviewsInTotal={reviewsInTotal}
                     sx={{ mt: "20px" }}
                 ></PointsDistributionComponent>
-            </FlexBox>
-        </FlexBox>
+            </Information>
+        </Wrapper>
     );
 };
 

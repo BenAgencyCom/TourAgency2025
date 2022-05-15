@@ -2,23 +2,21 @@
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
+// Material UI Components
+import Typography from "@mui/material/Typography";
 // Styled components
 import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 
 const Wrapper = styled("div")(({ theme }) => ({
     position: "relative",
     marginBottom: "30px",
-    h3: {
-        margin: "0",
-        fontSize: "5rem",
-    },
 }));
 
 const Header: FunctionComponent = (props) => {
     return (
         <Wrapper>
             <BackgroundHeader fontSize="8rem">reviewer</BackgroundHeader>
-            <h3>{props.children}</h3>
+            <Typography variant="h1">{props.children}</Typography>
         </Wrapper>
     );
 };

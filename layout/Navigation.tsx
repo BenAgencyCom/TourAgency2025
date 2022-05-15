@@ -31,7 +31,6 @@ const Navigation: FunctionComponent<{ buttonStyles: Record<string, unknown> }> =
     // Redux
     const { isAuthenticated, userData } = useAppSelector((state) => state.authentication);
     const width = useAppSelector((state) => state.windowSizes.width);
-
     const navigationWrapperStyles = () => {
         if (displayMenu && width <= 1000) {
             return {

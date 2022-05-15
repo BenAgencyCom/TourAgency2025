@@ -21,11 +21,20 @@ import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 // Styled Components
 import Loading from "@/components/_utils/Loading";
 
-const LandmarksWrapper = styled("div")(({ theme }) => ({
+const GeneralWrapper = styled("div")(({ theme }) => ({
+    zIndex: "1",
+    marginTop: "200px",
+    position: "relative",
+    paddingBottom: "100px",
+    ["@media (max-width:1000px)"]: {
+        marginTop: "100px",
+    },
+}));
+
+const ReviewsWrapper = styled("div")(({ theme }) => ({
     display: "flex",
     width: "100%",
     flexWrap: "wrap",
-    minHeight: "700px",
 }));
 
 interface ReviewsWrapperProps {
@@ -61,7 +70,7 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
     };
 
     return (
-        <Box sx={{ mt: "200px", position: "relative", zIndex: "1", pb: "100px" }}>
+        <GeneralWrapper>
             <Header background={`${"dasd"}s`} id="reviews-header">
                 Reviews
             </Header>
@@ -117,7 +126,7 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
                         : undefined
                 }
             >
-                <LandmarksWrapper>
+                <ReviewsWrapper>
                     {(() => {
                         if (loading) {
                             return <Loading sx={{ top: "30%" }} />;
@@ -157,9 +166,9 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
                             }
                         }
                     })()}
-                </LandmarksWrapper>
+                </ReviewsWrapper>
             </URLQueriesManager>
-        </Box>
+        </GeneralWrapper>
     );
 };
 

@@ -26,6 +26,10 @@ export default styled("span")<{ fontSize?: string }>(({ theme, ...props }) => {
             fontSize: _applyFontSize("6rem"),
             letterSpacing: "8px",
         },
+        ["@media (max-width:1080px)"]: {
+            fontSize: _applyFontSize("5.5rem"),
+            letterSpacing: "6px",
+        },
         ["@media (max-width:1000px)"]: {
             letterSpacing: "4px",
         },

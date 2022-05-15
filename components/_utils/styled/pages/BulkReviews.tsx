@@ -60,28 +60,12 @@ export const PictureWrapper = styled("div")(({ theme }) => ({
     },
 }));
 
-export const MainHeader = styled("h1")(({ theme }) => ({
-    lineHeight: "90px",
-    fontSize: "6rem",
-    fontWeight: "900",
+export const MainHeader = styled("div")(({ theme }) => ({
     margin: "10px 0 0 0 ",
-    letterSpacing: "-2px",
     position: "relative",
-    "span.main-text": {
+    cursor: "default",
+    ".main-text": {
         position: "relative",
         zIndex: 2,
-    },
-    cursor: "default",
-    ["@media (max-width:1500px)"]: {
-        fontSize: "5rem",
-        lineHeight: "70px",
-    },
-    ["@media (max-width:700px)"]: {
-        fontSize: "4rem",
-        lineHeight: "55px",
-    },
-    ["@media (max-width:500px)"]: {
-        fontSize: "3.5rem",
-        lineHeight: "50px",
     },
 }));

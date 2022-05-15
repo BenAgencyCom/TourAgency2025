@@ -68,9 +68,9 @@ const ReviewInformation: FunctionComponent<ReviewInformationProps> = (props) => 
                 if (!isExtended) {
                     return (
                         <Typography variant="body2">
-                            {review.slice(0, 200)}
+                            {review.slice(0, 180)}
                             {(() => {
-                                if (review.length > 200) {
+                                if (review.length > 180) {
                                     return (
                                         <>
                                             ...
@@ -83,7 +83,7 @@ const ReviewInformation: FunctionComponent<ReviewInformationProps> = (props) => 
                     );
                 } else {
                     return (
-                        <ScrollableBox maxHeight="448px" sx={{ paddingLeft: "0 !important" }}>
+                        <ScrollableBox maxHeight="500px" sx={{ paddingLeft: "0 !important" }}>
                             <Typography variant="body2">
                                 {review}
                                 <ExtendCollapseButton onClick={() => props.extendReview.setValue((val) => !val)}>Collapse</ExtendCollapseButton>

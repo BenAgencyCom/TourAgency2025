@@ -97,9 +97,15 @@ const ReviewInformation: FunctionComponent<ReviewInformationProps> = (props) => 
                 }
             })()}
 
-            <span className="landmark-type">
-                <Balance></Balance>
-            </span>
+            {(() => {
+                if (!props.extendReview.value) {
+                    return (
+                        <span className="landmark-type">
+                            <Balance></Balance>
+                        </span>
+                    );
+                }
+            })()}
         </FlexBox>
     );
 };

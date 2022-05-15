@@ -64,6 +64,7 @@ export default {
         width: "100%",
         margin: "60px 0 0 0",
         height: "auto",
+        minHeight: "550px",
         ",&:nth-of-type(1)": {
             marginTop: "0px",
         },
@@ -81,6 +82,7 @@ export default {
         },
     },
     ["@media (max-width:700px)"]: {
+        minHeight: "600px",
         ".single-landmark-picture": {
             height: "350px",
         },
@@ -90,11 +92,16 @@ export default {
         },
     },
     ["@media (max-width:600px)"]: {
+        minHeight: "550px",
         ".single-landmark-picture": {
             height: "300px",
         },
     },
+    ["@media (max-width:550px)"]: {
+        minHeight: "600px",
+    },
     ["@media (max-width:500px)"]: {
+        minHeight: "550px",
         ".single-landmark-picture": {
             height: "250px",
         },

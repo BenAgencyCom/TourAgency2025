@@ -13,7 +13,6 @@ import Loading from "@/components/_utils/Loading";
 
 const Wrapper = styled(FlexBox)(({ theme }) => ({
     position: "relative",
-    minHeight: "1000px",
     flexWrap: "wrap",
     alignItems: "flex-start",
     margin: "0 0 60px 0 ",

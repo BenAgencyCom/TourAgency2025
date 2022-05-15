@@ -77,7 +77,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                                 sx={{
                                     position: "absolute", //
                                     top: "20px",
-                                    left: extendReview ? "10px" : "20px",
+                                    left: "20px",
                                     zIndex: "10",
                                     fontSize: "3rem",
                                     width: "90px",
