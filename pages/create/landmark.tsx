@@ -1,6 +1,7 @@
 // Tools
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
@@ -18,10 +19,16 @@ interface CreateLandmarkPageProps {
 
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
     const [activeStep, setActiveStep] = useState<number>(0);
+    const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
+
+    const upload = () => alert("uploading");
+
     return (
         <MainWrapper
             steps={["Destination", "Thumbnail", "General information", "Description", "Summary"]} //
-            activeSectionIndex={activeStep}
+            activeStep={stated(activeStep, setActiveStep)}
+            disableContinueButton={disableContinueButton}
+            alternativeContinueCallback={activeStep === 4 ? upload : undefined}
         >
             {(() => {
                 switch (activeStep) {

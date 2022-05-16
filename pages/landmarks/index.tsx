@@ -121,6 +121,8 @@ const BulkLandmarks: FunctionComponent = () => {
                                     <>
                                         {/* in order to make some phony margin */}
                                         <div style={{ height: "100px", width: "100%" }} />
+                                        <SkeletonLoading sx={{ display: "none" }} />
+                                        <SkeletonLoading sx={{ display: "none" }} />
                                         <SkeletonLoading />
                                         <SkeletonLoading />
                                         <SkeletonLoading />

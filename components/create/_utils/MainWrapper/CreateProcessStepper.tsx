@@ -2,6 +2,7 @@
 import { styled, alpha } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI Components
 import Step from "@mui/material/Step";
 import Stepper from "@mui/material/Stepper";
@@ -41,16 +42,20 @@ const StyledStepLabel = styled(StepLabel)(({ theme }) => ({
 
 interface CreateProcessStepperProps {
     steps: string[];
-    active: number;
+    activeStep: StatedDataField<number>;
+    disableContinueButton: boolean;
 }
 
 const CreateProcessStepper: FunctionComponent<CreateProcessStepperProps> = (props) => {
+    const { activeStep, disableContinueButton } = props;
+
     return (
         <Stepper>
             {props.steps.map((step, index) => {
+                const isClickable: boolean = !disableContinueButton && index <= activeStep.value;
                 return (
-                    <Step key={index} active={index === props.active}>
-                        <StyledStepLabel className={index <= props.active ? "clickable" : ""}>{step}</StyledStepLabel>
+                    <Step key={index} active={index === activeStep.value} onClick={() => isClickable && activeStep.setValue(index)}>
+                        <StyledStepLabel className={isClickable ? "clickable" : ""}>{step}</StyledStepLabel>
                     </Step>
                 );
             })}
