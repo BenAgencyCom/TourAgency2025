@@ -43,7 +43,7 @@ const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
     const { disableContinueButton, activeStep, children, steps, alternativeContinueCallback } = props;
 
     return (
-        <Wrapper>
+        <Wrapper id="create-content-wrapper">
             <div className="main-wrapper-content">
                 <CreateProcessStepper steps={steps} activeStep={activeStep} disableContinueButton={disableContinueButton} />
                 <div className="children-wrapper">{children}</div>
