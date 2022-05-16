@@ -8,7 +8,7 @@ const GeneralRoutes: FunctionComponent = () => {
         <>
             <SingleRedirect url="/destinations">Destinations</SingleRedirect>
             <SingleRedirect url="/landmarks">Sights</SingleRedirect>
-            <SingleRedirect url="/">Gorzen</SingleRedirect>
+            <SingleRedirect url="/create/landmark">Gorzen</SingleRedirect>
         </>
     );
 };
