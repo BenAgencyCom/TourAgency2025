@@ -25,17 +25,9 @@ export default {
     "&:nth-of-type(1),&:nth-of-type(4),&:nth-of-type(7),&:nth-of-type(10),&:nth-of-type(13),&:nth-of-type(16),&:nth-of-type(19),&:nth-of-type(22),&:nth-of-type(25),&:nth-of-type(28)": {
         marginLeft: "0px",
     },
-    ["@media (max-width:1600px)"]: {
-        h3: {
-            fontSize: "2.2rem",
-        },
-    },
+
     ["@media (max-width:1500px)"]: {
         height: "500px",
-        h3: {
-            fontSize: "2rem",
-            margin: "0 0 5px 0",
-        },
         p: {
             fontSize: "1.2rem",
         },
@@ -45,9 +37,6 @@ export default {
         ".single-landmark-picture": {
             height: "200px",
         },
-        h3: {
-            fontSize: "1.9rem",
-        },
         p: {
             fontSize: "1.1rem",
         },
@@ -55,9 +44,6 @@ export default {
     ["@media (max-width:1200px)"]: {
         "div.localization-breadcrumbs": {
             fontSize: "1.1rem",
-        },
-        h3: {
-            fontSize: "1.7rem",
         },
     },
     ["@media (max-width:1000px)"]: {
@@ -71,10 +57,6 @@ export default {
         ".single-landmark-picture": {
             height: "500px",
         },
-        h3: {
-            fontSize: "3rem ",
-            margin: "0 0 10px 0",
-        },
     },
     ["@media (max-width:800px)"]: {
         ".single-landmark-picture": {
@@ -85,10 +67,6 @@ export default {
         minHeight: "600px",
         ".single-landmark-picture": {
             height: "350px",
-        },
-        h3: {
-            fontSize: "2.5rem ",
-            lineHeight: "36px",
         },
     },
     ["@media (max-width:600px)"]: {
@@ -112,12 +90,6 @@ export default {
             svg: {
                 fontSize: "4rem",
             },
-        },
-    },
-    ["@media (max-width:400px)"]: {
-        h3: {
-            fontSize: "2rem ",
-            lineHeight: "30px",
         },
     },
 } as SxProps;

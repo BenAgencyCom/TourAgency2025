@@ -20,7 +20,6 @@ import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import SkeletonLoading from "@/components/_utils/SingleLandmark/SkeletonLoading";
 // Styled Components
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
-import Loading from "@/components/_utils/Loading";
 
 const LandmarksWrapper = styled("div")(({ theme }) => ({
     display: "flex",

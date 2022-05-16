@@ -1,5 +1,5 @@
 import { alpha } from "@mui/system";
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 declare module "@mui/material/styles/createPalette" {
     interface TypeBackground {
@@ -28,131 +28,156 @@ declare module "@mui/material/FormHelperText" {
     }
 }
 
-export default responsiveFontSizes(
-    createTheme({
-        palette: {
-            mode: "dark",
-            primary: {
-                main: "#fc8e77",
-                dark: "#b06353",
-            },
-            secondary: {
-                main: "#052946",
-                dark: "#375269",
-                contrastText: "#fff",
-            },
-            neutral: {
-                main: "#222f3e",
-                contrastText: "#fff",
-            },
-            error: {
-                main: "#D62246",
-            },
-            success: {
-                main: "#388E3C",
-            },
-            warning: {
-                main: "#F57C00",
-            },
-            background: {
-                paper: "#fed2c7",
-                default: "#fff5f3",
-                lightPaper: "#fee8e3",
-            },
-            text: {
-                primary: "#052946",
+export default createTheme({
+    palette: {
+        mode: "dark",
+        primary: {
+            main: "#fc8e77",
+            dark: "#b06353",
+        },
+        secondary: {
+            main: "#052946",
+            dark: "#375269",
+            contrastText: "#fff",
+        },
+        neutral: {
+            main: "#222f3e",
+            contrastText: "#fff",
+        },
+        error: {
+            main: "#D62246",
+        },
+        success: {
+            main: "#388E3C",
+        },
+        warning: {
+            main: "#F57C00",
+        },
+        background: {
+            paper: "#fed2c7",
+            default: "#fff5f3",
+            lightPaper: "#fee8e3",
+        },
+        text: {
+            primary: "#052946",
+        },
+    },
+    typography: {
+        // Used for instance in `InputWithIcon` and `SelectWithIcon` components
+        subtitle2: {
+            fontSize: "1.2rem",
+            ["@media (max-width:800px)"]: {
+                fontSize: "1.rem",
             },
         },
-        typography: {
-            // Used for instance in `InputWithIcon` and `SelectWithIcon` components
-            subtitle2: {
-                fontSize: "1.2rem",
-                ["@media (max-width:800px)"]: {
-                    fontSize: "1.rem",
+    },
+    components: {
+        MuiDivider: {
+            styleOverrides: {
+                root: {
+                    background: alpha("#052946", 0.08),
                 },
             },
         },
-        components: {
-            MuiDivider: {
-                styleOverrides: {
-                    root: {
-                        background: alpha("#052946", 0.08),
-                    },
+        MuiSelect: {
+            styleOverrides: {
+                select: {
+                    color: "#fff",
                 },
             },
-            MuiSelect: {
-                styleOverrides: {
-                    select: {
-                        color: "#fff",
-                    },
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                input: {
+                    color: "#fff",
                 },
             },
-            MuiInputBase: {
-                styleOverrides: {
-                    input: {
-                        color: "#fff",
-                    },
+        },
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    fontSize: "1rem",
+                    letterSpacing: "1px",
+                    fontWeight: 300,
+                    textTransform: "capitalize",
+                    background: "#052946",
+                    padding: "5px 10px",
+                    cursor: "default",
                 },
             },
-            MuiTooltip: {
-                styleOverrides: {
-                    tooltip: {
-                        fontSize: "1rem",
-                        letterSpacing: "1px",
-                        fontWeight: 300,
-                        textTransform: "capitalize",
-                        background: "#052946",
-                        padding: "5px 10px",
-                        cursor: "default",
+        },
+        MuiTypography: {
+            styleOverrides: {
+                h4: {
+                    fontWeight: 700,
+                    letterSpacing: "-1px",
+                    fontSize: "2rem !important",
+                },
+                h3: {
+                    fontWeight: 900,
+                    letterSpacing: "-1px",
+                    margin: "0 0 10px 0",
+                    fontSize: "2.5rem",
+                    lineHeight: "40px",
+                    ["@media (max-width:1600px)"]: {
+                        fontSize: "2.2rem",
+                    },
+                    ["@media (max-width:1300px)"]: {
+                        fontSize: "1.9rem",
+                    },
+                    ["@media (max-width:1200px)"]: {
+                        fontSize: "1.7rem",
+                    },
+                    ["@media (max-width:1000px)"]: {
+                        fontSize: "3rem ",
+                    },
+                    ["@media (max-width:700px)"]: {
+                        fontSize: "2.5rem ",
+                        lineHeight: "36px",
+                    },
+                    ["@media (max-width:400px)"]: {
+                        fontSize: "2rem ",
+                        lineHeight: "30px",
                     },
                 },
-            },
-            MuiTypography: {
-                styleOverrides: {
-                    h4: {
-                        fontWeight: 700,
-                        letterSpacing: "-1px",
-                        fontSize: "2rem !important",
+                h2: {
+                    fontWeight: 900,
+                    letterSpacing: "-2px",
+                },
+                h1: {
+                    lineHeight: "90px",
+                    fontSize: "5.5rem",
+                    fontWeight: "900",
+                    letterSpacing: "-2px",
+                    ["@media (max-width:1500px)"]: {
+                        fontSize: "5rem",
+                        lineHeight: "70px",
                     },
-                    h2: {
-                        fontWeight: 900,
-                        letterSpacing: "-2px",
+                    ["@media (max-width:700px)"]: {
+                        fontSize: "4rem",
+                        lineHeight: "55px",
                     },
-                    h1: {
-                        lineHeight: "90px",
-                        fontSize: "5.5rem",
-                        fontWeight: "900",
-                        letterSpacing: "-2px",
-                        ["@media (max-width:1500px)"]: {
-                            fontSize: "5rem",
-                            lineHeight: "70px",
-                        },
-                        ["@media (max-width:700px)"]: {
-                            fontSize: "4rem",
-                            lineHeight: "55px",
-                        },
-                        ["@media (max-width:500px)"]: {
-                            fontSize: "3.5rem",
-                            lineHeight: "50px",
-                        },
+                    ["@media (max-width:500px)"]: {
+                        fontSize: "3.5rem",
+                        lineHeight: "50px",
                     },
-                    body1: {
-                        fontSize: "1.5rem",
-                        ["@media (max-width:1500px)"]: {
-                            fontSize: "1.4rem",
-                        },
-                        ["@media (max-width:1200px)"]: {
-                            fontSize: "1.3rem",
-                        },
+                },
+                body1: {
+                    fontSize: "1.5rem",
+                    ["@media (max-width:1500px)"]: {
+                        fontSize: "1.4rem",
                     },
-                    body2: {
+                    ["@media (max-width:1200px)"]: {
                         fontSize: "1.3rem",
-                        ["@media (max-width:1000px)"]: {
-                            fontSize: "1.1rem",
-                        },
+                    },
+                },
+                body2: {
+                    fontSize: "1.3rem",
+                    ["@media (max-width:1000px)"]: {
+                        fontSize: "1.1rem",
                     },
                 },
             },
         },
-    })
-);
+    },
+});

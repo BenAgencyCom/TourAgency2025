@@ -25,7 +25,7 @@ const LandmarkInformation: FunctionComponent<LandmarkInformationProps> = (props)
     return (
         <>
             <LocalizationBreadCrumbs crumbs={[destination.country, destination.city]} sx={{ justifyContent: "flex-start" }}></LocalizationBreadCrumbs>
-            <h3>{title}</h3>
+            <Typography variant="h3">{title}</Typography>
             <span className="landmark-type">{GetLandmarkIcon(type)}</span>
             {(() => {
                 if (amountOfWordsInDescription) {

@@ -20,6 +20,8 @@ interface CreateLandmarkPageProps {
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
     const [activeStep, setActiveStep] = useState<number>(0);
     const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
+    // New landmarks' data:
+    const [destinationID, setDestinationID] = useState<string | null>(null);
 
     const upload = () => alert("uploading");
 
@@ -33,7 +35,7 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
             {(() => {
                 switch (activeStep) {
                     case 0:
-                        return <StageOne></StageOne>;
+                        return <StageOne destinationID={stated(destinationID, setDestinationID)}></StageOne>;
                     case 1:
                         return <StageTwo></StageTwo>;
                     case 2:

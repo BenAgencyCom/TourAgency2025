@@ -22,13 +22,6 @@ const ReviewInformation = dynamic(() => import("./body/ReviewInformation"));
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
-    h3: {
-        fontWeight: 900,
-        letterSpacing: "-1px",
-        margin: "0 0 10px 0",
-        fontSize: "2.5rem",
-        lineHeight: "40px",
-    },
     "span.landmark-type": {
         position: "absolute",
         bottom: "0px",

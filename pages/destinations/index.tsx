@@ -118,7 +118,7 @@ const Destinations: FunctionComponent = (props) => {
                                 return (
                                     <ThereAreNoResults
                                         router={router} //
-                                        header="There are no landmarks"
+                                        header="There are no destinations"
                                         routerQueriesToHandle={[{ queryName: "certainLandmarkType", msg: (val: string) => `Of type ${val}` }]}
                                         searchingPhraseExplanation="title, country or city name"
                                     ></ThereAreNoResults>
