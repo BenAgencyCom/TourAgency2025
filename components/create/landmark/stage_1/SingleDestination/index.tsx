@@ -12,6 +12,9 @@ import LocalizationBreadCrumbs from "@/components/_utils/LocalizationBreadCrumbs
 import ButtonWithColorTransition from "@/components/_utils/styled/ButtonWithColorTransition";
 // Material UI Icons
 import Explore from "@mui/icons-material/Explore";
+// Redux
+import { useAppDispatch } from "@/hooks/useRedux";
+import { displaySnackbar } from "@/redux/slices/snackbar";
 // Styled components
 const SingleDestinationWrapper = styled("div")(({ theme }) => ({
     width: "calc((100% - 40px)/ 3)",
@@ -57,22 +60,31 @@ const SingleDestinationWrapper = styled("div")(({ theme }) => ({
 
 interface SingleDestinationProps {
     destination: Destination;
-    destinationID: StatedDataField<string | null>;
+    selectedDestination: StatedDataField<Destination | null>;
 }
 
 const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => {
-    const { folder, city, country, shortDescription, id } = props.destination;
-    const isSelected: boolean = props.destinationID.value === id;
+    const dispatch = useAppDispatch();
 
-    const pickThisDestination = (id: string) => {
-        if (props.destinationID.value === null) document.getElementById("go-forward")?.click();
-        props.destinationID.setValue(id);
+    const { folder, city, country, shortDescription, id } = props.destination;
+    const isSelected: boolean = props.selectedDestination.value?.id === id;
+
+    const pickThisDestination = () => {
+        if (props.selectedDestination.value === null) document.getElementById("go-forward")?.click();
+        props.selectedDestination.setValue(props.destination);
+
+        dispatch(
+            displaySnackbar({
+                msg: `${props.destination.city} has been selected`,
+                severity: "success",
+                hideAfter: 2000,
+            })
+        );
     };
 
     return (
         <SingleDestinationWrapper
             className={isSelected ? "selected" : ""} //
-            onClick={() => pickThisDestination(id)}
         >
             <Pictrue
                 folder={folder} //
@@ -89,7 +101,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                         <Explore />
                     </span>
                 )}
-                <ButtonWithColorTransition reverse primary>
+                <ButtonWithColorTransition reverse primary onClick={pickThisDestination}>
                     {isSelected ? "Selected" : "Select"}
                 </ButtonWithColorTransition>
             </div>

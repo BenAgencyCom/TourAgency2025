@@ -32,7 +32,6 @@ export default class BulkLandmarksAPI extends BulkDataAPI<Prisma.DestinationSele
     }
 
     public async getData() {
-        console.log(this.quriesFromRequest);
         return await this._getData<Destination>({
             id: true,
             city: true,

@@ -11,6 +11,9 @@ import FileUpload from "@mui/icons-material/FileUpload";
 // Styled components
 import Loading from "@/components/_utils/Loading";
 import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
+// Redux
+import { useAppDispatch } from "@/hooks/useRedux";
+import { displaySnackbar } from "@/redux/slices/snackbar";
 
 const ThumbnailWrapper = styled("div")(({ theme }) => ({
     width: "100%",
@@ -38,6 +41,8 @@ interface SelectThumbnailProps {
 }
 
 const SelectThumbnail: FunctionComponent<SelectThumbnailProps> = (props) => {
+    const dispatch = useAppDispatch();
+
     const { thumbnail, thumbnailURL } = props;
     const fileInput = useRef<HTMLInputElement | null>(null);
 
@@ -45,10 +50,21 @@ const SelectThumbnail: FunctionComponent<SelectThumbnailProps> = (props) => {
     const onFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file: File | null = (e.target.files as unknown as File[])[0];
         if (file) {
+            if (thumbnail.value === null)
+                setTimeout(() => {
+                    document.getElementById("go-forward")?.click();
+                }, 1000);
             thumbnail.setValue(file);
             const reader = new FileReader();
             reader.onload = (res) => {
                 if (res.target && res.target.result) thumbnailURL.setValue(res.target.result as any);
+                dispatch(
+                    displaySnackbar({
+                        msg: `Thumbnail has been changed`,
+                        severity: "success",
+                        hideAfter: 2000,
+                    })
+                );
             };
             reader.readAsDataURL(file);
         }
@@ -86,12 +102,6 @@ const SelectThumbnail: FunctionComponent<SelectThumbnailProps> = (props) => {
                 accept="image/*"
                 onChange={onFileInputChange}
             />
-            {/* <ImageControls
-                openModal={() => console.log()} //
-                openFileSelectDialog={openFileBrowserWindow}
-                tabIndex={-1}
-                url={thumbnailURL.value}
-            ></ImageControls> */}
         </ThumbnailWrapper>
     );
 };

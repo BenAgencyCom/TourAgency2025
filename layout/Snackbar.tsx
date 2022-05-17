@@ -11,6 +11,8 @@ import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { closeSnackbar } from "@/redux/slices/snackbar";
 
 const AppSnackbar: FunctionComponent<{}> = () => {
+    const GLOBAL_THIS_PROPERTY = "_snackbar_timeout";
+
     const dispatch = useAppDispatch();
     const display = useAppSelector((state) => state.snackbar.display);
     const msg = useAppSelector((state) => state.snackbar.msg);
@@ -18,7 +20,8 @@ const AppSnackbar: FunctionComponent<{}> = () => {
     const hideAfter = useAppSelector((state) => state.snackbar.hideAfter);
 
     if (hideAfter) {
-        setTimeout(() => {
+        if ((globalThis as any)[GLOBAL_THIS_PROPERTY]) clearTimeout((globalThis as any)[GLOBAL_THIS_PROPERTY]);
+        (globalThis as any)[GLOBAL_THIS_PROPERTY] = setTimeout(() => {
             dispatch(closeSnackbar());
         }, hideAfter);
     }
@@ -38,6 +41,7 @@ const AppSnackbar: FunctionComponent<{}> = () => {
                     width: "100%",
                     display: "flex",
                     alignItems: "center",
+                    fontSize: "1.2rem",
                     "&>.MuiAlert-message": {
                         flexGrow: 1,
                         justifyContent: "space-between",

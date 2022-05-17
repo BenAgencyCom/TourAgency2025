@@ -23,7 +23,7 @@ const DestinationsWrapper = styled("div")(({ theme }) => ({
 }));
 
 interface StageOneProps {
-    destinationID: StatedDataField<string | null>;
+    selectedDestination: StatedDataField<Destination | null>;
 }
 
 const StageOne: FunctionComponent<StageOneProps> = (props) => {
@@ -92,6 +92,9 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
                             return (
                                 <>
                                     <div style={{ height: "100px", width: "100%" }} />
+                                    <SkeletonLoading sx={{ display: "none" }} />
+                                    <SkeletonLoading sx={{ display: "none" }} />
+
                                     <SkeletonLoading />
                                     <SkeletonLoading />
                                     <SkeletonLoading />
@@ -116,7 +119,7 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
                                         <SingleDestination
                                             key={destination.id} //
                                             destination={destination}
-                                            destinationID={props.destinationID}
+                                            selectedDestination={props.selectedDestination}
                                         ></SingleDestination>
                                     );
                                 });

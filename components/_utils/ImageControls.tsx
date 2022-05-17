@@ -39,7 +39,6 @@ interface ImageControlsProps {
 
 export const ImageControls: FunctionComponent<ImageControlsProps> = (props) => {
     const tabIndex = props.tabIndex ? props.tabIndex : 1;
-    console.log(props.openFileSelectDialog);
     return (
         <ImageControlsWrapper>
             {(() => {

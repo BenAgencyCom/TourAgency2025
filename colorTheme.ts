@@ -111,7 +111,7 @@ export default createTheme({
                 h4: {
                     fontWeight: 700,
                     letterSpacing: "-1px",
-                    fontSize: "2rem !important",
+                    fontSize: "2rem",
                 },
                 h3: {
                     fontWeight: 900,

@@ -4,8 +4,9 @@ import { destinationPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { MUIStyledCommonProps } from "@mui/system";
 import type { FunctionComponent } from "react";
-// Styled Components
+// Other components
 import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
+// Styled Components
 
 const Wrapper = styled("div")(({ theme }) => ({
     height: "280px",

@@ -30,7 +30,6 @@ const SkeletonImage: FunctionComponent<SkeletonImageProps> = (props) => {
     const [imageIsStillLoading, setImageIsStillLoading] = useState<boolean>(true);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const handleOpenModal = () => !imageIsStillLoading && setOpenModal(true);
-    console.log(props.openFileSelectDialog);
 
     return (
         <ImageWrapper>
