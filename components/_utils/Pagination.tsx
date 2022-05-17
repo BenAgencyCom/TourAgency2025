@@ -73,7 +73,7 @@ const Pagination: FunctionComponent<PaginationProps> = (props) => {
     };
 
     return (
-        <FlexBox sx={{ marginBottom: "50px", ...props.sx }} horizontal="center">
+        <FlexBox sx={{ marginBottom: "50px", ...props.sx }} horizontal="center" className="pagination-wrapper">
             {Array.from(Array(pagesInTotal).keys()).map((item, index) => {
                 const page = index + 1;
                 const isCurrent = page === currentPage;

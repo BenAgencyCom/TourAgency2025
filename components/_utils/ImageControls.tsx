@@ -4,21 +4,30 @@ import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
-import ButtonGroup from "@mui/material/ButtonGroup";
 import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
+import ButtonBase from "@mui/material/ButtonBase";
 import Button from "@mui/material/Button";
 // Material UI Icons
 import Settings from "@mui/icons-material/Settings";
 import ZoomIn from "@mui/icons-material/ZoomIn";
 // Styled components
-const ImageControlsWrapper = styled(ButtonGroup)(({ theme }) => ({
+const ImageControlsWrapper = styled("div")(({ theme }) => ({
     position: "absolute",
     bottom: "10px",
     right: "10px",
     zIndex: 1,
-    background: theme.palette.primary.main,
     backdropFilter: "blur(5px)",
+    button: {
+        background: theme.palette.primary.main,
+        borderRadius: "3px",
+        color: "#fff",
+        width: "40px",
+        height: "40px",
+        "&:disabled": {
+            background: alpha(theme.palette.text.primary, 0.5),
+            color: theme.palette.text.primary,
+        },
+    },
 }));
 interface ImageControlsProps {
     openModal: () => void;
@@ -30,16 +39,16 @@ interface ImageControlsProps {
 
 export const ImageControls: FunctionComponent<ImageControlsProps> = (props) => {
     const tabIndex = props.tabIndex ? props.tabIndex : 1;
-
+    console.log(props.openFileSelectDialog);
     return (
-        <ImageControlsWrapper variant="contained">
+        <ImageControlsWrapper>
             {(() => {
                 if (props.openFileSelectDialog) {
                     return (
                         <Tooltip title={props.url ? "Change" : "Select photo"} placement="top">
-                            <IconButton tabIndex={tabIndex} onClick={props.openFileSelectDialog}>
+                            <ButtonBase tabIndex={tabIndex} onClick={props.openFileSelectDialog} sx={{ mr: "10px" }}>
                                 <Settings></Settings>
-                            </IconButton>
+                            </ButtonBase>
                         </Tooltip>
                     );
                 }
@@ -47,9 +56,9 @@ export const ImageControls: FunctionComponent<ImageControlsProps> = (props) => {
 
             <Tooltip title="Preview" placement="top">
                 <span>
-                    <IconButton tabIndex={tabIndex} disabled={!props.url} onClick={props.openModal}>
+                    <ButtonBase tabIndex={tabIndex} disabled={!props.url} onClick={props.openModal}>
                         <ZoomIn></ZoomIn>
-                    </IconButton>
+                    </ButtonBase>
                 </span>
             </Tooltip>
         </ImageControlsWrapper>

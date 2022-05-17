@@ -7,10 +7,13 @@ import updateURLQueries from "./_utls/updateURLQueries";
 import { useState, useEffect, useMemo, useRef } from "react";
 import generateQueryString from "./_utls/generateQueryString";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { InputBaseProps } from "@mui/material/InputBase";
 import type { SelectProps, SelectExtraOrderOption } from "./@types";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
+// Material UI Components
+import Box from "@mui/material/Box";
 // Other Components
 import Skeletons from "./Skeletons";
 import SelectOrder from "./SelectOrder";
@@ -75,6 +78,8 @@ interface URLQueriesManagerProps {
         idOfElementToScrollTo: string;
     };
     disableResultsInTotal?: true;
+    /**Extra styles applied to highest-level wrapper */
+    sx?: SxProps;
 }
 /**
  * ### Purpose
@@ -215,7 +220,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
     };
 
     return (
-        <div ref={wrapperNode as any}>
+        <Box ref={wrapperNode as any} sx={props.sx}>
             <URLQueriesManagerWrapper id="url-queries-manager-wrapper">
                 {(() => {
                     if (loading)
@@ -282,7 +287,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                     sx={{ marginTop: "50px" }}
                 ></Pagination>
             )}
-        </div>
+        </Box>
     );
 };
 

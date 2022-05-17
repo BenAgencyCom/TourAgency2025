@@ -80,12 +80,18 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
                         },
                     },
                 ]}
+                sx={{
+                    ".pagination-wrapper": {
+                        justifyContent: "flex-start !important",
+                    },
+                }}
             >
                 <DestinationsWrapper>
                     {(() => {
                         if (loading)
                             return (
                                 <>
+                                    <div style={{ height: "100px", width: "100%" }} />
                                     <SkeletonLoading />
                                     <SkeletonLoading />
                                     <SkeletonLoading />

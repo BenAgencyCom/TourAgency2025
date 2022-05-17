@@ -1,23 +1,24 @@
 // Tools
 // Types
 import type { FunctionComponent } from "react";
-// Material UI Components
-import Fade from "@mui/material/Fade";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Other components
 import StageHeader from "@/components/create/_utils/StageHeader";
+import SelectThumbnail from "@/components/create/_utils/SelectThumbnail";
 
-interface StageOneProps {
-    //
+interface StageTwoProps {
+    thumbnail: StatedDataField<File | null>;
+    thumbnailURL: StatedDataField<string | null>;
 }
 
-const StageOne: FunctionComponent<StageOneProps> = (props) => {
+const StageTwo: FunctionComponent<StageTwoProps> = (props) => {
+    const { thumbnail, thumbnailURL } = props;
     return (
-        <Fade in={true}>
-            <div>
-                <StageHeader title="Select thumbnail" stageNumber={2}></StageHeader>
-            </div>
-        </Fade>
+        <>
+            <StageHeader title="Select thumbnail" stageNumber={2}></StageHeader>
+            <SelectThumbnail thumbnail={thumbnail} thumbnailURL={thumbnailURL}></SelectThumbnail>
+        </>
     );
 };
 
-export default StageOne;
+export default StageTwo;

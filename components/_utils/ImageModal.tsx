@@ -155,7 +155,8 @@ const ImageModal: FunctionComponent<ImageModalProps> = (props) => {
 
     const closeModal = () => props.open.setValue(false);
 
-    const urlInHighestResolution = (() => {
+    const urlInHighestResolution: string = (() => {
+        if (props.imageURL.slice(0, 10) === "data:image") return props.imageURL;
         const originalURLSplitted = props.imageURL.split("/");
         const imageExtension = props.imageURL.split(".")[1];
         originalURLSplitted[originalURLSplitted.length - 1] = `${props.modalMaxResolution}.${imageExtension}`;

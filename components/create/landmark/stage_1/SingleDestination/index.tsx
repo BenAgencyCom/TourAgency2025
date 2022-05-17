@@ -90,7 +90,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                     </span>
                 )}
                 <ButtonWithColorTransition reverse primary>
-                    Select
+                    {isSelected ? "Selected" : "Select"}
                 </ButtonWithColorTransition>
             </div>
         </SingleDestinationWrapper>

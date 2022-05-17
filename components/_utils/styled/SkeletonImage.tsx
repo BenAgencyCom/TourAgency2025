@@ -22,13 +22,15 @@ interface SkeletonImageProps extends ImageProps {
         title: string;
         sectionName: string;
     };
+    openFileSelectDialog?: () => void;
 }
 const SkeletonImage: FunctionComponent<SkeletonImageProps> = (props) => {
-    const { advanceModalProperties, modalMaxResolution, ...propsToForward } = props;
+    const { advanceModalProperties, modalMaxResolution, openFileSelectDialog, ...propsToForward } = props;
 
     const [imageIsStillLoading, setImageIsStillLoading] = useState<boolean>(true);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const handleOpenModal = () => !imageIsStillLoading && setOpenModal(true);
+    console.log(props.openFileSelectDialog);
 
     return (
         <ImageWrapper>
@@ -49,7 +51,7 @@ const SkeletonImage: FunctionComponent<SkeletonImageProps> = (props) => {
                                 advanceModalProperties={props.advanceModalProperties}
                             ></ImageModal>
 
-                            <ImageControls openModal={handleOpenModal} url={props.src as string}></ImageControls>
+                            <ImageControls openModal={handleOpenModal} url={props.src as string} openFileSelectDialog={openFileSelectDialog}></ImageControls>
                         </>
                     );
                 } else if (modalMaxResolution) {
@@ -61,7 +63,7 @@ const SkeletonImage: FunctionComponent<SkeletonImageProps> = (props) => {
                                 modalMaxResolution={modalMaxResolution}
                             ></ImageModal>
 
-                            <ImageControls openModal={handleOpenModal} url={props.src as string}></ImageControls>
+                            <ImageControls openModal={handleOpenModal} url={props.src as string} openFileSelectDialog={openFileSelectDialog}></ImageControls>
                         </>
                     );
                 }

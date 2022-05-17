@@ -18,10 +18,12 @@ interface CreateLandmarkPageProps {
 }
 
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
-    const [activeStep, setActiveStep] = useState<number>(0);
+    const [activeStep, setActiveStep] = useState<number>(1);
     const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
+    const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
     // New landmarks' data:
     const [destinationID, setDestinationID] = useState<string | null>(null);
+    const [thumbnail, setThumbnail] = useState<File | null>(null);
 
     const upload = () => alert("uploading");
 
@@ -37,7 +39,12 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                     case 0:
                         return <StageOne destinationID={stated(destinationID, setDestinationID)}></StageOne>;
                     case 1:
-                        return <StageTwo></StageTwo>;
+                        return (
+                            <StageTwo
+                                thumbnail={stated(thumbnail, setThumbnail)} //
+                                thumbnailURL={stated(thumbnailURL, setThumbnailURL)}
+                            ></StageTwo>
+                        );
                     case 2:
                         return <StageThree></StageThree>;
                     case 3:
