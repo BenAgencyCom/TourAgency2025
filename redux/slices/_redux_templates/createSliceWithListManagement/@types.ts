@@ -26,6 +26,10 @@ export interface CreatedActions<ArrayItem> {
         first: ListItem<ArrayItem>; //
         second: ListItem<ArrayItem>;
     }>;
+    changeIndexOfElement: ActionCreatorWithPayload<{
+        element: ListItem<ArrayItem>; //
+        index: number;
+    }>;
 }
 //
 export interface ListActions<ArrayItem> extends SliceCaseReducers<ListState<ArrayItem>> {
@@ -53,6 +57,13 @@ export interface ListActions<ArrayItem> extends SliceCaseReducers<ListState<Arra
         PayloadAction<{
             first: ListItem<ArrayItem>;
             second: ListItem<ArrayItem>;
+        }>
+    >;
+    changeIndexOfElement: CaseReducer<
+        ListState<ArrayItem>, //
+        PayloadAction<{
+            element: ListItem<ArrayItem>;
+            index: number;
         }>
     >;
     //

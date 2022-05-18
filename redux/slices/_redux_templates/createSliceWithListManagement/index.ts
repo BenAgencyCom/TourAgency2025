@@ -4,7 +4,7 @@ import createListReducer from "./listReducer";
 import store from "@/redux/store";
 // Types
 import type { SliceCaseReducers } from "@reduxjs/toolkit";
-import { ListState, ListActions } from "./types";
+import { ListState, ListActions } from "./@types";
 
 interface CreateSliceParams<ArrayItem, CustomState> {
     name: string;
@@ -38,12 +38,12 @@ export default <
         } as any,
     });
     // Actions for helpers:
-    const { changeItemInList, replaceItemInList, deleteItemFromList, swapTwoItemsInList, _addItem, ...rest } = slice.actions;
+    const { changeItemInList, replaceItemInList, deleteItemFromList, swapTwoItemsInList, changeIndexOfElement, _addItem, ...rest } = slice.actions;
 
     const addItem = (newItemData: Partial<ArrayItem>, explicit: boolean = false) => {
         store.dispatch(
             (_addItem as any)({
-                actions: { changeItemInList, deleteItemFromList, replaceItemInList, swapTwoItemsInList },
+                actions: { changeItemInList, deleteItemFromList, replaceItemInList, swapTwoItemsInList, changeIndexOfElement },
                 newItemData: newItemData,
                 explicit,
             })

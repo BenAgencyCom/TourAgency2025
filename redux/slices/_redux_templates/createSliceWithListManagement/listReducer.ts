@@ -1,5 +1,5 @@
 import ListItem from "./ListItem";
-import { ListActions } from "./types";
+import { ListActions } from "./@types";
 import type { Draft } from "@reduxjs/toolkit";
 
 export interface ListState<ArrayItem> {
@@ -80,6 +80,15 @@ export default <ArrayItem>(
 
                     return target;
                 });
+            },
+            changeIndexOfElement: (state, action) => {
+                const { element, index } = action.payload;
+
+                state.list = [
+                    ...state.list.slice(0, index).filter((el) => el.id !== element.id), //
+                    element,
+                    ...state.list.slice(index).filter((el) => el.id !== element.id),
+                ] as any;
             },
         },
     };

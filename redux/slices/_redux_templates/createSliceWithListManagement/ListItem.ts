@@ -1,4 +1,4 @@
-import { CreatedActions } from "./types";
+import { CreatedActions } from "./@types";
 import store from "@/redux/store";
 
 export interface ListItemInterface<T> {
@@ -9,6 +9,7 @@ export interface ListItemInterface<T> {
     replace: (newData: T) => void;
     remove: () => void;
     swapWith: (elementToBeSwappedWith: ListItem<T>) => void;
+    changeIndex: (index: number) => void;
 }
 
 class ListItem<T extends Record<string, any>> implements ListItemInterface<T> {
@@ -45,6 +46,15 @@ class ListItem<T extends Record<string, any>> implements ListItemInterface<T> {
             this.actions.swapTwoItemsInList({
                 first: this,
                 second: elementToBeSwappedWith,
+            })
+        );
+    }
+
+    public changeIndex(index: number) {
+        store.dispatch(
+            this.actions.changeIndexOfElement({
+                element: this,
+                index,
             })
         );
     }
