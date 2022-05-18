@@ -6,7 +6,7 @@ import { helpers } from "@/redux/slices/createContent";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other Components
-import DescriptionHeader from "./DescriptionHeader";
+import Header from "./Header";
 import ContentFieldsWrapper from "./ContentFieldsWrapper";
 import SingleContentField from "./SingleContentField";
 import SectionIsEmpty from "@/components/admin/create_destination/_utils/SectionIsEmpty";
@@ -33,12 +33,11 @@ const Description: FunctionComponent = (props) => {
             component="section"
             sx={{
                 color: "text.primary", //
-                background: "red",
                 display: "flex",
                 flexDirection: "column",
             }}
         >
-            <DescriptionHeader></DescriptionHeader>
+            <Header></Header>
 
             <ContentFieldsWrapper
                 description={description} //

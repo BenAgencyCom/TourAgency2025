@@ -1,9 +1,11 @@
 // Tools
 import { styled } from "@mui/system";
+// Tools
+import type { ButtonBaseProps } from "@mui/material/ButtonBase";
 // Material UI Components
 import ButtonBase from "@mui/material/ButtonBase";
 
-export interface ButtonWithColorTransitionProps {
+export interface ButtonWithColorTransitionProps extends ButtonBaseProps {
     primary?: true;
     reverse?: true;
     color?: string;
