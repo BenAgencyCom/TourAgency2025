@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 // Material UI Components
 import ButtonBase from "@mui/material/ButtonBase";
 
-interface ButtonWrapperParams {
+export interface ButtonWithColorTransitionProps {
     primary?: true;
     reverse?: true;
     color?: string;
@@ -16,7 +16,7 @@ export default styled(ButtonBase, {
     shouldForwardProp: (propName: string) => {
         return !restrictedProperties.includes(propName);
     },
-})<ButtonWrapperParams>(({ theme, ...props }) => {
+})<ButtonWithColorTransitionProps>(({ theme, ...props }) => {
     const { primary, reverse, color, background } = props;
 
     if (primary && color) throw new Error("Properties `primary` and `color` are interfering with each other!");

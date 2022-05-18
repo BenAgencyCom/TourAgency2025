@@ -4,6 +4,7 @@ export enum FieldType {
     IMAGE,
     SPLITTED,
 }
+
 export interface HeaderContentField {
     type: FieldType.HEADER;
     header: string;

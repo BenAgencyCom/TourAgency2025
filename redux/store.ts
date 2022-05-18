@@ -6,6 +6,7 @@ import windowSizes from "@/redux/slices/windowSizes";
 // Create destination
 import landmarksReducer from "@/redux/slices/create_destination/landmarks";
 import destinationReducer from "@/redux/slices/create_destination/description";
+import createContentReducer from "@/redux/slices/createContent";
 
 const store = configureStore({
     middleware: (getDefaultMiddleware) =>
@@ -21,6 +22,8 @@ const store = configureStore({
         // ADMIN/create new destination
         landmarks: landmarksReducer,
         description: destinationReducer,
+        //
+        createContent: createContentReducer,
     },
 });
 

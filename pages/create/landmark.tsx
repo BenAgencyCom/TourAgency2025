@@ -5,23 +5,25 @@ import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent } from "react";
 import type { LandmarkType } from "@prisma/client";
+import type { DescriptionContentField } from "@/@types/Description";
 import type { Destination } from "@/@types/pages/create/CreateLandmark";
 // Other components
 import Head from "next/Head";
-const StageOne = dynamic(() => import("@/components/create/landmark/stage_1"));
-const StageTwo = dynamic(() => import("@/components/create/landmark/stage_2"));
-const StageThree = dynamic(() => import("@/components/create/landmark/stage_3"));
-const StageFour = dynamic(() => import("@/components/create/landmark/stage_4"));
-const StageFive = dynamic(() => import("@/components/create/landmark/stage_5"));
+import Loading from "@/components/_utils/Loading";
+const staticImportLoader = { loading: () => <Loading sx={{ mt: "100px" }} /> };
+const StageOne = dynamic(() => import("@/components/create/landmark/stage_1"), staticImportLoader);
+const StageTwo = dynamic(() => import("@/components/create/landmark/stage_2"), staticImportLoader);
+const StageThree = dynamic(() => import("@/components/create/landmark/stage_3"), staticImportLoader);
+const StageFour = dynamic(() => import("@/components/create/landmark/stage_4"), { ...staticImportLoader, ssr: false });
+const StageFive = dynamic(() => import("@/components/create/landmark/stage_5"), staticImportLoader);
 // Styled components
 import MainWrapper from "@/components/create/_utils/MainWrapper";
-
 interface CreateLandmarkPageProps {
     //
 }
 
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
-    const [activeStep, setActiveStep] = useState<number>(2);
+    const [activeStep, setActiveStep] = useState<number>(3);
     const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
     // New landmarks' data:
@@ -30,6 +32,8 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
     const [title, setTitle] = useState<string>("");
     const [shortDescription, setShortDescription] = useState<string>("");
     const [landmarkType, setLandmarkType] = useState<LandmarkType>("ANTIQUE");
+    const [description, setDescription] = useState<DescriptionContentField[]>([]);
+
     const upload = () => alert("uploading");
 
     return (
@@ -69,7 +73,7 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                                 ></StageThree>
                             );
                         case 3:
-                            return <StageFour></StageFour>;
+                            return <StageFour description={stated(description, setDescription)}></StageFour>;
                         case 4:
                             return <StageFive></StageFive>;
                     }
