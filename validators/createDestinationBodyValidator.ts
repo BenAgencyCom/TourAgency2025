@@ -3,7 +3,7 @@ import joi from "joi";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
 import { FieldType } from "@/@types/Description";
 import createBetterJoiErrors from "@/utils/api/betterJoiErrors";
-import restrictions from "@/utils/restrictions/createDestination";
+import restrictions from "@/utils/restrictions/createDestination_OLD";
 import GeneralInformationJoiSchema from "@/validators/helpers/create_destination/generalInformationJoiSchema";
 import SingleLandmarkJoiSchema from "@/validators/helpers/create_destination/singleLandmarkJoiSchema";
 import HandleMultipartFormDataRequest from "@/utils/api/HandleMultipartFormDataRequest";

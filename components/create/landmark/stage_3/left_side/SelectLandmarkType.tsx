@@ -35,7 +35,7 @@ const Field = styled("div")(({ theme }) => ({
         background: alpha(theme.palette.text.primary, 0.1),
     },
     "&.selected": {
-        background: theme.palette.text.primary,
+        background: theme.palette.primary.main,
         color: "#fff",
     },
 }));
@@ -74,7 +74,7 @@ const SelectLandmarkType: FunctionComponent<SelectLandmarkTypeProps> = (props) =
                         { label: "Restaurant", value: "RESTAURANT" },
                     ] as { label: string; value: LandmarkType }[]
                 }
-                sx={{ width: "100%", margin: "10px 0", height: "61px" }}
+                sx={{ width: "100%", margin: "10px 0", height: "52px" }}
             ></SelectWithIcon>
 
             <FlexBox sx={{ width: "100%", flexWrap: "wrap" }}>

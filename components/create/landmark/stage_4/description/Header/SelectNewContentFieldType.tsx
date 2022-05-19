@@ -1,11 +1,11 @@
-// Tools
 // Types
-import type { FunctionComponent, ChangeEvent } from "react";
 import { FieldType } from "@/@types/Description";
 import { StatedDataField } from "@/@types/StatedDataField";
+import type { FunctionComponent, ChangeEvent } from "react";
 // Other components
 import StyledDialog from "@/components/create/_utils/forms/Dialog";
 import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
+import DescriptionFieldIcon from "@/components/create/_utils/forms/DescriptionFieldIcon";
 // Material UI Icons
 import Public from "@mui/icons-material/Public";
 // Redux
@@ -44,6 +44,7 @@ const SelectNewContentFieldType: FunctionComponent<SelectNewContentFieldTypeProp
             open={props.open} //
             confirm={confirm}
             title={`Select new content field's type`}
+            backgroundIcon={<DescriptionFieldIcon fieldType={newFieldType} />}
         >
             <SelectWithIcon
                 icon={<Public />} //

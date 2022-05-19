@@ -14,6 +14,7 @@ interface CREATE_DESTINATION_RESTRICTIONS_TYPE {
     description: {
         header: Restriction;
         paragraph: Restriction;
+        splittedParagraph: Restriction;
     };
 }
 
@@ -29,6 +30,7 @@ const CREATE_DESTINATION_RESTRICTIONS: CREATE_DESTINATION_RESTRICTIONS_TYPE = {
     description: {
         header: createRestriction(3, 50),
         paragraph: createRestriction(10, 1024),
+        splittedParagraph: createRestriction(10, 512),
     },
 };
 export default CREATE_DESTINATION_RESTRICTIONS;

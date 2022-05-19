@@ -1,6 +1,6 @@
 import { styled } from "@mui/system";
 import { useState, useEffect } from "react";
-import restrictions from "@/utils/restrictions/createDestination";
+import restrictions from "@/utils/restrictions/createDestination_OLD";
 import GeneralInformationSchema from "@/validators/helpers/create_destination/generalInformationJoiSchema";
 // Types
 import type { FunctionComponent } from "react";

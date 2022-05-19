@@ -1,5 +1,5 @@
 import joi from "joi";
-import restrictions from "@/utils/restrictions/createDestination";
+import restrictions from "@/utils/restrictions/createDestination_OLD";
 // Types
 import type { Schema } from "joi";
 import { CreateDestinationRequestPardesBody } from "@/@types/router/destination";

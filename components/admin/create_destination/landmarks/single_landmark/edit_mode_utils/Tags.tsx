@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { alpha } from "@mui/system";
-import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
+import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination_OLD";
 // Types
 import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ChangeEvent, ReactNode } from "react";

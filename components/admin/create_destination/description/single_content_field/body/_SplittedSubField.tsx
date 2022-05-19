@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { styled } from "@mui/system";
 import stated from "@/utils/client/stated";
-import restrictions from "@/utils/restrictions/createDestination";
+import restrictions from "@/utils/restrictions/createDestination_OLD";
 // Types
 import { FieldType } from "@/@types/Description";
 import type { FunctionComponent } from "react";

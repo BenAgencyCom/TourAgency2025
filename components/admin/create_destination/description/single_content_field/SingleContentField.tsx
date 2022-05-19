@@ -1,5 +1,5 @@
 // Tools
-import restrictions from "@/utils/restrictions/createDestination";
+import restrictions from "@/utils/restrictions/createDestination_OLD";
 import { useState } from "react";
 import { styled } from "@mui/system";
 // Types

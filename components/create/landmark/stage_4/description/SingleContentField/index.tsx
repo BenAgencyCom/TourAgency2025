@@ -1,25 +1,22 @@
 // Tools
-import restrictions from "@/utils/restrictions/createDestination";
 import { useState } from "react";
 import { styled } from "@mui/system";
+import stated from "@/utils/client/stated";
 // Types
 import { Theme } from "@mui/system";
 import { ListItem } from "@/@types/redux";
 import { FieldType } from "@/@types/Description";
 import type { DraggableProvided } from "react-beautiful-dnd";
 import type { FunctionComponent, Dispatch, SetStateAction } from "react";
-import type { DescriptionContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "@/@types/Description";
+import type { DescriptionContentField } from "@/@types/Description";
 // Material UI Components
 import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
 import Fade from "@mui/material/Fade";
+import Divider from "@mui/material/Divider";
 // Other components
 import { Draggable } from "react-beautiful-dnd";
-import HeaderBody from "./body/Header";
-import ParagraphBody from "./body/Paragraph";
-import ImageBody from "./body/Image";
-import Splitted from "./body/Splitted";
-import ControlHeader from "./SingleContentFieldControlHeader";
+import SingleDescriptionFieldBody from "./Body";
+import ControlHeader from "./Header";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
 import { helpers } from "@/redux/slices/createContent";
@@ -32,6 +29,8 @@ const CustomCard = styled(Card)(({ theme }: { theme: Theme }) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    background: "#fff",
+    border: "none",
 }));
 
 interface SingleContentFieldProps {
@@ -90,40 +89,15 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                                 handleDeletion={deleteThisField}
                                 updateType={updateType}
                                 refresh={() => setRefreshKey((val) => val + 1)}
+                                index={props.index}
                             ></ControlHeader>
 
                             <Divider sx={{ my: 2 }} flexItem></Divider>
-                            {(() => {
-                                switch (props.field.data.type) {
-                                    case FieldType.HEADER:
-                                        return (
-                                            <HeaderBody
-                                                field={props.field as ListItem<HeaderContentField>} //
-                                                restrictions={restrictions.description.header}
-                                            ></HeaderBody>
-                                        );
-                                    case FieldType.PARAGRAPH:
-                                        return <ParagraphBody field={props.field as ListItem<ParagraphContentField>} restrictions={restrictions.description.paragraph}></ParagraphBody>;
-                                    case FieldType.IMAGE:
-                                        return (
-                                            <ImageBody
-                                                url={(props.field.data as ImageContentField).url} //
-                                                key={refreshKey}
-                                                updateSingleProp={(prop: keyof ImageContentField, val: ImageContentField[typeof prop]) => {
-                                                    (props.field as ListItem<ImageContentField>).changeProperty(prop, val);
-                                                }}
-                                            ></ImageBody>
-                                        );
-                                    case FieldType.SPLITTED:
-                                        return (
-                                            <Splitted
-                                                field={props.field as ListItem<SplittedContentField>} //
-                                                restrictions={restrictions.description.paragraph}
-                                                key={refreshKey}
-                                            ></Splitted>
-                                        );
-                                }
-                            })()}
+
+                            <SingleDescriptionFieldBody
+                                field={props.field} //
+                                refreshKey={refreshKey}
+                            ></SingleDescriptionFieldBody>
                         </CustomCard>
                     </Fade>
                 );

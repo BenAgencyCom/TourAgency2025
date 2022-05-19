@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
+import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination_OLD";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";

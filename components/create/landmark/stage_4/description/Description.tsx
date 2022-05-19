@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import Header from "./Header";
 import ContentFieldsWrapper from "./ContentFieldsWrapper";
 import SingleContentField from "./SingleContentField";
-import SectionIsEmpty from "@/components/admin/create_destination/_utils/SectionIsEmpty";
 // Material UI Icons
 import Newspaper from "@mui/icons-material/Newspaper";
 // Redux
@@ -57,14 +56,7 @@ const Description: FunctionComponent = (props) => {
                             );
                         });
                     } else {
-                        return (
-                            <SectionIsEmpty
-                                icon={<Newspaper></Newspaper>} //
-                                header="There are currently no content fields"
-                                onClick={() => helpers.addItemWithAutomaticType()}
-                                buttonMsg="Add a new field"
-                            ></SectionIsEmpty>
-                        );
+                        return <span>empty</span>;
                     }
                 })()}
             </ContentFieldsWrapper>

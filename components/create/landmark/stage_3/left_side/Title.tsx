@@ -1,3 +1,5 @@
+// Tools
+import CREATE_LANDMARK_RESTRICTIONS from "@/utils/restrictions/createLandmark";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
@@ -23,8 +25,10 @@ const Title: FunctionComponent<TitleProps> = (props) => {
                 icon={<Anchor />} //
                 value={props.title.value}
                 onChange={(e: any) => props.title.setValue(e.target.value)}
-                maxLength={50}
-                multiline
+                lengthNotification={{
+                    restrictions: CREATE_LANDMARK_RESTRICTIONS.title,
+                    fieldName: "title",
+                }}
                 sx={{ width: "100%" }}
                 placeholder="The name of the landmark..."
             ></InputWithIcon>

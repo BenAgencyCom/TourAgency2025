@@ -1,17 +1,30 @@
-/* eslint-disable @next/next/no-img-element */
 // Tools
-import { useState, useRef } from "react";
-import { styled } from "@mui/system";
+import { useRef } from "react";
+import { styled, alpha } from "@mui/system";
 // Types
-import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { ImageContentField } from "@/@types/Description";
-// Material UI Components
-import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
 // Other components
-import { ImageControls, SelectImageButton } from "@/components/_utils/ImageControls";
-import ImageModal from "@/components/_utils/ImageModal";
+import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
+// Styled components
+import Button from "@/components/create/_utils/forms/Button";
+
+const ImageFieldWrapper = styled("div")(({ theme }) => ({
+    position: "relative",
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "5px",
+    overflow: "hidden",
+    background: alpha(theme.palette.text.primary, 0.1),
+    "&.splitted": {
+        flexGrow: "1",
+    },
+    "&.full-size": {
+        height: "600px",
+    },
+}));
 
 interface ImageBodyProps {
     url: string | null;
@@ -20,16 +33,8 @@ interface ImageBodyProps {
     splittedFieldUpdate?: (data: { src: File; url: string }) => void;
 }
 
-const Image = styled("img")({
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    objectPosition: "center",
-});
-
 const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
     const fileInput = useRef<HTMLInputElement | null>(null);
-    const [openModal, setOpenModal] = useState<boolean>(false);
 
     const openFileSelectDialog = () => fileInput.current?.click();
 
@@ -53,42 +58,35 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
     };
 
     return (
-        <Box
-            sx={{
-                width: "100%", //
-                height: `280px`,
-                position: "relative",
-            }}
-        >
-            <input type="file" ref={fileInput} style={{ display: "none" }} accept="image/*" onChange={onFileInputChange} />
-
+        <ImageFieldWrapper className={props.split ? "splitted" : "full-size"}>
             {(() => {
                 if (props.url) {
                     return (
-                        <>
-                            <ImageModal open={{ value: openModal, setValue: setOpenModal }} imageURL={props.url}></ImageModal>
-                            <Image
-                                src={props.url} //
-                                alt="image"
-                            ></Image>
-                        </>
+                        <SkeletonImage
+                            src={props.url} //
+                            alt="choosen-thumbnail"
+                            layout="fill"
+                            modalMaxResolution="1"
+                            openFileSelectDialog={openFileSelectDialog}
+                        ></SkeletonImage>
                     );
                 } else {
                     return (
-                        <>
-                            <Skeleton animation="wave" variant="rectangular" sx={{ height: "100%" }}></Skeleton>
-                            <SelectImageButton onClick={openFileSelectDialog}></SelectImageButton>
-                        </>
+                        <Button primary onClick={openFileSelectDialog}>
+                            Add image
+                        </Button>
                     );
                 }
             })()}
 
-            <ImageControls
-                openModal={() => setOpenModal(true)} //
-                openFileSelectDialog={openFileSelectDialog}
-                url={props.url}
-            ></ImageControls>
-        </Box>
+            <input
+                type="file" //
+                ref={fileInput}
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={onFileInputChange}
+            />
+        </ImageFieldWrapper>
     );
 };
 

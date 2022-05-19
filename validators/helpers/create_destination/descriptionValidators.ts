@@ -1,6 +1,6 @@
 // Tools
 import joi from "joi";
-import restrictions from "@/utils/restrictions/createDestination";
+import restrictions from "@/utils/restrictions/createDestination_OLD";
 import { ValidationError } from "@/utils/api/Errors";
 import { FieldType } from "@/@types/Description";
 // Types

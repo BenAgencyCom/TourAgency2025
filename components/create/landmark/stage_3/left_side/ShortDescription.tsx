@@ -1,3 +1,5 @@
+// Tools
+import CREATE_LANDMARK_RESTRICTIONS from "@/utils/restrictions/createLandmark";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
@@ -23,11 +25,14 @@ const ShortDescription: FunctionComponent<ShortDescriptionProps> = (props) => {
                 icon={<Sailing />} //
                 value={props.shortDescription.value}
                 onChange={(e: any) => props.shortDescription.setValue(e.target.value)}
-                maxLength={150}
                 multiline
-                minRows={3}
+                rows={3}
                 placeholder="Giva a short demystification..."
                 sx={{ width: "100%" }}
+                lengthNotification={{
+                    restrictions: CREATE_LANDMARK_RESTRICTIONS.shortDescription,
+                    fieldName: "short description",
+                }}
             ></InputWithIcon>
         </FlexBox>
     );

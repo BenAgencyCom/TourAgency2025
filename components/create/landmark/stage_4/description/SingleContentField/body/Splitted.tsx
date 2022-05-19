@@ -9,7 +9,7 @@ import type { SplittedContentField } from "@/@types/Description";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 // Other components
-import SpliitedSubField from "./_SplittedSubField";
+import SplittedSubfield from "./SplittedSubfield";
 // Styled components
 const SplittedContentFieldBox = styled(Box)({
     display: "flex",
@@ -29,17 +29,19 @@ const SplittedBody: FunctionComponent<SplittedBodyProps> = (props) => {
 
     return (
         <SplittedContentFieldBox>
-            <SpliitedSubField
+            <SplittedSubfield
                 data={props.field.data["left"]} //
                 updateSubField={(data: SplittedContentField["left"]) => updateSubField("left", data)}
-            ></SpliitedSubField>
+                subFieldIndex={0}
+            ></SplittedSubfield>
 
             <Divider flexItem sx={{ mx: 2 }} orientation="vertical"></Divider>
 
-            <SpliitedSubField
+            <SplittedSubfield
                 data={props.field.data["right"]} //
                 updateSubField={(data: SplittedContentField["right"]) => updateSubField("right", data)}
-            ></SpliitedSubField>
+                subFieldIndex={1}
+            ></SplittedSubfield>
         </SplittedContentFieldBox>
     );
 };

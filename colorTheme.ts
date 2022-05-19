@@ -67,7 +67,7 @@ export default createTheme({
         subtitle2: {
             fontSize: "1.2rem",
             ["@media (max-width:800px)"]: {
-                fontSize: "1.rem",
+                fontSize: "1.1rem",
             },
         },
     },

@@ -1,5 +1,5 @@
 import joi from "joi";
-import restrictions from "@/utils/restrictions/createDestination";
+import restrictions from "@/utils/restrictions/createDestination_OLD";
 
 const { title, description, tag } = restrictions.landmark;
 

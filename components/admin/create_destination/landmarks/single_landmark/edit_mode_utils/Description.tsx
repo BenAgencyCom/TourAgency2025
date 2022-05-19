@@ -4,7 +4,7 @@ import type { FunctionComponent, ChangeEvent } from "react";
 import type { Landmark } from "@/@types/pages/admin/create_destination/Landmark";
 // Material UI Components
 import TextField from "@mui/material/TextField";
-import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination";
+import CREATE_DESTINATION_RESTRICTIONS from "@/utils/restrictions/createDestination_OLD";
 
 interface DescriptionProps {
     tabIndex: number;

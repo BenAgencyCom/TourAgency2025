@@ -48,7 +48,7 @@ const createContentField = (newFieldType: FieldType): DescriptionContentField =>
         case FieldType.SPLITTED:
             return createField<SplittedContentField>({
                 left: createField<ParagraphContentField>({ content: "" }, FieldType.PARAGRAPH), //
-                right: createField<ParagraphContentField>({ content: "" }, FieldType.PARAGRAPH), //
+                right: createField<ImageContentField>({ src: null, url: null }, FieldType.IMAGE), //
             });
     }
 };
