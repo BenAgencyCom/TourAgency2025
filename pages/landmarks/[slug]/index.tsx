@@ -60,8 +60,8 @@ const SingleLandmark: FunctionComponent<DataFromAPI> = (props) => {
                 steps={[
                     { title: "Landing", elementID: "landing-wrapper" },
                     { title: "Destination", elementID: "destination-wrapper" },
-                    { title: "Landmarks", elementID: "similar-landmarks" },
                     { title: "Description", elementID: "description-wrapper" },
+                    { title: "Landmarks", elementID: "similar-landmarks" },
                     { title: "Reviews", elementID: "reviews" },
                 ]}
             ></ScrollStepper>
