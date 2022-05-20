@@ -1,25 +1,35 @@
+// Tools
+import { styled } from "@mui/system";
+import stated from "@/utils/client/stated";
 import { useState, useEffect } from "react";
 import { validateDescription } from "@/validators/helpers/create_destination/descriptionValidators";
 // Types
 import type { FunctionComponent } from "react";
-import { helpers } from "@/redux/slices/createContent";
-// Material UI Components
-import Box from "@mui/material/Box";
+import { StatedDataField } from "@/@types/StatedDataField";
 // Other Components
 import Header from "./Header";
-import ContentFieldsWrapper from "./ContentFieldsWrapper";
 import SingleContentField from "./SingleContentField";
-// Material UI Icons
-import Newspaper from "@mui/icons-material/Newspaper";
+import ContentFieldsWrapper from "./ContentFieldsWrapper";
+import Button from "@/components/create/_utils/forms/Button";
+import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
+// Styled components
+const DescriptionWrapper = styled("section")(({ theme }) => ({
+    display: "flex",
+    flexDirection: "column",
+}));
+interface DescriptionProps {
+    previewMode: StatedDataField<boolean>;
+}
 
-const Description: FunctionComponent = (props) => {
+const Description: FunctionComponent<DescriptionProps> = (props) => {
     const description = useAppSelector((state) => state.createContent.list);
     const [_scrollableKey, _setScrollableKey] = useState<number>(0); // For computing `useLayoutEffect` in `ContentFieldsWrapper` component
     //
     const [blockContinue, setBlockContinue] = useState<boolean>(true);
     const blockDeleting = description.length < 3;
+    const [addNewContentFieldDialog, setAddNewContentFieldDialog] = useState<boolean>(false);
     //
     // Validation
     //
@@ -28,15 +38,8 @@ const Description: FunctionComponent = (props) => {
     }, [description]);
 
     return (
-        <Box
-            component="section"
-            sx={{
-                color: "text.primary", //
-                display: "flex",
-                flexDirection: "column",
-            }}
-        >
-            <Header></Header>
+        <DescriptionWrapper>
+            <Header addNewContentFieldDialog={stated(addNewContentFieldDialog, setAddNewContentFieldDialog)}></Header>
 
             <ContentFieldsWrapper
                 description={description} //
@@ -56,11 +59,17 @@ const Description: FunctionComponent = (props) => {
                             );
                         });
                     } else {
-                        return <span>empty</span>;
+                        return (
+                            <ThereAreNoResults>
+                                <Button primary sx={{ width: "200px" }} onClick={() => setAddNewContentFieldDialog(true)}>
+                                    Start
+                                </Button>
+                            </ThereAreNoResults>
+                        );
                     }
                 })()}
             </ContentFieldsWrapper>
-        </Box>
+        </DescriptionWrapper>
     );
 };
 

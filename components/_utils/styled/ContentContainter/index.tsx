@@ -27,6 +27,13 @@ const Wrapper = styled("section")(({ theme }) => ({
     ["@media (max-width:400px)"]: {
         width: "calc(100vw - 10px)",
     },
+    ".content-container-children-wrapper": {
+        position: "relative",
+        zIndex: "1",
+        display: "flex",
+        flexDirection: "column",
+        flexGrow: "1",
+    },
 }));
 
 interface ContentContainterProps extends MUIStyledCommonProps {
@@ -45,7 +52,7 @@ const ContentContainter: FunctionComponent<ContentContainterProps> = (props) => 
         <Wrapper {...propsToForward}>
             {header && <Header main={header.main} background={header.background}></Header>}
             {backgroundMap && <BackgroundMap></BackgroundMap>}
-            <div style={{ position: "relative", zIndex: "1" }}>{children}</div>
+            <div className="content-container-children-wrapper">{children}</div>
         </Wrapper>
     );
 };

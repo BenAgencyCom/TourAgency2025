@@ -11,7 +11,7 @@ const LengthNotificationBase = styled("span")<{ error?: boolean }>(({ theme, ...
     width: "100%",
     justifyContent: "space-between",
     alignItmes: "center",
-    marginTop: "5px",
+    marginTop: "10px",
     color: props.error ? theme.palette.error.main : theme.palette.text.primary,
     strong: {
         fontWeight: "900",

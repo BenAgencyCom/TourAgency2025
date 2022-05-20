@@ -5,7 +5,6 @@ import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent } from "react";
 import type { LandmarkType } from "@prisma/client";
-import type { DescriptionContentField } from "@/@types/Description";
 import type { Destination } from "@/@types/pages/create/CreateLandmark";
 // Other components
 import Head from "next/Head";
@@ -32,7 +31,6 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
     const [title, setTitle] = useState<string>("");
     const [shortDescription, setShortDescription] = useState<string>("");
     const [landmarkType, setLandmarkType] = useState<LandmarkType>("ANTIQUE");
-    const [description, setDescription] = useState<DescriptionContentField[]>([]);
 
     const upload = () => alert("uploading");
 
@@ -73,7 +71,7 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                                 ></StageThree>
                             );
                         case 3:
-                            return <StageFour description={stated(description, setDescription)}></StageFour>;
+                            return <StageFour></StageFour>;
                         case 4:
                             return <StageFive></StageFive>;
                     }

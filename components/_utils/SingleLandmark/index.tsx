@@ -19,9 +19,12 @@ import ReviewScore from "@/components/_utils/ReviewScore";
 const ToggleReviewButton = dynamic(() => import("./ToggleReviewButton"));
 const ReviewInformation = dynamic(() => import("./body/ReviewInformation"));
 // Styled Components
-import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
+const SingleLandmarkWrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
     "span.landmark-type": {
         position: "absolute",
         bottom: "0px",
@@ -37,6 +40,17 @@ const SingleLandmarkWrapper = styled(FlexBox)(({ theme }) => ({
         zIndex: "2",
     },
     ...(RWD as any),
+}));
+
+const StyledReviewScore = styled(ReviewScore)(({ theme }) => ({
+    position: "absolute", //
+    top: "20px",
+    left: "20px",
+    zIndex: "10",
+    fontSize: "3rem",
+    width: "90px",
+    height: "90px",
+    borderRadius: "5px",
 }));
 
 interface SingleLandmarkProps {
@@ -57,27 +71,15 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
         <Fade in={true}>
             <SingleLandmarkWrapper
                 sx={props.sx} //
-                column
-                horizontal="start"
                 className="single-landmark"
             >
                 {(() => {
                     if (userReview) {
                         return (
-                            <ReviewScore
-                                type={userReview.type}
+                            <StyledReviewScore
+                                type={userReview.type} //
                                 points={userReview.points}
-                                sx={{
-                                    position: "absolute", //
-                                    top: "20px",
-                                    left: "20px",
-                                    zIndex: "10",
-                                    fontSize: "3rem",
-                                    width: "90px",
-                                    height: "90px",
-                                    borderRadius: "5px",
-                                }}
-                            ></ReviewScore>
+                            ></StyledReviewScore>
                         );
                     }
                 })()}

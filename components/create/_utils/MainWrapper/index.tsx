@@ -6,10 +6,11 @@ import type { StatedDataField } from "@/@types/StatedDataField";
 // Other components
 import CreateProcessStepper from "./CreateProcessStepper";
 import NavigationBetweenStages from "./NavigationBetweenStages";
+import ContentContainter from "@/components/_utils/styled/ContentContainter";
 // Styled components
 const Wrapper = styled("section")(({ theme }) => ({
     background: theme.palette.background.default,
-    paddingTop: "180px",
+    paddingTop: "80px",
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
@@ -44,7 +45,7 @@ const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
 
     return (
         <Wrapper id="create-content-wrapper">
-            <div className="main-wrapper-content">
+            <ContentContainter sx={{ flexGrow: "1" }}>
                 <CreateProcessStepper steps={steps} activeStep={activeStep} disableContinueButton={disableContinueButton} />
                 <div className="children-wrapper">{children}</div>
                 <NavigationBetweenStages
@@ -52,7 +53,7 @@ const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
                     activeStep={activeStep}
                     alternativeContinueCallback={alternativeContinueCallback}
                 ></NavigationBetweenStages>
-            </div>
+            </ContentContainter>
         </Wrapper>
     );
 };

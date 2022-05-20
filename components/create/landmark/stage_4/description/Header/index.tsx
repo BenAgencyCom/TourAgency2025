@@ -1,9 +1,8 @@
 // Tools
-import { useState } from "react";
 import { styled } from "@mui/system";
-import stated from "@/utils/client/stated";
 // Types
 import type { FunctionComponent } from "react";
+import { StatedDataField } from "@/@types/StatedDataField";
 // Other components
 import SelectNewContentFieldType from "./SelectNewContentFieldType";
 // Styled components
@@ -15,14 +14,15 @@ const Wrapper = styled("header")({
     width: "100%",
 });
 
-const DescriptionHeader: FunctionComponent = (props) => {
-    const [selectTypeDialog, setSelectTypeDialog] = useState<boolean>(false);
-
+interface DescriptionHeaderProps {
+    addNewContentFieldDialog: StatedDataField<boolean>;
+}
+const DescriptionHeader: FunctionComponent<DescriptionHeaderProps> = (props) => {
     return (
         <Wrapper sx={{ mb: 2 }}>
-            <SelectNewContentFieldType open={stated(selectTypeDialog, setSelectTypeDialog)}></SelectNewContentFieldType>
+            <SelectNewContentFieldType open={props.addNewContentFieldDialog}></SelectNewContentFieldType>
 
-            <Button onClick={() => setSelectTypeDialog(true)}>Add content field</Button>
+            <Button onClick={() => props.addNewContentFieldDialog.setValue(true)}>Add content field</Button>
             <Button sx={{ ml: "10px" }}>Preview</Button>
         </Wrapper>
     );

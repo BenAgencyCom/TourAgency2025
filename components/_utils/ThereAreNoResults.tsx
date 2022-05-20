@@ -146,6 +146,7 @@ const ThereAreNoResults: FunctionComponent<ThereAreNoResultsProps> = (props) => 
                         <>
                             <BlurOff></BlurOff>
                             <h3>{props.header ?? "Nothing to explore"}</h3>
+                            {props.children}
                             {moreInformation.length > 0 && <FlexBoxColumnCenter className="more-information">{moreInformation}</FlexBoxColumnCenter>}
                             {explanations.length > 0 && (
                                 <>
