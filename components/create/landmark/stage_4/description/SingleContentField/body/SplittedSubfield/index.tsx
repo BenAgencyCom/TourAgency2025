@@ -7,7 +7,7 @@ import { FieldType } from "@/@types/Description";
 import type { FunctionComponent } from "react";
 import type { SplittedSubfieldField } from "@/@types/Description";
 // Other components
-import ChangeTypeDialog from "../../Header/ChangeTypeDialog";
+import ChangeTypeDialog from "../../Header/dialogs/ChangeTypeDialog";
 import SplittedSubfieldBody from "./SplittedSubfieldBody";
 import SplittedSubfieldHeader from "./SplittedSubfieldHeader";
 // Redux

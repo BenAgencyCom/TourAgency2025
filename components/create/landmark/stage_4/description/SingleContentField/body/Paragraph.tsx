@@ -35,6 +35,11 @@ const ParagraphBody: FunctionComponent<ParagraphBodyProps> = (props) => {
             onChange={onChange}
             onBlur={onBlur}
             multiline={true}
+            placeholder={
+                props.split
+                    ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis neque vel augue luctus imperdiet. Proin dapibus eros quis condimentum sollicitudin. Aliquam porta pulvinar libero non aliquet. Integer egestas magna sed purus blandit, eget venenatis velit tristique. Vivamus pulvinar mauris eu ligula egestas, in tincidunt mauris efficitur. Donec eget fringilla ipsum, a venenatis enim. Praesent volutpat odio non pretium pharetra"
+                    : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis neque vel augue luctus imperdiet. Proin dapibus eros quis condimentum sollicitudin. Aliquam porta pulvinar libero non aliquet. Integer egestas magna sed purus blandit, eget venenatis velit tristique. Vivamus pulvinar mauris eu ligula egestas, in tincidunt mauris efficitur. Donec eget fringilla ipsum, a venenatis enim. Praesent volutpat odio non pretium pharetra. Maecenas nibh libero, pharetra ac sem faucibus, rutrum luctus leo. Sed facilisis in nisl ac pellentesque. Cras bibendum consequat purus eu eleifend. In vitae leo neque. Duis faucibus purus vel turpis porta dictum. Donec tincidunt sagittis ligula at facilisis. Nunc eget pretium tortor. Donec dignissim eget risus vitae tristique. Nunc efficitur tortor nec quam consequat, ut vulputate elit rutrum...."
+            }
             rows={props.split ? 10 : 6}
             sx={{ width: "100%" }}
             lengthNotification={{

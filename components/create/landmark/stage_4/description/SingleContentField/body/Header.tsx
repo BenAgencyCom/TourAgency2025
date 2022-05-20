@@ -29,6 +29,7 @@ const HeaderBody: FunctionComponent<HeaderBodyProps> = (props) => {
             value={newHeader} //
             onChange={onChange}
             onBlur={onBlur}
+            placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit...."
             sx={{ width: "100%" }}
             lengthNotification={{
                 fieldName: "paragraph",
