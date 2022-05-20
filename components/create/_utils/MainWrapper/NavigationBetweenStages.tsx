@@ -1,36 +1,19 @@
 // Tools
 import { styled } from "@mui/system";
-import { useRef } from "react";
 // Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
 // Styled components
-import FlexBox from "@/components/_utils/styled/FlexBox";
-import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineTransition";
+import Button from "../forms/Button";
 
-const Button = styled(ButtonWithLineTransition, {
-    shouldForwardProp: (prop: string) => !["disabled"].includes(prop),
-})<{ disabled?: boolean }>(({ theme, ...props }) => ({
-    fontSize: "1.2rem",
-    width: "200px",
-    height: "40px",
-    ...(props.disabled && {
-        background: theme.palette.background.lightPaper,
-        borderColor: theme.palette.background.lightPaper,
-        color: `${theme.palette.text.primary} !important`,
-        cursor: "default",
-        "&:after": {
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: 1,
-            background: theme.palette.background.lightPaper,
-            content: "''",
-        },
-    }),
+const StagesNavigationWrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    button: {
+        width: "200px",
+        height: "40px",
+    },
 }));
+
 interface NavigationBetweenStagesProps {
     disableContinueButton: boolean;
     activeStep: StatedDataField<number>;
@@ -64,7 +47,7 @@ const NavigationBetweenStages: FunctionComponent<NavigationBetweenStagesProps> =
     };
 
     return (
-        <FlexBox className="stages-navigation">
+        <StagesNavigationWrapper className="stages-navigation">
             <Button reverse disabled={disableGoBack} onClick={goGack}>
                 Go back
             </Button>
@@ -78,7 +61,7 @@ const NavigationBetweenStages: FunctionComponent<NavigationBetweenStagesProps> =
             >
                 Continue
             </Button>
-        </FlexBox>
+        </StagesNavigationWrapper>
     );
 };
 

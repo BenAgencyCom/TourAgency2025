@@ -42,3 +42,28 @@ export const validateDescription = (description: DescriptionContentField[]): boo
         }
     }
 };
+/**Validate a description and return array reflecting wthich fields are valid and invalid */
+export const validateDescriptionPrecisely = (description: DescriptionContentField[]): boolean[] => {
+    const validationResult: boolean[] = [];
+    const addToValidationResult = (val: boolean) => validationResult.push(val);
+
+    description.forEach((field) => {
+        if (field.type === FieldType.HEADER) addToValidationResult(validateHeader(field.header));
+        else if (field.type === FieldType.PARAGRAPH) addToValidationResult(validateParagraph(field.content));
+        else if (field.type === FieldType.IMAGE) addToValidationResult(validateImage(field.src));
+        else if (field.type === FieldType.SPLITTED) {
+            let leftSideValidationResult: boolean | null = null;
+            let rightSideValidationResult: boolean | null = null;
+            // Validate left side
+            if (field.left.type === FieldType.PARAGRAPH) leftSideValidationResult = validateParagraph(field.left.content);
+            else leftSideValidationResult = validateImage(field.left.src);
+            // Validate right side
+            if (field.right.type === FieldType.PARAGRAPH) rightSideValidationResult = validateParagraph(field.right.content);
+            else rightSideValidationResult = validateImage(field.right.src);
+
+            addToValidationResult(Boolean(leftSideValidationResult && rightSideValidationResult));
+        }
+    });
+
+    return validationResult;
+};

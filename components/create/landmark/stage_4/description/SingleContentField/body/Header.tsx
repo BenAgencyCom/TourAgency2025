@@ -15,20 +15,14 @@ interface HeaderBodyProps {
 }
 
 const HeaderBody: FunctionComponent<HeaderBodyProps> = (props) => {
-    const [newHeader, setNewHeader] = useState<string>(props.field.data.header);
-
-    const onBlur = () => {
-        props.field.changeProperty("header", newHeader);
-    };
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewHeader(e.target.value);
+        props.field.changeProperty("header", e.target.value);
     };
 
     return (
         <InputWithIcon
-            value={newHeader} //
+            value={props.field.data.header} //
             onChange={onChange}
-            onBlur={onBlur}
             placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit...."
             sx={{ width: "100%" }}
             lengthNotification={{

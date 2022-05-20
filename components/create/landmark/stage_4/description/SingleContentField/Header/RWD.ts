@@ -8,6 +8,8 @@ export default {
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
+    position: "relative",
+    zIndex: "2",
     h4: {
         margin: "20px 0",
         fontSize: "1.8rem",

@@ -1,5 +1,4 @@
 // Tools
-import { useState } from "react";
 import CREATE_LANDMARK_RESTRICTIONS from "@/utils/restrictions/createLandmark";
 // Types
 import { ListItem } from "@/@types/redux";
@@ -19,21 +18,16 @@ interface ParagraphBodyProps {
 }
 
 const ParagraphBody: FunctionComponent<ParagraphBodyProps> = (props) => {
-    const [newContent, setNewContent] = useState<string>(props.field ? props.field.data.content : (props.content as string));
-
-    const onBlur = () => {
-        if (props.field) props.field.changeProperty("content", newContent);
-        else if (props.updateSingleProp) props.updateSingleProp("content", newContent);
-    };
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewContent(e.target.value);
+        const { value } = e.target;
+        if (props.field) props.field.changeProperty("content", value);
+        else if (props.updateSingleProp) props.updateSingleProp("content", value);
     };
 
     return (
         <InputWithIcon
-            value={newContent} //
+            value={props.field ? props.field.data.content : (props.content as string)} //
             onChange={onChange}
-            onBlur={onBlur}
             multiline={true}
             placeholder={
                 props.split

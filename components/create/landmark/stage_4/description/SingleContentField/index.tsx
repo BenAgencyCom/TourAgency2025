@@ -1,7 +1,6 @@
 // Tools
-import { useState } from "react";
 import { styled } from "@mui/system";
-import stated from "@/utils/client/stated";
+import { useState } from "react";
 // Types
 import { Theme } from "@mui/system";
 import { ListItem } from "@/@types/redux";
@@ -17,12 +16,14 @@ import Divider from "@mui/material/Divider";
 import { Draggable } from "react-beautiful-dnd";
 import SingleDescriptionFieldBody from "./Body";
 import ControlHeader from "./Header";
+// Material UI Icons
+import ReportGmailerrorred from "@mui/icons-material/ReportGmailerrorred";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
 import { helpers } from "@/redux/slices/createContent";
 import { useAppDispatch } from "@/hooks/useRedux";
 
-const CustomCard = styled(Card)(({ theme }: { theme: Theme }) => ({
+const StyledCard = styled(Card)(({ theme }: { theme: Theme }) => ({
     color: "text.primary", //
     marginBottom: "20px",
     padding: theme.spacing(2),
@@ -31,12 +32,27 @@ const CustomCard = styled(Card)(({ theme }: { theme: Theme }) => ({
     alignItems: "center",
     background: "#fff",
     border: "none",
+    position: "relative",
+}));
+
+const ValidationErrorIcon = styled("span")(({ theme }) => ({
+    position: "absolute",
+    top: "-15px",
+    right: "0",
+    color: theme.palette.error.main,
+    opacity: 0.075,
+    fontWeight: 500,
+    svg: {
+        marginRight: "10px",
+        fontSize: "12rem",
+    },
 }));
 
 interface SingleContentFieldProps {
     field: ListItem<DescriptionContentField>;
     index: number;
     blockDeleting: boolean;
+    isValid: boolean;
     _setScrollableKey: Dispatch<SetStateAction<number>>;
 }
 
@@ -77,12 +93,19 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
             {(provided: DraggableProvided) => {
                 return (
                     <Fade in={true}>
-                        <CustomCard
+                        <StyledCard
                             className="description-conent-field" //
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
                         >
+                            <Fade in={!props.isValid}>
+                                <div>
+                                    <ValidationErrorIcon>
+                                        <ReportGmailerrorred />
+                                    </ValidationErrorIcon>
+                                </div>
+                            </Fade>
                             <ControlHeader
                                 field={props.field}
                                 blockDeleting={props.blockDeleting} //
@@ -98,7 +121,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                                 field={props.field} //
                                 refreshKey={refreshKey}
                             ></SingleDescriptionFieldBody>
-                        </CustomCard>
+                        </StyledCard>
                     </Fade>
                 );
             }}

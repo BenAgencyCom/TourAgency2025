@@ -1,4 +1,5 @@
 // Tools
+import { useRef } from "react";
 import { styled } from "@mui/system";
 import colorTheme from "@/colorTheme";
 // Types
@@ -59,8 +60,13 @@ interface StyledSelectProps extends InputBaseProps {
 
 const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
     const { icon, onChange, lengthNotification, ...propsToForward } = props;
+    const inputRef = useRef<HTMLElement>();
 
     const clearInputValue = () => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+            setTimeout(() => inputRef.current && inputRef.current.blur(), 1);
+        }
         if (props.onChange) props.onChange({ target: { value: "" } } as any);
     };
 
@@ -77,6 +83,7 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
     return (
         <>
             <StyledInputBase
+                inputRef={inputRef}
                 startAdornment={
                     icon && (
                         <InputAdornment position="start" sx={{ p: 0, opacity: 0.7 }}>

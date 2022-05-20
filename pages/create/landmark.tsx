@@ -17,10 +17,10 @@ const StageFour = dynamic(() => import("@/components/create/landmark/stage_4"), 
 const StageFive = dynamic(() => import("@/components/create/landmark/stage_5"), staticImportLoader);
 // Styled components
 import MainWrapper from "@/components/create/_utils/MainWrapper";
+
 interface CreateLandmarkPageProps {
     //
 }
-
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
     const [activeStep, setActiveStep] = useState<number>(3);
     const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
@@ -71,7 +71,7 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                                 ></StageThree>
                             );
                         case 3:
-                            return <StageFour></StageFour>;
+                            return <StageFour disableContinueButton={stated(disableContinueButton, setDisableContinueButton)}></StageFour>;
                         case 4:
                             return <StageFive></StageFive>;
                     }

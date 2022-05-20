@@ -13,11 +13,12 @@ const ImageFieldWrapper = styled("div")(({ theme }) => ({
     position: "relative",
     width: "100%",
     display: "flex",
+    zIndex: 1,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: "5px",
     overflow: "hidden",
-    background: alpha(theme.palette.text.primary, 0.1),
+    background: "rgb(230, 233, 236)",
     "&.splitted": {
         flexGrow: "1",
     },
