@@ -20,7 +20,7 @@ export default class ReceivedFilesValidator {
         this.files = props.files;
     }
 
-    public main() {
+    public validate() {
         const expectedImages = this.establishExpectedImages();
         const receivedImages = this.establishReceivedImages();
         //

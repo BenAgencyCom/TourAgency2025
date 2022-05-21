@@ -44,6 +44,10 @@ describe("POST: /landmark/create", () => {
                 const { shortDescription, ...body } = landmarkDataForCreation;
                 await expectUnprocessableEntity(body);
             });
+            test("Type", async () => {
+                const { type, ...body } = landmarkDataForCreation;
+                await expectUnprocessableEntity(body);
+            });
             test("Description", async () => {
                 const { description, ...body } = landmarkDataForCreation;
                 await expectUnprocessableEntity(body);
@@ -59,12 +63,11 @@ describe("POST: /landmark/create", () => {
                 body.destinationId = "UNEXISTING_DESTINATION_ID";
                 await expectUnprocessableEntity(body);
             });
-            test("DestinationID- too long", async () => {
+            test("Type- not included in ENUM", async () => {
                 const body = getValidLandmarkData();
-                body.destinationId = "UNEXISTING_DESTINATION_ID";
+                body.type = "UNEXISTING_LANDMARK_TYPE" as any;
                 await expectUnprocessableEntity(body);
             });
-
             test("Title- too little", async () => {
                 const body = getValidLandmarkData();
                 body.title = "1";
@@ -85,9 +88,7 @@ describe("POST: /landmark/create", () => {
                 body.shortDescription = VERY_LONG_STRING;
                 await expectUnprocessableEntity(body);
             });
-            test("Thumbnail- unsupporting extension", async () => {
-                await expectUnprocessableEntity(landmarkDataForCreation);
-            });
+            return;
             describe("Description", () => {
                 describe("Header field", () => {
                     test("Too little", async () => {

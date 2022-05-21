@@ -1,6 +1,6 @@
 // Tools
-import { ValidationError } from "@/utils/api/Errors";
 import ReceivedFilesValidator from "./ReceivedFilesValidator";
+import FieldsValidator from "./FieldsValidator";
 import handleMultipartFormDataRequest from "@/utils/api/handleMultipartFormDataRequest";
 // Types
 import type { NextApiRequest } from "next";
@@ -24,16 +24,17 @@ export default class CreateLandmarkAPI {
     /** Parse comming request in order to obtain an access to the JSON body and images */
     protected async parseRequest() {
         const parsedRequest = await handleMultipartFormDataRequest<ParsedRequestBody>(this.req);
-        parsedRequest.fields.description = JSON.parse(parsedRequest.fields.description as unknown as string);
+        if (parsedRequest.fields.description) parsedRequest.fields.description = JSON.parse(parsedRequest.fields.description as any);
         this.fields = parsedRequest.fields;
         this.files = parsedRequest.files;
     }
 
     /** Handle all processes related with validation each single property as well as images */
     protected async handleValidation() {
+        await new FieldsValidator(this.fields).validate();
         new ReceivedFilesValidator({
             files: this.files,
             fields: this.fields,
-        }).main();
+        }).validate();
     }
 }
