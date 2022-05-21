@@ -1,5 +1,11 @@
 // Tools
+import joi from "joi";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
+import createBetterJoiErrors from "@/utils/api/betterJoiErrors";
+import restrictions from "@/utils/restrictions/createDescription";
+// Fields' validators
+import HeaderFieldValidator from "./HeaderFieldValidator";
+import ParagraphFieldValidator from "./ParagraphFieldValidator";
 // Types
 import { FieldType } from "@/@types/Description";
 import type { DescriptionContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "@/@types/Description";
@@ -16,7 +22,10 @@ export default abstract class DescriptionValidator {
 
     public async validateDescription() {
         this.ensureThatDescriptionHasBeenReceived();
-        //
+
+        (this.description as DescriptionContentField[]).forEach((field, index) => {
+            this.distinguishFurtherValidationStep(field, index);
+        });
     }
 
     private ensureThatDescriptionHasBeenReceived() {
@@ -37,13 +46,13 @@ export default abstract class DescriptionValidator {
     private distinguishFurtherValidationStep(field: DescriptionContentField, index: number) {
         switch (field.type as unknown) {
             case FieldType.HEADER:
-                return this.validateHeader(field as HeaderContentField);
+                return this.validateHeader(field as HeaderContentField, index);
             case FieldType.PARAGRAPH:
-                return this.validateParagraph(field as ParagraphContentField);
+                return this.validateParagraph(field as ParagraphContentField, index);
             case FieldType.IMAGE:
-                return this.validateImage(field as ImageContentField);
+                return this.validateImage(field as ImageContentField, index);
             case FieldType.SPLITTED:
-                return this.validateSplitted(field as SplittedContentField);
+                return this.validateSplitted(field as SplittedContentField, index);
             default:
                 throw new InvalidRequestedBody([
                     {
@@ -55,19 +64,19 @@ export default abstract class DescriptionValidator {
         }
     }
     /** Subsequent step after `distinguishFurtherValidationStep` method */
-    private validateHeader(field: HeaderContentField) {
+    private validateHeader(field: HeaderContentField, index: number) {
+        new HeaderFieldValidator({ field, index }).validate();
+    }
+    /** Subsequent step after `distinguishFurtherValidationStep` method */
+    private validateParagraph(field: ParagraphContentField, index: number) {
+        new ParagraphFieldValidator({ field, index }).validate();
+    }
+    /** Subsequent step after `distinguishFurtherValidationStep` method */
+    private validateImage(field: ImageContentField, index: number) {
         //
     }
     /** Subsequent step after `distinguishFurtherValidationStep` method */
-    private validateParagraph(field: ParagraphContentField) {
-        //
-    }
-    /** Subsequent step after `distinguishFurtherValidationStep` method */
-    private validateImage(field: ImageContentField) {
-        //
-    }
-    /** Subsequent step after `distinguishFurtherValidationStep` method */
-    private validateSplitted(field: SplittedContentField) {
+    private validateSplitted(field: SplittedContentField, index: number) {
         //
     }
 }
