@@ -5,11 +5,10 @@ import fse from "fs-extra";
 import FormData from "form-data";
 import createValidLandmarkData from "./createValidLandmarkData";
 // Types
-import type { ValidLandmarkData } from "./@types";
 import { Prisma } from "@prisma/client";
+import type { ValidLandmarkData } from "./@types";
 
-const VALID_IMAGE_FILE_PATH = path.join(__dirname, "..", "images", "tiny.jpg");
-const INVALID_IMAGE_FILE_PATH = path.join(__dirname, "..", "images", "invalid_image.txt");
+const IMAGE_FILE_PATH = path.join(__dirname, "..", "images", "tiny.jpg");
 
 export const API_URL = "/api/landmark/create";
 export const DESTINATION_ID = "TEST_PURPOSE_ONLY_DESTINATION";
@@ -36,20 +35,19 @@ export const destinationPrismaData = {
 
 export const landmarkDataForCreation = createValidLandmarkData(DESTINATION_ID);
 
-export const convertJSONintoFormData = (objectToConvert: Partial<ValidLandmarkData>, loadInvalidImages: boolean = false): FormData => {
+export const convertJSONintoFormData = (objectToConvert: Partial<ValidLandmarkData>): FormData => {
     const formData = new FormData();
     const keys: (keyof ValidLandmarkData)[] = ["destinationId", "type", "title", "shortDescription"];
-    const imagePath = loadInvalidImages ? INVALID_IMAGE_FILE_PATH : VALID_IMAGE_FILE_PATH;
 
     keys.forEach((propName) => {
         if (objectToConvert[propName]) formData.append(propName, objectToConvert[propName]);
     });
     if (objectToConvert.description) {
         formData.append("description", JSON.stringify(objectToConvert.description));
-        for (let i = 1; i <= 3; i++) formData.append(`description_${i}`, fse.readFileSync(imagePath));
+        for (let i = 1; i <= 3; i++) formData.append(`description_${i}`, fse.readFileSync(IMAGE_FILE_PATH));
     }
     if (objectToConvert["thumbnail" as keyof ValidLandmarkData]) {
-        formData.append(`thumbnail`, fse.readFileSync(imagePath));
+        formData.append(`thumbnail`, fse.readFileSync(IMAGE_FILE_PATH));
     }
 
     return formData;

@@ -10,7 +10,7 @@ import type { NextApiResponse } from "next";
 import type { CountryType } from "@/data/countries";
 import { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
 import type { RegisterRequest, RegisterBody } from "@/@types/router/auth/register";
-import type { SubmittedFilesCollection } from "@/utils/api/HandleMultipartFormDataRequest";
+import type { SubmittedFilesCollection } from "@/utils/api/handleMultipartFormDataRequest";
 // My helpers
 import { uploadDir } from "@/utils/paths";
 import slugGenerator from "@/utils/api/slugGenerator";
@@ -18,7 +18,7 @@ import CookieCreator from "@/utils/api/abstracts/CookieCreator";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
 import RegisterBodyValidator from "@/validators/registerBodyValidator";
 import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
-import HandleMultipartFormDataRequest from "@/utils/api/HandleMultipartFormDataRequest";
+import HandleMultipartFormDataRequest from "@/utils/api/handleMultipartFormDataRequest";
 //
 //
 //

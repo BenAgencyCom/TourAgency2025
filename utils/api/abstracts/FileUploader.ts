@@ -1,5 +1,5 @@
 // Types
-import type { SubmittedFile } from "@/utils/api/HandleMultipartFormDataRequest";
+import type { SubmittedFile } from "@/utils/api/handleMultipartFormDataRequest";
 // Helpers
 import fse from "fs-extra";
 import sharp from "sharp";

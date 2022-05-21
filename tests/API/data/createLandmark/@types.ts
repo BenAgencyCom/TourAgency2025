@@ -1,10 +1,6 @@
 // Types
 import type { Landmark } from "@prisma/client";
-import { FieldType, ParagraphContentField, ImageContentField } from "@/@types/Description";
-
-export interface TestingPurposeImageContentField extends ImageContentField {
-    _sendInvalidImage?: boolean;
-}
+import { FieldType, SplittedSubfieldField, ImageContentField } from "@/@types/Description";
 
 export interface ValidLandmarkData {
     destinationId: Landmark["destinationId"];
@@ -19,13 +15,13 @@ export interface ValidLandmarkData {
         },
         {
             type: FieldType.SPLITTED;
-            left: TestingPurposeImageContentField | ParagraphContentField;
-            right: TestingPurposeImageContentField | ParagraphContentField;
+            left: SplittedSubfieldField;
+            right: SplittedSubfieldField;
         },
         {
             type: FieldType.PARAGRAPH;
             content: string;
         },
-        TestingPurposeImageContentField
+        ImageContentField
     ];
 }

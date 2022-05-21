@@ -6,11 +6,11 @@ import createBetterJoiErrors from "@/utils/api/betterJoiErrors";
 import restrictions from "@/utils/restrictions/createDestination_OLD";
 import GeneralInformationJoiSchema from "@/validators/helpers/create_destination/generalInformationJoiSchema";
 import SingleLandmarkJoiSchema from "@/validators/helpers/create_destination/singleLandmarkJoiSchema";
-import HandleMultipartFormDataRequest from "@/utils/api/HandleMultipartFormDataRequest";
+import HandleMultipartFormDataRequest from "@/utils/api/handleMultipartFormDataRequest";
 // Types
 import type { BetterJoiError } from "@/utils/api/betterJoiErrors";
 import { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
-import type { SubmittedFilesCollection } from "@/utils/api/HandleMultipartFormDataRequest";
+import type { SubmittedFilesCollection } from "@/utils/api/handleMultipartFormDataRequest";
 import type { CreateDestinationRequest, CreateDestinationRequestPardesBody } from "@/@types/router/destination";
 import type { DescriptionContentField, SplittedContentField, SplittedSubfieldField } from "@/@types/Description";
 

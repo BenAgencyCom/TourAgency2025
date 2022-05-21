@@ -10,13 +10,15 @@ import { API_URL, convertJSONintoFormData, landmarkDataForCreation, destinationP
 import type { ValidLandmarkData } from "../../data/createLandmark/@types";
 import { FieldType } from "@/@types/Description";
 
-const expectUnprocessableEntity = async (body: Partial<ValidLandmarkData>, loadInvalidImages: boolean = false) => {
+const expectUnprocessableEntity = async (body: Partial<ValidLandmarkData>) => {
     await testPOSTRequestStatus({
         expectedStatus: 422,
         endpoint: API_URL,
-        body: convertJSONintoFormData(body, loadInvalidImages),
+        body: convertJSONintoFormData(body),
     });
 };
+
+const getValidLandmarkData = (): ValidLandmarkData => JSON.parse(JSON.stringify(landmarkDataForCreation));
 
 const prisma = new PrismaClient();
 
@@ -53,53 +55,53 @@ describe("POST: /landmark/create", () => {
         });
         describe("Invalid values", () => {
             test("DestinationID- without coverage", async () => {
-                const body = landmarkDataForCreation;
+                const body = getValidLandmarkData();
                 body.destinationId = "UNEXISTING_DESTINATION_ID";
                 await expectUnprocessableEntity(body);
             });
             test("DestinationID- too long", async () => {
-                const body = landmarkDataForCreation;
+                const body = getValidLandmarkData();
                 body.destinationId = "UNEXISTING_DESTINATION_ID";
                 await expectUnprocessableEntity(body);
             });
 
             test("Title- too little", async () => {
-                const body = landmarkDataForCreation;
+                const body = getValidLandmarkData();
                 body.title = "1";
                 await expectUnprocessableEntity(body);
             });
             test("Title- too big", async () => {
-                const body = landmarkDataForCreation;
+                const body = getValidLandmarkData();
                 body.title = VERY_LONG_STRING;
                 await expectUnprocessableEntity(body);
             });
             test("ShortDescription- too little", async () => {
-                const body = landmarkDataForCreation;
+                const body = getValidLandmarkData();
                 body.shortDescription = "a";
                 await expectUnprocessableEntity(body);
             });
             test("ShortDescription- too big", async () => {
-                const body = landmarkDataForCreation;
+                const body = getValidLandmarkData();
                 body.shortDescription = VERY_LONG_STRING;
                 await expectUnprocessableEntity(body);
             });
             test("Thumbnail- unsupporting extension", async () => {
-                await expectUnprocessableEntity(landmarkDataForCreation, true);
+                await expectUnprocessableEntity(landmarkDataForCreation);
             });
             describe("Description", () => {
                 describe("Header field", () => {
                     test("Too little", async () => {
-                        const body = landmarkDataForCreation;
+                        const body = getValidLandmarkData();
                         body.description[0].header = "a";
                         await expectUnprocessableEntity(body);
                     });
                     test("Too big", async () => {
-                        const body = landmarkDataForCreation;
+                        const body = getValidLandmarkData();
                         body.description[0].header = VERY_LONG_STRING;
                         await expectUnprocessableEntity(body);
                     });
                     test("Unexpected syntax", async () => {
-                        const body = landmarkDataForCreation;
+                        const body = getValidLandmarkData();
                         body.description[0] = {
                             type: FieldType.HEADER,
                             unexpected: "a",
@@ -110,17 +112,17 @@ describe("POST: /landmark/create", () => {
                 });
                 describe("Paragraph field", () => {
                     test("Too little", async () => {
-                        const body = landmarkDataForCreation;
+                        const body = getValidLandmarkData();
                         body.description[2].content = "a";
                         await expectUnprocessableEntity(body);
                     });
                     test("Too big", async () => {
-                        const body = landmarkDataForCreation;
+                        const body = getValidLandmarkData();
                         body.description[2].content = VERY_LONG_STRING;
                         await expectUnprocessableEntity(body);
                     });
                     test("Unexpected syntax", async () => {
-                        const body = landmarkDataForCreation;
+                        const body = getValidLandmarkData();
                         body.description[2] = {
                             type: FieldType.PARAGRAPH,
                             unexpected: "a",
@@ -131,17 +133,12 @@ describe("POST: /landmark/create", () => {
                 });
                 describe("Image field", () => {
                     test("Missing image", async () => {
-                        const body = landmarkDataForCreation;
+                        const body = getValidLandmarkData();
                         body.description[3].url = "description_20";
                         await expectUnprocessableEntity(body);
                     });
-                    test("Invalid type", async () => {
-                        const body = landmarkDataForCreation;
-                        body.description[3]._sendInvalidImage = true;
-                        await expectUnprocessableEntity(body);
-                    });
                     test("Unexpected syntax", async () => {
-                        const body = landmarkDataForCreation;
+                        const body = getValidLandmarkData();
                         body.description[3] = {
                             type: FieldType.IMAGE,
                             unexpected: "a",
@@ -152,7 +149,7 @@ describe("POST: /landmark/create", () => {
                 });
                 describe("Splitted field", () => {
                     test("Unexpected syntax", async () => {
-                        const body = landmarkDataForCreation;
+                        const body = getValidLandmarkData();
                         body.description[1] = {
                             type: FieldType.SPLITTED,
                             unexpected: "a",
@@ -163,7 +160,7 @@ describe("POST: /landmark/create", () => {
                     describe("Left side", () => {
                         describe("Paragraph field", () => {
                             test("Too little", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].left = {
                                     type: FieldType.PARAGRAPH,
                                     content: "1",
@@ -171,7 +168,7 @@ describe("POST: /landmark/create", () => {
                                 await expectUnprocessableEntity(body);
                             });
                             test("Too big", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].left = {
                                     type: FieldType.PARAGRAPH,
                                     content: VERY_LONG_STRING,
@@ -179,7 +176,7 @@ describe("POST: /landmark/create", () => {
                                 await expectUnprocessableEntity(body);
                             });
                             test("Unexpected syntax", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].left = {
                                     type: FieldType.PARAGRAPH,
                                     unexpected: "a",
@@ -190,26 +187,16 @@ describe("POST: /landmark/create", () => {
                         });
                         describe("Image field", () => {
                             test("Missing image", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].left = {
                                     type: FieldType.IMAGE,
                                     url: "destination_20",
                                     src: null,
-                                };
-                                await expectUnprocessableEntity(body);
-                            });
-                            test("Invalid type", async () => {
-                                const body = landmarkDataForCreation;
-                                body.description[1].left = {
-                                    type: FieldType.IMAGE,
-                                    url: "destination_20",
-                                    src: null,
-                                    _sendInvalidImage: true,
                                 };
                                 await expectUnprocessableEntity(body);
                             });
                             test("Unexpected syntax", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].left = {
                                     type: FieldType.IMAGE,
                                     unexpected: "a",
@@ -222,7 +209,7 @@ describe("POST: /landmark/create", () => {
                     describe("Right side", () => {
                         describe("Paragraph field", () => {
                             test("Too little", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].right = {
                                     type: FieldType.PARAGRAPH,
                                     content: "1",
@@ -230,7 +217,7 @@ describe("POST: /landmark/create", () => {
                                 await expectUnprocessableEntity(body);
                             });
                             test("Too big", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].right = {
                                     type: FieldType.PARAGRAPH,
                                     content: VERY_LONG_STRING,
@@ -238,7 +225,7 @@ describe("POST: /landmark/create", () => {
                                 await expectUnprocessableEntity(body);
                             });
                             test("Unexpected syntax", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].right = {
                                     type: FieldType.PARAGRAPH,
                                     unexpected: "a",
@@ -249,26 +236,16 @@ describe("POST: /landmark/create", () => {
                         });
                         describe("Image field", () => {
                             test("Missing image", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].right = {
                                     type: FieldType.IMAGE,
                                     url: "destination_20",
                                     src: null,
-                                };
-                                await expectUnprocessableEntity(body);
-                            });
-                            test("Invalid type", async () => {
-                                const body = landmarkDataForCreation;
-                                body.description[1].right = {
-                                    type: FieldType.IMAGE,
-                                    url: "destination_20",
-                                    src: null,
-                                    _sendInvalidImage: true,
                                 };
                                 await expectUnprocessableEntity(body);
                             });
                             test("Unexpected syntax", async () => {
-                                const body = landmarkDataForCreation;
+                                const body = getValidLandmarkData();
                                 body.description[1].right = {
                                     type: FieldType.IMAGE,
                                     unexpected: "a",
