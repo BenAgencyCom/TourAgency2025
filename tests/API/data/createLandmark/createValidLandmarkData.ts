@@ -5,7 +5,7 @@ import { FieldType } from "@/@types/Description";
 import type { ValidLandmarkData } from "./@types";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (DESTINATION_ID: string): Partial<ValidLandmarkData> => {
+export default (DESTINATION_ID: string): ValidLandmarkData => {
     return {
         destinationId: DESTINATION_ID,
         //
