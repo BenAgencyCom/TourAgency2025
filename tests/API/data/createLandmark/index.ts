@@ -34,6 +34,7 @@ export const destinationPrismaData = {
 } as Prisma.DestinationCreateArgs;
 
 export const landmarkDataForCreation = createValidLandmarkData(DESTINATION_ID);
+export const EXPECTED_DESCRIPTION_IMAGES = ["description_1", "description_2", "description_3"];
 
 export const convertJSONintoFormData = (objectToConvert: Partial<ValidLandmarkData>): FormData => {
     const formData = new FormData();

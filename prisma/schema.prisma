@@ -28,6 +28,7 @@ model User {
   landmarksReviewLikes LandmarkReviewLike[]
 
   createdDestinations    Destination[]
+  createdLandmarks       Landmark[]
   destinationReview      DestinationReview[]
   destinationReviewLikes DestinationReviewLike[]
 
@@ -70,6 +71,7 @@ model Destination {
 model Landmark {
   id               String       @id @default(cuid())
   destinationId    String       @map("destination_id")
+  creatorId        String?      @map("creator_id")
   slug             String       @unique
   title            String
   description      Json
@@ -81,6 +83,7 @@ model Landmark {
   title_lowercase  String
 
   reviews     LandmarkReview[]
+  creator     User?            @relation(fields: [creatorId], references: [id], onDelete: SetNull)
   destination Destination      @relation(fields: [destinationId], references: [id], onDelete: Cascade)
 }
 
@@ -93,7 +96,6 @@ model DestinationReview {
   points        Float
   createdAt     DateTime   @default(now())
   type          ReviewType
-
 
   destination Destination             @relation(fields: [destinationId], references: [id], onDelete: Cascade)
   reviewer    User                    @relation(fields: [reviewerId], references: [id], onDelete: Cascade)

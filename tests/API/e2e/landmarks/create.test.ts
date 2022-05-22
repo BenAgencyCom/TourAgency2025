@@ -3,12 +3,16 @@
  */
 
 // Tools
+import path from "path";
+import fse from "fs-extra";
+import { uploadDir } from "@/utils/paths";
 import { PrismaClient } from "@prisma/client";
 import { testPOSTRequestStatus } from "../../helpers/testStatus";
-import { API_URL, convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING } from "../../data/createLandmark/index";
+import { API_URL, convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING, EXPECTED_DESCRIPTION_IMAGES } from "../../data/createLandmark/index";
 // Types
-import type { ValidLandmarkData } from "../../data/createLandmark/@types";
+import type { Landmark } from "@prisma/client";
 import { FieldType } from "@/@types/Description";
+import type { ValidLandmarkData } from "../../data/createLandmark/@types";
 
 const expectUnprocessableEntity = async (body: Partial<ValidLandmarkData>) => {
     await testPOSTRequestStatus({
@@ -30,6 +34,131 @@ describe("POST: /landmark/create", () => {
         await prisma.destination.delete({ where: { id: DESTINATION_ID } });
     });
 
+    describe("Landmark can be created while using valid data", () => {
+        let freshlyCreatedLandmark: Landmark | null = null;
+        beforeAll(async () => {
+            await testPOSTRequestStatus({
+                expectedStatus: 201,
+                endpoint: API_URL,
+                body: convertJSONintoFormData(getValidLandmarkData()),
+            });
+            freshlyCreatedLandmark = await prisma.landmark.findFirst({
+                where: { destinationId: landmarkDataForCreation.destinationId },
+            });
+
+            // expect(freshlyCreatedLandmark).not.toBeNull();
+        });
+        describe("Landmark should be stored property in the db", () => {
+            test("Title property is the same", async () => {
+                expect(freshlyCreatedLandmark).not.toBeNull();
+                expect((freshlyCreatedLandmark as Landmark).title).toEqual(landmarkDataForCreation.title);
+            });
+            test("LandmarkType property is the same", async () => {
+                expect(freshlyCreatedLandmark).not.toBeNull();
+                expect((freshlyCreatedLandmark as Landmark).type).toEqual(landmarkDataForCreation.type);
+            });
+            test("ShortDescription property is the same", async () => {
+                expect(freshlyCreatedLandmark).not.toBeNull();
+                expect((freshlyCreatedLandmark as Landmark).shortDescription).toEqual(landmarkDataForCreation.shortDescription);
+            });
+            test("Slug is generated", async () => {
+                expect(freshlyCreatedLandmark).not.toBeNull();
+                expect((freshlyCreatedLandmark as Landmark).slug).not.toBeFalsy();
+            });
+            describe("Searching phrases are generated correctly", () => {
+                test("Lowercase WITH special characters", async () => {
+                    expect(false).toEqual(true);
+                });
+                test("Lowercase WITHOUT special characters", async () => {
+                    expect(false).toEqual(true);
+                });
+            });
+        });
+        describe("All images should be stored correctly", () => {
+            test("Images should be stored in properly named directory", async () => {
+                expect(freshlyCreatedLandmark).not.toBeNull();
+                const folder = (freshlyCreatedLandmark as Landmark).folder;
+                expect(fse.existsSync(path.join(uploadDir, "landmarks", folder))).toBeTruthy();
+            });
+            test("Images file structure should match a general convention", async () => {
+                expect(freshlyCreatedLandmark).not.toBeNull();
+                const folder = (freshlyCreatedLandmark as Landmark).folder;
+                expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "thumbnail"))).toBeTruthy();
+                expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "description"))).toBeTruthy();
+            });
+            describe("Thumbnail should be stored in all resolutions", () => {
+                test("in 360p", async () => {
+                    expect(freshlyCreatedLandmark).not.toBeNull();
+                    const folder = (freshlyCreatedLandmark as Landmark).folder;
+                    expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "thumbnail", "360p.jpg"))).toBeTruthy();
+                });
+                test("in 480p", async () => {
+                    expect(freshlyCreatedLandmark).not.toBeNull();
+                    const folder = (freshlyCreatedLandmark as Landmark).folder;
+                    expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "thumbnail", "480p.jpg"))).toBeTruthy();
+                });
+                test("in 720p", async () => {
+                    expect(freshlyCreatedLandmark).not.toBeNull();
+                    const folder = (freshlyCreatedLandmark as Landmark).folder;
+                    expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "thumbnail", "720p.jpg"))).toBeTruthy();
+                });
+                test("in 1080p", async () => {
+                    expect(freshlyCreatedLandmark).not.toBeNull();
+                    const folder = (freshlyCreatedLandmark as Landmark).folder;
+                    expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "thumbnail", "1080p.jpg"))).toBeTruthy();
+                });
+            });
+            describe("All description images should be stored in all resolutions", () => {
+                test("in 360p", async () => {
+                    expect(freshlyCreatedLandmark).not.toBeNull();
+                    const folder = (freshlyCreatedLandmark as Landmark).folder;
+                    for (const descriptionImage of EXPECTED_DESCRIPTION_IMAGES) {
+                        expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "description", descriptionImage, "360p.jpg"))).toBeTruthy();
+                    }
+                });
+                test("in 480p", async () => {
+                    expect(freshlyCreatedLandmark).not.toBeNull();
+                    const folder = (freshlyCreatedLandmark as Landmark).folder;
+                    for (const descriptionImage of EXPECTED_DESCRIPTION_IMAGES) {
+                        expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "description", descriptionImage, "480p.jpg"))).toBeTruthy();
+                    }
+                });
+                test("in 720p", async () => {
+                    expect(freshlyCreatedLandmark).not.toBeNull();
+                    const folder = (freshlyCreatedLandmark as Landmark).folder;
+                    for (const descriptionImage of EXPECTED_DESCRIPTION_IMAGES) {
+                        expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "description", descriptionImage, "720p.jpg"))).toBeTruthy();
+                    }
+                });
+                test("in 1080p", async () => {
+                    expect(freshlyCreatedLandmark).not.toBeNull();
+                    const folder = (freshlyCreatedLandmark as Landmark).folder;
+                    for (const descriptionImage of EXPECTED_DESCRIPTION_IMAGES) {
+                        expect(fse.existsSync(path.join(uploadDir, "landmarks", folder, "description", descriptionImage, "1080p.jpg"))).toBeTruthy();
+                    }
+                });
+            });
+        });
+        test("Landmark should have propertly working relation with destination", async () => {
+            const data = await prisma.landmark.findFirst({
+                where: { destinationId: landmarkDataForCreation.destinationId },
+                include: { destination: true },
+            });
+            expect(data).not.toBeFalsy();
+            expect(data?.destination).not.toBeFalsy();
+        });
+        test("Landmark should have propertly working relation with creator", async () => {
+            const data = await prisma.landmark.findFirst({
+                where: { destinationId: landmarkDataForCreation.destinationId },
+                include: { creator: true },
+            });
+            expect(data).not.toBeFalsy();
+            expect(data?.creator).not.toBeFalsy();
+        });
+        test("Landmark should NOT be visible for public", async () => {
+            expect(false).toEqual(true);
+        });
+    });
     describe("Request body validation", () => {
         describe("Missing properties", () => {
             test("DestinationID", async () => {
@@ -171,7 +300,6 @@ describe("POST: /landmark/create", () => {
                                 body.description.pop();
                                 await expectUnprocessableEntity(body);
                             });
-                            return;
                             test("Too big", async () => {
                                 const body = getValidLandmarkData();
                                 body.description[1].left = {
