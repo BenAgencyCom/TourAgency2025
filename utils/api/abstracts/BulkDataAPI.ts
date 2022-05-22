@@ -43,6 +43,18 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
     private propertiesForSearchingPhrase?: string[];
     private model: "destination" | "landmark";
 
+    // Prisma offset pagination- alternative and the only working approach
+    //
+    // 🌴 Justification:
+    // I do realise, that this approach is not performance friendly at all, however
+    // for some completly unknown for both me and the rest of the Internet reason, it
+    // seems as the only working solution. I would have a good and working product
+    // in slighy worse time period rather than a bit more clear, technically correct and
+    // not working at the same time solution.
+    //
+    private skip: number | null = null;
+    private take: number | null = null;
+
     public constructor(props: BulkDataAPICreatorProps<PrismaModelSelect>) {
         super(
             props.req as any, //
@@ -79,8 +91,11 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
         const recordsInTotal = await this._getAmountOfRecordsInTotal();
         const pagination = this.establishPaginationProperties(recordsInTotal);
 
+        const { skip, take } = this;
+        const data = skip !== null && take !== null ? result.slice(skip, take + skip) : result;
+
         return {
-            data: result,
+            data,
             ...(pagination ? { pagination } : null),
         };
     }
@@ -98,8 +113,11 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
      * - `select`,
      */
     private _createPrismaRequestBody(params?: { shorten?: boolean; prismaSelectBody?: PrismaModelSelect }) {
-        const { where, ...generatedPrismaBody } = this.converURLQueriesIntoPrismaBody();
-
+        const { where, skip, take, ...generatedPrismaBody } = this.converURLQueriesIntoPrismaBody();
+        if (skip !== null && take !== null) {
+            this.skip = skip as number;
+            this.take = take as number;
+        }
         return {
             where: {
                 ...where,
