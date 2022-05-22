@@ -17,6 +17,10 @@ type SquareResolutions = "thumbnail" | "small" | "medium" | "large";
 type RectangularResolutions = "360p" | "480p" | "720p" | "1080p";
 type AvailableResolution = SquareResolutions | RectangularResolutions;
 
+/**
+ * Abstract `FileUploader` require only one parameter while creating- an array containing
+ * all resolutions in which images in subsequent steps are going to be stored
+ */
 export default abstract class FileUploader {
     private readonly AVAILABLE_RESOLUTIONS: Record<AvailableResolution, Resolution> = {
         thumbnail: {
@@ -62,9 +66,20 @@ export default abstract class FileUploader {
     }
 
     /**
-     * Upload single file recived from multipart-formdata broker- `@/utils/api/HandleMultipartFormDataRequest`
+     * ### Params
+     * Method accept one parameter- an object with following properties:
+     * - `file`- single file recived from multipart-form-data broker- `@/utils/api/HandleMultipartFormDataRequest`
+     * - `savePath`- **RELATIVE PATH!**- root directory is already fixed to uploads directory
+     *
+     * ### Example of usage:
+     * ```ts
+     *  private async uploadThumbnails() {
+     *     await this.uploadSingleFile(this.thumbnail, `destinations/${this.folderName}/thumbnail`);
+     * }
+     * ```
      */
-    protected async uploadSingleFile(file: SubmittedFile, savePath: string): Promise<void> {
+    protected async uploadSingleFile(params: { file: SubmittedFile; savePath: string }): Promise<void> {
+        const { file, savePath } = params;
         const { filepath: temporaryFilePath } = file;
         const dirPath = path.join(uploadDir, savePath);
         await fse.ensureDir(dirPath);
