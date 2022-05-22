@@ -9,5 +9,6 @@ export interface Landmark {
     destination: {
         city: _Destination["city"];
         country: _Destination["country"];
+        continent: _Destination["continent"];
     };
 }

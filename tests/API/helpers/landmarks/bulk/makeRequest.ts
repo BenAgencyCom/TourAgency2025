@@ -8,7 +8,7 @@ import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 const API_URL = "http://localhost:3000/api/landmark/bulk";
 const POSSIBLE_PARAMS: (keyof MakeRequestParams)[] = ["certainLandmarkType", "continent", "order", "searchingPhrase", "orderBy", "page", "perPage"];
 
-interface MakeRequestParams {
+export interface MakeRequestParams {
     certainLandmarkType?: LandmarkType;
     searchingPhrase?: string;
     continent?: Continent;

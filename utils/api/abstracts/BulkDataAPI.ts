@@ -93,7 +93,6 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
         const pagination = this.establishPaginationProperties(recordsInTotal);
 
         const { skip, take } = this;
-
         return {
             data: skip !== null && take !== null ? result.slice(skip, take + skip) : result,
             ...(pagination ? { pagination } : null),
@@ -115,8 +114,8 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
     private _createPrismaRequestBody(params?: { shorten?: boolean; prismaSelectBody?: PrismaModelSelect }) {
         const { where, skip, take, ...generatedPrismaBody } = this.converURLQueriesIntoPrismaBody();
         if (skip !== null && take !== null) {
-            this.skip = skip as number;
-            this.take = take as number;
+            this.skip = (skip as number) ?? null;
+            this.take = (take as number) ?? null;
         }
         return {
             where: {

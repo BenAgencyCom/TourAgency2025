@@ -48,6 +48,7 @@ export default class BulkLandmarksAPI extends BulkDataAPI<Prisma.LandmarkSelect,
                 select: {
                     city: true,
                     country: true,
+                    continent: true,
                 },
             },
         });
