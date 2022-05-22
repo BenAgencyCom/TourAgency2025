@@ -54,6 +54,7 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
     //
     private skip: number | null = null;
     private take: number | null = null;
+    //
 
     public constructor(props: BulkDataAPICreatorProps<PrismaModelSelect>) {
         super(
@@ -92,10 +93,9 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
         const pagination = this.establishPaginationProperties(recordsInTotal);
 
         const { skip, take } = this;
-        const data = skip !== null && take !== null ? result.slice(skip, take + skip) : result;
 
         return {
-            data,
+            data: skip !== null && take !== null ? result.slice(skip, take + skip) : result,
             ...(pagination ? { pagination } : null),
         };
     }
