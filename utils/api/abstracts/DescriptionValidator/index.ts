@@ -4,7 +4,9 @@ import { InvalidRequestedBody } from "@/utils/api/Errors";
 import createBetterJoiErrors from "@/utils/api/betterJoiErrors";
 import restrictions from "@/utils/restrictions/createDescription";
 // Fields' validators
+import ImageFieldValidator from "./ImageFieldValidator";
 import HeaderFieldValidator from "./HeaderFieldValidator";
+import SplittedFieldValidator from "./SplittedFieldValidator";
 import ParagraphFieldValidator from "./ParagraphFieldValidator";
 // Types
 import { FieldType } from "@/@types/Description";
@@ -73,10 +75,10 @@ export default abstract class DescriptionValidator {
     }
     /** Subsequent step after `distinguishFurtherValidationStep` method */
     private validateImage(field: ImageContentField, index: number) {
-        //
+        new ImageFieldValidator({ field, index }).validate();
     }
     /** Subsequent step after `distinguishFurtherValidationStep` method */
     private validateSplitted(field: SplittedContentField, index: number) {
-        //
+        new SplittedFieldValidator({ field, index }).validate();
     }
 }

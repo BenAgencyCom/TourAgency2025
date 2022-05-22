@@ -88,7 +88,6 @@ describe("POST: /landmark/create", () => {
                 body.shortDescription = VERY_LONG_STRING;
                 await expectUnprocessableEntity(body);
             });
-            return;
             describe("Description", () => {
                 describe("Header field", () => {
                     test("Too little", async () => {
@@ -148,6 +147,7 @@ describe("POST: /landmark/create", () => {
                         await expectUnprocessableEntity(body);
                     });
                 });
+
                 describe("Splitted field", () => {
                     test("Unexpected syntax", async () => {
                         const body = getValidLandmarkData();
@@ -166,8 +166,12 @@ describe("POST: /landmark/create", () => {
                                     type: FieldType.PARAGRAPH,
                                     content: "1",
                                 };
+                                body.description.shift();
+                                body.description.pop();
+                                body.description.pop();
                                 await expectUnprocessableEntity(body);
                             });
+                            return;
                             test("Too big", async () => {
                                 const body = getValidLandmarkData();
                                 body.description[1].left = {

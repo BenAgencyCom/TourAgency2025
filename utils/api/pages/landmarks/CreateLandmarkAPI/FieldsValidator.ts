@@ -12,6 +12,7 @@ import type { ParsedRequestBody } from "./@types";
  * This class is resposible for ensuring
  * that all expected properties have been received
  * - The only argument is a `fields` object
+ * - If any issues are encountered, the `InvalidRequestedBody` error will be thrown
  */
 export default class FieldsValidator extends DescriptionValidator {
     public constructor(protected fields: ParsedRequestBody) {
