@@ -8,11 +8,11 @@ import fse from "fs-extra";
 import { uploadDir } from "@/utils/paths";
 import { PrismaClient } from "@prisma/client";
 import { testPOSTRequestStatus } from "../../helpers/testStatus";
-import { API_URL, convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING, EXPECTED_DESCRIPTION_IMAGES } from "../../data/createLandmark/index";
+import { API_URL, convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING, EXPECTED_DESCRIPTION_IMAGES } from "../../data/landmarks/create";
 // Types
 import type { Landmark } from "@prisma/client";
 import { FieldType } from "@/@types/Description";
-import type { ValidLandmarkData } from "../../data/createLandmark/@types";
+import type { ValidLandmarkData } from "../../data/landmarks/create/@types";
 
 const expectUnprocessableEntity = async (body: Partial<ValidLandmarkData>) => {
     await testPOSTRequestStatus({
@@ -26,7 +26,7 @@ const getValidLandmarkData = (): ValidLandmarkData => JSON.parse(JSON.stringify(
 
 const prisma = new PrismaClient();
 
-describe("POST: /landmark/create", () => {
+describe("POST: api/landmark/create", () => {
     beforeAll(async () => {
         await prisma.destination.create(destinationPrismaData);
     });
