@@ -39,7 +39,7 @@ const Description: FunctionComponent<DescriptionProps> = (props) => {
         const atLeastOneFieldIsInvalid: boolean = validationResult.findIndex((target) => target === false) !== -1;
 
         setPreciseValidationResult(validationResult);
-        props.disableContinueButton.setValue(atLeastOneFieldIsInvalid);
+        props.disableContinueButton.setValue(description.length < 2 || atLeastOneFieldIsInvalid);
     }, [description, props.disableContinueButton]);
 
     return (

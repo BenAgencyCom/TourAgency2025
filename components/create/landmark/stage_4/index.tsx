@@ -12,7 +12,7 @@ interface StageFourProps {
     disableContinueButton: StatedDataField<boolean>;
 }
 
-const StageOne: FunctionComponent<StageFourProps> = (props) => {
+const StageFour: FunctionComponent<StageFourProps> = (props) => {
     const [previewMode, setPreviewMode] = useState<boolean>(false);
 
     return (
@@ -27,4 +27,4 @@ const StageOne: FunctionComponent<StageFourProps> = (props) => {
     );
 };
 
-export default StageOne;
+export default StageFour;

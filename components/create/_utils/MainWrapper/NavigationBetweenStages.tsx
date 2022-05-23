@@ -48,7 +48,7 @@ const NavigationBetweenStages: FunctionComponent<NavigationBetweenStagesProps> =
 
     return (
         <StagesNavigationWrapper className="stages-navigation">
-            <Button reverse disabled={disableGoBack} onClick={goGack}>
+            <Button reverse disabled={disableGoBack || disableContinueButton} onClick={goGack}>
                 Go back
             </Button>
             <Button

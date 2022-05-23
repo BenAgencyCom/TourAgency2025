@@ -105,9 +105,6 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
                                     <SkeletonLoading />
                                     <SkeletonLoading />
                                     <SkeletonLoading />
-                                    <SkeletonLoading />
-                                    <SkeletonLoading />
-                                    <SkeletonLoading />
                                 </>
                             );
                         else {
