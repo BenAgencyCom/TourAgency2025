@@ -1,5 +1,8 @@
 // Tools
+import joi from "joi";
+import { useEffect } from "react";
 import { styled } from "@mui/system";
+import restrictions from "@/utils/restrictions/createLandmark";
 // Types
 import type { FunctionComponent } from "react";
 import type { LandmarkType } from "@prisma/client";
@@ -34,10 +37,26 @@ interface StageOneProps {
     title: StatedDataField<string>;
     shortDescription: StatedDataField<string>;
     landmarkType: StatedDataField<LandmarkType>;
+    disableContinueButton: StatedDataField<boolean>;
 }
 
 const StageOne: FunctionComponent<StageOneProps> = (props) => {
     const { selectedDestination, thumbnailURL, title, shortDescription, landmarkType } = props;
+
+    useEffect(() => {
+        const scheme = joi.object({
+            title: joi.string().min(restrictions.title.min).max(restrictions.title.max).required(),
+            shortDescription: joi.string().min(restrictions.shortDescription.min).max(restrictions.shortDescription.max).required(),
+            type: joi.valid("ANTIQUE", "ART", "BUILDING", "MONUMENT", "MUSEUM", "NATURE", "RESTAURANT").required(),
+        });
+        const { error } = scheme.validate({
+            title: title.value,
+            shortDescription: shortDescription.value,
+            type: landmarkType.value,
+        });
+        props.disableContinueButton.setValue(Boolean(error));
+    }, [title, shortDescription, landmarkType, props.disableContinueButton]);
+
     return (
         <>
             <StageHeader title="General information" stageNumber={3}></StageHeader>

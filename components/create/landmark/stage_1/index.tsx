@@ -1,6 +1,6 @@
 // Tools
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 // Types
@@ -8,6 +8,8 @@ import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
 import type { Destination } from "@/@types/pages/create/CreateLandmark";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
+// Material UI Components
+import Fade from "@mui/material/Fade";
 // Other components
 import SingleDestination from "./SingleDestination";
 import StageHeader from "@/components/create/_utils/StageHeader";
@@ -23,6 +25,7 @@ const DestinationsWrapper = styled("div")(({ theme }) => ({
 }));
 
 interface StageOneProps {
+    disableContinueButton: StatedDataField<boolean>;
     selectedDestination: StatedDataField<Destination | null>;
 }
 
@@ -46,6 +49,10 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
             router.push("/500");
         }
     };
+
+    useEffect(() => {
+        props.disableContinueButton.setValue(props.selectedDestination.value === null);
+    }, [props.selectedDestination, props.disableContinueButton]);
     return (
         <>
             <StageHeader title="Select destination" stageNumber={1}></StageHeader>

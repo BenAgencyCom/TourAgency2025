@@ -50,10 +50,6 @@ const SelectThumbnail: FunctionComponent<SelectThumbnailProps> = (props) => {
     const onFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file: File | null = (e.target.files as unknown as File[])[0];
         if (file) {
-            if (thumbnail.value === null)
-                setTimeout(() => {
-                    document.getElementById("go-forward")?.click();
-                }, 1000);
             thumbnail.setValue(file);
             const reader = new FileReader();
             reader.onload = (res) => {

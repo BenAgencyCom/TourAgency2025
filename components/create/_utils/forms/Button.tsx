@@ -12,7 +12,7 @@ const Button = styled(ButtonWithColorTransition, {
     fontSize: "1.2rem",
     height: "40px",
     ...(props.disabled && {
-        border: `2px solid #eee`,
+        border: `2px solid rgb(130,143,156)`,
         background: alpha(theme.palette.text.primary, 0.5),
         color: theme.palette.text.primary,
     }),

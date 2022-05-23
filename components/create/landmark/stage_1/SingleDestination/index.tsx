@@ -28,6 +28,7 @@ const SingleDestinationWrapper = styled("div")(({ theme }) => ({
     },
     borderRadius: "10px 10px 0 0",
     transition: "background .3s ease-in-out, color .2s ease-in-out",
+    boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
     "div.content": {
         display: "flex",
         flexDirection: "column",
@@ -70,7 +71,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
     const isSelected: boolean = props.selectedDestination.value?.id === id;
 
     const pickThisDestination = () => {
-        if (props.selectedDestination.value === null) document.getElementById("go-forward")?.click();
+        if (props.selectedDestination.value === null) setTimeout(() => document.getElementById("go-forward")?.click(), 10);
         props.selectedDestination.setValue(props.destination);
 
         dispatch(

@@ -51,6 +51,7 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                             return (
                                 <StageOne
                                     selectedDestination={stated(selectedDestination, setSelectedDestination)} //
+                                    disableContinueButton={stated(disableContinueButton, setDisableContinueButton)}
                                 ></StageOne>
                             );
                         case 1:
@@ -58,16 +59,18 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                                 <StageTwo
                                     thumbnail={stated(thumbnail, setThumbnail)} //
                                     thumbnailURL={stated(thumbnailURL, setThumbnailURL)}
+                                    disableContinueButton={stated(disableContinueButton, setDisableContinueButton)}
                                 ></StageTwo>
                             );
                         case 2:
                             return (
                                 <StageThree
                                     thumbnailURL={thumbnailURL} //
-                                    selectedDestination={selectedDestination}
                                     title={stated(title, setTitle)}
-                                    shortDescription={stated(shortDescription, setShortDescription)}
+                                    selectedDestination={selectedDestination}
                                     landmarkType={stated(landmarkType, setLandmarkType)}
+                                    shortDescription={stated(shortDescription, setShortDescription)}
+                                    disableContinueButton={stated(disableContinueButton, setDisableContinueButton)}
                                 ></StageThree>
                             );
                         case 3:

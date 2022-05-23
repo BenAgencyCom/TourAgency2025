@@ -1,5 +1,4 @@
 // Tools
-import { styled, alpha } from "@mui/system";
 import { GetLandmarkIcon } from "@/utils/client/getLandmarkIcon";
 // Types
 import type { SxProps } from "@mui/system";
@@ -15,30 +14,8 @@ import Surfing from "@mui/icons-material/Surfing";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 import Label from "@/components/create/_utils/forms/Label";
+import SingleLandmarkTypeTile from "./SingleLandmarkTypeTile";
 
-const Field = styled("div")(({ theme }) => ({
-    width: "90px",
-    height: "90px",
-    marginRight: "10px",
-    background: "#fff",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: "3rem",
-    borderRadius: "5px",
-    transition: "all .3s ease-in-out",
-    svg: {
-        fontSize: "inherit",
-    },
-    cursor: "pointer",
-    "&:hover": {
-        background: alpha(theme.palette.text.primary, 0.1),
-    },
-    "&.selected": {
-        background: theme.palette.primary.main,
-        color: "#fff",
-    },
-}));
 interface SelectLandmarkTypeProps {
     landmarkType: StatedDataField<LandmarkType>;
     sx?: SxProps;
@@ -56,7 +33,7 @@ const SelectLandmarkType: FunctionComponent<SelectLandmarkTypeProps> = (props) =
     ];
 
     return (
-        <FlexBox column sx={props.sx} id="select-landmark-type-field">
+        <FlexBox sx={props.sx} id="select-landmark-type-field" column>
             <Label>Type</Label>
 
             <SelectWithIcon
@@ -81,9 +58,9 @@ const SelectLandmarkType: FunctionComponent<SelectLandmarkTypeProps> = (props) =
                 {options.map((item, index) => {
                     return (
                         <Tooltip title={item.label} key={item.value} placement="bottom">
-                            <Field className={item.value === props.landmarkType.value ? "selected" : ""} onClick={() => props.landmarkType.setValue(item.value)}>
+                            <SingleLandmarkTypeTile className={item.value === props.landmarkType.value ? "selected" : ""} onClick={() => props.landmarkType.setValue(item.value)}>
                                 {GetLandmarkIcon(item.value)}
-                            </Field>
+                            </SingleLandmarkTypeTile>
                         </Tooltip>
                     );
                 })}

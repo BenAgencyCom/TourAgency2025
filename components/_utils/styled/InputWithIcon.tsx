@@ -1,5 +1,5 @@
 // Tools
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { styled } from "@mui/system";
 import colorTheme from "@/colorTheme";
 // Types
@@ -60,14 +60,20 @@ interface StyledSelectProps extends InputBaseProps {
 
 const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
     const { icon, onChange, lengthNotification, ...propsToForward } = props;
+
     const inputRef = useRef<HTMLElement>();
+    const [debounce, setDebounce] = useState<number | null>(null);
+    const [newContent, setNewContent] = useState<string>(props.value as string);
 
     const clearInputValue = () => {
         if (inputRef.current) {
             inputRef.current.focus();
             setTimeout(() => inputRef.current && inputRef.current.blur(), 1);
         }
-        if (props.onChange) props.onChange({ target: { value: "" } } as any);
+        if (props.onChange) {
+            props.onChange({ target: { value: "" } } as any);
+            setNewContent("");
+        }
     };
 
     const onChangeMiddleware = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +83,13 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
 
             if (length > max) return;
         }
-        if (props.onChange) props.onChange(e as any);
+        setNewContent(e.target.value as string);
+
+        if (debounce) clearTimeout(debounce);
+        setDebounce(setTimeout(onBlur, 100) as any);
+    };
+    const onBlur = () => {
+        if (props.onChange) props.onChange({ target: { value: newContent } } as any);
     };
 
     return (
@@ -94,22 +106,24 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                 endAdornment={
                     !props.multiline && (
                         <InputAdornment position="end" sx={{ p: 0, opacity: 0.7 }}>
-                            <IconButton disabled={!!!(propsToForward.value as string).length} onClick={clearInputValue}>
+                            <IconButton disabled={!!!(propsToForward.value as string).length} onClick={clearInputValue} tabIndex={-1}>
                                 <Clear></Clear>
                             </IconButton>
                         </InputAdornment>
                     )
                 }
                 onChange={onChangeMiddleware}
+                onBlur={onBlur}
                 // Has to be at the end so as to overwritte every above property!
                 {...(propsToForward as any)}
+                value={newContent}
             ></StyledInputBase>
 
             {lengthNotification && (
                 <LengthNotification
                     fieldName={lengthNotification.fieldName} //
                     restrictions={lengthNotification.restrictions}
-                    text={props.value as string}
+                    text={newContent as string}
                 />
             )}
         </>
