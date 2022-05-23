@@ -20,6 +20,7 @@ const SplittedContentFieldBox = styled(Box)({
 interface SplittedBodyProps {
     field: ListItem<SplittedContentField>;
     restrictions: Restriction;
+    isDragging: boolean;
 }
 
 const SplittedBody: FunctionComponent<SplittedBodyProps> = (props) => {
@@ -33,6 +34,7 @@ const SplittedBody: FunctionComponent<SplittedBodyProps> = (props) => {
                 data={props.field.data["left"]} //
                 updateSubField={(data: SplittedContentField["left"]) => updateSubField("left", data)}
                 subFieldIndex={0}
+                isDragging={props.isDragging}
             ></SplittedSubfield>
 
             <Divider flexItem sx={{ mx: 2 }} orientation="vertical"></Divider>
@@ -41,6 +43,7 @@ const SplittedBody: FunctionComponent<SplittedBodyProps> = (props) => {
                 data={props.field.data["right"]} //
                 updateSubField={(data: SplittedContentField["right"]) => updateSubField("right", data)}
                 subFieldIndex={1}
+                isDragging={props.isDragging}
             ></SplittedSubfield>
         </SplittedContentFieldBox>
     );

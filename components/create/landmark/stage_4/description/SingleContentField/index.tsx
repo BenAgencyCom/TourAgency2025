@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Theme } from "@mui/system";
 import { ListItem } from "@/@types/redux";
 import { FieldType } from "@/@types/Description";
-import type { DraggableProvided } from "react-beautiful-dnd";
+import type { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
 import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 import type { DescriptionContentField } from "@/@types/Description";
 // Material UI Components
@@ -90,7 +90,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
             draggableId={props.field.id} //
             index={props.index}
         >
-            {(provided: DraggableProvided) => {
+            {(provided: DraggableProvided, snap: DraggableStateSnapshot) => {
                 return (
                     <Fade in={true}>
                         <StyledCard
@@ -98,6 +98,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
+                            tabIndex={-1}
                         >
                             <Fade in={!props.isValid}>
                                 <div>
@@ -120,6 +121,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                             <SingleDescriptionFieldBody
                                 field={props.field} //
                                 refreshKey={refreshKey}
+                                isDragging={snap.isDragging}
                             ></SingleDescriptionFieldBody>
                         </StyledCard>
                     </Fade>

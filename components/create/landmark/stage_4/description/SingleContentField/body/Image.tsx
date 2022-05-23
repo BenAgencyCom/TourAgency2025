@@ -32,6 +32,7 @@ interface ImageBodyProps {
     updateSingleProp: (prop: keyof ImageContentField, val: ImageContentField[typeof prop]) => void;
     split?: true;
     splittedFieldUpdate?: (data: { src: File; url: string }) => void;
+    isDragging: boolean;
 }
 
 const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
@@ -60,25 +61,29 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
 
     return (
         <ImageFieldWrapper className={props.split ? "splitted" : "full-size"}>
-            {(() => {
-                if (props.url) {
-                    return (
-                        <SkeletonImage
-                            src={props.url} //
-                            alt="choosen-thumbnail"
-                            layout="fill"
-                            modalMaxResolution="1"
-                            openFileSelectDialog={openFileSelectDialog}
-                        ></SkeletonImage>
-                    );
-                } else {
-                    return (
-                        <Button primary onClick={openFileSelectDialog}>
-                            Add image
-                        </Button>
-                    );
-                }
-            })()}
+            {!props.isDragging && (
+                <>
+                    {(() => {
+                        if (props.url) {
+                            return (
+                                <SkeletonImage
+                                    src={props.url} //
+                                    alt="choosen-thumbnail"
+                                    layout="fill"
+                                    modalMaxResolution="1"
+                                    openFileSelectDialog={openFileSelectDialog}
+                                ></SkeletonImage>
+                            );
+                        } else {
+                            return (
+                                <Button primary onClick={openFileSelectDialog}>
+                                    Add image
+                                </Button>
+                            );
+                        }
+                    })()}
+                </>
+            )}
 
             <input
                 type="file" //

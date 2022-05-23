@@ -24,6 +24,7 @@ interface SplittedSubfiledProps {
     subFieldIndex: number;
     data: SplittedSubfieldField;
     updateSubField: (data: SplittedSubfieldField) => void;
+    isDragging: boolean;
 }
 
 const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
@@ -55,6 +56,7 @@ const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
                 <SplittedSubfieldBody
                     data={props.data} //
                     updateSubField={props.updateSubField}
+                    isDragging={props.isDragging}
                 ></SplittedSubfieldBody>
             </SingleSubfieldWrapper>
         </>

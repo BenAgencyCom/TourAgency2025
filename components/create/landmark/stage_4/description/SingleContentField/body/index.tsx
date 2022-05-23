@@ -14,6 +14,7 @@ import ParagraphBody from "./Paragraph";
 interface SingleDescriptionFieldBodyProps {
     field: ListItem<DescriptionContentField>;
     refreshKey: number;
+    isDragging: boolean;
 }
 
 const SingleDescriptionFieldBody: FunctionComponent<SingleDescriptionFieldBodyProps> = (props) => {
@@ -35,6 +36,7 @@ const SingleDescriptionFieldBody: FunctionComponent<SingleDescriptionFieldBodyPr
                     updateSingleProp={(prop: keyof ImageContentField, val: ImageContentField[typeof prop]) => {
                         (props.field as ListItem<ImageContentField>).changeProperty(prop, val);
                     }}
+                    isDragging={props.isDragging}
                 ></ImageBody>
             );
         case FieldType.SPLITTED:
@@ -43,6 +45,7 @@ const SingleDescriptionFieldBody: FunctionComponent<SingleDescriptionFieldBodyPr
                     field={props.field as ListItem<SplittedContentField>} //
                     restrictions={restrictions.description.paragraph}
                     key={props.refreshKey}
+                    isDragging={props.isDragging}
                 ></Splitted>
             );
     }

@@ -11,6 +11,7 @@ import ImageBody from "../Image";
 interface SplittedSubfieldBodyProps {
     data: SplittedSubfieldField;
     updateSubField: (data: SplittedSubfieldField) => void;
+    isDragging: boolean;
 }
 
 const SplittedSubfieldBody: FunctionComponent<SplittedSubfieldBodyProps> = (props) => {
@@ -53,6 +54,7 @@ const SplittedSubfieldBody: FunctionComponent<SplittedSubfieldBodyProps> = (prop
                     updateSingleProp={(prop: keyof ImageContentField, val: ImageContentField[typeof prop]) => {
                         updateSinglePropOfSubfield<ImageContentField>(prop, val);
                     }}
+                    isDragging={props.isDragging}
                 ></ImageBody>
             );
     }
