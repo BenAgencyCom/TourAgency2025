@@ -35,14 +35,23 @@ const Wrapper = styled("section")(({ theme }) => ({
 }));
 
 interface MainWrapperProps {
+    /** Array of steps's titles */
     steps: string[];
+    /** **index** of active step */
     activeStep: StatedDataField<number>;
-    disableContinueButton: boolean;
+    /** Disable **entire** navigation between stages */
+    disableNavigation: boolean;
+    /** Callback which is supposed to be called instead of going farther on the last step */
     alternativeContinueCallback?: () => any;
+    /**
+     * Short message whill is going to be displayed on right side of **continue** button,
+     * informing user of the reason behind blocking access to change step ensure
+     */
+    disabledNavigationJustification: string;
 }
 
 const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
-    const { disableContinueButton, activeStep, children, steps, alternativeContinueCallback } = props;
+    const { disableNavigation, activeStep, children, steps, alternativeContinueCallback, disabledNavigationJustification } = props;
     const [alreadyVisitedSteps, setAlreadyVisitedSteps] = useState<Set<number>>(new Set([activeStep.value]));
 
     useEffect(() => {
@@ -58,14 +67,15 @@ const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
                 <CreateProcessStepper
                     steps={steps} //
                     activeStep={activeStep}
-                    disableContinueButton={disableContinueButton}
+                    disableNavigation={disableNavigation}
                     alreadyVisitedSteps={alreadyVisitedSteps}
                 />
                 <div className="children-wrapper">{children}</div>
                 <NavigationBetweenStages
-                    disableContinueButton={disableContinueButton} //
+                    disableNavigation={disableNavigation} //
                     activeStep={activeStep}
                     alternativeContinueCallback={alternativeContinueCallback}
+                    disabledNavigationJustification={disabledNavigationJustification}
                 ></NavigationBetweenStages>
             </ContentContainter>
         </Wrapper>

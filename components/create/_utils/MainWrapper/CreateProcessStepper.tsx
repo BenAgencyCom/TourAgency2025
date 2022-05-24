@@ -44,17 +44,17 @@ const StyledStepLabel = styled(StepLabel)(({ theme }) => ({
 interface CreateProcessStepperProps {
     steps: string[];
     activeStep: StatedDataField<number>;
-    disableContinueButton: boolean;
+    disableNavigation: boolean;
     alreadyVisitedSteps: Set<number>;
 }
 
 const CreateProcessStepper: FunctionComponent<CreateProcessStepperProps> = (props) => {
-    const { steps, activeStep, disableContinueButton, alreadyVisitedSteps } = props;
+    const { steps, activeStep, disableNavigation, alreadyVisitedSteps } = props;
 
     return (
         <Stepper>
             {steps.map((step, index) => {
-                const isClickable: boolean = !disableContinueButton && alreadyVisitedSteps.has(index);
+                const isClickable: boolean = !disableNavigation && alreadyVisitedSteps.has(index);
                 const isActive = index === activeStep.value;
                 if (isActive || isClickable) {
                     const tooltipMsg = isActive ? "Currently editing step" : "Correctly filled step";

@@ -22,9 +22,10 @@ interface CreateLandmarkPageProps {
     //
 }
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
-    const [activeStep, setActiveStep] = useState<number>(3);
-    const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
+    const [activeStep, setActiveStep] = useState<number>(0);
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
+    const [disableNavigation, setDisableNavigation] = useState<boolean>(false);
+    const [disabledNavigationJustification, setDisabledNavigationJustification] = useState<string>("");
     // New landmarks' data:
     const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
     const [thumbnail, setThumbnail] = useState<File | null>(null);
@@ -41,9 +42,10 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
             </Head>
             <MainWrapper
                 steps={["Destination", "Thumbnail", "General information", "Description", "Summary"]} //
-                activeStep={stated(activeStep, setActiveStep)}
-                disableContinueButton={disableContinueButton}
                 alternativeContinueCallback={activeStep === 4 ? upload : undefined}
+                activeStep={stated(activeStep, setActiveStep)}
+                disableNavigation={disableNavigation}
+                disabledNavigationJustification={disabledNavigationJustification}
             >
                 {(() => {
                     switch (activeStep) {
@@ -51,7 +53,8 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                             return (
                                 <StageOne
                                     selectedDestination={stated(selectedDestination, setSelectedDestination)} //
-                                    disableContinueButton={stated(disableContinueButton, setDisableContinueButton)}
+                                    setDisableNavigation={setDisableNavigation}
+                                    setDisabledNavigationJustification={setDisabledNavigationJustification}
                                 ></StageOne>
                             );
                         case 1:
@@ -59,7 +62,8 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                                 <StageTwo
                                     thumbnail={stated(thumbnail, setThumbnail)} //
                                     thumbnailURL={stated(thumbnailURL, setThumbnailURL)}
-                                    disableContinueButton={stated(disableContinueButton, setDisableContinueButton)}
+                                    setDisableNavigation={setDisableNavigation}
+                                    setDisabledNavigationJustification={setDisabledNavigationJustification}
                                 ></StageTwo>
                             );
                         case 2:
@@ -70,11 +74,17 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                                     selectedDestination={selectedDestination}
                                     landmarkType={stated(landmarkType, setLandmarkType)}
                                     shortDescription={stated(shortDescription, setShortDescription)}
-                                    disableContinueButton={stated(disableContinueButton, setDisableContinueButton)}
+                                    setDisableNavigation={setDisableNavigation}
+                                    setDisabledNavigationJustification={setDisabledNavigationJustification}
                                 ></StageThree>
                             );
                         case 3:
-                            return <StageFour disableContinueButton={stated(disableContinueButton, setDisableContinueButton)}></StageFour>;
+                            return (
+                                <StageFour
+                                    setDisableNavigation={setDisableNavigation} //
+                                    setDisabledNavigationJustification={setDisabledNavigationJustification}
+                                ></StageFour>
+                            );
                         case 4:
                             return <StageFive></StageFive>;
                     }

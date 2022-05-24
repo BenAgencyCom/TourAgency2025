@@ -1,15 +1,14 @@
 // Tools
 import { useState } from "react";
-import stated from "@/utils/client/stated";
 // Types
-import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StatedDataField";
+import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 // Other components
 import StageHeader from "@/components/create/_utils/StageHeader";
 import Description from "./description";
 
 interface StageFourProps {
-    disableContinueButton: StatedDataField<boolean>;
+    setDisableNavigation: Dispatch<SetStateAction<boolean>>;
+    setDisabledNavigationJustification: Dispatch<SetStateAction<string>>;
 }
 
 const StageFour: FunctionComponent<StageFourProps> = (props) => {
@@ -20,8 +19,9 @@ const StageFour: FunctionComponent<StageFourProps> = (props) => {
             <StageHeader title="Description" stageNumber={4}></StageHeader>
 
             <Description
-                previewMode={stated(previewMode, setPreviewMode)} //
-                disableContinueButton={props.disableContinueButton}
+                setPreviewMode={setPreviewMode} //
+                setDisableNavigation={props.setDisableNavigation}
+                setDisabledNavigationJustification={props.setDisabledNavigationJustification}
             ></Description>
         </>
     );
