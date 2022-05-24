@@ -8,17 +8,19 @@ import fse from "fs-extra";
 import { uploadDir } from "@/utils/paths";
 import { PrismaClient } from "@prisma/client";
 import { testPOSTRequestStatus } from "../../helpers/testStatus";
+import MockUser from "../../data/landmarks/create/MockUser";
 import { API_URL, convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING, EXPECTED_DESCRIPTION_IMAGES } from "../../data/landmarks/create";
 // Types
 import type { Landmark } from "@prisma/client";
 import { FieldType } from "@/@types/Description";
 import type { ValidLandmarkData } from "../../data/landmarks/create/@types";
 
-const expectUnprocessableEntity = async (body: Partial<ValidLandmarkData>) => {
+const expectUnprocessableEntity = async (body: Partial<ValidLandmarkData>, Cookie: string) => {
     await testPOSTRequestStatus({
         expectedStatus: 422,
         endpoint: API_URL,
         body: convertJSONintoFormData(body),
+        Cookie,
     });
 };
 
@@ -28,22 +30,36 @@ const prisma = new PrismaClient();
 
 describe("POST: api/landmark/create", () => {
     let freshlyCreatedLandmark: Landmark | null = null;
+    const SheerUser = new MockUser({ id: "SHEER_USER" });
 
     beforeAll(async () => {
         await prisma.destination.create(destinationPrismaData);
+        await SheerUser.prepare();
     });
     afterAll(async () => {
         await prisma.destination.delete({ where: { id: DESTINATION_ID } });
         await prisma.landmark.deleteMany({ where: { destinationId: DESTINATION_ID } });
-        await fse.remove(path.join(uploadDir, "landmarks", (freshlyCreatedLandmark as Landmark).folder));
+        await SheerUser.remove();
+
+        if (freshlyCreatedLandmark) {
+            await fse.remove(path.join(uploadDir, "landmarks", (freshlyCreatedLandmark as Landmark).folder));
+        }
     });
 
+    test("Unauthenticated user cannot create a landmark", async () => {
+        await testPOSTRequestStatus({
+            expectedStatus: 401,
+            endpoint: API_URL,
+            body: convertJSONintoFormData(getValidLandmarkData()),
+        });
+    });
     describe("Landmark can be created while using valid data", () => {
         beforeAll(async () => {
             await testPOSTRequestStatus({
                 expectedStatus: 201,
                 endpoint: API_URL,
                 body: convertJSONintoFormData(getValidLandmarkData()),
+                Cookie: SheerUser.accessTokenAsCookie as string,
             });
             freshlyCreatedLandmark = await prisma.landmark.findFirst({
                 where: { destinationId: landmarkDataForCreation.destinationId },
@@ -142,14 +158,14 @@ describe("POST: api/landmark/create", () => {
             expect(data).not.toBeFalsy();
             expect(data?.destination).not.toBeFalsy();
         });
-        // test("Landmark should have propertly working relation with creator", async () => {
-        //     const data = await prisma.landmark.findFirst({
-        //         where: { destinationId: landmarkDataForCreation.destinationId },
-        //         include: { creator: true },
-        //     });
-        //     expect(data).not.toBeFalsy();
-        //     expect(data?.creator).not.toBeFalsy();
-        // });
+        test("Landmark should have propertly working relation with creator", async () => {
+            const data = await prisma.landmark.findFirst({
+                where: { destinationId: landmarkDataForCreation.destinationId },
+                include: { creator: true },
+            });
+            expect(data).not.toBeFalsy();
+            expect(data?.creator).not.toBeFalsy();
+        });
         // test("Landmark should NOT be visible for public", async () => {
         //     expect(false).toEqual(true);
         // });
@@ -158,71 +174,71 @@ describe("POST: api/landmark/create", () => {
         describe("Missing properties", () => {
             test("DestinationID", async () => {
                 const { destinationId, ...body } = landmarkDataForCreation;
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("Title", async () => {
                 const { title, ...body } = landmarkDataForCreation;
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("ShortDescription", async () => {
                 const { shortDescription, ...body } = landmarkDataForCreation;
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("Type", async () => {
                 const { type, ...body } = landmarkDataForCreation;
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("Description", async () => {
                 const { description, ...body } = landmarkDataForCreation;
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("Thumbnail", async () => {
                 const { thumbnail, ...body } = landmarkDataForCreation;
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
         });
         describe("Invalid values", () => {
             test("DestinationID- without coverage", async () => {
                 const body = getValidLandmarkData();
                 body.destinationId = "UNEXISTING_DESTINATION_ID";
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("Type- not included in ENUM", async () => {
                 const body = getValidLandmarkData();
                 body.type = "UNEXISTING_LANDMARK_TYPE" as any;
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("Title- too little", async () => {
                 const body = getValidLandmarkData();
                 body.title = "1";
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("Title- too big", async () => {
                 const body = getValidLandmarkData();
                 body.title = VERY_LONG_STRING;
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("ShortDescription- too little", async () => {
                 const body = getValidLandmarkData();
                 body.shortDescription = "a";
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             test("ShortDescription- too big", async () => {
                 const body = getValidLandmarkData();
                 body.shortDescription = VERY_LONG_STRING;
-                await expectUnprocessableEntity(body);
+                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
             });
             describe("Description", () => {
                 describe("Header field", () => {
                     test("Too little", async () => {
                         const body = getValidLandmarkData();
                         body.description[0].header = "a";
-                        await expectUnprocessableEntity(body);
+                        await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                     });
                     test("Too big", async () => {
                         const body = getValidLandmarkData();
                         body.description[0].header = VERY_LONG_STRING;
-                        await expectUnprocessableEntity(body);
+                        await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                     });
                     test("Unexpected syntax", async () => {
                         const body = getValidLandmarkData();
@@ -231,19 +247,19 @@ describe("POST: api/landmark/create", () => {
                             unexpected: "a",
                             syndax: "b",
                         } as any;
-                        await expectUnprocessableEntity(body);
+                        await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                     });
                 });
                 describe("Paragraph field", () => {
                     test("Too little", async () => {
                         const body = getValidLandmarkData();
                         body.description[2].content = "a";
-                        await expectUnprocessableEntity(body);
+                        await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                     });
                     test("Too big", async () => {
                         const body = getValidLandmarkData();
                         body.description[2].content = VERY_LONG_STRING;
-                        await expectUnprocessableEntity(body);
+                        await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                     });
                     test("Unexpected syntax", async () => {
                         const body = getValidLandmarkData();
@@ -252,14 +268,14 @@ describe("POST: api/landmark/create", () => {
                             unexpected: "a",
                             syndax: "b",
                         } as any;
-                        await expectUnprocessableEntity(body);
+                        await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                     });
                 });
                 describe("Image field", () => {
                     test("Missing image", async () => {
                         const body = getValidLandmarkData();
                         body.description[3].url = "description_20";
-                        await expectUnprocessableEntity(body);
+                        await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                     });
                     test("Unexpected syntax", async () => {
                         const body = getValidLandmarkData();
@@ -268,7 +284,7 @@ describe("POST: api/landmark/create", () => {
                             unexpected: "a",
                             syndax: "b",
                         } as any;
-                        await expectUnprocessableEntity(body);
+                        await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                     });
                 });
 
@@ -280,7 +296,7 @@ describe("POST: api/landmark/create", () => {
                             unexpected: "a",
                             syndax: "b",
                         } as any;
-                        await expectUnprocessableEntity(body);
+                        await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                     });
                     describe("Left side", () => {
                         describe("Paragraph field", () => {
@@ -293,7 +309,7 @@ describe("POST: api/landmark/create", () => {
                                 body.description.shift();
                                 body.description.pop();
                                 body.description.pop();
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                             test("Too big", async () => {
                                 const body = getValidLandmarkData();
@@ -301,7 +317,7 @@ describe("POST: api/landmark/create", () => {
                                     type: FieldType.PARAGRAPH,
                                     content: VERY_LONG_STRING,
                                 };
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                             test("Unexpected syntax", async () => {
                                 const body = getValidLandmarkData();
@@ -310,7 +326,7 @@ describe("POST: api/landmark/create", () => {
                                     unexpected: "a",
                                     syndax: "b",
                                 } as any;
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                         });
                         describe("Image field", () => {
@@ -321,7 +337,7 @@ describe("POST: api/landmark/create", () => {
                                     url: "destination_20",
                                     src: null,
                                 };
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                             test("Unexpected syntax", async () => {
                                 const body = getValidLandmarkData();
@@ -330,7 +346,7 @@ describe("POST: api/landmark/create", () => {
                                     unexpected: "a",
                                     syndax: "b",
                                 } as any;
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                         });
                     });
@@ -342,7 +358,7 @@ describe("POST: api/landmark/create", () => {
                                     type: FieldType.PARAGRAPH,
                                     content: "1",
                                 };
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                             test("Too big", async () => {
                                 const body = getValidLandmarkData();
@@ -350,7 +366,7 @@ describe("POST: api/landmark/create", () => {
                                     type: FieldType.PARAGRAPH,
                                     content: VERY_LONG_STRING,
                                 };
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                             test("Unexpected syntax", async () => {
                                 const body = getValidLandmarkData();
@@ -359,7 +375,7 @@ describe("POST: api/landmark/create", () => {
                                     unexpected: "a",
                                     syndax: "b",
                                 } as any;
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                         });
                         describe("Image field", () => {
@@ -370,7 +386,7 @@ describe("POST: api/landmark/create", () => {
                                     url: "destination_20",
                                     src: null,
                                 };
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                             test("Unexpected syntax", async () => {
                                 const body = getValidLandmarkData();
@@ -379,7 +395,7 @@ describe("POST: api/landmark/create", () => {
                                     unexpected: "a",
                                     syndax: "b",
                                 } as any;
-                                await expectUnprocessableEntity(body);
+                                await expectUnprocessableEntity(body, SheerUser.accessTokenAsCookie as string);
                             });
                         });
                     });
