@@ -13,7 +13,7 @@ import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
 import Surfing from "@mui/icons-material/Surfing";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
-import Label from "@/components/create/_utils/forms/Label";
+import Label from "@/components/create/_utils/styled_components/Label";
 import SingleLandmarkTypeTile from "./SingleLandmarkTypeTile";
 
 interface SelectLandmarkTypeProps {

@@ -10,7 +10,7 @@ import Sailing from "@mui/icons-material/Sailing";
 import InputWithIcon from "@/components/_utils/styled/InputWithIcon";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
-import Label from "@/components/create/_utils/forms/Label";
+import Label from "@/components/create/_utils/styled_components/Label";
 
 interface ShortDescriptionProps {
     shortDescription: StatedDataField<string>;

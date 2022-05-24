@@ -15,6 +15,7 @@ const StageTwo = dynamic(() => import("@/components/create/landmark/stage_2"), s
 const StageThree = dynamic(() => import("@/components/create/landmark/stage_3"), staticImportLoader);
 const StageFour = dynamic(() => import("@/components/create/landmark/stage_4"), { ...staticImportLoader, ssr: false });
 const StageFive = dynamic(() => import("@/components/create/landmark/stage_5"), staticImportLoader);
+const CreateAnAccountModal = dynamic(() => import("@/components/create/_utils/CreateAnAccountModal"), staticImportLoader);
 // Styled components
 import MainWrapper from "@/components/create/_utils/MainWrapper";
 
@@ -38,6 +39,9 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
             <Head>
                 <title>Create Landmark</title>
             </Head>
+
+            <CreateAnAccountModal></CreateAnAccountModal>
+
             <MainWrapper
                 steps={["Destination", "Thumbnail", "General information", "Description", "Summary"]} //
                 alternativeContinueCallback={activeStep === 4 ? upload : undefined}
