@@ -1,6 +1,7 @@
 // Tools
-import { InvalidRequestedBody } from "@/utils/api/Errors";
+import { InvalidRequestedBody, Forbidden } from "@/utils/api/Errors";
 import CreateLandmarkAPI from "@/utils/api/pages/landmarks/CreateLandmarkAPI";
+import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
 //
 // Types
 import type { NextApiResponse, NextApiRequest } from "next";
@@ -13,13 +14,14 @@ export const config = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") return res.status(404).end();
     try {
-        // const parsedRequest = await HandleMultipartFormDataRequest<{}>(req);
-        const API = new CreateLandmarkAPI(req);
+        const userID: string = (await GuardedAPIEndpoint(req, "POST", "user")) as string;
+        const API = new CreateLandmarkAPI(req, userID);
         await API.main();
 
         return res.status(201).end();
     } catch (e: unknown) {
         if (e instanceof InvalidRequestedBody) return res.status(422).end();
+        else if (e instanceof Forbidden) return res.status(401).end();
         return res.status(500).end();
     }
 }

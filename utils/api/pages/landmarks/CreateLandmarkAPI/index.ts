@@ -17,7 +17,7 @@ export default class CreateLandmarkAPI extends FileUploader {
     private files: SubmittedFilesCollection = {} as SubmittedFilesCollection;
     private folderName: string = "";
 
-    public constructor(private req: NextApiRequest) {
+    public constructor(private req: NextApiRequest, private creatorID: string) {
         super(["360p", "480p", "720p", "1080p"]);
     }
 
@@ -100,6 +100,7 @@ export default class CreateLandmarkAPI extends FileUploader {
                 title: this.fields.title,
                 title_lowercase: this.fields.title.toLowerCase(),
                 type: this.fields.type,
+                creatorId: this.creatorID,
             },
         });
     }
