@@ -23,7 +23,7 @@ interface CreateLandmarkPageProps {
     //
 }
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
-    const [activeStep, setActiveStep] = useState<number>(0);
+    const [activeStep, setActiveStep] = useState<number>(3);
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
     // New landmarks' data:
     const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);

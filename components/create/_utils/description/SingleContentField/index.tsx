@@ -5,23 +5,23 @@ import { useState } from "react";
 import { Theme } from "@mui/system";
 import { ListItem } from "@/@types/redux";
 import { FieldType } from "@/@types/Description";
-import type { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
-import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 import type { DescriptionContentField } from "@/@types/Description";
+import type { FunctionComponent, Dispatch, SetStateAction } from "react";
+import type { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
 // Material UI Components
 import Card from "@mui/material/Card";
 import Fade from "@mui/material/Fade";
 import Divider from "@mui/material/Divider";
 // Other components
-import { Draggable } from "react-beautiful-dnd";
-import SingleDescriptionFieldBody from "./Body";
 import ControlHeader from "./Header";
+import SingleDescriptionFieldBody from "./Body";
+import { Draggable } from "react-beautiful-dnd";
 // Material UI Icons
 import ReportGmailerrorred from "@mui/icons-material/ReportGmailerrorred";
 // Redux
-import { displaySnackbar } from "@/redux/slices/snackbar";
-import { helpers } from "@/redux/slices/createContent";
 import { useAppDispatch } from "@/hooks/useRedux";
+import { helpers } from "@/redux/slices/createContent";
+import { displaySnackbar } from "@/redux/slices/snackbar";
 
 const StyledCard = styled(Card)(({ theme }: { theme: Theme }) => ({
     color: "text.primary", //

@@ -4,6 +4,7 @@ import stated from "@/utils/client/stated";
 import { useState, useEffect } from "react";
 import { validateDescriptionPrecisely } from "@/validators/helpers/create_destination/descriptionValidators";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 // Other Components
 import Header from "./Header";
@@ -20,7 +21,7 @@ const DescriptionWrapper = styled("section")(({ theme }) => ({
     flexDirection: "column",
 }));
 interface DescriptionProps {
-    setPreviewMode: Dispatch<SetStateAction<boolean>>;
+    sx?: SxProps;
 }
 
 const Description: FunctionComponent<DescriptionProps> = (props) => {
@@ -57,7 +58,7 @@ const Description: FunctionComponent<DescriptionProps> = (props) => {
     }, [description, props, dispatch]);
 
     return (
-        <DescriptionWrapper>
+        <DescriptionWrapper sx={props.sx}>
             <Header addNewContentFieldDialog={stated(addNewContentFieldDialog, setAddNewContentFieldDialog)}></Header>
 
             <ContentFieldsWrapper
