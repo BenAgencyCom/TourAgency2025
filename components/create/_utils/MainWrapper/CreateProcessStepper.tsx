@@ -8,6 +8,8 @@ import Step from "@mui/material/Step";
 import Stepper from "@mui/material/Stepper";
 import Tooltip from "@mui/material/Tooltip";
 import StepLabel from "@mui/material/StepLabel";
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 const StyledStepLabel = styled(StepLabel)(({ theme }) => ({
     svg: {
@@ -44,12 +46,12 @@ const StyledStepLabel = styled(StepLabel)(({ theme }) => ({
 interface CreateProcessStepperProps {
     steps: string[];
     activeStep: StatedDataField<number>;
-    disableNavigation: boolean;
     alreadyVisitedSteps: Set<number>;
 }
 
 const CreateProcessStepper: FunctionComponent<CreateProcessStepperProps> = (props) => {
-    const { steps, activeStep, disableNavigation, alreadyVisitedSteps } = props;
+    const { disableNavigation } = useAppSelector((state) => state.createContent);
+    const { steps, activeStep, alreadyVisitedSteps } = props;
 
     return (
         <Stepper>

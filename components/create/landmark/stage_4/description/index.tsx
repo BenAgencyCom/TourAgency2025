@@ -12,7 +12,8 @@ import ContentFieldsWrapper from "./ContentFieldsWrapper";
 import Button from "@/components/create/_utils/forms/Button";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
 // Redux
-import { useAppSelector } from "@/hooks/useRedux";
+import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
+import { actions as createContentActions } from "@/redux/slices/createContent";
 // Styled components
 const DescriptionWrapper = styled("section")(({ theme }) => ({
     display: "flex",
@@ -20,11 +21,11 @@ const DescriptionWrapper = styled("section")(({ theme }) => ({
 }));
 interface DescriptionProps {
     setPreviewMode: Dispatch<SetStateAction<boolean>>;
-    setDisableNavigation: Dispatch<SetStateAction<boolean>>;
-    setDisabledNavigationJustification: Dispatch<SetStateAction<string>>;
 }
 
 const Description: FunctionComponent<DescriptionProps> = (props) => {
+    const dispatch = useAppDispatch();
+
     const description = useAppSelector((state) => state.createContent.list);
     const [_scrollableKey, _setScrollableKey] = useState<number>(0); // For computing `useLayoutEffect` in `ContentFieldsWrapper` component
     //
@@ -37,18 +38,23 @@ const Description: FunctionComponent<DescriptionProps> = (props) => {
     useEffect(() => {
         const validationResult: boolean[] = validateDescriptionPrecisely(description.map((target) => target.data));
         const atLeastOneFieldIsInvalid: boolean = validationResult.findIndex((target) => target === false) !== -1;
+        const contentIsTooSmall: boolean = description.length < 2;
+
+        const getReason = (): string => {
+            if (contentIsTooSmall) return "at least 2 correctly filled fields are required";
+            else if (atLeastOneFieldIsInvalid) return "every field has to be filled correctly";
+            return "";
+        };
 
         setPreciseValidationResult(validationResult);
-        if (description.length < 2) {
-            props.setDisableNavigation(true);
-            props.setDisabledNavigationJustification("at least 2 correctly filled fields are required");
-        } else if (atLeastOneFieldIsInvalid) {
-            props.setDisableNavigation(true);
-            props.setDisabledNavigationJustification("every field has to be filled correctly");
-        } else {
-            props.setDisableNavigation(false);
-        }
-    }, [description, props]);
+
+        dispatch(
+            createContentActions.handleValidationResult({
+                disableNavigation: contentIsTooSmall || atLeastOneFieldIsInvalid,
+                reason: getReason(),
+            })
+        );
+    }, [description, props, dispatch]);
 
     return (
         <DescriptionWrapper>

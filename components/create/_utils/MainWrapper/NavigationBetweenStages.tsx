@@ -3,6 +3,10 @@ import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
+// Material UI Components
+import Fade from "@mui/material/Fade";
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import Button from "../forms/Button";
 
@@ -25,19 +29,15 @@ const BlockJustification = styled("span")(({ theme }) => ({
 interface NavigationBetweenStagesProps {
     /** **index** of active step */
     activeStep: StatedDataField<number>;
-    /** Disable **entire** navigation between stages */
-    disableNavigation: boolean;
     /** Callback which is supposed to be called instead of going farther on the last step */
     alternativeContinueCallback?: () => any;
-    /**
-     * Short message whill is going to be displayed on right side of **continue** button,
-     * informing user of the reason behind blocking access to change step ensure
-     */
-    disabledNavigationJustification: string;
 }
 
 const NavigationBetweenStages: FunctionComponent<NavigationBetweenStagesProps> = (props) => {
-    const { disableNavigation, activeStep, alternativeContinueCallback, disabledNavigationJustification } = props;
+    // Redux
+    const { disableNavigation, reasonBehindBlockingNavigation } = useAppSelector((state) => state.createContent);
+    // Component's state
+    const { activeStep, alternativeContinueCallback } = props;
     const disableGoBack: boolean = activeStep.value === 0;
 
     const blurButtons = () => [...(document.querySelectorAll(".stages-navigation>button") as any)].forEach((el: HTMLElement) => el.blur());
@@ -78,9 +78,11 @@ const NavigationBetweenStages: FunctionComponent<NavigationBetweenStagesProps> =
                 Continue
             </Button>
             {disableNavigation && (
-                <BlockJustification>
-                    In order to get farther <strong>{disabledNavigationJustification}</strong>
-                </BlockJustification>
+                <Fade in={true} key={reasonBehindBlockingNavigation}>
+                    <BlockJustification>
+                        In order to get farther <strong>{reasonBehindBlockingNavigation}</strong>
+                    </BlockJustification>
+                </Fade>
             )}
         </StagesNavigationWrapper>
     );

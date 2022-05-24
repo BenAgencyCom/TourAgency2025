@@ -39,19 +39,13 @@ interface MainWrapperProps {
     steps: string[];
     /** **index** of active step */
     activeStep: StatedDataField<number>;
-    /** Disable **entire** navigation between stages */
-    disableNavigation: boolean;
     /** Callback which is supposed to be called instead of going farther on the last step */
     alternativeContinueCallback?: () => any;
-    /**
-     * Short message whill is going to be displayed on right side of **continue** button,
-     * informing user of the reason behind blocking access to change step ensure
-     */
-    disabledNavigationJustification: string;
 }
 
 const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
-    const { disableNavigation, activeStep, children, steps, alternativeContinueCallback, disabledNavigationJustification } = props;
+    // Component's state
+    const { activeStep, children, steps, alternativeContinueCallback } = props;
     const [alreadyVisitedSteps, setAlreadyVisitedSteps] = useState<Set<number>>(new Set([activeStep.value]));
 
     useEffect(() => {
@@ -67,16 +61,10 @@ const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
                 <CreateProcessStepper
                     steps={steps} //
                     activeStep={activeStep}
-                    disableNavigation={disableNavigation}
                     alreadyVisitedSteps={alreadyVisitedSteps}
                 />
                 <div className="children-wrapper">{children}</div>
-                <NavigationBetweenStages
-                    disableNavigation={disableNavigation} //
-                    activeStep={activeStep}
-                    alternativeContinueCallback={alternativeContinueCallback}
-                    disabledNavigationJustification={disabledNavigationJustification}
-                ></NavigationBetweenStages>
+                <NavigationBetweenStages activeStep={activeStep} alternativeContinueCallback={alternativeContinueCallback}></NavigationBetweenStages>
             </ContentContainter>
         </Wrapper>
     );

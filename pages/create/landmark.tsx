@@ -24,8 +24,6 @@ interface CreateLandmarkPageProps {
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
     const [activeStep, setActiveStep] = useState<number>(0);
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
-    const [disableNavigation, setDisableNavigation] = useState<boolean>(false);
-    const [disabledNavigationJustification, setDisabledNavigationJustification] = useState<string>("");
     // New landmarks' data:
     const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
     const [thumbnail, setThumbnail] = useState<File | null>(null);
@@ -44,28 +42,13 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                 steps={["Destination", "Thumbnail", "General information", "Description", "Summary"]} //
                 alternativeContinueCallback={activeStep === 4 ? upload : undefined}
                 activeStep={stated(activeStep, setActiveStep)}
-                disableNavigation={disableNavigation}
-                disabledNavigationJustification={disabledNavigationJustification}
             >
                 {(() => {
                     switch (activeStep) {
                         case 0:
-                            return (
-                                <StageOne
-                                    selectedDestination={stated(selectedDestination, setSelectedDestination)} //
-                                    setDisableNavigation={setDisableNavigation}
-                                    setDisabledNavigationJustification={setDisabledNavigationJustification}
-                                ></StageOne>
-                            );
+                            return <StageOne selectedDestination={stated(selectedDestination, setSelectedDestination)}></StageOne>;
                         case 1:
-                            return (
-                                <StageTwo
-                                    thumbnail={stated(thumbnail, setThumbnail)} //
-                                    thumbnailURL={stated(thumbnailURL, setThumbnailURL)}
-                                    setDisableNavigation={setDisableNavigation}
-                                    setDisabledNavigationJustification={setDisabledNavigationJustification}
-                                ></StageTwo>
-                            );
+                            return <StageTwo thumbnail={stated(thumbnail, setThumbnail)} thumbnailURL={stated(thumbnailURL, setThumbnailURL)}></StageTwo>;
                         case 2:
                             return (
                                 <StageThree
@@ -74,17 +57,10 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                                     selectedDestination={selectedDestination}
                                     landmarkType={stated(landmarkType, setLandmarkType)}
                                     shortDescription={stated(shortDescription, setShortDescription)}
-                                    setDisableNavigation={setDisableNavigation}
-                                    setDisabledNavigationJustification={setDisabledNavigationJustification}
                                 ></StageThree>
                             );
                         case 3:
-                            return (
-                                <StageFour
-                                    setDisableNavigation={setDisableNavigation} //
-                                    setDisabledNavigationJustification={setDisabledNavigationJustification}
-                                ></StageFour>
-                            );
+                            return <StageFour></StageFour>;
                         case 4:
                             return <StageFive></StageFive>;
                     }

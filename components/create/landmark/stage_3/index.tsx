@@ -1,10 +1,10 @@
 // Tools
 import joi from "joi";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { styled } from "@mui/system";
 import restrictions from "@/utils/restrictions/createLandmark";
 // Types
-import type { FunctionComponent, SetStateAction, Dispatch } from "react";
+import type { FunctionComponent } from "react";
 import type { LandmarkType } from "@prisma/client";
 import type { StatedDataField } from "@/@types/StatedDataField";
 import type { Destination } from "@/@types/pages/create/CreateLandmark";
@@ -15,6 +15,9 @@ import Map from "./right_side/Map";
 import Title from "./left_side/Title";
 import ShortDescription from "./left_side/ShortDescription";
 import SelectLandmarkType from "./left_side/SelectLandmarkType";
+// Redux
+import { useAppDispatch } from "@/hooks/useRedux";
+import { actions as createContentActions } from "@/redux/slices/createContent";
 // Styled components
 const StageContentWrapper = styled("div")(({ theme }) => ({
     flexGrow: "1",
@@ -42,12 +45,13 @@ interface StageOneProps {
     shortDescription: StatedDataField<string>;
     /** New landmark's type */
     landmarkType: StatedDataField<LandmarkType>;
-    setDisableNavigation: Dispatch<SetStateAction<boolean>>;
-    setDisabledNavigationJustification: Dispatch<SetStateAction<string>>;
 }
 
 const StageOne: FunctionComponent<StageOneProps> = (props) => {
-    useEffect(() => {
+    const dispatch = useAppDispatch();
+
+    /** Returns **true** if any error occured */
+    const validate = useCallback<() => boolean>(() => {
         const { title, shortDescription, landmarkType } = props;
 
         const scheme = joi.object({
@@ -60,9 +64,18 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
             shortDescription: shortDescription.value,
             type: landmarkType.value,
         });
-        props.setDisableNavigation(Boolean(error));
-        if (error) props.setDisabledNavigationJustification("each field has to match certain restrictions");
+
+        return Boolean(error);
     }, [props]);
+
+    useEffect(() => {
+        dispatch(
+            createContentActions.handleValidationResult({
+                disableNavigation: Boolean(validate()),
+                reason: "each field has to match certain restrictions",
+            })
+        );
+    }, [props, dispatch, validate]);
 
     return (
         <>

@@ -6,9 +6,32 @@ import { PayloadAction, CaseReducer } from "@reduxjs/toolkit";
 
 interface CustomState extends StringKeyedObject {
     newFieldType: FieldType;
+    /** Disable **entire** navigation between stages */
+    disableNavigation: boolean;
+    /**
+     * Short message whill is going to be displayed on right side of **continue** button,
+     * informing user of the reason behind blocking access to change the step
+     */
+    reasonBehindBlockingNavigation: string;
 }
 interface CustomActions extends StringKeyedObject {
     updateNewFieldType: CaseReducer<CustomState, PayloadAction<FieldType>>;
+    /**
+     * This function sets both `disableNavigation` and
+     * `reasonBehindBlockingNavigation` properties at the same time
+     *
+     * The only parameter is an object containing following properties:
+     * - `disableNavigation`- self evident
+     * - `reason`- abbreviation for `reasonBehindBlockingNavigation`. Received value will be assigned to this property.
+     *
+     */
+    handleValidationResult: CaseReducer<
+        CustomState,
+        PayloadAction<{
+            disableNavigation: boolean;
+            reason: string;
+        }>
+    >;
 }
 
 const {
@@ -23,10 +46,16 @@ const {
     },
     initialState: {
         newFieldType: FieldType.HEADER,
+        disableNavigation: true,
+        reasonBehindBlockingNavigation: "",
     },
     customActions: {
         updateNewFieldType: (state, action) => {
             state.newFieldType = action.payload;
+        },
+        handleValidationResult: (state, action) => {
+            state.disableNavigation = action.payload.disableNavigation;
+            state.reasonBehindBlockingNavigation = action.payload.reason;
         },
     } as CustomActions,
 });

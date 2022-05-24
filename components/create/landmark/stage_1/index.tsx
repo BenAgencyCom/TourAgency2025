@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 // Types
-import type { FunctionComponent, Dispatch, SetStateAction } from "react";
+import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
 import type { Destination } from "@/@types/pages/create/CreateLandmark";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
@@ -14,6 +14,9 @@ import StageHeader from "@/components/create/_utils/StageHeader";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
 import SkeletonLoading from "@/components/_utils/SingleLandmark/SkeletonLoading";
+// Redux
+import { useAppDispatch } from "@/hooks/useRedux";
+import { actions as createContentActions } from "@/redux/slices/createContent";
 // Material UI Icons
 import Public from "@mui/icons-material/Public";
 // Styled components
@@ -23,13 +26,12 @@ const DestinationsWrapper = styled("div")(({ theme }) => ({
 }));
 
 interface StageOneProps {
-    setDisableNavigation: Dispatch<SetStateAction<boolean>>;
     selectedDestination: StatedDataField<Destination | null>;
-    setDisabledNavigationJustification: Dispatch<SetStateAction<string>>;
 }
 
 const StageOne: FunctionComponent<StageOneProps> = (props) => {
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
     const [loading, setLoading] = useState<boolean>(true);
     const [destinations, setDestinations] = useState<Destination[]>([]);
@@ -50,9 +52,13 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
     };
 
     useEffect(() => {
-        props.setDisableNavigation(props.selectedDestination.value === null);
-        props.setDisabledNavigationJustification("you must select a destination");
-    }, [props]);
+        dispatch(
+            createContentActions.handleValidationResult({
+                disableNavigation: props.selectedDestination.value === null,
+                reason: "",
+            })
+        );
+    }, [dispatch, props]);
     return (
         <>
             <StageHeader title="Select destination" stageNumber={1}></StageHeader>
