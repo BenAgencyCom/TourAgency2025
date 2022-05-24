@@ -12,8 +12,7 @@ const StageFour: FunctionComponent = (props) => {
 
     return (
         <>
-            <StageHeader title="Description" stageNumber={4}></StageHeader>
-            {JSON.stringify(previewMode)}
+            <StageHeader title={previewMode ? "Description- Preview" : "Description"} stageNumber={4}></StageHeader>
             {(() => {
                 if (previewMode) return <Preview />;
                 else return <Description />;

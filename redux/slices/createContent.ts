@@ -5,6 +5,7 @@ import { FieldType } from "@/@types/Description";
 import { PayloadAction, CaseReducer } from "@reduxjs/toolkit";
 
 interface CustomState extends StringKeyedObject {
+    previewMode: boolean;
     newFieldType: FieldType;
     /** Disable **entire** navigation between stages */
     disableNavigation: boolean;
@@ -16,6 +17,7 @@ interface CustomState extends StringKeyedObject {
 }
 interface CustomActions extends StringKeyedObject {
     updateNewFieldType: CaseReducer<CustomState, PayloadAction<FieldType>>;
+    setPreviewMode: CaseReducer<CustomState, PayloadAction<boolean>>;
     /**
      * This function sets both `disableNavigation` and
      * `reasonBehindBlockingNavigation` properties at the same time
@@ -48,8 +50,12 @@ const {
         newFieldType: FieldType.HEADER,
         disableNavigation: true,
         reasonBehindBlockingNavigation: "",
+        previewMode: false,
     },
     customActions: {
+        setPreviewMode: (state, action) => {
+            state.previewMode = action.payload;
+        },
         updateNewFieldType: (state, action) => {
             state.newFieldType = action.payload;
         },

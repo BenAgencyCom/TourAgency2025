@@ -1,25 +1,21 @@
 // Tools
 import RWD from "./RWD";
+import dynamic from "next/dynamic";
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-import { FieldType } from "@/@types/Description";
 import type { DescriptionContentField } from "@/@types/Description";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Other components
-import Header from "./Header";
-import ImageField from "./Image";
-import Splitted from "./Splitted";
-import Paragraph from "./Paragraph";
-import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
+const RenderWithScrollAnimation = dynamic(() => import("./RenderWithScrollAnimation"));
+const RenderWithoutScrollAnimation = dynamic(() => import("./RenderWithoutScrollAnimation"));
 
 interface DescriptionProps {
     data: DescriptionContentField[];
     imageLoader: (url: string) => string;
+    disableScrollAnimation?: true;
 }
 
-const Wrapper = styled(Box)({
+const Wrapper = styled("div")({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
@@ -29,37 +25,13 @@ const Wrapper = styled(Box)({
 });
 
 const Description: FunctionComponent<DescriptionProps> = (props) => {
+    const { data, imageLoader, disableScrollAnimation } = props;
     return (
         <Wrapper>
-            {props.data.map((element: DescriptionContentField, index: number) => (
-                <UnfadeOnScroll
-                    sx={{ width: "100%" }} //
-                    key={index}
-                    stylesOnUnfold={{
-                        "div.image-with-shape::before": {
-                            transform: `translate(-50%,-50%) rotate(2deg)`,
-                            opacity: 1,
-                        },
-                        "div.image-with-reversed-shape::before": {
-                            transform: `translate(-50%,-50%) rotate(-2deg)`,
-                            opacity: 1,
-                        },
-                    }}
-                >
-                    {(() => {
-                        switch (element.type) {
-                            case FieldType.HEADER:
-                                return <Header data={element}></Header>;
-                            case FieldType.PARAGRAPH:
-                                return <Paragraph data={element}></Paragraph>;
-                            case FieldType.IMAGE:
-                                return <ImageField imageURL={props.imageLoader(element.url as string)}></ImageField>;
-                            case FieldType.SPLITTED:
-                                return <Splitted data={element} imageLoader={props.imageLoader}></Splitted>;
-                        }
-                    })()}
-                </UnfadeOnScroll>
-            ))}
+            {(() => {
+                if (disableScrollAnimation) return <RenderWithoutScrollAnimation data={data} imageLoader={imageLoader} />;
+                return <RenderWithScrollAnimation data={data} imageLoader={imageLoader} />;
+            })()}
         </Wrapper>
     );
 };
