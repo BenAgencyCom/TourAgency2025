@@ -9,7 +9,7 @@ type DestinationID = "KRAKOW" | "WARSZAWA" | "VANCOUVER" | "RIO_DE_JANEIRO" | "C
 
 interface ShortenLandmark {
     type: LandmarkType;
-    descriptionId: DestinationID;
+    destinationId: DestinationID;
     slug: string;
     title: string;
 }
@@ -159,7 +159,7 @@ export default (
         },
         {
             type: "ART",
-            descriptionId: "RIO_DE_JANEIRO",
+            destinationId: "RIO_DE_JANEIRO",
             slug: "rio_de_janeiro_boulevard_olimpico",
             title: "Boulevard Olímpico",
         },

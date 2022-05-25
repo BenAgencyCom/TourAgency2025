@@ -69,16 +69,17 @@ model Destination {
 }
 
 model Landmark {
-  id               String       @id @default(cuid())
-  destinationId    String       @map("destination_id")
-  creatorId        String?      @map("creator_id")
-  slug             String       @unique
+  id               String        @id @default(cuid())
+  destinationId    String        @map("destination_id")
+  creatorId        String?       @map("creator_id")
+  slug             String        @unique
   title            String
   description      Json
   shortDescription String
   folder           String
   type             LandmarkType
-  createdAt        DateTime     @default(now())
+  status           ContentStatus @default(WAITING_FOR_APPROVAL)
+  createdAt        DateTime      @default(now())
   // For seaching purpose
   title_lowercase  String
 
@@ -135,6 +136,12 @@ model LandmarkReviewLike {
 
   review LandmarkReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum ContentStatus {
+  APPROVED
+  WAITING_FOR_APPROVAL
+  DISAPPROVED
 }
 
 enum Feedback {

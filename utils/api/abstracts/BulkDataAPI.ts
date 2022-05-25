@@ -86,8 +86,15 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
      * }
      * ```
      */
-    protected async _getData<ExpectedData>(prismaSelectBody: PrismaModelSelect): Promise<GetDataResponse<ExpectedData>> {
-        const result: ExpectedData[] = await (prisma[this.model] as any).findMany(this._createPrismaRequestBody({ prismaSelectBody }));
+    protected async _getData<ExpectedData>(prismaSelectBody: PrismaModelSelect, additionalWhereClausule?: any): Promise<GetDataResponse<ExpectedData>> {
+        const { where, ...generatedPrismaRequestBody } = this._createPrismaRequestBody({ prismaSelectBody });
+        const result: ExpectedData[] = await (prisma[this.model] as any).findMany({
+            ...generatedPrismaRequestBody,
+            where: {
+                ...where,
+                ...additionalWhereClausule,
+            },
+        });
 
         const recordsInTotal = await this._getAmountOfRecordsInTotal();
         const pagination = this.establishPaginationProperties(recordsInTotal);

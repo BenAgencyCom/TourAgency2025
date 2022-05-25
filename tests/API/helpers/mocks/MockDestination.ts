@@ -15,8 +15,8 @@ export default class MockDestination implements Mock {
     private slug: string;
     public id: string;
 
-    public constructor(params: DestinationInfo) {
-        this.continent = params.continent;
+    public constructor(params?: DestinationInfo) {
+        this.continent = params ? params.continent : "Africa";
         // it does not matter at all, just to be roughly random and it will be sufficient
         this.slug = slugGenerator(faker.lorem.words(3));
         this.id = `${Date.now()}_${this.slug}`;

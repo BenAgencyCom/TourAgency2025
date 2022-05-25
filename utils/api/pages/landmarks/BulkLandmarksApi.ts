@@ -38,19 +38,25 @@ export default class BulkLandmarksAPI extends BulkDataAPI<Prisma.LandmarkSelect,
     }
 
     public async getData() {
-        return await this._getData<Landmark>({
-            slug: true,
-            title: true,
-            folder: true,
-            type: true,
-            shortDescription: true,
-            destination: {
-                select: {
-                    city: true,
-                    country: true,
-                    continent: true,
+        const additionalWhereClausule: Prisma.LandmarkWhereInput = {
+            status: "APPROVED",
+        };
+        return await this._getData<Landmark>(
+            {
+                slug: true,
+                title: true,
+                folder: true,
+                type: true,
+                shortDescription: true,
+                destination: {
+                    select: {
+                        city: true,
+                        country: true,
+                        continent: true,
+                    },
                 },
             },
-        });
+            additionalWhereClausule
+        );
     }
 }
