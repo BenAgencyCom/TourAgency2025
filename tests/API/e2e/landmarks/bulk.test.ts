@@ -3,13 +3,26 @@
  */
 // Tools
 import prisma from "../../helpers/db";
+import MockLandmark from "../../helpers/mocks/MockLandmark";
+import MockDestination from "../../helpers/mocks/MockDestination";
 import makeRequest from "../../helpers/landmarks/bulk/makeRequest";
 // "Expectators"
 import expectAllAvailabeDataToBeDisplayed from "../../helpers/landmarks/bulk/expectAllAvailabeDataToBeDisplayed";
 import expectAllPagesNotToDuplicateData from "../../helpers/landmarks/bulk/expectAllPagesNotToDuplicateData";
 // Types
-import type { LandmarkType, Continent } from "@prisma/client";
 import type { Landmark } from "@/@types/pages/landmarks/ManyLandmarks";
+import type { LandmarkType, Continent, ContentStatus } from "@prisma/client";
+
+const expectAllRecordsToBeApproved = async (data: Landmark[]) => {
+    const slugs: string[] = data.map((el) => el.slug);
+    const landmarksWithStatus = await prisma.landmark.findMany({ where: { slug: { in: slugs } }, select: { status: true, slug: true } });
+
+    expect(landmarksWithStatus.length).toEqual(data.length);
+    data.forEach(({ slug }) => {
+        const { status } = landmarksWithStatus.find((target) => target.slug === slug) as { slug: string; status: ContentStatus };
+        expect(status).toEqual("APPROVED" as ContentStatus);
+    });
+};
 
 const expectAllRecordsToHaveTheSameType = (data: Landmark[], type: LandmarkType) => {
     data.forEach((landmark) => {
@@ -27,42 +40,43 @@ const expectAllRecordsToBeOnTheSameContinent = (data: Landmark[], continent: Con
 
 describe("GET: api/landmark/bulk", () => {
     describe("Of particular type", () => {
-        test("MUSEUM", async () => {
-            const { data } = await makeRequest({
-                certainLandmarkType: "MUSEUM",
+        const testParticularType = (type: LandmarkType) => {
+            describe(type, () => {
+                // Mocked records
+                const mockedDestination = new MockDestination();
+                const mockedLandmark = new MockLandmark({ type });
+                //
+                let data: Landmark[] = [];
+                beforeAll(async () => {
+                    // Create mocked landmark, just for the sake of testing.
+                    await mockedDestination.prepare();
+                    await mockedLandmark.prepare(mockedDestination.id);
+
+                    const res = await makeRequest({
+                        certainLandmarkType: type,
+                    });
+                    data = res.data;
+                });
+                afterAll(async () => {
+                    // It is not neccesary to remove mockedLandmark, due to the
+                    // CASCADE relation between landmark and destination models
+                    await mockedDestination.remove();
+                });
+
+                test("All records have the same type", () => {
+                    expectAllRecordsToHaveTheSameType(data, type);
+                });
+                test("All results are APPROVED", async () => {
+                    await expectAllRecordsToBeApproved(data);
+                });
             });
-            expectAllRecordsToHaveTheSameType(data, "MUSEUM");
-        });
-        test("RESTAURANT", async () => {
-            const { data } = await makeRequest({
-                certainLandmarkType: "RESTAURANT",
-            });
-            expectAllRecordsToHaveTheSameType(data, "RESTAURANT");
-        });
-        test("MONUMENT", async () => {
-            const { data } = await makeRequest({
-                certainLandmarkType: "MONUMENT",
-            });
-            expectAllRecordsToHaveTheSameType(data, "MONUMENT");
-        });
-        test("ANTIQUE", async () => {
-            const { data } = await makeRequest({
-                certainLandmarkType: "ANTIQUE",
-            });
-            expectAllRecordsToHaveTheSameType(data, "ANTIQUE");
-        });
-        test("BUILDING", async () => {
-            const { data } = await makeRequest({
-                certainLandmarkType: "BUILDING",
-            });
-            expectAllRecordsToHaveTheSameType(data, "BUILDING");
-        });
-        test("ART", async () => {
-            const { data } = await makeRequest({
-                certainLandmarkType: "ART",
-            });
-            expectAllRecordsToHaveTheSameType(data, "ART");
-        });
+        };
+
+        const ALL_TYPES: LandmarkType[] = ["ANTIQUE", "ART", "BUILDING", "MONUMENT", "MUSEUM", "NATURE", "RESTAURANT"];
+        for (const type of ALL_TYPES) {
+            testParticularType(type);
+        }
+
         describe("Data can be paginated", () => {
             test("All possible data should be eventually displayed", async () => {
                 await expectAllAvailabeDataToBeDisplayed({
@@ -75,117 +89,96 @@ describe("GET: api/landmark/bulk", () => {
                     makeRequestParams: { certainLandmarkType: "BUILDING" },
                 });
             });
-            test("All records should be eventually displayed", async () => {
-                const uniqueSlugs: Set<string> = new Set();
-                const { data, pagination } = await makeRequest({
-                    certainLandmarkType: "BUILDING",
-                    perPage: 3,
-                    page: 1,
-                });
-                data.forEach((landmark) => uniqueSlugs.add(landmark.slug));
-
-                for (let page = 2; page <= pagination.pagesInTotal; page++) {
-                    const { data } = await makeRequest({
-                        certainLandmarkType: "BUILDING",
-                        perPage: 3,
-                        page,
-                    });
-                    data.forEach((landmark) => uniqueSlugs.add(landmark.slug));
-                }
-                const allSlugs = await prisma.landmark.findMany({ where: { type: "BUILDING" }, select: { slug: true } });
-                allSlugs
-                    .map((el) => el.slug)
-                    .forEach((slug) => {
-                        expect(uniqueSlugs).toContain(slug);
-                    });
-            });
         });
     });
     describe("On particular continent", () => {
-        test("Asia", async () => {
-            const { data } = await makeRequest({
-                continent: "Asia",
+        const testParticularContinent = (continent: Continent) => {
+            describe(continent, () => {
+                let data: Landmark[] = [];
+                const mockedDestination = new MockDestination({ continent });
+                const mockedLandmark = new MockLandmark();
+                beforeAll(async () => {
+                    const res = await makeRequest({ continent });
+                    data = res.data;
+                    await mockedDestination.prepare();
+                    await mockedLandmark.prepare(mockedDestination.id);
+                });
+                afterAll(async () => {
+                    // It is not neccesary to remove mockedLandmark, due to the
+                    // CASCADE relation between landmark and destination models
+                    await mockedDestination.remove();
+                });
+
+                test("All records are on the same continent", () => {
+                    expectAllRecordsToBeOnTheSameContinent(data, continent);
+                });
+                test("All results are APPROVED", async () => {
+                    await expectAllRecordsToBeApproved(data);
+                });
             });
-            expectAllRecordsToBeOnTheSameContinent(data, "Asia");
-        });
-        test("Europe", async () => {
-            const { data } = await makeRequest({
-                continent: "Europe",
+        };
+
+        const ALL_CONTINENTS: Continent[] = ["Africa", "Asia", "Australia_Oceania", "Europe", "North_America", "South_America"];
+        for (const continent of ALL_CONTINENTS) {
+            testParticularContinent(continent);
+        }
+
+        describe("Data can be paginated", () => {
+            test("All possible data should be eventually displayed", async () => {
+                await expectAllAvailabeDataToBeDisplayed({
+                    allSlugsQuery: { destination: { continent: "Europe" } },
+                    makeRequestParams: { continent: "Europe" },
+                });
             });
-            expectAllRecordsToBeOnTheSameContinent(data, "Europe");
-        });
-        test("Africa", async () => {
-            const { data } = await makeRequest({
-                continent: "Africa",
+            test("Records do not repeat throughout diffrent pages", async () => {
+                await expectAllPagesNotToDuplicateData({
+                    makeRequestParams: { continent: "Europe" },
+                });
             });
-            expectAllRecordsToBeOnTheSameContinent(data, "Africa");
-        });
-        test("North_America", async () => {
-            const { data } = await makeRequest({
-                continent: "North_America",
-            });
-            expectAllRecordsToBeOnTheSameContinent(data, "North_America");
-        });
-        test("South_America", async () => {
-            const { data } = await makeRequest({
-                continent: "South_America",
-            });
-            expectAllRecordsToBeOnTheSameContinent(data, "South_America");
-        });
-        test("Australia_Oceania", async () => {
-            const { data } = await makeRequest({
-                continent: "Australia_Oceania",
-            });
-            expectAllRecordsToBeOnTheSameContinent(data, "Australia_Oceania");
         });
     });
     describe("Searching phrase", () => {
+        test("Not approved content cannot be displayed", async () => {
+            const mockedDestination = new MockDestination();
+            const mockedLandmark = new MockLandmark();
+            await mockedDestination.prepare();
+            await mockedLandmark.prepare(mockedDestination.id);
+            //
+            const res = await makeRequest({ searchingPhrase: mockedLandmark.title });
+            expect(res.data).toHaveLength(0);
+
+            // It is not neccesary to remove mockedLandmark, due to the
+            // CASCADE relation between landmark and destination models
+            await mockedDestination.remove();
+        });
+
         describe("In particular city", () => {
-            test("Identical city name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "Hamburg",
+            const testLandmarksInParticualCity = (label: string, searchingPhrase: string) => {
+                describe(label, () => {
+                    let data: Landmark[] = [];
+                    beforeAll(async () => {
+                        const res = await makeRequest({ searchingPhrase });
+                        data = res.data;
+                        expect(data.length).toBeGreaterThan(0);
+                    });
+
+                    test("All records are in expected city", () => {
+                        data.forEach((landmark) => {
+                            expect(landmark.destination.city).toEqual("Hamburg");
+                        });
+                    });
+                    test("All results are APPROVED", async () => {
+                        await expectAllRecordsToBeApproved(data);
+                    });
                 });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.destination.city).toEqual("Hamburg");
-                });
-            });
-            test("Partial city name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "Ham",
-                });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.destination.city).toEqual("Hamburg");
-                });
-            });
-            test("Uppercased city name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "HAMB",
-                });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.destination.city).toEqual("Hamburg");
-                });
-            });
-            test("Lowercased city name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "hamburg",
-                });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.destination.city).toEqual("Hamburg");
-                });
-            });
-            test("Irregular cased city name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "HaMbURg",
-                });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.destination.city).toEqual("Hamburg");
-                });
-            });
+            };
+
+            testLandmarksInParticualCity("Identical city name", "Hamburg");
+            testLandmarksInParticualCity("Partial city name", "Ham");
+            testLandmarksInParticualCity("Uppercased city name", "HAMB");
+            testLandmarksInParticualCity("Lowercased city name", "hambur");
+            testLandmarksInParticualCity("Irregular cased city name", "HaMbURg");
+
             describe("Data can be paginated", () => {
                 test("Data on each page should have the city name", async () => {
                     await expectAllAvailabeDataToBeDisplayed({
@@ -200,52 +193,34 @@ describe("GET: api/landmark/bulk", () => {
                 });
             });
         });
+
         describe("Specific landmark", () => {
-            test("Identical landmark name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "Fiction Park",
+            const testOnlyOneSpecificLandmark = (label: string, searchingPhrase: string) => {
+                describe(label, () => {
+                    let data: Landmark[] = [];
+                    beforeAll(async () => {
+                        const res = await makeRequest({ searchingPhrase });
+                        data = res.data;
+                        expect(data.length).toBeGreaterThan(0);
+                    });
+
+                    test("The only result is an expected landmark", () => {
+                        data.forEach((landmark) => {
+                            expect(landmark.title).toEqual("Fiction Park");
+                        });
+                        expect(data).toHaveLength(1);
+                    });
+                    test("All results are APPROVED", async () => {
+                        await expectAllRecordsToBeApproved(data);
+                    });
                 });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.title).toEqual("Fiction Park");
-                });
-            });
-            test("Partial landmark name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "Fict",
-                });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.title).toEqual("Fiction Park");
-                });
-            });
-            test("Uppercased landmark name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "FICTION PARK",
-                });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.title).toEqual("Fiction Park");
-                });
-            });
-            test("Lowercased landmark name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "fiction p",
-                });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.title).toEqual("Fiction Park");
-                });
-            });
-            test("Irregular cased landmark name", async () => {
-                const { data } = await makeRequest({
-                    searchingPhrase: "FiCTIoN PArK",
-                });
-                expect(data.length).toBeGreaterThan(0);
-                data.forEach((landmark) => {
-                    expect(landmark.title).toEqual("Fiction Park");
-                });
-            });
+            };
+            testOnlyOneSpecificLandmark("Identical landmark name", "Fiction Park");
+            testOnlyOneSpecificLandmark("Partial landmark name", "Ficti");
+            testOnlyOneSpecificLandmark("Uppercased landmark name", "FICTION PARK");
+            testOnlyOneSpecificLandmark("Lowercased landmark name", "fiction p");
+            testOnlyOneSpecificLandmark("Irregular cased landmark name", "FiCTIoN PArK");
+
             describe("Data can be paginated", () => {
                 test("All possible data should be eventually displayed", async () => {
                     await expectAllAvailabeDataToBeDisplayed({
