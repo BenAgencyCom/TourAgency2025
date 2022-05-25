@@ -1,10 +1,20 @@
 // Tools
 import { generateDescriptionHeader, generateShortDescription, generateDescriptionParagraph, generateDescriptionSplittedParagraph } from "./_prisma_seeders_utils";
 // Types
-import type { SeederDataList, Landmark } from "./@types";
+import { LandmarkType } from "@prisma/client";
+import type { SeederDataList, Landmark, SeederDataItem } from "./@types";
 import type { DescriptionContentField, HeaderContentField, ParagraphContentField, ImageContentField, SplittedContentField } from "../../@types/Description";
 
-const createDescription = () => {
+type DestinationID = "KRAKOW" | "WARSZAWA" | "VANCOUVER" | "RIO_DE_JANEIRO" | "CAPE_TOWN" | "HAMBURG" | "TOKYO";
+
+interface ShortenLandmark {
+    type: LandmarkType;
+    descriptionId: DestinationID;
+    slug: string;
+    title: string;
+}
+
+const generateDescription = () => {
     return JSON.parse(
         JSON.stringify([
             {
@@ -51,348 +61,194 @@ const createDescription = () => {
     );
 };
 
-export default [
-    // KRAKOW
-    {
-        id: "1",
-        type: "RESTAURANT",
-        destinationId: "KRAKOW",
-        folder: "krakow_nolio",
-        _imagesDir: "landmarks/krakow_nolio",
-        slug: "krakow_nolio",
-        title: "Restauracja Nolio",
-        title_lowercase: "restauracja nolio",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "2",
-        type: "MONUMENT",
-        destinationId: "KRAKOW",
-        folder: "krakow_kopiec_kosciuszki",
-        _imagesDir: "landmarks/krakow_kopiec_kosciuszki",
-        slug: "krakow_kopiec_kosciuszki",
-        title: "Kopiec Tadeusza Kosciuszki",
-        title_lowercase: "kopiec tadeusza kosciuszki",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "3",
-        type: "BUILDING",
-        destinationId: "KRAKOW",
-        folder: "krakow_teatr_slowackiego",
-        _imagesDir: "landmarks/krakow_teatr_slowackiego",
-        slug: "krakow_teatr_slowackiego",
-        title: "Teatr Juliusza Słowackiego",
-        title_lowercase: "teatr juliusza slowackiego",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "4",
-        type: "BUILDING",
-        destinationId: "KRAKOW",
-        folder: "krakow_wawel",
-        _imagesDir: "landmarks/krakow_wawel",
-        slug: "krakow_wawel",
-        title: "Zamek krolewski na Wawelu",
-        title_lowercase: "zamek krolewski na Wawelu",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    // WARSZAWA
-    {
-        id: "5",
-        type: "MUSEUM",
-        destinationId: "WARSZAWA",
-        folder: "www_centrum_nauki_kopernik",
-        _imagesDir: "landmarks/www_centrum_nauki_kopernik",
-        slug: "www_centrum_nauki_kopernik",
-        title: "Centrum Nauki Kopernik",
-        title_lowercase: "centrum nauki kopernik",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "6",
-        type: "BUILDING",
-        destinationId: "WARSZAWA",
-        folder: "wwa_palac",
-        _imagesDir: "landmarks/wwa_palac",
-        slug: "wwa_palac",
-        title: "Palac kultury i nauki",
-        title_lowercase: "palac kultury i nauki",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "7",
-        type: "ANTIQUE",
-        destinationId: "WARSZAWA",
-        folder: "wwa_stare_miasto",
-        _imagesDir: "landmarks/wwa_stare_miasto",
-        slug: "wwa_stare_miasto",
-        title: "Stare Miasto",
-        title_lowercase: "stare miasto",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "8",
-        type: "BUILDING",
-        destinationId: "WARSZAWA",
-        folder: "wwa_stadion",
-        _imagesDir: "landmarks/wwa_stadion",
-        slug: "wwa_stadion",
-        title: "Stadion PGE Narodowy",
-        title_lowercase: "stadion pge narodowy",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    // VANCOUVER
-    {
-        id: "9",
-        type: "NATURE",
-        destinationId: "VANCOUVER",
-        folder: "vancouver_two_jacks_lake",
-        _imagesDir: "landmarks/vancouver_two_jacks_lake",
-        slug: "vancouver_two_jacks_lake",
-        title: "Two Jacks Lake",
-        title_lowercase: "two jacks lake",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "10",
-        type: "BUILDING",
-        destinationId: "VANCOUVER",
-        folder: "vancouver_science_world",
-        _imagesDir: "landmarks/vancouver_science_world",
-        slug: "vancouver_science_world",
-        title: "Science World",
-        title_lowercase: "science world",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "11",
-        type: "MONUMENT",
-        destinationId: "VANCOUVER",
-        folder: "vancouver_pale_totem",
-        _imagesDir: "landmarks/vancouver_pale_totem",
-        slug: "vancouver_pale_totem",
-        title: "The Pale Totem",
-        title_lowercase: "the pale totem",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "12",
-        type: "RESTAURANT",
-        destinationId: "VANCOUVER",
-        folder: "vancouver_pan_pacific_vancouver",
-        _imagesDir: "landmarks/vancouver_pan_pacific_vancouver",
-        slug: "vancouver_pan_pacific_vancouver",
-        title: "Pan Pacific Hotel Vancouver",
-        title_lowercase: "pan pacific hotel vancouver",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    // RIO_DE_JANEIRO
-    {
-        id: "13",
-        type: "NATURE",
-        destinationId: "RIO_DE_JANEIRO",
-        folder: "rio_de_janeiro_sugarloaf_mountain",
-        _imagesDir: "landmarks/rio_de_janeiro_sugarloaf_mountain",
-        slug: "rio_de_janeiro_sugarloaf_mountain",
-        title: "Sugarloaf Montaña",
-        title_lowercase: "sugarloaf montaña",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "14",
-        type: "NATURE",
-        destinationId: "RIO_DE_JANEIRO",
-        folder: "rio_de_janeiro_caracol_waterfall",
-        _imagesDir: "landmarks/rio_de_janeiro_caracol_waterfall",
-        slug: "rio_de_janeiro_caracol_waterfall",
-        title: "Caracol cascada",
-        title_lowercase: "caracol cascada",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "15",
-        type: "MONUMENT",
-        destinationId: "RIO_DE_JANEIRO",
-        folder: "rio_de_janeiro_jezus",
-        _imagesDir: "landmarks/rio_de_janeiro_jezus",
-        slug: "rio_de_janeiro_jezus",
-        title: "Estatua del Cristo Redentor en Río de Janeiro",
-        title_lowercase: "estatua del cristo redentor en río de janeiro",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "16",
-        type: "ART",
-        destinationId: "RIO_DE_JANEIRO",
-        folder: "rio_de_janeiro_boulevard_olimpico",
-        _imagesDir: "landmarks/rio_de_janeiro_boulevard_olimpico",
-        slug: "rio_de_janeiro_boulevard_olimpico",
-        title: "Boulevard Olímpico",
-        title_lowercase: "boulevard olímpico",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    // Cape Town
-    {
-        id: "17",
-        type: "BUILDING",
-        destinationId: "CAPE_TOWN",
-        folder: "cape_town_stadium",
-        _imagesDir: "landmarks/cape_town_stadium",
-        slug: "cape_town_stadium",
-        title: "Cape Town Stadium",
-        title_lowercase: "cape town stadium",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "18",
-        type: "NATURE",
-        destinationId: "CAPE_TOWN",
-        folder: "cape_town_duiker_island",
-        _imagesDir: "landmarks/cape_town_duiker_island",
-        slug: "cape_town_duiker_island",
-        title: "Duiker Island",
-        title_lowercase: "duiker island",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "19",
-        type: "BUILDING",
-        destinationId: "CAPE_TOWN",
-        folder: "cape_town_table_bay_harbour",
-        _imagesDir: "landmarks/cape_town_table_bay_harbour",
-        slug: "cape_town_table_bay_harbour",
-        title: "Table Bay Harbour",
-        title_lowercase: "table bay harbour",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "20",
-        type: "NATURE",
-        destinationId: "CAPE_TOWN",
-        folder: "cape_town_bay_beach",
-        _imagesDir: "landmarks/cape_town_bay_beach",
-        slug: "cape_town_bay_beach",
-        title: "Cape Bay Beach",
-        title_lowercase: "cape bay beach",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    // HAMBURG
-    {
-        id: "21",
-        type: "BUILDING",
-        destinationId: "HAMBURG",
-        folder: "hamburg_rathaus",
-        _imagesDir: "landmarks/hamburg_rathaus",
-        slug: "hamburg_rathaus",
-        title: "Rathaus Hamburg",
-        title_lowercase: "rathaus hamburg",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "22",
-        type: "BUILDING",
-        destinationId: "HAMBURG",
-        folder: "hamburg_elbphilharmonie",
-        _imagesDir: "landmarks/hamburg_elbphilharmonie",
-        slug: "hamburg_elbphilharmonie",
-        title: "Elbphilharmonie",
-        title_lowercase: "elbphilharmonie",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "23",
-        type: "BUILDING",
-        destinationId: "HAMBURG",
-        folder: "hamburg_hafen",
-        _imagesDir: "landmarks/hamburg_hafen",
-        slug: "hamburg_hafen",
-        title: "Hamburg Hafen",
-        title_lowercase: "hamburg hafen",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "24",
-        type: "NATURE",
-        destinationId: "HAMBURG",
-        folder: "hamburg_fiction_park",
-        _imagesDir: "landmarks/hamburg_fiction_park",
-        slug: "hamburg_fiction_park",
-        title: "Fiction Park",
-        title_lowercase: "fiction park",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    // Tokyo
-    {
-        id: "25",
-        type: "BUILDING",
-        destinationId: "TOKYO",
-        folder: "tokyo_shibuya",
-        _imagesDir: "landmarks/tokyo_shibuya",
-        slug: "tokyo_shibuya",
-        title: "Shibuya",
-        title_lowercase: "shibuya",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "26",
-        type: "MONUMENT",
-        destinationId: "TOKYO",
-        folder: "tokyo_senso_ji_temple",
-        _imagesDir: "landmarks/tokyo_senso_ji_temple",
-        slug: "tokyo_senso_ji_temple",
-        title: "Sensō-ji",
-        title_lowercase: "sensō-ji",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "27",
-        type: "NATURE",
-        destinationId: "TOKYO",
-        folder: "tokyo_shinjuku_gyoen",
-        _imagesDir: "landmarks/tokyo_shinjuku_gyoen",
-        slug: "tokyo_shinjuku_gyoen",
-        title: "Shinjuku Gyoen",
-        title_lowercase: "shinjuku gyoen",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-    {
-        id: "28",
-        type: "ART",
-        destinationId: "TOKYO",
-        folder: "tokyo_disneyland",
-        _imagesDir: "landmarks/tokyo_disneyland",
-        slug: "tokyo_disneyland",
-        title: "Tokyo Disneyland",
-        title_lowercase: "tokyo disneyland",
-        shortDescription: generateShortDescription(),
-        description: createDescription(),
-    },
-] as SeederDataList<Landmark>;
+export default (
+    [
+        // KRAKOW
+        {
+            type: "RESTAURANT",
+            destinationId: "KRAKOW",
+            slug: "krakow_nolio",
+            title: "Restauracja Nolio",
+        },
+        {
+            type: "MONUMENT",
+            destinationId: "KRAKOW",
+            slug: "krakow_kopiec_kosciuszki",
+            title: "Kopiec Tadeusza Kosciuszki",
+        },
+        {
+            type: "BUILDING",
+            destinationId: "KRAKOW",
+            slug: "krakow_teatr_slowackiego",
+            title: "Teatr Juliusza Słowackiego",
+        },
+        {
+            type: "BUILDING",
+            destinationId: "KRAKOW",
+            slug: "krakow_wawel",
+            title: "Zamek krolewski na Wawelu",
+        },
+        // WARSZAWA
+        {
+            type: "MUSEUM",
+            destinationId: "WARSZAWA",
+            slug: "www_centrum_nauki_kopernik",
+            title: "Centrum Nauki Kopernik",
+        },
+        {
+            type: "BUILDING",
+            destinationId: "WARSZAWA",
+            slug: "wwa_palac",
+            title: "Palac kultury i nauki",
+        },
+        {
+            type: "ANTIQUE",
+            destinationId: "WARSZAWA",
+            slug: "wwa_stare_miasto",
+            title: "Stare Miasto",
+        },
+        {
+            type: "BUILDING",
+            destinationId: "WARSZAWA",
+            slug: "wwa_stadion",
+            title: "Stadion PGE Narodowy",
+        },
+        // VANCOUVER
+        {
+            type: "NATURE",
+            destinationId: "VANCOUVER",
+            slug: "vancouver_two_jacks_lake",
+            title: "Two Jacks Lake",
+        },
+        {
+            type: "BUILDING",
+            destinationId: "VANCOUVER",
+            slug: "vancouver_science_world",
+            title: "Science World",
+        },
+        {
+            type: "MONUMENT",
+            destinationId: "VANCOUVER",
+            slug: "vancouver_pale_totem",
+            title: "The Pale Totem",
+        },
+        {
+            type: "RESTAURANT",
+            destinationId: "VANCOUVER",
+            slug: "vancouver_pan_pacific_vancouver",
+            title: "Pan Pacific Hotel Vancouver",
+        },
+        // RIO_DE_JANEIRO
+        {
+            type: "NATURE",
+            destinationId: "RIO_DE_JANEIRO",
+            slug: "rio_de_janeiro_sugarloaf_mountain",
+            title: "Sugarloaf Montaña",
+        },
+        {
+            type: "NATURE",
+            destinationId: "RIO_DE_JANEIRO",
+            slug: "rio_de_janeiro_caracol_waterfall",
+            title: "Caracol cascada",
+        },
+        {
+            type: "MONUMENT",
+            destinationId: "RIO_DE_JANEIRO",
+            slug: "rio_de_janeiro_jezus",
+            title: "Estatua del Cristo Redentor en Río de Janeiro",
+        },
+        {
+            type: "ART",
+            descriptionId: "RIO_DE_JANEIRO",
+            slug: "rio_de_janeiro_boulevard_olimpico",
+            title: "Boulevard Olímpico",
+        },
+        // Cape Town
+        {
+            type: "BUILDING",
+            destinationId: "CAPE_TOWN",
+            slug: "cape_town_stadium",
+            title: "Cape Town Stadium",
+        },
+        {
+            type: "NATURE",
+            destinationId: "CAPE_TOWN",
+            slug: "cape_town_duiker_island",
+            title: "Duiker Island",
+        },
+        {
+            type: "BUILDING",
+            destinationId: "CAPE_TOWN",
+            slug: "cape_town_table_bay_harbour",
+            title: "Table Bay Harbour",
+        },
+        {
+            type: "NATURE",
+            destinationId: "CAPE_TOWN",
+            slug: "cape_town_bay_beach",
+            title: "Cape Bay Beach",
+        },
+        // HAMBURG
+        {
+            type: "BUILDING",
+            destinationId: "HAMBURG",
+            slug: "hamburg_rathaus",
+            title: "Rathaus Hamburg",
+        },
+        {
+            type: "BUILDING",
+            destinationId: "HAMBURG",
+            slug: "hamburg_elbphilharmonie",
+            title: "Elbphilharmonie",
+        },
+        {
+            type: "BUILDING",
+            destinationId: "HAMBURG",
+            slug: "hamburg_hafen",
+            title: "Hamburg Hafen",
+        },
+        {
+            type: "NATURE",
+            destinationId: "HAMBURG",
+            slug: "hamburg_fiction_park",
+            title: "Fiction Park",
+        },
+        // Tokyo
+        {
+            type: "BUILDING",
+            destinationId: "TOKYO",
+            slug: "tokyo_shibuya",
+            title: "Shibuya",
+        },
+        {
+            type: "MONUMENT",
+            destinationId: "TOKYO",
+            slug: "tokyo_senso_ji_temple",
+            title: "Sensō-ji",
+        },
+        {
+            type: "NATURE",
+            destinationId: "TOKYO",
+            slug: "tokyo_shinjuku_gyoen",
+            title: "Shinjuku Gyoen",
+        },
+        {
+            type: "ART",
+            destinationId: "TOKYO",
+            slug: "tokyo_disneyland",
+            title: "Tokyo Disneyland",
+        },
+    ] as ShortenLandmark[]
+).map((_el, index: number) => {
+    const el = _el as unknown as SeederDataItem<Landmark>;
+    //
+    el.folder = el.slug;
+    if (el.status === undefined) el.status = "APPROVED";
+    el.id = String(index + 1);
+    el._imagesDir = `landmarks/${el.slug}`;
+    el.title_lowercase = el.title ? el.title.toLowerCase() : "testing landmark";
+    el.description = generateDescription();
+    el.shortDescription = generateShortDescription();
+    //
+    return el;
+}) as SeederDataList<Landmark>;
