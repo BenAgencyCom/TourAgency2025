@@ -8,10 +8,10 @@ import fse from "fs-extra";
 import { uploadDir } from "@/utils/paths";
 import { PrismaClient } from "@prisma/client";
 import { testPOSTRequestStatus } from "../../helpers/testStatus";
-import MockUser from "../../data/landmarks/create/MockUser";
+import MockUser from "../../helpers/mocks/MockUser";
 import { API_URL, convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING, EXPECTED_DESCRIPTION_IMAGES } from "../../data/landmarks/create";
 // Types
-import type { Landmark } from "@prisma/client";
+import type { Landmark, ContentStatus } from "@prisma/client";
 import { FieldType } from "@/@types/Description";
 import type { ValidLandmarkData } from "../../data/landmarks/create/@types";
 
@@ -83,6 +83,10 @@ describe("POST: api/landmark/create", () => {
             test("Slug is generated", async () => {
                 expect(freshlyCreatedLandmark).not.toBeNull();
                 expect((freshlyCreatedLandmark as Landmark).slug).not.toBeFalsy();
+            });
+            test("Status should be set to 'WAITING_FOR_APPROVAL'", async () => {
+                expect(freshlyCreatedLandmark).not.toBeNull();
+                expect((freshlyCreatedLandmark as Landmark).status).toEqual("WAITING_FOR_APPROVAL" as ContentStatus);
             });
         });
         describe("All images should be stored correctly", () => {
@@ -166,9 +170,6 @@ describe("POST: api/landmark/create", () => {
             expect(data).not.toBeFalsy();
             expect(data?.creator).not.toBeFalsy();
         });
-        // test("Landmark should NOT be visible for public", async () => {
-        //     expect(false).toEqual(true);
-        // });
     });
     describe("Request body validation", () => {
         describe("Missing properties", () => {
