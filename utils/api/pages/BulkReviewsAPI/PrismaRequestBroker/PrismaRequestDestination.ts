@@ -11,7 +11,27 @@ export default class DestinationBroker implements PrismaRequestBroker {
     public constructor(public type: BulkReviewsType, public id: string) {}
 
     public async callForReviews(convertedURLsQueries: URLQueriesConvertedIntoPrismaBody): Promise<ReviewFromQuery[]> {
-        const { where, ...requestBody } = new PrismaRequestBody(convertedURLsQueries).create();
+        const { where, skip, take, ...requestBody } = new PrismaRequestBody(convertedURLsQueries).create();
+        // In order to make working pagination, we have to use array.slice method,
+        // becouse prisma's skip and take are working in not in the way described in prisma's docs
+        if (skip !== undefined && take !== undefined) {
+            const allReviews = await prisma.destinationReview.findMany({
+                where: {
+                    destinationId: this.id,
+                    ...where,
+                },
+                select: { id: true },
+            });
+            const IDsOfReviewsOnCurrentPage: string[] = allReviews.slice(skip, skip + take).map((el) => el.id);
+            return await prisma.destinationReview.findMany({
+                where: {
+                    id: {
+                        in: IDsOfReviewsOnCurrentPage,
+                    },
+                },
+                ...requestBody,
+            });
+        }
         return await prisma.destinationReview.findMany({
             where: {
                 destinationId: this.id,

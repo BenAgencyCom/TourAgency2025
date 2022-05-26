@@ -15,6 +15,8 @@ import expectAllRecordsToBeOnTheSameContinent from "../../helpers/landmarks/bulk
 import type { LandmarkType, Continent } from "@prisma/client";
 import type { Landmark } from "@/@types/pages/landmarks/ManyLandmarks";
 
+const RECORDS_PER_PAGE: number[] = [2, 4, 6, 9, 12, 16];
+
 describe("GET: api/landmark/bulk", () => {
     describe("Of particular type", () => {
         const testParticularType = (type: LandmarkType) => {
@@ -55,6 +57,8 @@ describe("GET: api/landmark/bulk", () => {
         }
 
         testPaginations({
+            uniquePropertyName: "slug",
+            recordsPerPage: RECORDS_PER_PAGE,
             getAllAvailableData: async () =>
                 await prisma.landmark.findMany({
                     where: {
@@ -64,11 +68,11 @@ describe("GET: api/landmark/bulk", () => {
                         slug: true,
                     },
                 }),
-            loadPage: async (page: number) =>
+            loadPage: async (page: number, perPage: number) =>
                 await makeRequest({
                     certainLandmarkType: "BUILDING",
                     page,
-                    perPage: 2,
+                    perPage,
                 }),
         });
     });
@@ -105,6 +109,8 @@ describe("GET: api/landmark/bulk", () => {
         }
 
         testPaginations({
+            recordsPerPage: RECORDS_PER_PAGE,
+            uniquePropertyName: "slug",
             getAllAvailableData: async () =>
                 await prisma.landmark.findMany({
                     where: {
@@ -116,11 +122,11 @@ describe("GET: api/landmark/bulk", () => {
                         slug: true,
                     },
                 }),
-            loadPage: async (page: number) =>
+            loadPage: async (page: number, perPage: number) =>
                 await makeRequest({
                     continent: "Europe",
                     page,
-                    perPage: 2,
+                    perPage,
                 }),
         });
     });
@@ -167,6 +173,8 @@ describe("GET: api/landmark/bulk", () => {
             testLandmarksInParticualCity("Irregular cased city name", "HaMbURg");
 
             testPaginations({
+                uniquePropertyName: "slug",
+                recordsPerPage: RECORDS_PER_PAGE,
                 getAllAvailableData: async () =>
                     await prisma.landmark.findMany({
                         where: {
@@ -178,11 +186,11 @@ describe("GET: api/landmark/bulk", () => {
                             slug: true,
                         },
                     }),
-                loadPage: async (page: number) =>
+                loadPage: async (page: number, perPage: number) =>
                     await makeRequest({
                         searchingPhrase: "Ham",
                         page,
-                        perPage: 2,
+                        perPage,
                     }),
             });
         });

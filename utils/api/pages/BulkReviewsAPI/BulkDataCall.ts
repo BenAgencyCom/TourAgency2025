@@ -37,7 +37,7 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
     private _mergeReviewsAndFeedback(reviews: ReviewFromQuery[], feedbacks: FeedbackFromQuery[]): Review[] {
         const _extractFromFeedback = (reviewId: string, feedback: "LIKE" | "DISLIKE"): number => {
             const index: number = feedbacks.findIndex((el: FeedbackFromQuery) => el.reviewId === reviewId && el.feedback === feedback);
-            if (index && feedbacks[index]) {
+            if (index !== -1 && feedbacks[index]) {
                 const amount = feedbacks[index]._count._all;
                 feedbacks.splice(index, 1);
                 return amount;

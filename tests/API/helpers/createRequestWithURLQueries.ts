@@ -2,8 +2,6 @@
 // Tools
 import axios from "axios";
 import { API_ADDRESS } from "./db";
-// Types
-import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 
 interface CreateMakeRequest<URLQueries> {
     /**
@@ -20,11 +18,6 @@ interface CreateMakeRequest<URLQueries> {
      * ```
      */
     possibleURLQueries: (keyof URLQueries)[];
-}
-
-interface Response<ResponseData> {
-    data: ResponseData[];
-    pagination: PaginationProperties;
 }
 
 /**
@@ -53,31 +46,25 @@ interface Response<ResponseData> {
  *  2. **second generic**- `ResponseData` interface reflecting data received from the API
  *
  *   ```ts
- *   interface User {
- *       id: string;
- *       name: string;
- *       surname: string;
- *       job: string;
- *       gender: Gender;
+ *   interface Response {
+ *       data: Landmark[];
+ *       pagination: PaginationProperties;
  *   }
  *   ```
  *
  */
-export default <URLQueries, ResponseData>(params: CreateMakeRequest<URLQueries>) => {
+export default <URLQueries, Response>(params: CreateMakeRequest<URLQueries>) => {
     const { url: endpointURL, possibleURLQueries } = params;
     // Add slash at the begining of url if is's not present
     const transformedEndpointURL = endpointURL[0] === "/" ? endpointURL : `/${endpointURL}`;
     //
-    return async (requestQueries: URLQueries): Promise<Response<ResponseData>> => {
+    return async (requestQueries: URLQueries): Promise<Response> => {
         let url = `${API_ADDRESS}/${transformedEndpointURL}?`;
         possibleURLQueries.forEach((URLQueryName) => {
             if (requestQueries[URLQueryName]) url += `${URLQueryName}=${requestQueries[URLQueryName]}&`;
         });
-        const result = await axios.get(url);
+        const { data } = await axios.get(url);
         //
-        return {
-            data: result.data.data,
-            pagination: result.data.pagination,
-        };
+        return data;
     };
 };
