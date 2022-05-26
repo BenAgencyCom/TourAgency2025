@@ -7,36 +7,13 @@ import MockLandmark from "../../helpers/mocks/MockLandmark";
 import MockDestination from "../../helpers/mocks/MockDestination";
 import makeRequest from "../../helpers/landmarks/bulk/makeRequest";
 // "Expectators"
-import expectAllAvailabeDataToBeDisplayed from "../../helpers/landmarks/bulk/expectAllAvailabeDataToBeDisplayed";
-import expectAllPagesNotToDuplicateData from "../../helpers/landmarks/bulk/expectAllPagesNotToDuplicateData";
+import testPaginations from "../../helpers/testPagination";
+import expectAllRecordsToBeApproved from "../../helpers/landmarks/bulk/expectAllRecordsToBeApproved";
+import expectAllRecordsToHaveTheSameType from "../../helpers/landmarks/bulk/expectAllRecordsToHaveTheSameType";
+import expectAllRecordsToBeOnTheSameContinent from "../../helpers/landmarks/bulk/expectAllRecordsToBeOnTheSameContinent";
 // Types
+import type { LandmarkType, Continent } from "@prisma/client";
 import type { Landmark } from "@/@types/pages/landmarks/ManyLandmarks";
-import type { LandmarkType, Continent, ContentStatus } from "@prisma/client";
-
-const expectAllRecordsToBeApproved = async (data: Landmark[]) => {
-    const slugs: string[] = data.map((el) => el.slug);
-    const landmarksWithStatus = await prisma.landmark.findMany({ where: { slug: { in: slugs } }, select: { status: true, slug: true } });
-
-    expect(landmarksWithStatus.length).toEqual(data.length);
-    data.forEach(({ slug }) => {
-        const { status } = landmarksWithStatus.find((target) => target.slug === slug) as { slug: string; status: ContentStatus };
-        expect(status).toEqual("APPROVED" as ContentStatus);
-    });
-};
-
-const expectAllRecordsToHaveTheSameType = (data: Landmark[], type: LandmarkType) => {
-    data.forEach((landmark) => {
-        expect(landmark.type).toEqual(type);
-    });
-    expect(data.length).toBeGreaterThan(0);
-};
-
-const expectAllRecordsToBeOnTheSameContinent = (data: Landmark[], continent: Continent) => {
-    data.forEach((landmark) => {
-        expect(landmark.destination.continent).toEqual(continent);
-    });
-    if (continent !== "Australia_Oceania") expect(data.length).toBeGreaterThan(0);
-};
 
 describe("GET: api/landmark/bulk", () => {
     describe("Of particular type", () => {
@@ -77,18 +54,22 @@ describe("GET: api/landmark/bulk", () => {
             testParticularType(type);
         }
 
-        describe("Data can be paginated", () => {
-            test("All possible data should be eventually displayed", async () => {
-                await expectAllAvailabeDataToBeDisplayed({
-                    allSlugsQuery: { type: "BUILDING" },
-                    makeRequestParams: { certainLandmarkType: "BUILDING" },
-                });
-            });
-            test("Records do not repeat throughout diffrent pages", async () => {
-                await expectAllPagesNotToDuplicateData({
-                    makeRequestParams: { certainLandmarkType: "BUILDING" },
-                });
-            });
+        testPaginations({
+            getAllAvailableData: async () =>
+                await prisma.landmark.findMany({
+                    where: {
+                        type: "BUILDING",
+                    },
+                    select: {
+                        slug: true,
+                    },
+                }),
+            loadPage: async (page: number) =>
+                await makeRequest({
+                    certainLandmarkType: "BUILDING",
+                    page,
+                    perPage: 2,
+                }),
         });
     });
     describe("On particular continent", () => {
@@ -123,18 +104,24 @@ describe("GET: api/landmark/bulk", () => {
             testParticularContinent(continent);
         }
 
-        describe("Data can be paginated", () => {
-            test("All possible data should be eventually displayed", async () => {
-                await expectAllAvailabeDataToBeDisplayed({
-                    allSlugsQuery: { destination: { continent: "Europe" } },
-                    makeRequestParams: { continent: "Europe" },
-                });
-            });
-            test("Records do not repeat throughout diffrent pages", async () => {
-                await expectAllPagesNotToDuplicateData({
-                    makeRequestParams: { continent: "Europe" },
-                });
-            });
+        testPaginations({
+            getAllAvailableData: async () =>
+                await prisma.landmark.findMany({
+                    where: {
+                        destination: {
+                            continent: "Europe",
+                        },
+                    },
+                    select: {
+                        slug: true,
+                    },
+                }),
+            loadPage: async (page: number) =>
+                await makeRequest({
+                    continent: "Europe",
+                    page,
+                    perPage: 2,
+                }),
         });
     });
     describe("Searching phrase", () => {
@@ -179,18 +166,24 @@ describe("GET: api/landmark/bulk", () => {
             testLandmarksInParticualCity("Lowercased city name", "hambur");
             testLandmarksInParticualCity("Irregular cased city name", "HaMbURg");
 
-            describe("Data can be paginated", () => {
-                test("Data on each page should have the city name", async () => {
-                    await expectAllAvailabeDataToBeDisplayed({
-                        allSlugsQuery: { destination: { city: "Hamburg" } },
-                        makeRequestParams: { searchingPhrase: "Ham" },
-                    });
-                });
-                test("Records do not repeat throughout diffrent pages", async () => {
-                    await expectAllPagesNotToDuplicateData({
-                        makeRequestParams: { searchingPhrase: "Ham" },
-                    });
-                });
+            testPaginations({
+                getAllAvailableData: async () =>
+                    await prisma.landmark.findMany({
+                        where: {
+                            destination: {
+                                city: "Hamburg",
+                            },
+                        },
+                        select: {
+                            slug: true,
+                        },
+                    }),
+                loadPage: async (page: number) =>
+                    await makeRequest({
+                        searchingPhrase: "Ham",
+                        page,
+                        perPage: 2,
+                    }),
             });
         });
 
@@ -220,20 +213,6 @@ describe("GET: api/landmark/bulk", () => {
             testOnlyOneSpecificLandmark("Uppercased landmark name", "FICTION PARK");
             testOnlyOneSpecificLandmark("Lowercased landmark name", "fiction p");
             testOnlyOneSpecificLandmark("Irregular cased landmark name", "FiCTIoN PArK");
-
-            describe("Data can be paginated", () => {
-                test("All possible data should be eventually displayed", async () => {
-                    await expectAllAvailabeDataToBeDisplayed({
-                        allSlugsQuery: { title: "Fiction Park" },
-                        makeRequestParams: { searchingPhrase: "Fictio" },
-                    });
-                });
-                test("Records do not repeat throughout diffrent pages", async () => {
-                    await expectAllPagesNotToDuplicateData({
-                        makeRequestParams: { searchingPhrase: "Fictio" },
-                    });
-                });
-            });
         });
     });
 });
