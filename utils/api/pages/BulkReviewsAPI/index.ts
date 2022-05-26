@@ -1,7 +1,7 @@
 // Tools
+import BulkDataCall from "./BulkDataCall";
 import PrismaRequestLandmark from "./PrismaRequestBroker/PrismaRequestLandmark";
 import PrismaRequestDestination from "./PrismaRequestBroker/PrismaRequestDestination";
-import BulkDataCall from "./BulkDataCall";
 // Types
 import type { NextApiRequest } from "next";
 import type { PrismaRequestBroker, AggregateCallParams, AggregateCallResponse } from "./@types";
