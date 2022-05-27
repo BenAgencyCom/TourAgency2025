@@ -19,6 +19,7 @@ export interface MakeRequestParams {
 interface Response {
     reviews: Review[];
     pagination?: PaginationProperties;
+    authenticatedUserReview?: Review;
 }
 
 export default (landmarkID: string) =>

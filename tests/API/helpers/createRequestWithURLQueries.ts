@@ -58,12 +58,16 @@ export default <URLQueries, Response>(params: CreateMakeRequest<URLQueries>) => 
     // Add slash at the begining of url if is's not present
     const transformedEndpointURL = endpointURL[0] === "/" ? endpointURL : `/${endpointURL}`;
     //
-    return async (requestQueries: URLQueries): Promise<Response> => {
+    return async (requestQueries: URLQueries, Cookie: string = ""): Promise<Response> => {
         let url = `${API_ADDRESS}/${transformedEndpointURL}?`;
         possibleURLQueries.forEach((URLQueryName) => {
             if (requestQueries[URLQueryName]) url += `${URLQueryName}=${requestQueries[URLQueryName]}&`;
         });
-        const { data } = await axios.get(url);
+        const { data } = await axios.get(url, {
+            headers: {
+                Cookie,
+            },
+        });
         //
         return data;
     };
