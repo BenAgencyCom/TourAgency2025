@@ -2,20 +2,14 @@
 import MergeReviewsAndFeedback from "./MergeReviewsAndFeedback";
 import AuthenticatedUserReview from "./AuthenticatedUserReview";
 import ReviewsPointsDistribution from "./ReviewsPointsDistribution";
-import establishPaginationProperties from "@/utils/api/establishPaginationProperties";
+import GeneratePaginationProperties from "./GeneratePaginationProperties";
 import BulkAPIsURLQueriesHandler from "@/utils/api/abstracts/BulkAPIsURLQueriesHandler";
 // Types
 import type { NextApiRequest } from "next";
 import type { ReviewType } from "@prisma/client";
-import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
 import type { ExtraProperty } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
-import type { ReviewFromQuery, PrismaRequestBroker } from "./@types";
-
-interface ExtraProperties {
-    certianReviewType: ReviewType | null;
-    applyPointsDistribution: "1" | false;
-}
+import type { ReviewFromQuery, PrismaRequestBroker, ExtraProperties } from "./@types";
 
 export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraProperties> {
     public constructor(private request: NextApiRequest, private PrismaRequestBroker: PrismaRequestBroker) {
@@ -43,35 +37,23 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
             feedbackFromQuery: await this.PrismaRequestBroker.callForFeedback(reviewsFromQuery.map((el) => el.id)),
         }).combine();
 
-        const pagination = await this._generatePaginationProperties();
-
         return {
             reviews: reviews,
-            ...(pagination && { pagination }),
-            //
+            // Pagination properties
+            ...(await new GeneratePaginationProperties({
+                PrismaRequestBroker: this.PrismaRequestBroker,
+                queriesFromRequest: this.quriesFromRequest,
+            }).generate()),
+            // Points distribution && statistics
             ...(await new ReviewsPointsDistribution({
                 PrismaRequestBroker: this.PrismaRequestBroker,
                 applyPointsDistribution: this.quriesFromRequest.applyPointsDistribution !== undefined,
             }).establish()),
-            //
+            // Current user review
             ...(await new AuthenticatedUserReview({
                 PrismaRequestBroker: this.PrismaRequestBroker,
                 request: this.request,
             }).findReview()),
         };
-    }
-
-    private async _generatePaginationProperties(): Promise<PaginationProperties | false> {
-        const { certianReviewType, page, perPage } = this.quriesFromRequest;
-        if (!page || !perPage) return false;
-
-        let recordsInTotal: number = 0;
-        if (certianReviewType) recordsInTotal = await this.PrismaRequestBroker.countRecordsWithSpecificTypeOnly(certianReviewType);
-        else {
-            const response = await this.PrismaRequestBroker.aggregateCall({ count: true });
-            recordsInTotal = response.count as number;
-        }
-
-        return establishPaginationProperties({ page, perPage, recordsInTotal });
     }
 }

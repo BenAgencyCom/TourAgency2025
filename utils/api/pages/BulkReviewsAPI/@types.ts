@@ -69,3 +69,8 @@ export interface AggregateCallResponse {
     avgScore?: number;
     count?: number;
 }
+
+export interface ExtraProperties {
+    certianReviewType: ReviewType | null;
+    applyPointsDistribution: "1" | false;
+}
