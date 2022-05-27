@@ -1,13 +1,14 @@
 // Tools
 import faker from "faker";
+import prisma from "@/tests/API/helpers/db";
 import slugGenerator from "@/utils/api/slugGenerator";
-import { prisma } from "../db";
 // Types
 import type { Mock } from "./@types";
-import type { LandmarkType } from "@prisma/client";
+import type { LandmarkType, ContentStatus } from "@prisma/client";
 
 interface LandmarkInfo {
-    type: LandmarkType;
+    type?: LandmarkType;
+    status?: ContentStatus;
 }
 
 export default class MockLandmark implements Mock {
@@ -15,9 +16,11 @@ export default class MockLandmark implements Mock {
     public readonly slug: string;
     public readonly id: string;
     public readonly title: string;
+    public readonly status: ContentStatus;
 
     public constructor(params?: LandmarkInfo) {
-        this.type = params ? params.type : "ANTIQUE";
+        this.type = params?.type ? params.type : "ANTIQUE";
+        this.status = params?.status ? params.status : "WAITING_FOR_APPROVAL";
         // it does not matter at all, just to be roughly random and it will be sufficient
         this.slug = slugGenerator(faker.lorem.words(3));
         this.id = `${Date.now()}_${this.slug}`;
@@ -30,6 +33,7 @@ export default class MockLandmark implements Mock {
                 id: this.id,
                 slug: this.slug,
                 type: this.type,
+                status: this.status,
                 destinationId: destinationId,
                 shortDescription: "testing lorem ipsum",
                 description: [],

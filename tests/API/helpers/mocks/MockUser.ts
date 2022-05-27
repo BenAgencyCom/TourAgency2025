@@ -1,7 +1,7 @@
 // Tools
 import axios from "axios";
 import bcrypt from "bcrypt";
-import { prisma, API_ADDRESS } from "../db";
+import { prisma, API_ADDRESS } from "@/tests/API/helpers/db";
 // Types
 import type { Mock } from "./@types";
 import type { RegisterResponse } from "@/@types/router/auth/register";

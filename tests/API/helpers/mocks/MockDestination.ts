@@ -1,7 +1,7 @@
 // Tools
 import faker from "faker";
+import prisma from "@/tests/API/helpers/db";
 import slugGenerator from "@/utils/api/slugGenerator";
-import { prisma } from "../db";
 // Types
 import type { Mock } from "./@types";
 import type { Continent } from "@prisma/client";
