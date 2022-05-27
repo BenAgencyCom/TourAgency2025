@@ -7,11 +7,31 @@ export interface PrismaRequestBroker {
     type: BulkReviewsType;
     id: string;
 
+    /**
+     * Accpets one parameter- object containning url queries and returns collection of reviews
+     */
     callForReviews(convertedURLsQueries: URLQueriesConvertedIntoPrismaBody): Promise<ReviewFromQuery[]>;
+    /**
+     * Accpets one parameter- array of review ids and returns data matching **SQL GROUP BY convention**
+     */
     callForFeedback(idsList: string[]): Promise<FeedbackFromQuery[]>;
+    /**
+     * Either count records or compute their average score or do both at the same time
+     */
     aggregateCall(params: AggregateCallParams): Promise<AggregateCallResponse>;
+    /**
+     * Create a juxtaposition of all reviews based on their type **POSITIVE**, **NEGATIVE**, **MIXED**
+     */
     pointsDistribution(): Promise<PointsDistribution>;
+    /**
+     * Count all reviews with specific type
+     */
     countRecordsWithSpecificTypeOnly(type: ReviewType): Promise<number>;
+    /**
+     * Accpets one parameter- an id of authenticated user and returns reflecting with it review if it exists,
+     * otherwise return null
+     */
+    getAuthenticatedUserReview(reviewId: string): Promise<ReviewFromQuery | null>;
 }
 
 export interface ReviewFromQuery {

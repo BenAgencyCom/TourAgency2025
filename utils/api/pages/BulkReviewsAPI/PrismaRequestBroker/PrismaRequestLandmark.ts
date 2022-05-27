@@ -11,7 +11,7 @@ export default class DestinationBroker implements PrismaRequestBroker {
     public constructor(public type: BulkReviewsType, public id: string) {}
 
     public async callForReviews(convertedURLsQueries: URLQueriesConvertedIntoPrismaBody): Promise<ReviewFromQuery[]> {
-        const { where, skip, take, ...requestBody } = new PrismaRequestBody(convertedURLsQueries).create();
+        const { where, skip, take, orderBy, select } = new PrismaRequestBody().create(convertedURLsQueries);
         // In order to make working pagination, we have to use array.slice method,
         // becouse prisma's skip and take are working in not in the way described in prisma's docs
         if (skip !== undefined && take !== undefined) {
@@ -21,6 +21,7 @@ export default class DestinationBroker implements PrismaRequestBroker {
                     ...where,
                 },
                 select: { id: true },
+                orderBy,
             });
             const IDsOfReviewsOnCurrentPage: string[] = allReviews.slice(skip, skip + take).map((el) => el.id);
             return await prisma.landmarkReview.findMany({
@@ -29,7 +30,8 @@ export default class DestinationBroker implements PrismaRequestBroker {
                         in: IDsOfReviewsOnCurrentPage,
                     },
                 },
-                ...requestBody,
+                orderBy,
+                select,
             });
         }
         return await prisma.landmarkReview.findMany({
@@ -37,7 +39,8 @@ export default class DestinationBroker implements PrismaRequestBroker {
                 landmarkId: this.id,
                 ...where,
             },
-            ...requestBody,
+            orderBy,
+            select,
         });
     }
 
@@ -78,12 +81,18 @@ export default class DestinationBroker implements PrismaRequestBroker {
     }
 
     public async countRecordsWithSpecificTypeOnly(type: ReviewType): Promise<number> {
-        const result = await prisma.landmarkReview.count({
+        return await prisma.landmarkReview.count({
             where: {
                 landmarkId: this.id,
                 type,
             },
         });
-        return result;
+    }
+
+    public async getAuthenticatedUserReview(reviewerId: string): Promise<ReviewFromQuery | null> {
+        return await prisma.landmarkReview.findFirst({
+            where: { reviewerId },
+            select: new PrismaRequestBody().getSelect(),
+        });
     }
 }

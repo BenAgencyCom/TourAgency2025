@@ -1,5 +1,7 @@
 // Tools
+import { Forbidden } from "@/utils/api/Errors";
 import { fullDate, ageOnly } from "@/utils/api/dateFormat";
+import getAutheticatedUserID from "@/utils/api/GuardedAPIEndpoint";
 import establishPaginationProperties from "@/utils/api/establishPaginationProperties";
 import BulkAPIsURLQueriesHandler from "@/utils/api/abstracts/BulkAPIsURLQueriesHandler";
 // Types
@@ -16,7 +18,9 @@ interface ExtraProperties {
 }
 
 export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraProperties> {
-    public constructor(request: NextApiRequest, private PrismaRequestBroker: PrismaRequestBroker) {
+    private authenticatedUserReview: Review | null = null;
+
+    public constructor(private request: NextApiRequest, private PrismaRequestBroker: PrismaRequestBroker) {
         const extraProperties: ExtraProperty[] = [
             {
                 name: "certianReviewType",
@@ -34,6 +38,67 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
         super(request as any, ["createdAt", "points"], extraProperties);
     }
 
+    public async main(): Promise<ReviewsCallResponse> {
+        const reviewsFromQuery: ReviewFromQuery[] = await this.PrismaRequestBroker.callForReviews(this.converURLQueriesIntoPrismaBody());
+
+        const feedbacks: FeedbackFromQuery[] = await this.PrismaRequestBroker.callForFeedback(reviewsFromQuery.map((el) => el.id));
+
+        const reviews = this._mergeReviewsAndFeedback(reviewsFromQuery, feedbacks);
+        const pagination = await this._generatePaginationProperties();
+
+        let extras: Omit<ReviewsCallResponse, "reviews" | "pagination"> = {};
+
+        await this.findAuthenticatedUserReview();
+
+        if (this.quriesFromRequest.applyPointsDistribution) {
+            const pointsDistribution = await this.PrismaRequestBroker.pointsDistribution();
+            const statistics = await this.PrismaRequestBroker.aggregateCall({ count: true, avgScore: true });
+
+            extras = {
+                pointsDistribution: pointsDistribution,
+                statistics: {
+                    averageScore: statistics.avgScore as number,
+                    recordsInTotal: statistics.count as number,
+                },
+            };
+        }
+
+        return {
+            reviews: reviews,
+            ...(pagination && { pagination }),
+            ...extras,
+            ...(this.authenticatedUserReview && { authenticatedUserReview: this.authenticatedUserReview }),
+        };
+    }
+
+    private async findAuthenticatedUserReview() {
+        try {
+            const id = await getAutheticatedUserID(this.request, "GET", "user");
+            if (id === null) return;
+            //
+            const review = await this.PrismaRequestBroker.getAuthenticatedUserReview(id);
+            if (review === null) return;
+            //
+            const feedback = await this.PrismaRequestBroker.callForFeedback([review.id]);
+
+            const extractFromFeedback = (what: "LIKE" | "DISLIKE"): number => {
+                const partOfeedback = feedback.find((el) => el.feedback === what);
+                return partOfeedback ? partOfeedback._count._all : 0;
+            };
+
+            this.authenticatedUserReview = {
+                ...this._formatReviewFromQuery(review),
+                feedback: {
+                    dislikes: extractFromFeedback("DISLIKE"),
+                    likes: extractFromFeedback("LIKE"),
+                },
+            };
+        } catch (e: unknown) {
+            if (e instanceof Forbidden) return null;
+            else throw new Error();
+        }
+    }
+
     private _mergeReviewsAndFeedback(reviews: ReviewFromQuery[], feedbacks: FeedbackFromQuery[]): Review[] {
         const _extractFromFeedback = (reviewId: string, feedback: "LIKE" | "DISLIKE"): number => {
             const index: number = feedbacks.findIndex((el: FeedbackFromQuery) => el.reviewId === reviewId && el.feedback === feedback);
@@ -46,28 +111,11 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
         };
 
         return reviews.map((review): Review => {
-            const { reviewer } = review;
-
             return {
-                createdAt: fullDate(review.createdAt),
+                ...this._formatReviewFromQuery(review),
                 feedback: {
                     dislikes: _extractFromFeedback(review.id, "DISLIKE"),
                     likes: _extractFromFeedback(review.id, "LIKE"),
-                },
-                id: review.id,
-                points: review.points,
-                review: review.review,
-                tags: review.tags as string[],
-                type: review.type,
-                reviewer: {
-                    age: ageOnly(reviewer.birth),
-                    avatar: reviewer.avatar,
-                    country: reviewer.country,
-                    countryCode: reviewer.countryCode,
-                    gender: reviewer.gender,
-                    id: reviewer.id,
-                    name: reviewer.name,
-                    surname: reviewer.surname,
                 },
             };
         });
@@ -87,33 +135,29 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
         return establishPaginationProperties({ page, perPage, recordsInTotal });
     }
 
-    public async main(): Promise<ReviewsCallResponse> {
-        const reviewsFromQuery: ReviewFromQuery[] = await this.PrismaRequestBroker.callForReviews(this.converURLQueriesIntoPrismaBody());
-
-        const feedbacks: FeedbackFromQuery[] = await this.PrismaRequestBroker.callForFeedback(reviewsFromQuery.map((el) => el.id));
-
-        const reviews = this._mergeReviewsAndFeedback(reviewsFromQuery, feedbacks);
-        const pagination = await this._generatePaginationProperties();
-
-        let extras: Omit<ReviewsCallResponse, "reviews" | "pagination"> = {};
-
-        if (this.quriesFromRequest.applyPointsDistribution) {
-            const pointsDistribution = await this.PrismaRequestBroker.pointsDistribution();
-            const statistics = await this.PrismaRequestBroker.aggregateCall({ count: true, avgScore: true });
-
-            extras = {
-                pointsDistribution: pointsDistribution,
-                statistics: {
-                    averageScore: statistics.avgScore as number,
-                    recordsInTotal: statistics.count as number,
-                },
-            };
-        }
+    /**
+     * Transform interface `ReviewFromQuery` into `Omit<Review, "feedback"`>
+     */
+    private _formatReviewFromQuery(review: ReviewFromQuery): Omit<Review, "feedback"> {
+        const { reviewer } = review;
 
         return {
-            reviews: reviews,
-            ...(pagination && { pagination }),
-            ...extras,
+            createdAt: fullDate(review.createdAt),
+            id: review.id,
+            points: review.points,
+            review: review.review,
+            tags: review.tags as string[],
+            type: review.type,
+            reviewer: {
+                age: ageOnly(reviewer.birth),
+                avatar: reviewer.avatar,
+                country: reviewer.country,
+                countryCode: reviewer.countryCode,
+                gender: reviewer.gender,
+                id: reviewer.id,
+                name: reviewer.name,
+                surname: reviewer.surname,
+            },
         };
     }
 }
