@@ -190,6 +190,8 @@ export default class BulkReviewsAPI {
         // Convert received params object into something imitating `NextAPIRequest`, only `query` property is expected,
         // so there is not need to implement the rest of the interface
         const feignedRequest = {
+            method: "GET",
+            cookies: {},
             query: {
                 certianReviewType: params.certianReviewType,
                 limit: String(params.limit),

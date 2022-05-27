@@ -31,7 +31,7 @@ export interface PrismaRequestBroker {
      * Accpets one parameter- an id of authenticated user and returns reflecting with it review if it exists,
      * otherwise return null
      */
-    getAuthenticatedUserReview(reviewId: string): Promise<ReviewFromQuery | null>;
+    getParticularUserReview(reviewId: string): Promise<ReviewFromQuery | null>;
 }
 
 export interface ReviewFromQuery {

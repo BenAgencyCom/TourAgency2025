@@ -1,15 +1,13 @@
 // Tools
-import { Forbidden } from "@/utils/api/Errors";
-import { fullDate, ageOnly } from "@/utils/api/dateFormat";
 import MergeReviewsAndFeedback from "./MergeReviewsAndFeedback";
-import getAutheticatedUserID from "@/utils/api/GuardedAPIEndpoint";
+import AuthenticatedUserReview from "./AuthenticatedUserReview";
 import establishPaginationProperties from "@/utils/api/establishPaginationProperties";
 import BulkAPIsURLQueriesHandler from "@/utils/api/abstracts/BulkAPIsURLQueriesHandler";
 // Types
 import type { NextApiRequest } from "next";
 import type { ReviewType } from "@prisma/client";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
-import type { Review, ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
+import type { ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
 import type { ExtraProperty } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
 import type { ReviewFromQuery, PrismaRequestBroker } from "./@types";
 
@@ -19,8 +17,6 @@ interface ExtraProperties {
 }
 
 export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraProperties> {
-    private authenticatedUserReview: Review | null = null;
-
     public constructor(private request: NextApiRequest, private PrismaRequestBroker: PrismaRequestBroker) {
         const extraProperties: ExtraProperty[] = [
             {
@@ -50,8 +46,6 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
 
         let extras: Omit<ReviewsCallResponse, "reviews" | "pagination"> = {};
 
-        await this.findAuthenticatedUserReview();
-
         if (this.quriesFromRequest.applyPointsDistribution) {
             const pointsDistribution = await this.PrismaRequestBroker.pointsDistribution();
             const statistics = await this.PrismaRequestBroker.aggregateCall({ count: true, avgScore: true });
@@ -69,37 +63,12 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
             reviews: reviews,
             ...(pagination && { pagination }),
             ...extras,
-            ...(this.authenticatedUserReview && { authenticatedUserReview: this.authenticatedUserReview }),
+            //
+            ...(await new AuthenticatedUserReview({
+                PrismaRequestBroker: this.PrismaRequestBroker,
+                request: this.request,
+            }).findReview()),
         };
-    }
-
-    private async findAuthenticatedUserReview() {
-        if (!this.request.method || !this.request.cookies) return;
-        try {
-            const id = await getAutheticatedUserID(this.request, "GET", "user");
-            if (id === null) return;
-            //
-            const review = await this.PrismaRequestBroker.getAuthenticatedUserReview(id);
-            if (review === null) return;
-            //
-            const feedback = await this.PrismaRequestBroker.callForFeedback([review.id]);
-
-            const extractFromFeedback = (what: "LIKE" | "DISLIKE"): number => {
-                const partOfeedback = feedback.find((el) => el.feedback === what);
-                return partOfeedback ? partOfeedback._count._all : 0;
-            };
-
-            this.authenticatedUserReview = {
-                ...this._formatReviewFromQuery(review),
-                feedback: {
-                    dislikes: extractFromFeedback("DISLIKE"),
-                    likes: extractFromFeedback("LIKE"),
-                },
-            };
-        } catch (e: unknown) {
-            if (e instanceof Forbidden) return null;
-            else throw new Error();
-        }
     }
 
     private async _generatePaginationProperties(): Promise<PaginationProperties | false> {
@@ -114,31 +83,5 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
         }
 
         return establishPaginationProperties({ page, perPage, recordsInTotal });
-    }
-
-    /**
-     * Transform interface `ReviewFromQuery` into `Omit<Review, "feedback"`>
-     */
-    private _formatReviewFromQuery(review: ReviewFromQuery): Omit<Review, "feedback"> {
-        const { reviewer } = review;
-
-        return {
-            createdAt: fullDate(review.createdAt),
-            id: review.id,
-            points: review.points,
-            review: review.review,
-            tags: review.tags as string[],
-            type: review.type,
-            reviewer: {
-                age: ageOnly(reviewer.birth),
-                avatar: reviewer.avatar,
-                country: reviewer.country,
-                countryCode: reviewer.countryCode,
-                gender: reviewer.gender,
-                id: reviewer.id,
-                name: reviewer.name,
-                surname: reviewer.surname,
-            },
-        };
     }
 }

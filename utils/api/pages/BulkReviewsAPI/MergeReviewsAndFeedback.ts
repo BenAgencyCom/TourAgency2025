@@ -9,13 +9,13 @@ interface MergeReviewsAndFeedbackParams {
     reviewsFromQuery: ReviewFromQuery[];
     feedbackFromQuery: FeedbackFromQuery[];
 }
-/**
- * Combine ReviewsFromQuery with associated with them feedback
- */
+
 export default class MergeReviewsAndFeedback extends ReviewsFormatterAbstract {
     private readonly reviewsFromQuery: ReviewFromQuery[];
     private readonly feedbackFromQuery: FeedbackFromQuery[];
-
+    /**
+     * Combine ReviewsFromQuery with associated with them feedback
+     */
     public constructor(params: MergeReviewsAndFeedbackParams) {
         super();
 
