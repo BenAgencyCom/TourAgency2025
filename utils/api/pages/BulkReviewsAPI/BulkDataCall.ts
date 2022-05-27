@@ -1,6 +1,7 @@
 // Tools
 import MergeReviewsAndFeedback from "./MergeReviewsAndFeedback";
 import AuthenticatedUserReview from "./AuthenticatedUserReview";
+import ReviewsPointsDistribution from "./ReviewsPointsDistribution";
 import establishPaginationProperties from "@/utils/api/establishPaginationProperties";
 import BulkAPIsURLQueriesHandler from "@/utils/api/abstracts/BulkAPIsURLQueriesHandler";
 // Types
@@ -44,25 +45,14 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
 
         const pagination = await this._generatePaginationProperties();
 
-        let extras: Omit<ReviewsCallResponse, "reviews" | "pagination"> = {};
-
-        if (this.quriesFromRequest.applyPointsDistribution) {
-            const pointsDistribution = await this.PrismaRequestBroker.pointsDistribution();
-            const statistics = await this.PrismaRequestBroker.aggregateCall({ count: true, avgScore: true });
-
-            extras = {
-                pointsDistribution: pointsDistribution,
-                statistics: {
-                    averageScore: statistics.avgScore as number,
-                    recordsInTotal: statistics.count as number,
-                },
-            };
-        }
-
         return {
             reviews: reviews,
             ...(pagination && { pagination }),
-            ...extras,
+            //
+            ...(await new ReviewsPointsDistribution({
+                PrismaRequestBroker: this.PrismaRequestBroker,
+                applyPointsDistribution: this.quriesFromRequest.applyPointsDistribution !== undefined,
+            }).establish()),
             //
             ...(await new AuthenticatedUserReview({
                 PrismaRequestBroker: this.PrismaRequestBroker,
