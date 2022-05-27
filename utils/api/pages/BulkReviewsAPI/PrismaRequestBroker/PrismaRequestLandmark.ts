@@ -41,6 +41,8 @@ export default class DestinationBroker implements PrismaRequestBroker {
             },
             orderBy,
             select,
+            skip,
+            take,
         });
     }
 

@@ -79,7 +79,7 @@ const Landmarks: FunctionComponent<LandmarksProps> = (props) => {
                 },
             }}
         >
-            <UnfadeOnScroll animationRatio={0.6} duration={700}>
+            <UnfadeOnScroll>
                 <Wrapper className="landmarks-wrapper">
                     {landmarks.map((item, index) => {
                         return (

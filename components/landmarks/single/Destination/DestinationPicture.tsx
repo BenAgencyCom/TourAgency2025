@@ -4,6 +4,8 @@ import { destinationPictureURL } from "@/utils/client/imageURLs";
 // Types
 import type { MUIStyledCommonProps } from "@mui/system";
 import type { FunctionComponent } from "react";
+// Other components
+import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 // Styled Components
 import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
 
@@ -26,17 +28,19 @@ const BackgroundPicture: FunctionComponent<BackgroundPictureProps> = (props) => 
     const { folder, resolution, city, country, ...propsToForward } = props;
     return (
         <Wrapper {...propsToForward} className="destination-picture">
-            <SkeletonImage
-                layout="fill" //
-                alt={`${city}-thumbnail`}
-                src={destinationPictureURL(folder, resolution, "thumbnail")}
-                objectFit="cover"
-                modalMaxResolution="1080p"
-                advanceModalProperties={{
-                    title: city,
-                    sectionName: country,
-                }}
-            ></SkeletonImage>
+            <UnfadeOnScroll fullSize>
+                <SkeletonImage
+                    layout="fill" //
+                    alt={`${city}-thumbnail`}
+                    src={destinationPictureURL(folder, resolution, "thumbnail")}
+                    objectFit="cover"
+                    modalMaxResolution="1080p"
+                    advanceModalProperties={{
+                        title: city,
+                        sectionName: country,
+                    }}
+                ></SkeletonImage>
+            </UnfadeOnScroll>
         </Wrapper>
     );
 };

@@ -1,4 +1,5 @@
 // Tools
+import RWD from "./RWD";
 import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
@@ -10,6 +11,7 @@ import ContinentMap from "./ContinentMap";
 import Section from "@/components/_utils/Section";
 import ReadMore from "@/components/_utils/ReadMore";
 import DestinationPicture from "./DestinationPicture";
+import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import LocalizationBreadCrumbs from "@/components/_utils/LocalizationBreadCrumbs";
 // Material UI Icons
 import Map from "@mui/icons-material/Map";
@@ -26,54 +28,7 @@ const InformationWrapper = styled("div")(({ theme }) => ({
 const DestinationWrapper = styled("div")(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
-    ["@media (max-width:800px)"]: {
-        flexDirection: "column",
-        ".destination-picture": {
-            height: "400px",
-            width: "100%",
-        },
-        ".destination-information-wrapper": {
-            width: "100%",
-            ".background-map": {
-                height: "300px",
-                order: 1,
-                img: {
-                    objectPosition: "center !important",
-                },
-            },
-            ".read-more": {
-                order: 2,
-            },
-        },
-    },
-    ["@media (max-width:600px)"]: {
-        ".destination-picture": {
-            borderRadius: "0",
-        },
-        ".destination-information-wrapper": {
-            padding: "0 10px",
-            ".background-map": {
-                height: "250px",
-            },
-        },
-    },
-    ["@media (max-width:500px)"]: {
-        ".destination-picture": {
-            height: "350px",
-        },
-        ".destination-information-wrapper": {
-            ".background-map": {
-                height: "200px",
-            },
-        },
-    },
-    ["@media (max-width:400px)"]: {
-        ".destination-information-wrapper": {
-            ".background-map": {
-                height: "150px",
-            },
-        },
-    },
+    ...(RWD as any),
 }));
 
 interface DestinationProps {
@@ -109,10 +64,14 @@ const Destination: FunctionComponent<DestinationProps> = (props) => {
 
                 <InformationWrapper className="destination-information-wrapper">
                     <ContinentMap continent={continent}></ContinentMap>
-                    <LocalizationBreadCrumbs crumbs={[continent, country, city]}></LocalizationBreadCrumbs>
-                    <Typography variant="h2">{city}</Typography>
-                    <Typography variant="body2">{shortDescription}</Typography>
-                    <ReadMore url={`/destinations/${slug}`}></ReadMore>
+                    <UnfadeOnScroll>
+                        <FlexBox column horizontal="start">
+                            <LocalizationBreadCrumbs crumbs={[continent, country, city]}></LocalizationBreadCrumbs>
+                            <Typography variant="h2">{city}</Typography>
+                            <Typography variant="body2">{shortDescription}</Typography>
+                            <ReadMore url={`/destinations/${slug}`}></ReadMore>
+                        </FlexBox>
+                    </UnfadeOnScroll>
                 </InformationWrapper>
             </DestinationWrapper>
         </Section>

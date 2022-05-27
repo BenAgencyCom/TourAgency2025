@@ -14,20 +14,7 @@ const RenderContentWithScrollAnimation: FunctionComponent<RenderContentWithScrol
     return (
         <>
             {props.data.map((element: DescriptionContentField, index: number) => (
-                <UnfadeOnScroll
-                    sx={{ width: "100%" }} //
-                    key={index}
-                    stylesOnUnfold={{
-                        "div.image-with-shape::before": {
-                            transform: `translate(-50%,-50%) rotate(2deg)`,
-                            opacity: 1,
-                        },
-                        "div.image-with-reversed-shape::before": {
-                            transform: `translate(-50%,-50%) rotate(-2deg)`,
-                            opacity: 1,
-                        },
-                    }}
-                >
+                <UnfadeOnScroll key={index} fullSize>
                     <SingleContentField field={element} imageLoader={props.imageLoader}></SingleContentField>
                 </UnfadeOnScroll>
             ))}

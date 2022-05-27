@@ -48,6 +48,7 @@
         "react-password-strength-bar": "^0.4.0",
         "react-redux": "^7.2.6",
         "react-slick": "^0.28.1",
+        "react-visibility-sensor": "^5.1.1",
         "redux": "^4.1.2",
         "sass": "^1.43.5",
         "sharp": "^0.29.3",

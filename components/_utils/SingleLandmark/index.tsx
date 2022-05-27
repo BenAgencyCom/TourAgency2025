@@ -39,6 +39,10 @@ const SingleLandmarkWrapper = styled("div")(({ theme }) => ({
         position: "relative",
         zIndex: "2",
     },
+    transition: "transform .3s !important",
+    "&:hover": {
+        transform: "translateY(-10px)",
+    },
     ...(RWD as any),
 }));
 

@@ -1,57 +1,63 @@
 // Tools
-import { useRef, useEffect, useState, useMemo } from "react";
+import { useState } from "react";
+import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent, ReactNode } from "react";
-// Material UI Components
-import Box from "@mui/material/Box";
-import Fade from "@mui/material/Fade";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
+// Other components
+import VisibilitySensor from "react-visibility-sensor";
+// Styled components
+
+const UnfadeOnScrollElementWrapper = styled("div")(({ theme }) => ({
+    position: "relative",
+    "&.fullsize": {
+        width: "100%",
+        height: "100%",
+    },
+    ["@media (min-width:1001px)"]: {
+        opacity: 0,
+        transform: "translateY(20px)",
+        transition: "all .5s ease-in-out",
+        "&.visible": {
+            transform: "translateY(0px)",
+            opacity: 1,
+        },
+    },
+}));
 
 interface UnfadeOnScrollProps {
     children: ReactNode;
-    // Optional
-    sx?: Record<string, unknown>;
-    animationRatio?: number; // By default: 0.7
-    duration?: number; // By default: 500
-    stylesOnUnfold?: Record<string, unknown>;
+    offsetTop?: number;
+    offsetBottom?: number;
+    fullSize?: true;
 }
 
 const UnfadeOnScroll: FunctionComponent<UnfadeOnScrollProps> = (props) => {
-    const { scrollY, height: windowInnerHeight } = useAppSelector((state) => state.windowSizes);
-    const element = useRef<HTMLElement | null>(null);
-    const [fade, setFade] = useState<boolean>(false);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [scrollDuringLatestChange, setScrollDuringLatestChange] = useState<number>(0);
+    const changeVisibility = (visibility: boolean) => {
+        const currentScroll = window.scrollY;
+        if (scrollDuringLatestChange === currentScroll) return;
+        setIsVisible(visibility);
+        setScrollDuringLatestChange(currentScroll);
+    };
 
-    const animationRatio = props.animationRatio ?? 0.7;
-
-    useEffect(() => {
-        if (scrollY) {
-            if (element.current && windowInnerHeight) {
-                const { top } = element.current.getBoundingClientRect();
-                if (!fade && top < windowInnerHeight * animationRatio) setFade(true);
-                else if (fade && (top > windowInnerHeight * animationRatio * 2 || scrollY === 0)) setFade(false);
-            }
-        }
-    }, [scrollY, windowInnerHeight, fade, animationRatio]);
-
-    return useMemo(() => {
-        return (
-            <Fade in={fade}>
-                <Box
-                    sx={{
-                        ...props.sx,
-                        ...{
-                            transitionDuration: `${props.duration ?? 500}ms !important`,
-                        },
-                        ...(fade && props.stylesOnUnfold),
-                    }}
-                    ref={element}
-                >
-                    {props.children}
-                </Box>
-            </Fade>
-        );
-    }, [fade, props.children, props.duration, props.stylesOnUnfold, props.sx]);
+    return (
+        <VisibilitySensor
+            onChange={changeVisibility} //
+            offset={{
+                top: props.offsetTop ?? 300,
+                bottom: props.offsetBottom ?? 200,
+            }}
+            partialVisibility={true}
+            intervalDelay={200}
+        >
+            <UnfadeOnScrollElementWrapper
+                className={[isVisible ? "visible" : "", props.fullSize ? "fullsize" : ""].join(" ")} //
+            >
+                {props.children}
+            </UnfadeOnScrollElementWrapper>
+        </VisibilitySensor>
+    );
 };
 
 export default UnfadeOnScroll;
