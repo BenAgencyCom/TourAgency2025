@@ -1,13 +1,13 @@
 // Tools
-import prisma from "../../../helpers/db";
-import testPagination from "../../../helpers/testPagination";
-import { testGETRequestStatus } from "../../../helpers/testStatus";
-import makeRequest from "../../../helpers/landmarks/reviews/bulk/makeRequest";
-import expectAllRecordsAreTheSameType from "../../../helpers/landmarks/reviews/bulk/expectAllRecordsAreTheSameType";
-import expectAllRecordsToHaveProperlyAsignedFeedback from "../../../helpers/landmarks/reviews/bulk/expectAllRecordsToHaveProperlyAsignedFeedback";
+import prisma from "@/tests/API/helpers/db";
+import testPagination from "@/tests/API/helpers/testPagination";
+import { testGETRequestStatus } from "@/tests/API/helpers/testStatus";
+import makeRequest from "@/tests/API/helpers/landmarks/reviews/bulk/makeRequest";
+import expectAllRecordsAreTheSameType from "@/tests/API/helpers/landmarks/reviews/bulk/expectAllRecordsAreTheSameType";
+import expectAllRecordsToHaveProperlyAsignedFeedback from "@/tests/API/helpers/landmarks/reviews/bulk/expectAllRecordsToHaveProperlyAsignedFeedback";
 // Mocks
-import MockLandmark from "../../../helpers/mocks/MockLandmark";
-import MockDestination from "../../../helpers/mocks/MockDestination";
+import MockLandmark from "@/tests/API/helpers/mocks/MockLandmark";
+import MockDestination from "@/tests/API/helpers/mocks/MockDestination";
 // Types
 import type { ReviewType } from "@prisma/client";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";

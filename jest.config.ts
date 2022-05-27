@@ -10,6 +10,7 @@ const customConfig = createJestConfig({
     moduleNameMapper: {
         "^@/utils/(.*)$": "<rootDir>/utils/$1",
         "^@/@types/(.*)$": "<rootDir>/@types/$1",
+        "^@/tests/(.*)$": "<rootDir>/tests/$1",
     },
 });
 

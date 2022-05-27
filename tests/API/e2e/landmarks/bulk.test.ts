@@ -2,15 +2,15 @@
  * @jest-environment node
  */
 // Tools
-import prisma from "../../helpers/db";
-import MockLandmark from "../../helpers/mocks/MockLandmark";
-import MockDestination from "../../helpers/mocks/MockDestination";
-import makeRequest from "../../helpers/landmarks/bulk/makeRequest";
+import prisma from "@/tests/API/helpers/db";
+import MockLandmark from "@/tests/API/helpers/mocks/MockLandmark";
+import MockDestination from "@/tests/API/helpers/mocks/MockDestination";
+import makeRequest from "@/tests/API/helpers/landmarks/bulk/makeRequest";
 // "Expectators"
-import testPaginations from "../../helpers/testPagination";
-import expectAllRecordsToBeApproved from "../../helpers/landmarks/bulk/expectAllRecordsToBeApproved";
-import expectAllRecordsToHaveTheSameType from "../../helpers/landmarks/bulk/expectAllRecordsToHaveTheSameType";
-import expectAllRecordsToBeOnTheSameContinent from "../../helpers/landmarks/bulk/expectAllRecordsToBeOnTheSameContinent";
+import testPaginations from "@/tests/API/helpers/testPagination";
+import expectAllRecordsToBeApproved from "@/tests/API/helpers/landmarks/bulk/expectAllRecordsToBeApproved";
+import expectAllRecordsToHaveTheSameType from "@/tests/API/helpers/landmarks/bulk/expectAllRecordsToHaveTheSameType";
+import expectAllRecordsToBeOnTheSameContinent from "@/tests/API/helpers/landmarks/bulk/expectAllRecordsToBeOnTheSameContinent";
 // Types
 import type { LandmarkType, Continent } from "@prisma/client";
 import type { Landmark } from "@/@types/pages/landmarks/ManyLandmarks";

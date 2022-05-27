@@ -3,12 +3,12 @@
  */
 
 // Tools
-import prisma from "../helpers/db";
-import { testGETRequestStatus } from "../helpers/testStatus";
+import prisma from "@/tests/API/helpers/db";
+import { testGETRequestStatus } from "@/tests/API/helpers/testStatus";
 // Types
-import type { UserHelper } from "../data/users";
+import type { UserHelper } from "@/tests/API/data/users";
 // helpers
-import { prepareUser } from "../data/users";
+import { prepareUser } from "@/tests/API/data/users";
 //
 //
 describe("Guarded API endpoints", () => {

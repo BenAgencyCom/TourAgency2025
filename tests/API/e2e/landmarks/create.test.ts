@@ -7,13 +7,13 @@ import path from "path";
 import fse from "fs-extra";
 import { uploadDir } from "@/utils/paths";
 import { PrismaClient } from "@prisma/client";
-import { testPOSTRequestStatus } from "../../helpers/testStatus";
-import MockUser from "../../helpers/mocks/MockUser";
+import { testPOSTRequestStatus } from "@/tests/API/helpers/testStatus";
+import MockUser from "@/tests/API/helpers/mocks/MockUser";
 import { API_URL, convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING, EXPECTED_DESCRIPTION_IMAGES } from "../../data/landmarks/create";
 // Types
 import type { Landmark, ContentStatus } from "@prisma/client";
 import { FieldType } from "@/@types/Description";
-import type { ValidLandmarkData } from "../../data/landmarks/create/@types";
+import type { ValidLandmarkData } from "@/tests/API/data/landmarks/create/@types";
 
 const expectUnprocessableEntity = async (body: Partial<ValidLandmarkData>, Cookie: string) => {
     await testPOSTRequestStatus({
