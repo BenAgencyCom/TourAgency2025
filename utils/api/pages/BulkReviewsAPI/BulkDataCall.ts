@@ -1,6 +1,7 @@
 // Tools
 import { Forbidden } from "@/utils/api/Errors";
 import { fullDate, ageOnly } from "@/utils/api/dateFormat";
+import MergeReviewsAndFeedback from "./MergeReviewsAndFeedback";
 import getAutheticatedUserID from "@/utils/api/GuardedAPIEndpoint";
 import establishPaginationProperties from "@/utils/api/establishPaginationProperties";
 import BulkAPIsURLQueriesHandler from "@/utils/api/abstracts/BulkAPIsURLQueriesHandler";
@@ -10,7 +11,7 @@ import type { ReviewType } from "@prisma/client";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { Review, ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
 import type { ExtraProperty } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
-import type { ReviewFromQuery, FeedbackFromQuery, PrismaRequestBroker } from "./@types";
+import type { ReviewFromQuery, PrismaRequestBroker } from "./@types";
 
 interface ExtraProperties {
     certianReviewType: ReviewType | null;
@@ -40,10 +41,11 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
 
     public async main(): Promise<ReviewsCallResponse> {
         const reviewsFromQuery: ReviewFromQuery[] = await this.PrismaRequestBroker.callForReviews(this.converURLQueriesIntoPrismaBody());
+        const reviews = new MergeReviewsAndFeedback({
+            reviewsFromQuery,
+            feedbackFromQuery: await this.PrismaRequestBroker.callForFeedback(reviewsFromQuery.map((el) => el.id)),
+        }).combine();
 
-        const feedbacks: FeedbackFromQuery[] = await this.PrismaRequestBroker.callForFeedback(reviewsFromQuery.map((el) => el.id));
-
-        const reviews = this._mergeReviewsAndFeedback(reviewsFromQuery, feedbacks);
         const pagination = await this._generatePaginationProperties();
 
         let extras: Omit<ReviewsCallResponse, "reviews" | "pagination"> = {};
@@ -72,6 +74,7 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
     }
 
     private async findAuthenticatedUserReview() {
+        if (!this.request.method || !this.request.cookies) return;
         try {
             const id = await getAutheticatedUserID(this.request, "GET", "user");
             if (id === null) return;
@@ -97,28 +100,6 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
             if (e instanceof Forbidden) return null;
             else throw new Error();
         }
-    }
-
-    private _mergeReviewsAndFeedback(reviews: ReviewFromQuery[], feedbacks: FeedbackFromQuery[]): Review[] {
-        const _extractFromFeedback = (reviewId: string, feedback: "LIKE" | "DISLIKE"): number => {
-            const index: number = feedbacks.findIndex((el: FeedbackFromQuery) => el.reviewId === reviewId && el.feedback === feedback);
-            if (index !== -1 && feedbacks[index]) {
-                const amount = feedbacks[index]._count._all;
-                feedbacks.splice(index, 1);
-                return amount;
-            }
-            return 0;
-        };
-
-        return reviews.map((review): Review => {
-            return {
-                ...this._formatReviewFromQuery(review),
-                feedback: {
-                    dislikes: _extractFromFeedback(review.id, "DISLIKE"),
-                    likes: _extractFromFeedback(review.id, "LIKE"),
-                },
-            };
-        });
     }
 
     private async _generatePaginationProperties(): Promise<PaginationProperties | false> {

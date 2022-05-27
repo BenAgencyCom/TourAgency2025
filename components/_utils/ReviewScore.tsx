@@ -36,7 +36,7 @@ const ReviewScore: FunctionComponent<ReviewScoreProps> = (props) => {
             }}
             className={props.className}
         >
-            {props.points ? formatPoints(props.points) : "-"}
+            {props.points !== undefined ? formatPoints(props.points) : "-"}
         </Wrapper>
     );
 };
