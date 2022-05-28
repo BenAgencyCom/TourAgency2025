@@ -7,7 +7,7 @@ import { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { QueriesFromRequest, URLQueriesConvertedIntoPrismaBody, ExtraProperty, Request, Sort, HandleResultPagination } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
 
 export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends Record<any, any>> {
-    public quriesFromRequest: QueriesFromRequest & ExtraProperties;
+    public queriesFromRequest: QueriesFromRequest & ExtraProperties;
 
     /**
      * `BulkAPIsURLQueriesHandler` - provides facilities for swift establishing tedious and
@@ -66,7 +66,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
             else if (prop.default !== undefined) extraPropertiesObject[finalName] = prop.default;
         });
 
-        this.quriesFromRequest = {
+        this.queriesFromRequest = {
             limit: query.limit ? Number(query.limit) : null,
             perPage: query.perPage ? Number(query.perPage) : null,
             page: query.page ? Number(query.page) : null,
@@ -77,7 +77,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
     }
 
     private _handlePagination(): HandleResultPagination {
-        const { page, perPage, limit } = this.quriesFromRequest;
+        const { page, perPage, limit } = this.queriesFromRequest;
 
         if (page && perPage) {
             return {
@@ -95,10 +95,19 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
     private _generateWhereClausule(): Record<any, any> {
         let result: Record<any, any> = {};
         this.extraProperties.forEach((prop) => {
-            const value = this.quriesFromRequest[prop.alias ? prop.alias : prop.name];
-            if (!prop.compareWith) return;
-            else if (value || prop.alwaysCompare) {
+            const value = this.queriesFromRequest[prop.alias ? prop.alias : prop.name];
+            // Handle comparision
+            if (prop.compareWith && (value || prop.alwaysCompare)) {
                 result = { ...result, ...transformPrismaNastedModels(prop.compareWith, value) };
+            }
+            // Handle excluding
+            if (prop.treatThisPropertyAsIDandExcludeItFromResults) {
+                result = {
+                    ...result,
+                    ...{
+                        id: { not: value },
+                    },
+                };
             }
         });
         return result;
@@ -117,7 +126,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
      * ```
      */
     protected converURLQueriesIntoPrismaBody(): URLQueriesConvertedIntoPrismaBody {
-        const { orderBy, sort } = this.quriesFromRequest;
+        const { orderBy, sort } = this.queriesFromRequest;
 
         return {
             ...{
@@ -130,16 +139,13 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
         };
     }
     /**
-     * Generates pagination properties matching following schema:
-     * ```ts
-     *
-     * ```
+     * Generates pagination properties
      */
     protected establishPaginationProperties(recordsInTotal: number): PaginationProperties | false {
         return _establishPaginationProperties({
             recordsInTotal,
-            page: this.quriesFromRequest.page,
-            perPage: this.quriesFromRequest.perPage,
+            page: this.queriesFromRequest.page,
+            perPage: this.queriesFromRequest.perPage,
         });
     }
 }

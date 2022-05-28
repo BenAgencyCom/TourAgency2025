@@ -1,7 +1,7 @@
 // Tools
 import { Forbidden } from "@/utils/api/Errors";
+import FindOneReview from "./abstracts/FindOneReview";
 import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
-import ReviewsFormatterAbstract from "./ReviewsFormatterAbstract";
 // Types
 import type { NextApiRequest } from "next";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
@@ -14,8 +14,7 @@ interface AuthenticatedUserReviewParams {
 
 class ThereIsNoAuthenticatedUserReview extends Error {}
 
-export default class AuthenticatedUserReview extends ReviewsFormatterAbstract {
-    private readonly PrismaRequestBroker: PrismaRequestBroker;
+export default class AuthenticatedUserReview extends FindOneReview {
     private readonly request: NextApiRequest;
     /**
      * Check whether the user is authenticated via the access token received from cookies,
@@ -23,9 +22,8 @@ export default class AuthenticatedUserReview extends ReviewsFormatterAbstract {
      * related with it feedback
      */
     public constructor(params: AuthenticatedUserReviewParams) {
-        super();
+        super({ PrismaRequestBroker: params.PrismaRequestBroker });
 
-        this.PrismaRequestBroker = params.PrismaRequestBroker;
         this.request = params.request;
     }
 
@@ -62,30 +60,8 @@ export default class AuthenticatedUserReview extends ReviewsFormatterAbstract {
      * immediately processed and eventually `null` would be returned from the public method
      */
     private async getAuthenticatedUserReview(reviewerId: string): Promise<ReviewFromQuery> {
-        const review = await this.PrismaRequestBroker.getParticularUserReview(reviewerId);
+        const review = await this.PrismaRequestBroker.getAuthenticatedUserReview(reviewerId);
         if (review === null) throw new ThereIsNoAuthenticatedUserReview();
         return review;
-    }
-    /**
-     * Returns feedback matching following interface
-     * ```ts
-     * {
-     *     likes: number;
-     *     perPagedislikes: number;
-     * }
-     * ```
-     */
-    private async getReviewFeedback(reviewId: string): Promise<Review["feedback"]> {
-        const feedback = await this.PrismaRequestBroker.callForFeedback([reviewId]);
-
-        const extractFromFeedback = (what: "LIKE" | "DISLIKE"): number => {
-            const partOfeedback = feedback.find((el) => el.feedback === what);
-            return partOfeedback ? partOfeedback._count._all : 0;
-        };
-
-        return {
-            dislikes: extractFromFeedback("DISLIKE"),
-            likes: extractFromFeedback("LIKE"),
-        };
     }
 }

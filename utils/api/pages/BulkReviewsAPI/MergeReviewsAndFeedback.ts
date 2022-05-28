@@ -1,5 +1,5 @@
 // Tools
-import ReviewsFormatterAbstract from "./ReviewsFormatterAbstract";
+import ReviewsFormatterAbstract from "./abstracts/ReviewsFormatter";
 // Types
 import type { Feedback } from "@prisma/client";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";

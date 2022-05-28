@@ -31,7 +31,11 @@ export interface PrismaRequestBroker {
      * Accpets one parameter- an id of authenticated user and returns reflecting with it review if it exists,
      * otherwise return null
      */
-    getParticularUserReview(reviewId: string): Promise<ReviewFromQuery | null>;
+    getAuthenticatedUserReview(userId: string): Promise<ReviewFromQuery | null>;
+    /**
+     * The only parameter review's id
+     */
+    getSpecifiedReview(reviewId: string): Promise<ReviewFromQuery | null>;
 }
 
 export interface ReviewFromQuery {
@@ -73,4 +77,5 @@ export interface AggregateCallResponse {
 export interface ExtraProperties {
     certianReviewType: ReviewType | null;
     applyPointsDistribution: "1" | false;
+    pinnedRequestId?: string;
 }

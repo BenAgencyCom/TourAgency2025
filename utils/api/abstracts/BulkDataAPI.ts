@@ -137,7 +137,7 @@ export default abstract class BulkDataAPI<PrismaModelSelect, ExtraProperties ext
     }
 
     private _handleSearchingPhrase() {
-        const _searchingPhrase: string | null = (this.quriesFromRequest as any).searchingPhrase ?? null;
+        const _searchingPhrase: string | null = (this.queriesFromRequest as any).searchingPhrase ?? null;
         if (!this.propertiesForSearchingPhrase || !_searchingPhrase) return {};
         const searchingPhrase = _searchingPhrase.toLowerCase();
 

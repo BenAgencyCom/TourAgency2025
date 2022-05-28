@@ -15,8 +15,9 @@ interface LandmarkReviewInfo {
 }
 
 export default class MockLandmarkReview extends MockReviewAbstract implements ReviewMock {
-    private ID: string | null = null;
     private mockedUsers: MockUser[] = [];
+
+    public ID: string | null = null;
     public constructor() {
         super();
     }
@@ -37,7 +38,9 @@ export default class MockLandmarkReview extends MockReviewAbstract implements Re
     }
     public async remove() {
         if (this.ID === null) return;
-        await prisma.landmarkReview.delete({ where: { id: this.ID } });
+        if (await prisma.landmarkReview.findUnique({ where: { id: this.ID } })) {
+            await prisma.landmarkReview.delete({ where: { id: this.ID } });
+        }
 
         for (const mockedUser of this.mockedUsers) {
             await mockedUser.remove();
@@ -53,7 +56,7 @@ export default class MockLandmarkReview extends MockReviewAbstract implements Re
             data.push({
                 feedback: "LIKE",
                 reviewId,
-                userId: await this._mockUser("LIKE", i),
+                userId: await this._mockUser(),
             });
         }
         // Store dislikes
@@ -61,7 +64,7 @@ export default class MockLandmarkReview extends MockReviewAbstract implements Re
             data.push({
                 feedback: "DISLIKE",
                 reviewId,
-                userId: await this._mockUser("DISLIKE", i),
+                userId: await this._mockUser(),
             });
         }
 
@@ -73,15 +76,11 @@ export default class MockLandmarkReview extends MockReviewAbstract implements Re
     /**
      * Handle all stuff related with mocking a user instance and returns new user's id
      */
-    private async _mockUser(feedback: Feedback, i: number): Promise<string> {
-        const userId = `unexisting_user_who_${feedback}_${i}`;
-        const user = new MockUser({
-            id: userId,
-            email: `${userId}@gmail.com`,
-        });
+    private async _mockUser(): Promise<string> {
+        const user = new MockUser();
         await user.prepare();
         this.mockedUsers.push(user);
 
-        return userId;
+        return user.id as string;
     }
 }

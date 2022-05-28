@@ -14,10 +14,12 @@ export interface MakeRequestParams {
     orderBy?: "createdAt" | "points";
     page?: number;
     perPage?: number;
+    pinnedRequestId?: string;
 }
 
 interface Response {
     reviews: Review[];
+    pinnedReview?: Review;
     pagination?: PaginationProperties;
     authenticatedUserReview?: Review;
 }
@@ -25,5 +27,5 @@ interface Response {
 export default (landmarkID: string) =>
     createRequestWithURLQueries<MakeRequestParams, Response>({
         url: `/api/landmark/${landmarkID}/reviews`,
-        possibleURLQueries: ["orderBy", "page", "perPage", "applyPointsDistribution", "certianReviewType", "sort"],
+        possibleURLQueries: ["orderBy", "page", "perPage", "applyPointsDistribution", "certianReviewType", "sort", "pinnedRequestId"],
     });

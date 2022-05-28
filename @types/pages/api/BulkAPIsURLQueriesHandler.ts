@@ -40,4 +40,5 @@ export interface ExtraProperty {
     required?: boolean;
     compareWith?: string;
     alwaysCompare?: boolean;
+    treatThisPropertyAsIDandExcludeItFromResults?: true;
 }

@@ -54,10 +54,10 @@ export default class UserReviewsAPI extends BulkAPIsURLQueriesHandler<ExtraPrope
      * Returns instance of
      */
     public async ensureThatUserExists() {
-        const userFromDB = await prisma.user.findUnique({ where: { id: this.quriesFromRequest.userId } });
+        const userFromDB = await prisma.user.findUnique({ where: { id: this.queriesFromRequest.userId } });
         if (!userFromDB) {
             this.userWithGivenIDExists = false;
-            throw new NotFound(`User with a given id of ${this.quriesFromRequest.userId} does not exist`);
+            throw new NotFound(`User with a given id of ${this.queriesFromRequest.userId} does not exist`);
         }
 
         this.userWithGivenIDExists = true;
@@ -96,13 +96,13 @@ export default class UserReviewsAPI extends BulkAPIsURLQueriesHandler<ExtraPrope
     }
 
     protected async _countAllRecords(): Promise<number> {
-        const certainTypeHasBeenReceived = ["POSITIVE", "NEGATIVE", "MIXED"].includes(this.quriesFromRequest.certianReviewType as any);
+        const certainTypeHasBeenReceived = ["POSITIVE", "NEGATIVE", "MIXED"].includes(this.queriesFromRequest.certianReviewType as any);
 
-        if (this.quriesFromRequest.type === "landmark") {
+        if (this.queriesFromRequest.type === "landmark") {
             const recordsInTotal = await prisma.landmarkReview.aggregate({
                 where: {
-                    reviewerId: this.quriesFromRequest.userId,
-                    ...(certainTypeHasBeenReceived && { type: this.quriesFromRequest.certianReviewType as ReviewType }),
+                    reviewerId: this.queriesFromRequest.userId,
+                    ...(certainTypeHasBeenReceived && { type: this.queriesFromRequest.certianReviewType as ReviewType }),
                 },
                 _count: { _all: true },
             });
@@ -111,8 +111,8 @@ export default class UserReviewsAPI extends BulkAPIsURLQueriesHandler<ExtraPrope
         }
         const recordsInTotal = await prisma.destinationReview.aggregate({
             where: {
-                reviewerId: this.quriesFromRequest.userId,
-                ...(certainTypeHasBeenReceived && { type: this.quriesFromRequest.certianReviewType as ReviewType }),
+                reviewerId: this.queriesFromRequest.userId,
+                ...(certainTypeHasBeenReceived && { type: this.queriesFromRequest.certianReviewType as ReviewType }),
             },
             _count: { _all: true },
         });
@@ -121,7 +121,7 @@ export default class UserReviewsAPI extends BulkAPIsURLQueriesHandler<ExtraPrope
     }
 
     protected async _queryForReviews(): Promise<DestinationReview[] | LandmarkReview[]> {
-        switch (this.quriesFromRequest.type) {
+        switch (this.queriesFromRequest.type) {
             case "destination":
                 return (await prisma.destinationReview.findMany({
                     ...selectDestinationReview,
@@ -133,7 +133,7 @@ export default class UserReviewsAPI extends BulkAPIsURLQueriesHandler<ExtraPrope
                     ...this.converURLQueriesIntoPrismaBody(),
                 })) as unknown as LandmarkReview[];
             default:
-                throw new Error(`Unexpected value of ${this.quriesFromRequest.type} for type property`);
+                throw new Error(`Unexpected value of ${this.queriesFromRequest.type} for type property`);
         }
     }
 }

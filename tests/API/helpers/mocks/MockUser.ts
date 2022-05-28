@@ -1,12 +1,13 @@
 // Tools
 import axios from "axios";
+import faker from "faker";
 import bcrypt from "bcrypt";
 import { prisma, API_ADDRESS } from "@/tests/API/helpers/db";
 // Types
 import type { Mock } from "./@types";
 import type { RegisterResponse } from "@/@types/router/auth/register";
 
-interface UserInfo {
+interface PrepareParams {
     id: string;
     email?: string;
     isAdmin?: boolean;
@@ -24,49 +25,54 @@ interface UserInfo {
  *
  */
 export default class MockUser implements Mock {
-    private readonly PASSWORD: string;
-    private readonly EMAIL: string;
-    private readonly IS_ADMIN: boolean;
-    private readonly USER_ID: string;
+    private credentials: { email: string; password: string } | null = null;
     /**
      * Access token cookie received from **\/login** route request
      */
     public accessTokenAsCookie: string | null = null;
+    public id: string | null = null;
 
-    public constructor(userInfo: UserInfo) {
-        this.EMAIL = userInfo.email ?? "gorzen123@gmail.com";
-        this.PASSWORD = userInfo.password ?? "gorzen123";
-        this.IS_ADMIN = userInfo.isAdmin ?? false;
-        this.USER_ID = userInfo.id;
-    }
+    public constructor() {}
 
-    public async prepare() {
-        await this.createDatabaseRecord();
-        const { headers } = await axios.post(`${API_ADDRESS}/api/auth/login`, {
-            email: this.EMAIL,
-            password: this.PASSWORD,
-        });
-        const unparsedCookie = (headers as RegisterResponse["headers"])["set-cookie"][0];
-        this.accessTokenAsCookie = unparsedCookie;
+    public async prepare(prepareParams?: PrepareParams) {
+        await this.createDatabaseRecord(prepareParams);
+
+        if (this.credentials) {
+            const { headers } = await axios.post(`${API_ADDRESS}/api/auth/login`, {
+                email: this.credentials.email,
+                password: this.credentials.password,
+            });
+            const unparsedCookie = (headers as RegisterResponse["headers"])["set-cookie"][0];
+            this.accessTokenAsCookie = unparsedCookie;
+        }
     }
     public async remove() {
-        await prisma.user.delete({ where: { id: this.USER_ID } });
+        if (this.id) await prisma.user.delete({ where: { id: this.id } });
     }
 
-    private async createDatabaseRecord() {
-        await prisma.user.create({
+    private async createDatabaseRecord(prepareParams?: PrepareParams) {
+        const unhashedPassword = prepareParams?.password ?? "gorzen123";
+        const userId = prepareParams?.id ?? false;
+
+        const { id, email } = await prisma.user.create({
             data: {
-                id: this.USER_ID,
+                ...(userId !== false && { id: userId }),
                 country: "Poland",
                 countryCode: "PL",
-                email: this.EMAIL,
+                email: prepareParams?.email ?? faker.internet.email(),
                 gender: "OTHER",
-                isAdmin: this.IS_ADMIN,
-                password: await bcrypt.hash(this.PASSWORD, await bcrypt.genSalt()),
+                isAdmin: prepareParams?.isAdmin ?? false,
+                password: await bcrypt.hash(unhashedPassword, await bcrypt.genSalt()),
                 name: "John",
                 surname: "Doe",
                 birth: new Date("08/11/2002"),
             },
         });
+
+        this.id = id;
+        this.credentials = {
+            email,
+            password: unhashedPassword,
+        };
     }
 }

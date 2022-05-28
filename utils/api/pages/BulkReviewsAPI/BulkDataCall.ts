@@ -1,4 +1,5 @@
 // Tools
+import PinReview from "./PinReview";
 import MergeReviewsAndFeedback from "./MergeReviewsAndFeedback";
 import AuthenticatedUserReview from "./AuthenticatedUserReview";
 import ReviewsPointsDistribution from "./ReviewsPointsDistribution";
@@ -26,6 +27,10 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
                 default: false,
                 values: ["1"],
             },
+            {
+                name: "pinnedRequestId",
+                treatThisPropertyAsIDandExcludeItFromResults: true,
+            },
         ];
         super(request as any, ["createdAt", "points"], extraProperties);
     }
@@ -42,17 +47,22 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
             // Pagination properties
             ...(await new GeneratePaginationProperties({
                 PrismaRequestBroker: this.PrismaRequestBroker,
-                queriesFromRequest: this.quriesFromRequest,
+                queriesFromRequest: this.queriesFromRequest,
             }).generate()),
             // Points distribution && statistics
             ...(await new ReviewsPointsDistribution({
                 PrismaRequestBroker: this.PrismaRequestBroker,
-                applyPointsDistribution: this.quriesFromRequest.applyPointsDistribution !== undefined,
+                applyPointsDistribution: this.queriesFromRequest.applyPointsDistribution !== undefined,
             }).establish()),
             // Current user review
             ...(await new AuthenticatedUserReview({
                 PrismaRequestBroker: this.PrismaRequestBroker,
                 request: this.request,
+            }).findReview()),
+            // Pin one review
+            ...(await new PinReview({
+                PrismaRequestBroker: this.PrismaRequestBroker,
+                pinnedReviewId: this.queriesFromRequest.pinnedRequestId,
             }).findReview()),
         };
     }

@@ -2,7 +2,7 @@
 import { fullDate, ageOnly } from "@/utils/api/dateFormat";
 // Types
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
-import type { ReviewFromQuery } from "./@types";
+import type { ReviewFromQuery } from "../@types";
 
 /**
  * This abstract basically adds one method allowing to transform interface
@@ -12,7 +12,7 @@ export default abstract class ReviewsFormatter {
     /**
      * Transform  `ReviewFromQuery` into `Omit<Review, "feedback"`>
      */
-    public formatReview(review: ReviewFromQuery): Omit<Review, "feedback"> {
+    protected formatReview(review: ReviewFromQuery): Omit<Review, "feedback"> {
         const { reviewer } = review;
 
         return {
