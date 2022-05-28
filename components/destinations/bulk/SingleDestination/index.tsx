@@ -46,7 +46,13 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
 
                     <FlexBox horizontal="between" className="landmarks-wrapper">
                         {landmarks.map((item, index) => {
-                            return <SingleLandmark folder={item.folder} key={item.folder}></SingleLandmark>;
+                            return (
+                                <SingleLandmark
+                                    folder={item.folder} //
+                                    key={item.folder}
+                                    slug={item.slug}
+                                ></SingleLandmark>
+                            );
                         })}
                     </FlexBox>
                     <ReadMore url={`/destinations/${slug}`}></ReadMore>

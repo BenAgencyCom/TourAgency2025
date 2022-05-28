@@ -47,6 +47,8 @@ const UserProfileLanding: FunctionComponent<UserProfileLanding> = (props) => {
     const { reviewsInTotal, averageScore, PREDOMINANT: predominantReviewType } = props.pointsDistribution;
     const { latestReview } = props;
 
+    console.log(latestReview);
+
     return (
         <Wrapper horizontal="between">
             <UserAvatar avatar={avatar as string}></UserAvatar>
@@ -61,9 +63,11 @@ const UserProfileLanding: FunctionComponent<UserProfileLanding> = (props) => {
                 <ListPoint label="Reviews in total">{reviewsInTotal}</ListPoint>
 
                 <ListPoint label="Latest review">
-                    <ReviewScore type={latestReview.type} sx={{ padding: "0px 10px" }}>
-                        {latestReview.type === "NO_SCORE" ? "-" : latestReview.points}
-                    </ReviewScore>
+                    <ReviewScore
+                        type={latestReview.type} //
+                        sx={{ padding: "0px 10px" }}
+                        points={latestReview.points}
+                    ></ReviewScore>
                 </ListPoint>
 
                 <PointsDistributionComponent

@@ -153,6 +153,9 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
                                         <LandmarkReviewSkeletonLoading />
                                         <LandmarkReviewSkeletonLoading />
                                         <LandmarkReviewSkeletonLoading />
+                                        <LandmarkReviewSkeletonLoading />
+                                        <LandmarkReviewSkeletonLoading />
+                                        <LandmarkReviewSkeletonLoading />
                                     </>
                                 );
                             }

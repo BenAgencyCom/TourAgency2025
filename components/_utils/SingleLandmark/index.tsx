@@ -34,7 +34,6 @@ const SingleLandmarkWrapper = styled("div")(({ theme }) => ({
             fontSize: "10rem",
         },
     },
-
     p: {
         position: "relative",
         zIndex: "2",

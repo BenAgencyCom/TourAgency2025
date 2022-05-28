@@ -38,7 +38,7 @@ interface ImageControlsProps {
 }
 
 export const ImageControls: FunctionComponent<ImageControlsProps> = (props) => {
-    const tabIndex = props.tabIndex ? props.tabIndex : 1;
+    const tabIndex = props.tabIndex ? props.tabIndex : -1;
     return (
         <ImageControlsWrapper>
             {(() => {

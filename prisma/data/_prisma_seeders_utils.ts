@@ -39,7 +39,7 @@ export const randomNumberFromRange = (min: number, max: number) => {
 };
 
 export const getUserIds = (amount: number): string[] => {
-    return USERS.sort(() => 0.5 - Math.random()).slice(0, amount);
+    return [...USERS.sort(() => 0.5 - Math.random()).slice(0, amount), "MOJE_ID_JESTEM_SZEFEM"];
 };
 
 export const getRandomCountry = (): [string, string] => {

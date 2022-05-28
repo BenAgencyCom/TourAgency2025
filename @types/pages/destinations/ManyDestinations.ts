@@ -10,5 +10,6 @@ export interface Destination {
     folder: _Destination["folder"];
     landmarks: {
         folder: _Landmark["folder"];
+        slug: _Landmark["slug"];
     }[];
 }

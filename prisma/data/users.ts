@@ -9,6 +9,7 @@ import type { SeederDataList, User } from "./@types";
 
 const testingPurposedData: SeederDataList<User> = [
     {
+        id: "MOJE_ID_JESTEM_SZEFEM",
         name: "Kacper",
         surname: "Ksiazek",
         email: "jebac_gorzen@gmail.com",

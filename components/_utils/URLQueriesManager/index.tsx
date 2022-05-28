@@ -219,6 +219,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
 
     const changeSearchingPhrase = async (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
+        if (value === (state as any)["searchingPhrase"]) return;
         setTemporarySearchingPhrase(value);
         if (debounce !== null) clearTimeout(debounce);
         setDebounce(

@@ -1,5 +1,5 @@
 // Tools
-import { styled } from "@mui/system";
+import { styled, alpha } from "@mui/system";
 import _SingleReviewWrapperStyles from "./_SingleReviewWrapperStyles";
 // Types
 import type { SxProps } from "@mui/system";
@@ -9,6 +9,8 @@ import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Material UI Components
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+// Material UI Icons
+import PushPin from "@mui/icons-material/PushPin";
 // Other components
 import SingleReviewHeader from "./header";
 import SingleReviewTags from "./SingleReviewTags";
@@ -28,11 +30,23 @@ const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
     "&:nth-of-type(1)": {
         marginTop: "0px !important",
     },
+    background: alpha("#fff", 0.3),
+    "&.pinned": {
+        background: alpha("#fff", 0.6),
+        "svg.background-pin-icon": {
+            position: "absolute",
+            bottom: "-5px",
+            right: "-60px",
+            fontSize: "20rem",
+            opacity: 0.1,
+        },
+    },
 }));
 
 interface SingleReviewProps {
     review: Review;
     sx?: SxProps;
+    pinned?: true;
 }
 const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     const { review } = props;
@@ -45,7 +59,13 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     })();
 
     return (
-        <SingleReviewWrapper column sx={props.sx} className="single-review">
+        <SingleReviewWrapper
+            column //
+            sx={props.sx}
+            className={["single-review", props.pinned ? "pinned" : ""].join(" ")}
+        >
+            {props.pinned && <PushPin className="background-pin-icon"></PushPin>}
+
             <SingleReviewHeader review={review} color={color}></SingleReviewHeader>
             <SingleReviewTags tags={review.tags} color={color}></SingleReviewTags>
             <Typography variant="body2">{review.review}</Typography>
