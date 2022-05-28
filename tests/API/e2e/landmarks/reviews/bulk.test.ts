@@ -19,6 +19,49 @@ const ALL_TYPES = ["MIXED", "NEGATIVE", "POSITIVE"] as ReviewType[];
 describe("GET: api/landmark/[slug]/reviews", () => {
     const LANDMARK_ID = "1";
 
+    describe("Pinned review", () => {
+        const review = new MockLandmarkReview();
+        const user = new MockUser();
+
+        beforeAll(async () => {
+            await user.prepare();
+            await review.prepare({
+                landmarkId: LANDMARK_ID,
+                type: "POSITIVE",
+                userId: user.id as string,
+            });
+            await review.addFeedback({ dislikes: 2, likes: 10 });
+        });
+
+        afterAll(async () => {
+            await review.remove();
+            await user.remove();
+        });
+
+        test("Review can be pinned", async () => {
+            const res = await makeRequest(LANDMARK_ID)({
+                pinnedRequestId: review.ID as string,
+                perPage: 1,
+            });
+            expect(res.pinnedReview).not.toBeFalsy();
+            expect(res.pinnedReview?.id).toEqual(review.ID as string);
+        });
+        test("Feedback has been assigned properly", async () => {
+            const res = await makeRequest(LANDMARK_ID)({
+                pinnedRequestId: review.ID as string,
+                perPage: 1,
+            });
+            await expectAllRecordsToHaveProperlyAsignedFeedback([res.pinnedReview as Review]);
+        });
+        test("Pinned review does not repeat throughout the rest of the data", async () => {
+            const res = await makeRequest(LANDMARK_ID)({
+                pinnedRequestId: review.ID as string,
+            });
+            const allReviewsIDs: string[] = res.reviews.map((el) => el.id);
+            expect(allReviewsIDs).not.toContain(review.ID as string);
+        });
+    });
+
     describe("404", () => {
         test("When landmark does not exist", async () => {
             await testGETRequestStatus(`/api/landmark/UNEXISTING/reviews`, 404);
@@ -66,11 +109,10 @@ describe("GET: api/landmark/[slug]/reviews", () => {
         for (const type of ALL_TYPES) {
             describe(type, () => {
                 test("Authenticated user will always see their review", async () => {
-                    const USER_ID = "645213124";
                     const AMOUNT_OF_LIKES = 10;
                     const AMOUNT_OF_DISLIKES = 3;
 
-                    const user = new MockUser({ id: "645213124" });
+                    const user = new MockUser();
                     const destination = new MockDestination();
                     const landmark = new MockLandmark({ status: "APPROVED" });
                     const review = new MockLandmarkReview();
@@ -80,7 +122,7 @@ describe("GET: api/landmark/[slug]/reviews", () => {
                     await landmark.prepare(destination.id);
                     await review.prepare({
                         landmarkId: landmark.id,
-                        userId: USER_ID,
+                        userId: user.id as string,
                         type: "POSITIVE",
                     });
                     await review.addFeedback({ likes: AMOUNT_OF_LIKES, dislikes: AMOUNT_OF_DISLIKES });
