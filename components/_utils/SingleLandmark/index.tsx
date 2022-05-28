@@ -43,6 +43,12 @@ const SingleLandmarkWrapper = styled("div")(({ theme }) => ({
     "&:hover": {
         transform: "translateY(-10px)",
     },
+    "div.navigation-buttons-wrapper": {
+        display: "flex",
+        button: {
+            marginRight: "10px",
+        },
+    },
     ...(RWD as any),
 }));
 
@@ -107,7 +113,19 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                     })()}
                 </div>
 
-                <ReadMore url={`/landmarks/${slug}`}></ReadMore>
+                <div className="navigation-buttons-wrapper">
+                    <ReadMore url={`/landmarks/${slug}`}></ReadMore>
+                    {(() => {
+                        if (props.userReview) {
+                            return (
+                                <ReadMore
+                                    url={`/landmarks/${slug}/reviews?pinnedReviewId=${props.userReview.id}`} //
+                                    msg="Go to review"
+                                ></ReadMore>
+                            );
+                        }
+                    })()}
+                </div>
             </SingleLandmarkWrapper>
         </Fade>
     );

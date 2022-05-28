@@ -1,9 +1,12 @@
 // Types
+import type { NextRouter } from "next/router";
 import type { SelectProps, SelectExtraOrderOption } from "../@types";
 
 interface GenerateQueryStringParams {
-    state: Record<string, any>;
     allSelects: SelectProps[];
+    otherURLQueries?: string[];
+    state: Record<string, any>;
+    routerQueries: NextRouter["query"];
 }
 
 const getCompoundedOrder = (params: GenerateQueryStringParams): string => {
@@ -16,7 +19,7 @@ const getCompoundedOrder = (params: GenerateQueryStringParams): string => {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (params: GenerateQueryStringParams) => {
-    const { state, allSelects } = params;
+    const { state, allSelects, otherURLQueries, routerQueries } = params;
     const result: string[] = [];
     // Page
     result.push(`page=${state["page"] ?? 1}`);
@@ -36,6 +39,12 @@ export default (params: GenerateQueryStringParams) => {
         if (options.findIndex((target) => target.value === valueInState) === -1) return;
         result.push(`${key}=${valueInState}`);
     });
-
+    // Handle other url queries
+    if (otherURLQueries) {
+        otherURLQueries.forEach((key) => {
+            const value = routerQueries[key];
+            if (value !== undefined) result.push(`${key}=${value}`);
+        });
+    }
     return `?${result.join("&")}`;
 };

@@ -78,6 +78,7 @@ interface URLQueriesManagerProps {
         idOfElementToScrollTo: string;
     };
     disableResultsInTotal?: true;
+    otherURLQueries?: string[];
     /**Extra styles applied to highest-level wrapper */
     sx?: SxProps;
 }
@@ -161,7 +162,17 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
         };
     }, [router.query, expectedProperties, allSelects, loadingTimeout, props.searchingPhrase]);
     //
-    useEffect(() => updateURLQueries({ state, routerQueries: router.query }), [state, router.query]);
+    // Update URL queries
+    //
+    useEffect(
+        () =>
+            updateURLQueries({
+                state, //
+                routerQueries: router.query,
+                otherURLQueries: props.otherURLQueries,
+            }),
+        [state, router.query, props.otherURLQueries]
+    );
     //
     // Query for data
     //
@@ -191,9 +202,16 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
         }
         // 4. Call the callback
         setTimeout(() => {
-            props.queryForData(generateQueryString({ allSelects, state }));
+            props.queryForData(
+                generateQueryString({
+                    allSelects, //
+                    state,
+                    otherURLQueries: props.otherURLQueries,
+                    routerQueries: router.query,
+                })
+            );
         }, 1);
-    }, [latestQueryCallString, state, props, allSelects, loadingTimeout]);
+    }, [latestQueryCallString, state, props, allSelects, loadingTimeout, router.query, props.otherURLQueries]);
 
     // Seachirng bar special DEBOUNCE logic
     const [temporarySearchingPhrase, setTemporarySearchingPhrase] = useState<string>("");

@@ -28,7 +28,7 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
                 values: ["1"],
             },
             {
-                name: "pinnedRequestId",
+                name: "pinnedReviewId",
                 treatThisPropertyAsIDandExcludeItFromResults: true,
             },
         ];
@@ -62,7 +62,7 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
             // Pin one review
             ...(await new PinReview({
                 PrismaRequestBroker: this.PrismaRequestBroker,
-                pinnedReviewId: this.queriesFromRequest.pinnedRequestId,
+                pinnedReviewId: this.queriesFromRequest.pinnedReviewId,
             }).findReview()),
         };
     }

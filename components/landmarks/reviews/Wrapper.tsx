@@ -1,6 +1,7 @@
 // Tools
 import axios from "axios";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 // Types
 import type { FunctionComponent } from "react";
@@ -12,6 +13,7 @@ import Landing from "./Landing";
 import Reviews from "./Reviews";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
+const PinnedReview = dynamic(() => import("./PinnedReview"));
 // Material UI Icons
 import Star from "@mui/icons-material/Star";
 // Styled components
@@ -29,6 +31,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
     const [statistics, setStatistics] = useState<Statistics | null>(null);
     const [pointsDistribution, setPointsDistribution] = useState<PointsDistribution | null>(null);
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
+    const [pinnedReview, setPinnedReview] = useState<Review | null>(null);
 
     const router = useRouter();
 
@@ -40,12 +43,13 @@ const Content: FunctionComponent<ContentParams> = (props) => {
             const applyPointsDistribution = !statistics || !pointsDistribution;
             const res = await axios.get(`/api/landmark/${landmarkID}/reviews${urlQueries}&perPage=${REVIEWS_PER_PAGE}${applyPointsDistribution ? "&applyPointsDistribution=1" : ""} `);
             if (res.data) {
-                const { pagination, reviews, pointsDistribution, statistics } = res.data;
+                const { pagination, reviews, pointsDistribution, statistics, pinnedReview } = res.data;
                 setLoading(false);
                 setReviews(reviews);
                 setPaginationProperties(pagination);
 
                 if (statistics) setStatistics(statistics);
+                if (pinnedReview) setPinnedReview(pinnedReview);
                 if (pointsDistribution) setPointsDistribution(pointsDistribution);
             }
         } catch (e: unknown) {
@@ -60,6 +64,8 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                 statistics={statistics}
                 pointsDistribution={pointsDistribution}
             ></Landing>
+
+            <PinnedReview review={pinnedReview}></PinnedReview>
 
             <URLQueriesManager
                 queryForData={queryForData}
@@ -98,11 +104,20 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                           }
                         : undefined
                 }
+                otherURLQueries={["pinnedReviewId"]}
             >
                 {(() => {
                     if (loading || !statistics || !pointsDistribution || !paginationProperties) {
                         return (
                             <>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
+                                <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
                                 <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
                                 <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>
                                 <SingleReviewSkeletonLoading></SingleReviewSkeletonLoading>

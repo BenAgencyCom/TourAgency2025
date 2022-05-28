@@ -40,7 +40,7 @@ describe("GET: api/landmark/[slug]/reviews", () => {
 
         test("Review can be pinned", async () => {
             const res = await makeRequest(LANDMARK_ID)({
-                pinnedRequestId: review.ID as string,
+                pinnedReviewId: review.ID as string,
                 perPage: 1,
             });
             expect(res.pinnedReview).not.toBeFalsy();
@@ -48,20 +48,19 @@ describe("GET: api/landmark/[slug]/reviews", () => {
         });
         test("Feedback has been assigned properly", async () => {
             const res = await makeRequest(LANDMARK_ID)({
-                pinnedRequestId: review.ID as string,
+                pinnedReviewId: review.ID as string,
                 perPage: 1,
             });
             await expectAllRecordsToHaveProperlyAsignedFeedback([res.pinnedReview as Review]);
         });
         test("Pinned review does not repeat throughout the rest of the data", async () => {
             const res = await makeRequest(LANDMARK_ID)({
-                pinnedRequestId: review.ID as string,
+                pinnedReviewId: review.ID as string,
             });
             const allReviewsIDs: string[] = res.reviews.map((el) => el.id);
             expect(allReviewsIDs).not.toContain(review.ID as string);
         });
     });
-
     describe("404", () => {
         test("When landmark does not exist", async () => {
             await testGETRequestStatus(`/api/landmark/UNEXISTING/reviews`, 404);

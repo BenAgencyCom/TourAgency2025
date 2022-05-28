@@ -28,12 +28,12 @@ const ReadMore = styled("a")(({ theme }) => ({
     },
 }));
 
-const ReadMoreWrapper: FunctionComponent<{ url: string; sx?: SxProps }> = (props) => {
+const ReadMoreWrapper: FunctionComponent<{ url: string; sx?: SxProps; msg?: string }> = (props) => {
     return (
         <Link passHref href={props.url}>
             <ReadMore tabIndex={-1} className="read-more">
                 <ButtonWithLineTransition primary reverse sx={props.sx}>
-                    Read more
+                    {props.msg ?? "Read more"}
                 </ButtonWithLineTransition>
             </ReadMore>
         </Link>

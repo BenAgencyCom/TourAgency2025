@@ -77,5 +77,5 @@ export interface AggregateCallResponse {
 export interface ExtraProperties {
     certianReviewType: ReviewType | null;
     applyPointsDistribution: "1" | false;
-    pinnedRequestId?: string;
+    pinnedReviewId?: string;
 }

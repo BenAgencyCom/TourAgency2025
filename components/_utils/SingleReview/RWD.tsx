@@ -46,7 +46,7 @@ export default {
             },
         },
         "div.landmark-review-tags": {
-            margin: "0 0 10px 0",
+            margin: "5px 0 10px 0",
         },
         p: {
             fontSize: "1.1rem",
