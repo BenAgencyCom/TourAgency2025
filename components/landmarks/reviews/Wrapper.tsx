@@ -10,10 +10,9 @@ import type { Review, PointsDistribution, Statistics } from "@/@types/pages/api/
 // Other components
 import Landing from "./Landing";
 import Reviews from "./Reviews";
-import PinnedReview from "./PinnedReview";
-import CreateReview from "@/components/_utils/CreateReview";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
+import SelectableContent from "./SelectableContent";
 // Material UI Icons
 import Star from "@mui/icons-material/Star";
 // Styled components
@@ -65,8 +64,10 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                 pointsDistribution={pointsDistribution}
             ></Landing>
 
-            <CreateReview></CreateReview>
-            <PinnedReview review={pinnedReview}></PinnedReview>
+            <SelectableContent
+                pinnedReview={pinnedReview} //
+                authenticatedUserReview={null}
+            ></SelectableContent>
 
             <URLQueriesManager
                 queryForData={queryForData}
@@ -97,14 +98,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                         omitIfDeafult: true,
                     },
                 ]}
-                paginationProperties={
-                    paginationProperties && !loading
-                        ? {
-                              ...paginationProperties,
-                              idOfElementToScrollTo: "single-landmark-reviews",
-                          }
-                        : undefined
-                }
+                paginationProperties={paginationProperties && !loading ? paginationProperties : undefined}
                 otherURLQueries={["pinnedReviewId"]}
             >
                 {(() => {

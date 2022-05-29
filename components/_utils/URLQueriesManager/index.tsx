@@ -75,7 +75,7 @@ interface URLQueriesManagerProps {
     paginationProperties?: PaginationProperties & {
         /**In order to smooth scroll to the top of the data, it is mandatory to
          * pass an id of the element as the top border of scrolling*/
-        idOfElementToScrollTo: string;
+        idOfElementToScrollTo?: string;
     };
     disableResultsInTotal?: true;
     otherURLQueries?: string[];
@@ -301,7 +301,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
             {props.paginationProperties && props.paginationProperties.pagesInTotal > 1 && (
                 <Pagination
                     paginationProperties={props.paginationProperties} //
-                    scrollToElement={props.paginationProperties.idOfElementToScrollTo}
+                    scrollToElement={props.paginationProperties.idOfElementToScrollTo ?? "url-queries-manager-wrapper"}
                     callbackDuringScrolling={(pageNumber: any) => changeProperty("page", { target: { value: pageNumber } } as any)}
                     sx={{ marginTop: "50px" }}
                 ></Pagination>

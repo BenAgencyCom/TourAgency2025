@@ -6,7 +6,7 @@ import type { ButtonBaseProps } from "@mui/material/ButtonBase";
 import ButtonBase from "@mui/material/ButtonBase";
 
 export interface ButtonWithColorTransitionProps extends ButtonBaseProps {
-    primary?: true;
+    primary?: boolean;
     reverse?: true;
     color?: string;
     background?: string;

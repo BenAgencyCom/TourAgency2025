@@ -47,8 +47,6 @@ const UserProfileLanding: FunctionComponent<UserProfileLanding> = (props) => {
     const { reviewsInTotal, averageScore, PREDOMINANT: predominantReviewType } = props.pointsDistribution;
     const { latestReview } = props;
 
-    console.log(latestReview);
-
     return (
         <Wrapper horizontal="between">
             <UserAvatar avatar={avatar as string}></UserAvatar>
