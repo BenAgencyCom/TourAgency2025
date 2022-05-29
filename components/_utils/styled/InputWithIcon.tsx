@@ -1,11 +1,11 @@
 // Tools
-import { useRef, useState } from "react";
-import { styled } from "@mui/system";
 import colorTheme from "@/colorTheme";
+import { styled, alpha } from "@mui/system";
+import { useRef, useState, forwardRef, useEffect } from "react";
 // Types
 import type { InputBaseProps } from "@mui/material/InputBase";
-import type { FunctionComponent, ReactNode, ChangeEvent } from "react";
 import type { Restriction } from "@/@types/Restriction";
+import type { ReactNode, ChangeEvent, ForwardRefExoticComponent } from "react";
 // Material UI Components
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
@@ -48,9 +48,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
             },
         },
     },
+    "&.Mui-disabled": {
+        border: `2px solid rgb(130,143,156)`,
+        background: alpha(theme.palette.text.primary, 0.5),
+        "button,textarea,input": {
+            color: theme.palette.text.primary,
+            "-webkit-text-fill-color": theme.palette.text.primary,
+            fontWeight: 500,
+        },
+    },
 }));
 
-interface StyledSelectProps extends InputBaseProps {
+interface StyledInputProps extends InputBaseProps {
     icon?: ReactNode;
     lengthNotification?: {
         fieldName: string;
@@ -58,12 +67,17 @@ interface StyledSelectProps extends InputBaseProps {
     };
 }
 
-const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
+const StyledInput: ForwardRefExoticComponent<StyledInputProps> = forwardRef((props, ref) => {
     const { icon, onChange, lengthNotification, ...propsToForward } = props;
 
     const inputRef = useRef<HTMLElement>();
     const [debounce, setDebounce] = useState<number | null>(null);
     const [newContent, setNewContent] = useState<string>(props.value as string);
+
+    // Manage received ref property
+    useEffect(() => {
+        if (ref) (ref as any).current = inputRef.current;
+    }, [ref, inputRef]);
 
     const clearInputValue = () => {
         if (inputRef.current) {
@@ -128,6 +142,7 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
             )}
         </>
     );
-};
+});
+StyledInput.displayName = "StyledInput";
 
-export default StyledSelect;
+export default StyledInput;

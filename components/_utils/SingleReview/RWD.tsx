@@ -1,6 +1,10 @@
+// Tools
+import { alpha } from "@mui/system";
+// Types
 import type { SxProps } from "@mui/system";
 
 export default {
+    background: alpha("#fff", 0.3),
     ["@media (max-width:1000px)"]: {
         "div.personal-information": {
             flexDirection: "column",

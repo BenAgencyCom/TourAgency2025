@@ -30,7 +30,6 @@ const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
     "&:nth-of-type(1)": {
         marginTop: "0px !important",
     },
-    background: alpha("#fff", 0.3),
     "&.pinned": {
         background: alpha("#fff", 0.6),
         "svg.background-pin-icon": {

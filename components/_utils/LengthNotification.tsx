@@ -21,7 +21,7 @@ const LengthNotificationBase = styled("span")<{ error?: boolean }>(({ theme, ...
     },
 }));
 
-const ErrorMSG = styled("span")(({ theme }) => ({
+export const ErrorMSG = styled("span")(({ theme }) => ({
     color: theme.palette.error.main,
     fontSize: "1.1rem",
     strong: {

@@ -1,7 +1,6 @@
 // Tools
 import axios from "axios";
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 // Types
 import type { FunctionComponent } from "react";
@@ -11,9 +10,10 @@ import type { Review, PointsDistribution, Statistics } from "@/@types/pages/api/
 // Other components
 import Landing from "./Landing";
 import Reviews from "./Reviews";
+import PinnedReview from "./PinnedReview";
+import CreateReview from "@/components/_utils/CreateReview";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
-const PinnedReview = dynamic(() => import("./PinnedReview"));
 // Material UI Icons
 import Star from "@mui/icons-material/Star";
 // Styled components
@@ -65,6 +65,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                 pointsDistribution={pointsDistribution}
             ></Landing>
 
+            <CreateReview></CreateReview>
             <PinnedReview review={pinnedReview}></PinnedReview>
 
             <URLQueriesManager
