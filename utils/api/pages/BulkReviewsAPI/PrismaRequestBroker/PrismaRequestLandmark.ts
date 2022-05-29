@@ -100,7 +100,7 @@ export default class DestinationBroker implements PrismaRequestBroker {
 
     public async getSpecifiedReview(reviewId: string): Promise<ReviewFromQuery | null> {
         return await prisma.landmarkReview.findFirst({
-            where: { id: reviewId },
+            where: { id: reviewId, landmarkId: this.id },
             select: new PrismaRequestBody().getSelect(),
         });
     }
