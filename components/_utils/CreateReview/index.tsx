@@ -1,12 +1,13 @@
 // Tools
-import { useState, useMemo } from "react";
-import stated from "@/utils/client/stated";
+import { useMemo } from "react";
 import { styled, alpha } from "@mui/system";
 import { CreateReviewContext } from "./context";
 import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
 // Types
 import type { FunctionComponent } from "react";
 import type { ReviewType } from "@prisma/client";
+import type { Review } from "@/@types/pages/api/ReviewsAPI";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI Components
 import Typography from "@mui/material/Typography";
 // Other components
@@ -15,7 +16,6 @@ import SelectScore from "./SelectScore";
 import ReviewContent from "./ReviewContent";
 import SendRequestButton from "./SendRequestButton";
 // Styled components
-import StyledButton from "@/components/create/_utils/forms/Button";
 import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 
 const CreateReviewWrapper = styled("div")(({ theme }) => ({
@@ -31,19 +31,19 @@ const CreateReviewWrapper = styled("div")(({ theme }) => ({
 }));
 
 interface CreateReviewProps {
-    //
+    reviewToModify: Review | null;
+    scoreInt: StatedDataField<number>;
+    scoreFloat: StatedDataField<number>;
+    reviewContent: StatedDataField<string>;
+    tags: StatedDataField<string[]>;
 }
 
 const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
-    //
-    const [scoreInt, setScoreInt] = useState<number>(0);
-    const [scoreFloat, setScoreFloat] = useState<number>(0);
-    const [reviewContent, setReviewContent] = useState<string>("");
-    const [tags, setTags] = useState<string[]>([]);
-    //
+    const { scoreInt, scoreFloat, reviewContent, tags, reviewToModify } = props;
+
     const estimatedReviewType = useMemo<ReviewType>(() => {
-        if (scoreInt >= 7) return "POSITIVE";
-        else if (scoreInt >= 4) return "MIXED";
+        if (scoreInt.value >= 7) return "POSITIVE";
+        else if (scoreInt.value >= 4) return "MIXED";
         return "NEGATIVE";
     }, [scoreInt]);
 
@@ -66,17 +66,20 @@ const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
                 </Typography>
                 {/*  */}
                 <SelectScore
-                    scoreInt={stated(scoreInt, setScoreInt)} //
-                    scoreFloat={stated(scoreFloat, setScoreFloat)}
+                    scoreInt={scoreInt} //
+                    scoreFloat={scoreFloat}
                 ></SelectScore>
                 {/*  */}
-                <AddTags tags={stated(tags, setTags)} />
+                <AddTags tags={tags} />
                 {/*  */}
-                <ReviewContent reviewContent={stated(reviewContent, setReviewContent)} />
+                <ReviewContent reviewContent={reviewContent} />
                 {/*  */}
                 <SendRequestButton
-                    tags={tags} //
-                    reviewContent={reviewContent}
+                    tags={tags.value} //
+                    reviewContent={reviewContent.value}
+                    reviewToModify={reviewToModify}
+                    scoreInt={scoreInt.value}
+                    scoreFloat={scoreFloat.value}
                 />
             </CreateReviewWrapper>
         </CreateReviewContext.Provider>

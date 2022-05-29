@@ -1,6 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
+import stated from "@/utils/client/stated";
 import { useState, useEffect } from "react";
 // Types
 import type { FunctionComponent } from "react";
@@ -8,8 +9,8 @@ import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Other components
 import PinnedReview from "./PinnedReview";
 import CreateReview from "@/components/_utils/CreateReview";
+import SingleReview from "@/components/_utils/SingleReview";
 // Styled components
-import FlexBox from "@/components/_utils/styled/FlexBox";
 import StyledButton from "@/components/create/_utils/forms/Button";
 
 const NavigationWrapper = styled("div")(({ theme }) => ({
@@ -30,7 +31,6 @@ interface SelectableContentProps {
 const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => {
     const router = useRouter();
     const { authenticatedUserReview, pinnedReview } = props;
-    const [pinnedReviewCanBeLoaded, setPinnedReviewCanBeLoaded] = useState<boolean>(false);
     const [currentSection, setCurrentSection] = useState<Section>(
         ((): Section => {
             if (pinnedReview) return "pinnedReview";
@@ -38,10 +38,25 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
             return "createReview";
         })()
     );
+    // In order not to lose the new review data each time the tab is changed,
+    // the state handling this proces has to be stored in higher level component
+    const [scoreInt, setScoreInt] = useState<number>(0);
+    const [scoreFloat, setScoreFloat] = useState<number>(0);
+    const [reviewContent, setReviewContent] = useState<string>("");
+    const [tags, setTags] = useState<string[]>([]);
+    // Update above create review properties when authenticated user review is loaded
+    useEffect(() => {
+        if (authenticatedUserReview) {
+            const splitedScore = String(authenticatedUserReview.points).split(".");
+            setScoreInt(Number(splitedScore[0]));
+            setScoreFloat(Number(splitedScore[1]));
+            setReviewContent(authenticatedUserReview.review);
+            setTags(authenticatedUserReview.tags);
+        }
+    }, [authenticatedUserReview]);
     // Check whether the pinned review can be loaded
     useEffect(() => {
         if (router.query.pinnedReviewId) {
-            setPinnedReviewCanBeLoaded(true);
             setCurrentSection("pinnedReview");
         }
     }, [router.query]);
@@ -61,7 +76,7 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
                         <NavigationWrapper>
                             {pinnedReview && <StyledButton {...addPropsToButton("pinnedReview")}>Pinned review</StyledButton>}
                             {authenticatedUserReview && <StyledButton {...addPropsToButton("authenticatedUserReview")}>Your review</StyledButton>}
-                            <StyledButton {...addPropsToButton("createReview")}>Create review</StyledButton>
+                            <StyledButton {...addPropsToButton("createReview")}>{authenticatedUserReview ? "Modify your review" : "Create review"}</StyledButton>
                         </NavigationWrapper>
                     );
                 }
@@ -69,9 +84,25 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
 
             {(() => {
                 if (currentSection === "createReview") {
-                    return <CreateReview></CreateReview>;
+                    return (
+                        <CreateReview
+                            reviewToModify={authenticatedUserReview} //
+                            scoreInt={stated(scoreInt, setScoreInt)}
+                            scoreFloat={stated(scoreFloat, setScoreFloat)}
+                            reviewContent={stated(reviewContent, setReviewContent)}
+                            tags={stated(tags, setTags)}
+                        />
+                    );
                 } else if (currentSection === "pinnedReview") {
-                    return <PinnedReview review={pinnedReview}></PinnedReview>;
+                    return <PinnedReview review={pinnedReview} />;
+                } else if (currentSection === "authenticatedUserReview") {
+                    return (
+                        <SingleReview
+                            review={authenticatedUserReview as Review} //
+                            sx={{ mb: "100px" }}
+                            pinned
+                        />
+                    );
                 }
             })()}
         </>

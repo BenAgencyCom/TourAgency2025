@@ -31,6 +31,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
     const [pointsDistribution, setPointsDistribution] = useState<PointsDistribution | null>(null);
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
     const [pinnedReview, setPinnedReview] = useState<Review | null>(null);
+    const [authenticatedUserReview, setAuthenticatedUserReview] = useState<Review | null>(null);
 
     const router = useRouter();
 
@@ -42,7 +43,8 @@ const Content: FunctionComponent<ContentParams> = (props) => {
             const applyPointsDistribution = !statistics || !pointsDistribution;
             const res = await axios.get(`/api/landmark/${landmarkID}/reviews${urlQueries}&perPage=${REVIEWS_PER_PAGE}${applyPointsDistribution ? "&applyPointsDistribution=1" : ""} `);
             if (res.data) {
-                const { pagination, reviews, pointsDistribution, statistics, pinnedReview } = res.data;
+                const { pagination, reviews, pointsDistribution, statistics, pinnedReview, authenticatedUserReview } = res.data;
+
                 setLoading(false);
                 setReviews(reviews);
                 setPaginationProperties(pagination);
@@ -50,6 +52,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                 if (statistics) setStatistics(statistics);
                 if (pinnedReview) setPinnedReview(pinnedReview);
                 if (pointsDistribution) setPointsDistribution(pointsDistribution);
+                if (authenticatedUserReview) setAuthenticatedUserReview(authenticatedUserReview);
             }
         } catch (e: unknown) {
             router.push("/500");
@@ -66,7 +69,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
 
             <SelectableContent
                 pinnedReview={pinnedReview} //
-                authenticatedUserReview={null}
+                authenticatedUserReview={authenticatedUserReview}
             ></SelectableContent>
 
             <URLQueriesManager

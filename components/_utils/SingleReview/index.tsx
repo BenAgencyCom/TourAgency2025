@@ -34,8 +34,8 @@ const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
         "svg.background-pin-icon": {
             position: "absolute",
             bottom: "-5px",
-            right: "-60px",
-            fontSize: "20rem",
+            right: "-40px",
+            fontSize: "17rem",
             opacity: 0.1,
         },
     },
