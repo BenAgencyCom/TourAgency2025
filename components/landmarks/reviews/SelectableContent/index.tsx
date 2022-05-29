@@ -100,7 +100,7 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
                         <SingleReview
                             review={authenticatedUserReview as Review} //
                             sx={{ mb: "100px" }}
-                            pinned
+                            authenticatedUserReview
                         />
                     );
                 }

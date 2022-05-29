@@ -11,6 +11,7 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 // Material UI Icons
 import PushPin from "@mui/icons-material/PushPin";
+import Sailing from "@mui/icons-material/Sailing";
 // Other components
 import SingleReviewHeader from "./header";
 import SingleReviewTags from "./SingleReviewTags";
@@ -31,10 +32,19 @@ const SingleReviewWrapper = styled(FlexBox)(({ theme }) => ({
         marginTop: "0px !important",
     },
     "&.pinned": {
-        "svg.background-pin-icon": {
+        "svg.background-icon": {
             position: "absolute",
             bottom: "-5px",
             right: "-40px",
+            fontSize: "17rem",
+            opacity: 0.1,
+        },
+    },
+    "&.authenticated-user-review": {
+        "svg.background-icon": {
+            position: "absolute",
+            bottom: "10px",
+            right: "0px",
             fontSize: "17rem",
             opacity: 0.1,
         },
@@ -45,6 +55,7 @@ interface SingleReviewProps {
     review: Review;
     sx?: SxProps;
     pinned?: true;
+    authenticatedUserReview?: true;
 }
 const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     const { review } = props;
@@ -60,9 +71,14 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
         <SingleReviewWrapper
             column //
             sx={props.sx}
-            className={["single-review", props.pinned ? "pinned" : ""].join(" ")}
+            className={[
+                "single-review", //
+                props.pinned ? "pinned" : "",
+                props.authenticatedUserReview ? "authenticated-user-review" : "",
+            ].join(" ")}
         >
-            {props.pinned && <PushPin className="background-pin-icon"></PushPin>}
+            {props.pinned && <PushPin className="background-icon" />}
+            {props.authenticatedUserReview && <Sailing className="background-icon" />}
 
             <SingleReviewHeader review={review} color={color}></SingleReviewHeader>
             <SingleReviewTags tags={review.tags} color={color}></SingleReviewTags>
