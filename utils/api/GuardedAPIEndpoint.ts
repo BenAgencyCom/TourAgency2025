@@ -16,12 +16,9 @@ type Intensitivity = "admin" | "user" | "anonymous";
 
 const GuardedAPIEndpoint = async (req: NextApiRequest, method: Method, intensitivity: Intensitivity): Promise<string | null> => {
     if (req.method !== method) throw new NotFound();
-
     const { accessToken } = req.cookies;
-
     // Anonymous authorized
     if (!accessToken && intensitivity === "anonymous") return null;
-    //
     else if (accessToken && intensitivity === "anonymous") throw new Forbidden();
     else if (!accessToken && intensitivity !== "anonymous") throw new Forbidden();
 
