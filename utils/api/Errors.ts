@@ -17,3 +17,4 @@ export class Forbidden extends Error {}
 export class SessionExpired extends Error {}
 export class ValidationError extends Error {}
 export class NotFound extends Error {}
+export class Conflict extends Error {}
