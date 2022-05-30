@@ -29,6 +29,8 @@ export default class CreateReview {
 
     public async create(params: AddRecordMethodParams) {
         this.validateRequestBody(params);
+
+        await this.PrismaRequestBroker.ensureThatModelExists();
         await this.PrismaRequestBroker.ensureThatThereIsNoDuplicate();
         await this.PrismaRequestBroker.addRecord(params);
     }

@@ -1,6 +1,6 @@
 // Tools
 import { prisma } from "@/prisma/db";
-import { Conflict } from "@/utils/api/Errors";
+import { Conflict, NotFound } from "@/utils/api/Errors";
 import PrismaReviewBrokerAbstract from "./PrismaReviewBrokerAbstract";
 // Types
 import type { PrismaRequestBroker, AddRecordMethodParams, PrismaRequestBrokerConstructorParams } from "../@types";
@@ -37,5 +37,14 @@ export default class LandmarkReviewBroker extends PrismaReviewBrokerAbstract imp
             },
         });
         if (duplicate) throw new Conflict();
+    }
+
+    public async ensureThatModelExists() {
+        const record = await prisma.landmark.findUnique({
+            where: {
+                id: this.idOfElementAssociatedWithReview,
+            },
+        });
+        if (!record) throw new NotFound();
     }
 }

@@ -8,6 +8,7 @@ export interface PrismaRequestBrokerConstructorParams {
 export interface PrismaRequestBroker extends PrismaRequestBrokerConstructorParams {
     addRecord: (params: AddRecordMethodParams) => Promise<void>;
     ensureThatThereIsNoDuplicate: () => Promise<void>;
+    ensureThatModelExists: () => Promise<void>;
 }
 
 export interface AddRecordMethodParams {
