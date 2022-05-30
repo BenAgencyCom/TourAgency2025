@@ -9,7 +9,7 @@ import { uploadDir } from "@/utils/paths";
 import { PrismaClient } from "@prisma/client";
 import { testPOSTRequestStatus } from "@/tests/API/helpers/testStatus";
 import MockUser from "@/tests/API/helpers/mocks/MockUser";
-import { API_URL, convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING, EXPECTED_DESCRIPTION_IMAGES } from "../../data/landmarks/create";
+import { convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING, EXPECTED_DESCRIPTION_IMAGES } from "../../data/landmarks/create";
 // Types
 import type { Landmark, ContentStatus } from "@prisma/client";
 import { FieldType } from "@/@types/Description";
@@ -18,7 +18,7 @@ import type { ValidLandmarkData } from "@/tests/API/data/landmarks/create/@types
 const expectUnprocessableEntity = async (body: Partial<ValidLandmarkData>, Cookie: string) => {
     await testPOSTRequestStatus({
         expectedStatus: 422,
-        endpoint: API_URL,
+        endpoint: "/api/landmark/create",
         body: convertJSONintoFormData(body),
         Cookie,
     });
@@ -30,7 +30,7 @@ const prisma = new PrismaClient();
 
 describe("POST: api/landmark/create", () => {
     let freshlyCreatedLandmark: Landmark | null = null;
-    const SheerUser = new MockUser({ id: "SHEER_USER" });
+    const SheerUser = new MockUser();
 
     beforeAll(async () => {
         await prisma.destination.create(destinationPrismaData);
@@ -49,7 +49,7 @@ describe("POST: api/landmark/create", () => {
     test("Unauthenticated user cannot create a landmark", async () => {
         await testPOSTRequestStatus({
             expectedStatus: 401,
-            endpoint: API_URL,
+            endpoint: "/api/landmark/create",
             body: convertJSONintoFormData(getValidLandmarkData()),
         });
     });
@@ -57,7 +57,7 @@ describe("POST: api/landmark/create", () => {
         beforeAll(async () => {
             await testPOSTRequestStatus({
                 expectedStatus: 201,
-                endpoint: API_URL,
+                endpoint: "/api/landmark/create",
                 body: convertJSONintoFormData(getValidLandmarkData()),
                 Cookie: SheerUser.accessTokenAsCookie as string,
             });

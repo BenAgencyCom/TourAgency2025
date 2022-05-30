@@ -19,7 +19,7 @@ interface TestPOSTRequestStatus {
     expectedStatus: number;
     endpoint: string;
     Cookie?: string;
-    body: FormData;
+    body: Record<any, any> | FormData;
 }
 export const testPOSTRequestStatus = async (props: TestPOSTRequestStatus) => {
     const { endpoint, expectedStatus, Cookie, body } = props;
@@ -29,7 +29,7 @@ export const testPOSTRequestStatus = async (props: TestPOSTRequestStatus) => {
         data: body,
         headers: {
             Cookie: Cookie ?? "",
-            ...body.getHeaders(),
+            ...(body.getHeaders && body.getHeaders()),
         },
         validateStatus: () => true,
     }).then((res) => {

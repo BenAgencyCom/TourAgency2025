@@ -10,7 +10,6 @@ import type { ValidLandmarkData } from "./@types";
 
 const IMAGE_FILE_PATH = path.join(__dirname, "..", "..", "images", "tiny.jpg");
 
-export const API_URL = "/api/landmark/create";
 export const DESTINATION_ID = "TEST_PURPOSE_ONLY_DESTINATION";
 
 export const VERY_LONG_STRING = faker.lorem.words(300);
