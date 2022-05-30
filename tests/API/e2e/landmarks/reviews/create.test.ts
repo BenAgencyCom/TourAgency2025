@@ -3,13 +3,12 @@ import prisma from "@/tests/API/helpers/db";
 import { testPOSTRequestStatus } from "@/tests/API/helpers/testStatus";
 import { validDataRequestBody } from "@/tests/API/data/landmarks/reviews/create";
 import { VERY_LONG_STRING } from "@/tests/API/data/landmarks/create/index";
-
 // Mocks
 import MockUser from "@/tests/API/helpers/mocks/MockUser";
 import MockLandmark from "@/tests/API/helpers/mocks/MockLandmark";
 import MockDestination from "@/tests/API/helpers/mocks/MockDestination";
 // Types
-import type { CreateReviewRequest } from "@/pages/api/landmark/[slug]/reviews/create";
+import type { CreateReviewRequest } from "@/pages/api/landmark/[id]/reviews/create";
 
 const createRequestBody = (): Partial<CreateReviewRequest["body"]> => JSON.parse(JSON.stringify(validDataRequestBody));
 
@@ -100,6 +99,21 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
             where: {
                 reviewerId: user.id as string,
                 landmarkId: landmark.id as string,
+            },
+        });
+        expect(reviewInDatabase).toHaveLength(0);
+    });
+    test("404 while trying to create a review of unexisting landmark", async () => {
+        await testPOSTRequestStatus({
+            body: validDataRequestBody,
+            endpoint: `/api/landmark/uexsitingi23u9128u329/reviews/create`,
+            expectedStatus: 404,
+            Cookie: user.accessTokenAsCookie as string,
+        });
+        const reviewInDatabase = await prisma.landmarkReview.findMany({
+            where: {
+                reviewerId: user.id as string,
+                landmarkId: "uexsitingi23u9128u329",
             },
         });
         expect(reviewInDatabase).toHaveLength(0);
