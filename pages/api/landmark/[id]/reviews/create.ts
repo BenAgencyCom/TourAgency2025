@@ -19,7 +19,7 @@ export default async function handler(req: CreateReviewRequest, res: NextApiResp
 
         const API = new CreateReviewAPI({
             elementType: "landmark",
-            idOfElementToAddReview: req.query.slug as string,
+            idOfElementToAddReview: req.query.id as string,
             userId: userId as string,
         });
         await API.create({
