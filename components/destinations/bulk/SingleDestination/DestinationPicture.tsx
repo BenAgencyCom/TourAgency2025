@@ -8,7 +8,7 @@ import type { FunctionComponent } from "react";
 import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
 
 const Wrapper = styled("div")(({ theme }) => ({
-    height: "450px",
+    // All styles related with picture size are stored in `RWD.ts` file
     position: "relative",
     borderRadius: "10px 50px 10px 50px",
     overflow: "hidden",

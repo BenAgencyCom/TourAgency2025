@@ -119,7 +119,14 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                             return (
                                 <ReadMore
                                     url={`/landmarks/${slug}/reviews?pinnedReviewId=${props.userReview.id}`} //
-                                    msg="Go to review"
+                                    msg="See this review"
+                                ></ReadMore>
+                            );
+                        } else {
+                            return (
+                                <ReadMore
+                                    url={`/landmarks/${slug}/reviews`} //
+                                    msg="Go to reviews"
                                 ></ReadMore>
                             );
                         }

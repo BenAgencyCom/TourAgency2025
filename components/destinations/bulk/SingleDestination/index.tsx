@@ -55,7 +55,11 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                             );
                         })}
                     </FlexBox>
-                    <ReadMore url={`/destinations/${slug}`}></ReadMore>
+
+                    <FlexBox sx={{ mt: "10px" }}>
+                        <ReadMore url={`/destinations/${slug}`}></ReadMore>
+                        <ReadMore url={`/destinations/${slug}/reviews`} sx={{ ml: "10px" }} msg={"Go to reviews"}></ReadMore>
+                    </FlexBox>
                 </FlexBox>
             </Wrapper>
         </Fade>
