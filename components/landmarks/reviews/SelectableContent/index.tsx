@@ -1,4 +1,5 @@
 // Tools
+import { useMemo } from "react";
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 import stated from "@/utils/client/stated";
@@ -30,10 +31,16 @@ interface SelectableContentProps {
 
 const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => {
     const router = useRouter();
-    const { authenticatedUserReview, pinnedReview } = props;
+    const { pinnedReview, authenticatedUserReview } = props;
+
+    const pinnedReviewAndAuthenticatedUserReviewAreNotTheSame = useMemo<boolean>(() => {
+        if (!pinnedReview || !authenticatedUserReview) return false;
+        else return pinnedReview.id !== authenticatedUserReview.id;
+    }, [authenticatedUserReview, pinnedReview]);
+
     const [currentSection, setCurrentSection] = useState<Section>(
         ((): Section => {
-            if (pinnedReview) return "pinnedReview";
+            if (pinnedReview && pinnedReviewAndAuthenticatedUserReviewAreNotTheSame) return "pinnedReview";
             else if (authenticatedUserReview) return "authenticatedUserReview";
             return "createReview";
         })()
@@ -57,9 +64,10 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
     // Check whether the pinned review can be loaded
     useEffect(() => {
         if (router.query.pinnedReviewId) {
-            setCurrentSection("pinnedReview");
+            if (pinnedReviewAndAuthenticatedUserReviewAreNotTheSame) setCurrentSection("pinnedReview");
+            else if (authenticatedUserReview) setCurrentSection("authenticatedUserReview");
         }
-    }, [router.query]);
+    }, [router.query, pinnedReviewAndAuthenticatedUserReviewAreNotTheSame, authenticatedUserReview]);
 
     const addPropsToButton = (type: Section) => {
         return {
@@ -74,7 +82,7 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
                 if (authenticatedUserReview || pinnedReview) {
                     return (
                         <NavigationWrapper>
-                            {pinnedReview && <StyledButton {...addPropsToButton("pinnedReview")}>Pinned review</StyledButton>}
+                            {pinnedReview && pinnedReviewAndAuthenticatedUserReviewAreNotTheSame && <StyledButton {...addPropsToButton("pinnedReview")}>Pinned review</StyledButton>}
                             {authenticatedUserReview && <StyledButton {...addPropsToButton("authenticatedUserReview")}>Your review</StyledButton>}
                             <StyledButton {...addPropsToButton("createReview")}>{authenticatedUserReview ? "Modify your review" : "Create review"}</StyledButton>
                         </NavigationWrapper>
