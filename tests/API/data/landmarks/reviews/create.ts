@@ -1,4 +1,4 @@
-import type { CreateReviewRequest } from "@/pages/api/landmark/[id]/reviews/create";
+import type { CreateReviewRequest } from "@/pages/api/landmark/[landmark_id]/reviews/@types";
 
 export const validDataRequestBody = {
     tags: ["lorem", "ipsum"],

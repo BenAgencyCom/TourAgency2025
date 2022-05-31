@@ -1,5 +1,12 @@
 // Types
+import type { LandmarkReview } from "@prisma/client";
 import type { GuardedAPIResponse } from "@/utils/api/GuardedAPIEndpoint";
+
+export interface UpdateRecordMethodParams {
+    tags: LandmarkReview["tags"];
+    points: LandmarkReview["points"];
+    reviewContent: LandmarkReview["review"];
+}
 
 export interface PrismaRequestBrokerConstructorParams {
     /** Review id */
@@ -10,5 +17,5 @@ export interface PrismaRequestBrokerConstructorParams {
 }
 
 export interface PrismaRequestBroker extends PrismaRequestBrokerConstructorParams {
-    deleteRecord: () => Promise<void>;
+    updateRecord: (params: UpdateRecordMethodParams) => Promise<void>;
 }

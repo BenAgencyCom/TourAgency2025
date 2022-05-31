@@ -1,10 +1,11 @@
 // Tools
 import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
 import DeleteReviewAPI from "@/utils/api/pages/reviews/DeleteReviewAPI";
+import UpdateReviewAPI from "@/utils/api/pages/reviews/UpdateReviewAPI";
 import { Conflict, InvalidRequestedBody, Forbidden, NotFound, MethodNotAllowed } from "@/utils/api/Errors";
 // Types
-import type { DeleteReviewRequest } from "./@types";
 import type { NextApiResponse, NextApiRequest } from "next";
+import type { DeleteReviewRequest, UpdateReviewRequest } from "./@types";
 import type { GuardedAPIResponse } from "@/utils/api/GuardedAPIEndpoint";
 
 export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
@@ -30,6 +31,20 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
         // PATCH: update currently existing review
         //
         else if (method === "PATCH") {
+            const request = _req as UpdateReviewRequest;
+
+            const API = new UpdateReviewAPI({
+                authenticationResponse: (await GuardedAPIEndpoint(request, "PATCH", "user")) as GuardedAPIResponse,
+                elementType: "landmark",
+                idOfReview: request.query.review_id,
+                idOfElementAssociatedWithReview: request.query.landmark_id,
+            });
+            await API.updateRecord({
+                points: request.body.points,
+                reviewContent: request.body.reviewContent,
+                tags: request.body.tags,
+            });
+
             return res.status(200).end();
         }
         // Unhandled method request
