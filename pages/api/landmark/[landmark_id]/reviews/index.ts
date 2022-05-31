@@ -1,8 +1,8 @@
 // Tools
-import BulkReviewsAPI from "@/utils/api/pages/reviews/BulkReviewsAPI";
 import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
+import BulkReviewsAPI from "@/utils/api/pages/reviews/BulkReviewsAPI";
 import CreateReviewAPI from "@/utils/api/pages/reviews/CreateReviewAPI";
-import { Conflict, InvalidRequestedBody, Forbidden, NotFound } from "@/utils/api/Errors";
+import { Conflict, InvalidRequestedBody, Forbidden, NotFound, MethodNotAllowed } from "@/utils/api/Errors";
 // Types
 import type { NextApiResponse, NextApiRequest } from "next";
 import type { GuardedAPIResponse } from "@/utils/api/GuardedAPIEndpoint";
@@ -16,7 +16,7 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
         //
         if (method === "GET") {
             const request = _req as GetBulkReviewsRequest;
-            const ReviewsAPI = new BulkReviewsAPI({ reviewsType: "landmarks", reviewingModelId: request.query.id });
+            const ReviewsAPI = new BulkReviewsAPI({ reviewsType: "landmarks", reviewingModelId: request.query.landmark_id });
             return res.send(await ReviewsAPI.processComingRequest(request));
         }
         //
@@ -28,34 +28,20 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
 
             const API = new CreateReviewAPI({
                 elementType: "landmark",
-                idOfElementToAddReview: request.query.id as string,
+                idOfElementToAddReview: request.query.landmark_id as string,
                 userId: authenticatedUserId,
             });
             await API.create(request.body);
 
             return res.status(201).end();
         }
-        //
-        // PATCH: update currently existing review
-        //
-        else if (method === "POST") {
-            return res.status(200).end();
-        }
-        //
-        // DELETE: delete existing review
-        //
-        else if (method === "DELETE") {
-            const request = _req as CreateReviewRequest;
-            const { authenticatedUserId } = (await GuardedAPIEndpoint(request, "POST", "user")) as GuardedAPIResponse;
-
-            return res.status(200).end();
-        }
         // Unhandled method request
-        throw new NotFound();
+        throw new MethodNotAllowed();
     } catch (e) {
         if (e instanceof InvalidRequestedBody) return res.status(400).json(e.joiFeedback);
         else if (e instanceof Forbidden) return res.status(403).end();
         else if (e instanceof NotFound) return res.status(404).end();
+        else if (e instanceof MethodNotAllowed) return res.status(405).end();
         else if (e instanceof Conflict) return res.status(409).end();
         return res.status(500).end();
     }

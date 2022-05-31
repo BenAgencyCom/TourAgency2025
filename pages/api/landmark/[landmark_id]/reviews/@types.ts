@@ -6,7 +6,7 @@ import type { OrderBy, Sort } from "@/@types/pages/api/ReviewsAPI";
 /** **GET** */
 export interface GetBulkReviewsRequest extends NextApiRequest {
     query: {
-        id: string;
+        landmark_id: string;
         orderBy?: OrderBy;
         sort?: Sort;
         page?: string;
@@ -18,17 +18,11 @@ export interface GetBulkReviewsRequest extends NextApiRequest {
 /** **POST** */
 export interface CreateReviewRequest extends NextApiRequest {
     query: {
-        id: string;
+        landmark_id: string;
     };
     body: {
         points: number;
         reviewContent: string;
         tags: string[];
-    };
-}
-/** **DELETE** */
-export interface DeleteReviewRequest extends NextApiRequest {
-    query: {
-        id: string;
     };
 }

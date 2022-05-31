@@ -1,6 +1,8 @@
+// Tools
 import { prisma } from "@/prisma/db";
+import { Forbidden, MethodNotAllowed } from "@/utils/api/Errors";
+// Types
 import type { NextApiRequest } from "next";
-import { Forbidden, NotFound } from "@/utils/api/Errors";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 type Intensitivity = "admin" | "user" | "anonymous";
@@ -8,7 +10,7 @@ type Intensitivity = "admin" | "user" | "anonymous";
  * Guarded API endpoint
  * Throwns:
  * - `Forbidden`-  when access is denied
- * - `NotFound`-  if method is not allowed
+ * - `MethodNotAllowed`-  if method is not allowed
  * Returns
  * - `null` when anonymous is expected and simply there is nothing to be returned
  * - Otherwise, the object matching following scheme will be returned:
@@ -26,7 +28,7 @@ export interface GuardedAPIResponse {
 }
 
 const GuardedAPIEndpoint = async (req: NextApiRequest, method: Method, intensitivity: Intensitivity): Promise<GuardedAPIResponse | null> => {
-    if (req.method !== method) throw new NotFound();
+    if (req.method !== method) throw new MethodNotAllowed();
     const { accessToken } = req.cookies;
     // Anonymous authorized
     if (!accessToken && intensitivity === "anonymous") return null;
