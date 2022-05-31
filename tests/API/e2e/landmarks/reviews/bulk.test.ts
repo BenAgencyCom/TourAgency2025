@@ -16,7 +16,7 @@ import type { Review } from "@/@types/pages/api/ReviewsAPI";
 
 const ALL_TYPES = ["MIXED", "NEGATIVE", "POSITIVE"] as ReviewType[];
 
-describe("GET: api/landmark/[slug]/reviews", () => {
+describe("GET: /api/landmark/[landmark_id]/reviews", () => {
     const LANDMARK_ID = "1";
 
     describe("Pinned review", () => {

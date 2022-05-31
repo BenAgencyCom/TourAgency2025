@@ -19,17 +19,18 @@ interface TestPOSTRequestStatus {
     expectedStatus: number;
     endpoint: string;
     Cookie?: string;
-    body: Record<any, any> | FormData;
+    body?: Record<any, any> | FormData;
+    method?: "POST" | "DELETE" | "PATCH";
 }
-export const testPOSTRequestStatus = async (props: TestPOSTRequestStatus) => {
+export const testRequestStatus = async (props: TestPOSTRequestStatus) => {
     const { endpoint, expectedStatus, Cookie, body } = props;
     return await axios({
-        method: "POST",
+        method: props.method ?? "POST",
         url: `${API_ADDRESS}/${endpoint}`,
         data: body,
         headers: {
             Cookie: Cookie ?? "",
-            ...(body.getHeaders && body.getHeaders()),
+            ...(body && body.getHeaders && body.getHeaders()),
         },
         validateStatus: () => true,
     }).then((res) => {

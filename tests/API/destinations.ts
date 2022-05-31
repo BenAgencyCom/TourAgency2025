@@ -4,7 +4,7 @@
 
 // Tools
 import axios from "axios";
-import { testPOSTRequestStatus } from "./helpers/testStatus";
+import { testRequestStatus } from "./helpers/testStatus";
 import prisma from "./helpers/db";
 import path from "path";
 import FormData from "form-data";
@@ -83,10 +83,10 @@ describe("DESTINATIONS", () => {
             expect(status).toEqual(201);
         });
         test("User should NOT be able to create an destinatnion", async () => {
-            await testPOSTRequestStatus("/api/destination/create", 403, notAdminUser.accessToken as string);
+            await testRequestStatus("/api/destination/create", 403, notAdminUser.accessToken as string);
         });
         test("Anonymous should NOT be able to create an destinatnion", async () => {
-            await testPOSTRequestStatus("/api/destination/create", 403);
+            await testRequestStatus("/api/destination/create", 403);
         });
     });
 

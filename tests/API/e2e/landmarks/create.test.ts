@@ -7,7 +7,7 @@ import path from "path";
 import fse from "fs-extra";
 import { uploadDir } from "@/utils/paths";
 import { PrismaClient } from "@prisma/client";
-import { testPOSTRequestStatus } from "@/tests/API/helpers/testStatus";
+import { testRequestStatus } from "@/tests/API/helpers/testStatus";
 import MockUser from "@/tests/API/helpers/mocks/MockUser";
 import { convertJSONintoFormData, landmarkDataForCreation, destinationPrismaData, DESTINATION_ID, VERY_LONG_STRING, EXPECTED_DESCRIPTION_IMAGES } from "../../data/landmarks/create";
 // Types
@@ -16,7 +16,7 @@ import { FieldType } from "@/@types/Description";
 import type { ValidLandmarkData } from "@/tests/API/data/landmarks/create/@types";
 
 const expectUnprocessableEntity = async (body: Partial<ValidLandmarkData>, Cookie: string) => {
-    await testPOSTRequestStatus({
+    await testRequestStatus({
         expectedStatus: 422,
         endpoint: "/api/landmark/create",
         body: convertJSONintoFormData(body),
@@ -47,7 +47,7 @@ describe("POST: api/landmark/create", () => {
     });
 
     test("Unauthenticated user cannot create a landmark", async () => {
-        await testPOSTRequestStatus({
+        await testRequestStatus({
             expectedStatus: 401,
             endpoint: "/api/landmark/create",
             body: convertJSONintoFormData(getValidLandmarkData()),
@@ -55,7 +55,7 @@ describe("POST: api/landmark/create", () => {
     });
     describe("Landmark can be created while using valid data", () => {
         beforeAll(async () => {
-            await testPOSTRequestStatus({
+            await testRequestStatus({
                 expectedStatus: 201,
                 endpoint: "/api/landmark/create",
                 body: convertJSONintoFormData(getValidLandmarkData()),

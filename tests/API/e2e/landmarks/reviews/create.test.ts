@@ -1,6 +1,6 @@
 // Tools
 import prisma from "@/tests/API/helpers/db";
-import { testPOSTRequestStatus } from "@/tests/API/helpers/testStatus";
+import { testRequestStatus } from "@/tests/API/helpers/testStatus";
 import { validDataRequestBody } from "@/tests/API/data/landmarks/reviews/create";
 import { VERY_LONG_STRING } from "@/tests/API/data/landmarks/create/index";
 // Mocks
@@ -8,11 +8,11 @@ import MockUser from "@/tests/API/helpers/mocks/MockUser";
 import MockLandmark from "@/tests/API/helpers/mocks/MockLandmark";
 import MockDestination from "@/tests/API/helpers/mocks/MockDestination";
 // Types
-import type { CreateReviewRequest } from "@/pages/api/landmark/[id]/reviews/@types";
+import type { CreateReviewRequest } from "@/pages/api/landmark/[landmark_id]/reviews/@types";
 
 const createRequestBody = (): Partial<CreateReviewRequest["body"]> => JSON.parse(JSON.stringify(validDataRequestBody));
 
-describe("POST: api/landmark/[slug]/reviews", () => {
+describe("POST: /api/landmark/[landmark_id]/reviews", () => {
     const user = new MockUser();
     const destination = new MockDestination();
     const landmark = new MockLandmark();
@@ -39,7 +39,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
     });
 
     test("User can create a review", async () => {
-        await testPOSTRequestStatus({
+        await testRequestStatus({
             body: validDataRequestBody,
             endpoint: `/api/landmark/${landmark.id as string}/reviews`,
             expectedStatus: 201,
@@ -61,13 +61,13 @@ describe("POST: api/landmark/[slug]/reviews", () => {
     });
 
     test("One user cannot create a few reviews to the same landmark", async () => {
-        await testPOSTRequestStatus({
+        await testRequestStatus({
             body: validDataRequestBody,
             endpoint: `/api/landmark/${landmark.id as string}/reviews`,
             expectedStatus: 201,
             Cookie: user.accessTokenAsCookie as string,
         });
-        await testPOSTRequestStatus({
+        await testRequestStatus({
             body: validDataRequestBody,
             endpoint: `/api/landmark/${landmark.id as string}/reviews`,
             expectedStatus: 409,
@@ -90,7 +90,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
         });
     });
     test("Anonymous cannot create a review", async () => {
-        await testPOSTRequestStatus({
+        await testRequestStatus({
             body: validDataRequestBody,
             endpoint: `/api/landmark/${landmark.id as string}/reviews`,
             expectedStatus: 403,
@@ -104,7 +104,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
         expect(reviewInDatabase).toHaveLength(0);
     });
     test("404 while trying to create a review of unexisting landmark", async () => {
-        await testPOSTRequestStatus({
+        await testRequestStatus({
             body: validDataRequestBody,
             endpoint: `/api/landmark/uexsitingi23u9128u329/reviews`,
             expectedStatus: 404,
@@ -124,7 +124,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 delete body.points;
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -135,7 +135,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 body.points = 1000000;
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -146,7 +146,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 body.points = "invalid type" as any;
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -157,7 +157,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 body.points = -12;
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -170,7 +170,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 delete body.reviewContent;
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -181,7 +181,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 body.reviewContent = VERY_LONG_STRING;
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -192,7 +192,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 body.reviewContent = -12 as any;
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -203,7 +203,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 body.reviewContent = "small";
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -215,7 +215,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
             test("Missing data", async () => {
                 const body = createRequestBody();
                 delete body.tags;
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -225,7 +225,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
             test("Too many tags", async () => {
                 const body = createRequestBody();
                 body.tags = ["lorem1", "lorem2", "lorem3", "lorem4", "lorem5", "lorem6"];
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -236,7 +236,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 body.tags = [];
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -247,7 +247,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 const body = createRequestBody();
                 body.tags = 5 as any;
 
-                await testPOSTRequestStatus({
+                await testRequestStatus({
                     body,
                     endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
@@ -258,7 +258,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 test("Too big", async () => {
                     const body = createRequestBody();
                     body.tags = ["lorem1", VERY_LONG_STRING];
-                    await testPOSTRequestStatus({
+                    await testRequestStatus({
                         body,
                         endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                         expectedStatus: 400,
@@ -268,7 +268,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 test("Invalid type", async () => {
                     const body = createRequestBody();
                     body.tags = [1, 2, 3] as any;
-                    await testPOSTRequestStatus({
+                    await testRequestStatus({
                         body,
                         endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                         expectedStatus: 400,
@@ -278,7 +278,7 @@ describe("POST: api/landmark/[slug]/reviews", () => {
                 test("To little", async () => {
                     const body = createRequestBody();
                     body.tags = ["lorem1", "l"];
-                    await testPOSTRequestStatus({
+                    await testRequestStatus({
                         body,
                         endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                         expectedStatus: 400,

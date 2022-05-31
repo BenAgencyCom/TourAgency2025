@@ -8,7 +8,7 @@ import type { Mock } from "./@types";
 import type { RegisterResponse } from "@/@types/router/auth/register";
 
 interface PrepareParams {
-    id: string;
+    id?: string;
     email?: string;
     isAdmin?: boolean;
     password?: string;
