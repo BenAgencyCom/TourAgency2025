@@ -6,6 +6,7 @@ import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
 import type { NextApiRequest } from "next";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { ReviewFromQuery, PrismaRequestBroker } from "./@types";
+import type { GuardedAPIResponse } from "@/utils/api/GuardedAPIEndpoint";
 
 interface AuthenticatedUserReviewParams {
     PrismaRequestBroker: PrismaRequestBroker;
@@ -50,9 +51,9 @@ export default class AuthenticatedUserReview extends FindOneReview {
      * immediately processed and eventually `null` would be returned from the public method
      */
     private async getAutheticatedUserId(): Promise<string> {
-        const id = await GuardedAPIEndpoint(this.request, "GET", "user");
-        if (id === null) throw new ThereIsNoAuthenticatedUserReview();
-        return id;
+        const { authenticatedUserId } = (await GuardedAPIEndpoint(this.request, "GET", "user")) as GuardedAPIResponse;
+        if (authenticatedUserId === null) throw new ThereIsNoAuthenticatedUserReview();
+        return authenticatedUserId;
     }
     /**
      * Try to find a review associated with currently authenticated user. If review does not exist then

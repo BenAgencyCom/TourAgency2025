@@ -5,7 +5,8 @@ import CreateReviewAPI from "@/utils/api/pages/reviews/CreateReviewAPI";
 import { Conflict, InvalidRequestedBody, Forbidden, NotFound } from "@/utils/api/Errors";
 // Types
 import type { NextApiResponse, NextApiRequest } from "next";
-import type { GetBulkReviewsRequest, CreateReviewRequest, DeleteReviewRequest } from "./@types";
+import type { GuardedAPIResponse } from "@/utils/api/GuardedAPIEndpoint";
+import type { GetBulkReviewsRequest, CreateReviewRequest } from "./@types";
 
 export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -23,18 +24,17 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
         //
         else if (method === "POST") {
             const request = _req as CreateReviewRequest;
-            const userId = await GuardedAPIEndpoint(request, "POST", "user");
+            const { authenticatedUserId } = (await GuardedAPIEndpoint(request, "POST", "user")) as GuardedAPIResponse;
 
             const API = new CreateReviewAPI({
                 elementType: "landmark",
                 idOfElementToAddReview: request.query.id as string,
-                userId: userId as string,
+                userId: authenticatedUserId,
             });
             await API.create(request.body);
 
             return res.status(201).end();
         }
-
         //
         // PATCH: update currently existing review
         //
@@ -45,6 +45,9 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
         // DELETE: delete existing review
         //
         else if (method === "DELETE") {
+            const request = _req as CreateReviewRequest;
+            const { authenticatedUserId } = (await GuardedAPIEndpoint(request, "POST", "user")) as GuardedAPIResponse;
+
             return res.status(200).end();
         }
         // Unhandled method request

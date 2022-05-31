@@ -6,15 +6,26 @@ type Method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 type Intensitivity = "admin" | "user" | "anonymous";
 /**
  * Guarded API endpoint
- *
- * @throws {Forbidden} if access is denied
- * @throws {NotFound} if method is not allowed
- *
- * @async
- * @returns {string | null} id of authenticated either user of admin
+ * Throwns:
+ * - `Forbidden`-  when access is denied
+ * - `NotFound`-  if method is not allowed
+ * Returns
+ * - `null` when anonymous is expected and simply there is nothing to be returned
+ * - Otherwise, the object matching following scheme will be returned:
+ * ```ts
+ *  {
+ *      authenticatedUserId: string,
+ *      isAdmin: boolean
+ *  }
+ * ```
  */
 
-const GuardedAPIEndpoint = async (req: NextApiRequest, method: Method, intensitivity: Intensitivity): Promise<string | null> => {
+export interface GuardedAPIResponse {
+    authenticatedUserId: string;
+    isAdmin: boolean;
+}
+
+const GuardedAPIEndpoint = async (req: NextApiRequest, method: Method, intensitivity: Intensitivity): Promise<GuardedAPIResponse | null> => {
     if (req.method !== method) throw new NotFound();
     const { accessToken } = req.cookies;
     // Anonymous authorized
@@ -27,13 +38,18 @@ const GuardedAPIEndpoint = async (req: NextApiRequest, method: Method, intensiti
         select: { user: { select: { isAdmin: true, id: true } } },
     });
 
+    const response: GuardedAPIResponse = {
+        authenticatedUserId: session?.user.id as string,
+        isAdmin: session?.user.isAdmin as boolean,
+    };
+
     switch (intensitivity) {
         case "admin":
             if (session?.user.isAdmin === false) throw new Forbidden();
-            else return session?.user.id as string;
+            else return response;
         case "user":
             if (session === null) throw new Forbidden();
-            else return session?.user.id as string;
+            else return response;
         case "anonymous":
             if (session !== null) throw new Forbidden();
             break;
