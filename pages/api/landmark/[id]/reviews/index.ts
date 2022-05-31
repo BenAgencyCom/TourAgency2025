@@ -1,13 +1,11 @@
 // Tools
-import BulkReviewsAPI from "@/utils/api/pages/BulkReviewsAPI";
+import BulkReviewsAPI from "@/utils/api/pages/reviews/BulkReviewsAPI";
 import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
-import CreateReviewAPI from "@/utils/api/pages/CreateReviewAPI";
-import { Conflict, InvalidRequestedBody, Forbidden, NotFound, ValidationError } from "@/utils/api/Errors";
+import CreateReviewAPI from "@/utils/api/pages/reviews/CreateReviewAPI";
+import { Conflict, InvalidRequestedBody, Forbidden, NotFound } from "@/utils/api/Errors";
 // Types
-import type { ReviewType } from "@prisma/client";
 import type { NextApiResponse, NextApiRequest } from "next";
-import type { OrderBy, Sort } from "@/@types/pages/api/ReviewsAPI";
-import type { GetBulkReviewsRequest, CreateReviewRequest } from "./@types";
+import type { GetBulkReviewsRequest, CreateReviewRequest, DeleteReviewRequest } from "./@types";
 
 export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
     try {

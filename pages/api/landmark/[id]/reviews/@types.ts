@@ -17,9 +17,18 @@ export interface GetBulkReviewsRequest extends NextApiRequest {
 }
 /** **POST** */
 export interface CreateReviewRequest extends NextApiRequest {
+    query: {
+        id: string;
+    };
     body: {
         points: number;
         reviewContent: string;
         tags: string[];
+    };
+}
+/** **DELETE** */
+export interface DeleteReviewRequest extends NextApiRequest {
+    query: {
+        id: string;
     };
 }

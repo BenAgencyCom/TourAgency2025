@@ -2,8 +2,8 @@
 import joi from "joi";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
 import restrictions from "@/utils/restrictions/createReview";
-import LandmarkReviewBroker from "./PrismaRequstBrokers/LandmarkReviewBroker";
-import DestinationReviewBroker from "./PrismaRequstBrokers/DestinationReviewBroker";
+import LandmarkReviewBroker from "./PrismaReqeustBrokers/LandmarkReviewBroker";
+import DestinationReviewBroker from "./PrismaReqeustBrokers/DestinationReviewBroker";
 
 // Types
 import type { PrismaRequestBroker, AddRecordMethodParams, PrismaRequestBrokerConstructorParams } from "./@types";

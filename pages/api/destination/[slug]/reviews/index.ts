@@ -1,6 +1,6 @@
 // Tools
 import { ValidationError } from "@/utils/api/Errors";
-import BulkReviewsAPI from "@/utils/api/pages/BulkReviewsAPI";
+import BulkReviewsAPI from "@/utils/api/pages/reviews/BulkReviewsAPI";
 // Types
 import type { ReviewType } from "@prisma/client";
 import type { NextApiResponse, NextApiRequest } from "next";

@@ -1,6 +1,6 @@
 // Tools
 import { prisma } from "@/prisma/db";
-import BulkReviewsAPI from "@/utils/api/pages/BulkReviewsAPI";
+import BulkReviewsAPI from "@/utils/api/pages/reviews/BulkReviewsAPI";
 import { SelectMainDestination } from "./PrismaSelectPart";
 // Types
 import type { DescriptionContentField } from "@/@types/Description";
