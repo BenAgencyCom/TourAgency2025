@@ -70,8 +70,7 @@ interface StyledInputProps extends InputBaseProps {
 const StyledInput: ForwardRefExoticComponent<StyledInputProps> = forwardRef((props, ref) => {
     const { icon, onChange, lengthNotification, ...propsToForward } = props;
 
-    const inputRef = useRef<HTMLElement>();
-    const [debounce, setDebounce] = useState<number | null>(null);
+    const inputRef = useRef<HTMLInputElement>();
     const [newContent, setNewContent] = useState<string>(props.value as string);
 
     // Manage received ref property
@@ -98,12 +97,12 @@ const StyledInput: ForwardRefExoticComponent<StyledInputProps> = forwardRef((pro
             if (length > max) return;
         }
         setNewContent(e.target.value as string);
-
-        if (debounce) clearTimeout(debounce);
-        setDebounce(setTimeout(onBlur, 100) as any);
+        onBlur();
     };
     const onBlur = () => {
-        if (props.onChange) props.onChange({ target: { value: newContent } } as any);
+        if (props.onChange) {
+            props.onChange({ target: { value: inputRef.current?.value as string } } as any);
+        }
     };
 
     return (
