@@ -36,6 +36,11 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
     }
 
     public async main(): Promise<ReviewsCallResponse> {
+        // ensure that landmark with given id exists
+        await this.PrismaRequestBroker.ensureThatRecordIsApproved();
+        // const landmark = await prisma.landmark.findUnique({ where: { id: req.query.id }, select: { status: true } });
+        // if (!landmark || landmark.status !== "APPROVED") throw new NotFound();
+
         const reviewsFromQuery: ReviewFromQuery[] = await this.PrismaRequestBroker.callForReviews(this.converURLQueriesIntoPrismaBody());
         const reviews = new MergeReviewsAndFeedback({
             reviewsFromQuery,

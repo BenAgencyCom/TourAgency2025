@@ -1,5 +1,6 @@
 // Tools
 import { prisma } from "@/prisma/db";
+import { NotFound } from "@/utils/api/Errors";
 import PrismaRequestBody from "./PrismaRequestBody";
 // Types
 import type { ReviewType } from "@prisma/client";
@@ -9,6 +10,16 @@ import type { PrismaRequestBroker, ReviewFromQuery, FeedbackFromQuery, Aggregate
 
 export default class DestinationBroker implements PrismaRequestBroker {
     public constructor(public type: BulkReviewsType, public id: string) {}
+
+    public async ensureThatRecordIsApproved(): Promise<void> {
+        const model = await prisma.destination.findFirst({
+            where: {
+                id: this.id,
+                status: "APPROVED",
+            },
+        });
+        if (!model) throw new NotFound();
+    }
 
     public async callForReviews(convertedURLsQueries: URLQueriesConvertedIntoPrismaBody): Promise<ReviewFromQuery[]> {
         const { where, skip, take, orderBy, select } = new PrismaRequestBody().create(convertedURLsQueries);

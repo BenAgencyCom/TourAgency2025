@@ -8,11 +8,11 @@ import MockUser from "@/tests/API/helpers/mocks/MockUser";
 import MockLandmark from "@/tests/API/helpers/mocks/MockLandmark";
 import MockDestination from "@/tests/API/helpers/mocks/MockDestination";
 // Types
-import type { CreateReviewRequest } from "@/pages/api/landmark/[id]/reviews/create";
+import type { CreateReviewRequest } from "@/pages/api/landmark/[id]/reviews/@types";
 
 const createRequestBody = (): Partial<CreateReviewRequest["body"]> => JSON.parse(JSON.stringify(validDataRequestBody));
 
-describe("POST: api/landmark/[slug]/reviews/create", () => {
+describe("POST: api/landmark/[slug]/reviews", () => {
     const user = new MockUser();
     const destination = new MockDestination();
     const landmark = new MockLandmark();
@@ -41,7 +41,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
     test("User can create a review", async () => {
         await testPOSTRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews`,
             expectedStatus: 201,
             Cookie: user.accessTokenAsCookie as string,
         });
@@ -63,13 +63,13 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
     test("One user cannot create a few reviews to the same landmark", async () => {
         await testPOSTRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews`,
             expectedStatus: 201,
             Cookie: user.accessTokenAsCookie as string,
         });
         await testPOSTRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews`,
             expectedStatus: 409,
             Cookie: user.accessTokenAsCookie as string,
         });
@@ -92,7 +92,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
     test("Anonymous cannot create a review", async () => {
         await testPOSTRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews`,
             expectedStatus: 403,
         });
         const reviewInDatabase = await prisma.landmarkReview.findMany({
@@ -106,7 +106,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
     test("404 while trying to create a review of unexisting landmark", async () => {
         await testPOSTRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/uexsitingi23u9128u329/reviews/create`,
+            endpoint: `/api/landmark/uexsitingi23u9128u329/reviews`,
             expectedStatus: 404,
             Cookie: user.accessTokenAsCookie as string,
         });
@@ -126,7 +126,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -137,7 +137,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -148,7 +148,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -159,7 +159,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -172,7 +172,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -183,7 +183,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -194,7 +194,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -205,7 +205,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -217,7 +217,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
                 delete body.tags;
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -227,7 +227,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
                 body.tags = ["lorem1", "lorem2", "lorem3", "lorem4", "lorem5", "lorem6"];
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -238,7 +238,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -249,7 +249,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
 
                 await testPOSTRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -260,7 +260,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
                     body.tags = ["lorem1", VERY_LONG_STRING];
                     await testPOSTRequestStatus({
                         body,
-                        endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                        endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                         expectedStatus: 400,
                         Cookie: user.accessTokenAsCookie as string,
                     });
@@ -270,7 +270,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
                     body.tags = [1, 2, 3] as any;
                     await testPOSTRequestStatus({
                         body,
-                        endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                        endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                         expectedStatus: 400,
                         Cookie: user.accessTokenAsCookie as string,
                     });
@@ -280,7 +280,7 @@ describe("POST: api/landmark/[slug]/reviews/create", () => {
                     body.tags = ["lorem1", "l"];
                     await testPOSTRequestStatus({
                         body,
-                        endpoint: `/api/landmark/${landmark.id as string}/reviews/create`,
+                        endpoint: `/api/landmark/${landmark.id as string}/reviews`,
                         expectedStatus: 400,
                         Cookie: user.accessTokenAsCookie as string,
                     });

@@ -6,7 +6,12 @@ import type { URLQueriesConvertedIntoPrismaBody } from "@/@types/pages/api/BulkA
 export interface PrismaRequestBroker {
     type: BulkReviewsType;
     id: string;
-
+    /**
+     * Ensures that landmark exists at all and also has status fixed to `APPROVED`
+     * Throwns
+     * - `NotFound` when any of above scenerios occures.
+     */
+    ensureThatRecordIsApproved(): Promise<void>;
     /**
      * Accpets one parameter- object containning url queries and returns collection of reviews
      */
