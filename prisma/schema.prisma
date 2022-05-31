@@ -47,9 +47,9 @@ model Session {
 }
 
 model Destination {
-  id                String    @id @default(cuid())
-  creatorId         String?   @map("creator_id")
-  slug              String    @unique
+  id                String        @id @default(cuid())
+  creatorId         String?       @map("creator_id")
+  slug              String        @unique
   city              String
   country           String
   countryCode       String
@@ -58,7 +58,8 @@ model Destination {
   shortDescription  String
   description       Json
   folder            String
-  createdAt         DateTime  @default(now())
+  status            ContentStatus @default(WAITING_FOR_APPROVAL)
+  createdAt         DateTime      @default(now())
   // For seaching purpose
   country_lowercase String
   city_lowercase    String
