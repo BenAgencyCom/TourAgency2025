@@ -66,6 +66,8 @@ describe("DELETE: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
             expectedStatus: 200,
         });
         await expectReviewToExist(false);
+
+        await admin.remove();
     });
 
     test("404 when trying to delete a unexisting review", async () => {
@@ -90,5 +92,6 @@ describe("DELETE: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
             expectedStatus: 403,
         });
         await expectReviewToExist(true);
+        await diffrentUser.remove();
     });
 });
