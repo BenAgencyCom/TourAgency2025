@@ -28,6 +28,7 @@ export default class MockLandmarkReviewLike implements Mock {
 
     public async remove(): Promise<MockLandmarkReviewLike> {
         await prisma.landmarkReviewLike.delete({ where: { id: this.id as string } });
+        this.id = null;
         return this;
     }
 }

@@ -42,6 +42,7 @@ export default class MockLandmarkReview extends MockReviewAbstract implements Re
         if (this.id === null) return this;
         if (await prisma.landmarkReview.findUnique({ where: { id: this.id } })) {
             await prisma.landmarkReview.delete({ where: { id: this.id } });
+            this.id = null;
         }
 
         for (const mockedUser of this.mockedUsers) {
