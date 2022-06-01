@@ -1,5 +1,5 @@
 import type { ReviewType } from "@prisma/client";
-import type { DestinationReview, User } from "@prisma/client";
+import type { DestinationReview, User, Feedback as _Feedback } from "@prisma/client";
 import type { BulkReviewsType, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
 import type { URLQueriesConvertedIntoPrismaBody } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
 
@@ -41,6 +41,10 @@ export interface PrismaRequestBroker {
      * The only parameter review's id
      */
     getSpecifiedReview(reviewId: string): Promise<ReviewFromQuery | null>;
+    /**
+     * Distinguish whether currently authenticated user had liked/disliked one of reviews from feedback
+     */
+    getAuthenticatedUserFeedback(params: { reviewsIDsList: string[]; userId: string }): Promise<AuthenticatedUserFeedbackFromQuery[]>;
 }
 
 export interface ReviewFromQuery {
@@ -62,9 +66,13 @@ export interface ReviewFromQuery {
     };
 }
 
+export interface AuthenticatedUserFeedbackFromQuery {
+    reviewId: string;
+    feedback: _Feedback;
+}
 export interface FeedbackFromQuery {
     reviewId: string;
-    feedback: "LIKE" | "DISLIKE";
+    feedback: _Feedback;
     _count: {
         _all: number;
     };

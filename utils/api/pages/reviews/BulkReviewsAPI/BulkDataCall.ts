@@ -1,5 +1,7 @@
 // Tools
 import PinReview from "./PinReview";
+import { Forbidden } from "@/utils/api/Errors";
+import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
 import MergeReviewsAndFeedback from "./MergeReviewsAndFeedback";
 import AuthenticatedUserReview from "./AuthenticatedUserReview";
 import ReviewsPointsDistribution from "./ReviewsPointsDistribution";
@@ -38,13 +40,15 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
     public async main(): Promise<ReviewsCallResponse> {
         // ensure that landmark with given id exists
         await this.PrismaRequestBroker.ensureThatRecordIsApproved();
-        // const landmark = await prisma.landmark.findUnique({ where: { id: req.query.id }, select: { status: true } });
-        // if (!landmark || landmark.status !== "APPROVED") throw new NotFound();
+
+        const authenticatedUserId: string | null = await this.getAutheticatedUserId();
 
         const reviewsFromQuery: ReviewFromQuery[] = await this.PrismaRequestBroker.callForReviews(this.converURLQueriesIntoPrismaBody());
-        const reviews = new MergeReviewsAndFeedback({
+        const reviews = await new MergeReviewsAndFeedback({
             reviewsFromQuery,
             feedbackFromQuery: await this.PrismaRequestBroker.callForFeedback(reviewsFromQuery.map((el) => el.id)),
+            authenticatedUserId: authenticatedUserId,
+            PrismaRequestBroker: this.PrismaRequestBroker,
         }).combine();
 
         return {
@@ -62,7 +66,7 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
             // Current user review
             ...(await new AuthenticatedUserReview({
                 PrismaRequestBroker: this.PrismaRequestBroker,
-                request: this.request,
+                authenticatedUserId: authenticatedUserId,
             }).findReview()),
             // Pin one review
             ...(await new PinReview({
@@ -70,5 +74,18 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
                 pinnedReviewId: this.queriesFromRequest.pinnedReviewId,
             }).findReview()),
         };
+    }
+
+    /**
+     * Return id of currently authenticated user or return `false` otherwise
+     */
+    private async getAutheticatedUserId(): Promise<string | null> {
+        try {
+            const res = await GuardedAPIEndpoint(this.request, "GET", "user");
+            return res === null ? null : res.authenticatedUserId;
+        } catch (e: unknown) {
+            if (e instanceof Forbidden) return null;
+            else throw new Error();
+        }
     }
 }

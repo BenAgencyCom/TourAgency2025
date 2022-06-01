@@ -1,22 +1,19 @@
 // Tools
 import { Forbidden } from "@/utils/api/Errors";
 import FindOneReview from "./abstracts/FindOneReview";
-import GuardedAPIEndpoint from "@/utils/api/GuardedAPIEndpoint";
 // Types
-import type { NextApiRequest } from "next";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { ReviewFromQuery, PrismaRequestBroker } from "./@types";
-import type { GuardedAPIResponse } from "@/utils/api/GuardedAPIEndpoint";
 
 interface AuthenticatedUserReviewParams {
     PrismaRequestBroker: PrismaRequestBroker;
-    request: NextApiRequest;
+    authenticatedUserId: string | null;
 }
 
 class ThereIsNoAuthenticatedUserReview extends Error {}
 
 export default class AuthenticatedUserReview extends FindOneReview {
-    private readonly request: NextApiRequest;
+    private readonly authenticatedUserId: string | null;
     /**
      * Check whether the user is authenticated via the access token received from cookies,
      * subsequently look for associated with the user review and if one exists then get all
@@ -25,13 +22,13 @@ export default class AuthenticatedUserReview extends FindOneReview {
     public constructor(params: AuthenticatedUserReviewParams) {
         super({ PrismaRequestBroker: params.PrismaRequestBroker });
 
-        this.request = params.request;
+        this.authenticatedUserId = params.authenticatedUserId;
     }
 
     public async findReview(): Promise<{ authenticatedUserReview: Review } | null> {
+        if (this.authenticatedUserId === null) return null;
         try {
-            const reviewerId = await this.getAutheticatedUserId();
-            const unprocessedReview = await this.getAuthenticatedUserReview(reviewerId);
+            const unprocessedReview = await this.getAuthenticatedUserReview();
 
             return {
                 authenticatedUserReview: {
@@ -46,22 +43,12 @@ export default class AuthenticatedUserReview extends FindOneReview {
     }
 
     /**
-     * Return id of currently authenticated user,
-     * otherwise throw `ThereIsNoAuthenticatedUserReview` error, which would be
-     * immediately processed and eventually `null` would be returned from the public method
-     */
-    private async getAutheticatedUserId(): Promise<string> {
-        const { authenticatedUserId } = (await GuardedAPIEndpoint(this.request, "GET", "user")) as GuardedAPIResponse;
-        if (authenticatedUserId === null) throw new ThereIsNoAuthenticatedUserReview();
-        return authenticatedUserId;
-    }
-    /**
      * Try to find a review associated with currently authenticated user. If review does not exist then
      * throw `ThereIsNoAuthenticatedUserReview` error, which would be
      * immediately processed and eventually `null` would be returned from the public method
      */
-    private async getAuthenticatedUserReview(reviewerId: string): Promise<ReviewFromQuery> {
-        const review = await this.PrismaRequestBroker.getAuthenticatedUserReview(reviewerId);
+    private async getAuthenticatedUserReview(): Promise<ReviewFromQuery> {
+        const review = await this.PrismaRequestBroker.getAuthenticatedUserReview(this.authenticatedUserId as string);
         if (review === null) throw new ThereIsNoAuthenticatedUserReview();
         return review;
     }
