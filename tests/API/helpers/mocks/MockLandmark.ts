@@ -27,7 +27,7 @@ export default class MockLandmark implements Mock {
         this.title = faker.lorem.words(3).slice(0, 50);
     }
 
-    public async prepare(destinationId: string): Promise<any> {
+    public async prepare(destinationId: string): Promise<MockLandmark> {
         await prisma.landmark.create({
             data: {
                 id: this.id,
@@ -42,11 +42,12 @@ export default class MockLandmark implements Mock {
                 title_lowercase: this.title.toLowerCase(),
             },
         });
-        //
+        return this;
     }
-    public async remove(): Promise<void> {
+    public async remove(): Promise<MockLandmark> {
         await prisma.landmark.delete({
             where: { id: this.id },
         });
+        return this;
     }
 }

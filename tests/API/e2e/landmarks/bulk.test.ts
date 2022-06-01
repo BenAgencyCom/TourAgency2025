@@ -29,7 +29,7 @@ describe("GET: api/landmark/bulk", () => {
                 beforeAll(async () => {
                     // Create mocked landmark, just for the sake of testing.
                     await mockedDestination.prepare();
-                    await mockedLandmark.prepare(mockedDestination.id);
+                    await mockedLandmark.prepare(mockedDestination.id as string);
 
                     const res = await makeRequest({
                         certainLandmarkType: type,
@@ -80,13 +80,13 @@ describe("GET: api/landmark/bulk", () => {
         const testParticularContinent = (continent: Continent) => {
             describe(continent, () => {
                 let data: Landmark[] = [];
-                const mockedDestination = new MockDestination({ continent });
+                const mockedDestination = new MockDestination();
                 const mockedLandmark = new MockLandmark();
                 beforeAll(async () => {
                     const res = await makeRequest({ continent });
                     data = res.data;
-                    await mockedDestination.prepare();
-                    await mockedLandmark.prepare(mockedDestination.id);
+                    await mockedDestination.prepare({ continent });
+                    await mockedLandmark.prepare(mockedDestination.id as string);
                 });
                 afterAll(async () => {
                     // It is not neccesary to remove mockedLandmark, due to the
@@ -135,7 +135,7 @@ describe("GET: api/landmark/bulk", () => {
             const mockedDestination = new MockDestination();
             const mockedLandmark = new MockLandmark();
             await mockedDestination.prepare();
-            await mockedLandmark.prepare(mockedDestination.id);
+            await mockedLandmark.prepare(mockedDestination.id as string);
             //
             const res = await makeRequest({ searchingPhrase: mockedLandmark.title });
             expect(res.data).toHaveLength(0);

@@ -48,7 +48,7 @@ describe("DELETE: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
         await expectReviewToExist(true);
         await testRequestStatus({
             method: "DELETE",
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
             Cookie: author.accessTokenAsCookie as string,
             expectedStatus: 200,
         });
@@ -61,7 +61,7 @@ describe("DELETE: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
         await expectReviewToExist(true);
         await testRequestStatus({
             method: "DELETE",
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
             Cookie: admin.accessTokenAsCookie as string,
             expectedStatus: 200,
         });
@@ -87,7 +87,7 @@ describe("DELETE: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
         await expectReviewToExist(true);
         await testRequestStatus({
             method: "DELETE",
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
             Cookie: diffrentUser.accessTokenAsCookie as string,
             expectedStatus: 403,
         });

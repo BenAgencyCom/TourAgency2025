@@ -6,50 +6,54 @@ import MockUser from "@/tests/API/helpers/mocks/MockUser";
 // Types
 import { Prisma } from "@prisma/client";
 import type { ReviewMock } from "./@types";
-import type { ReviewType, Feedback } from "@prisma/client";
+import type { ReviewType } from "@prisma/client";
 
 interface LandmarkReviewInfo {
-    userId: string;
-    type: ReviewType;
+    userId?: string;
+    type?: ReviewType;
     landmarkId: string;
 }
 
 export default class MockLandmarkReview extends MockReviewAbstract implements ReviewMock {
     private mockedUsers: MockUser[] = [];
 
-    public ID: string | null = null;
+    public id: string | null = null;
     public constructor() {
         super();
     }
 
-    public async prepare(params: LandmarkReviewInfo) {
-        const { landmarkId, type, userId } = params;
+    public async prepare(params: LandmarkReviewInfo): Promise<MockLandmarkReview> {
+        const { landmarkId, type: _type, userId } = params;
+        const type: ReviewType = _type ?? "MIXED";
         const res = await prisma.landmarkReview.create({
             data: {
-                type,
+                type: type,
                 landmarkId,
-                reviewerId: userId,
+                reviewerId: userId ?? (await this._mockUser()),
                 tags: this.generateTags(),
                 review: faker.lorem.sentences(7),
                 points: this.generatePoints(type),
             },
         });
-        this.ID = res.id;
+        this.id = res.id;
+        return this;
     }
-    public async remove() {
-        if (this.ID === null) return;
-        if (await prisma.landmarkReview.findUnique({ where: { id: this.ID } })) {
-            await prisma.landmarkReview.delete({ where: { id: this.ID } });
+    public async remove(): Promise<MockLandmarkReview> {
+        if (this.id === null) return this;
+        if (await prisma.landmarkReview.findUnique({ where: { id: this.id } })) {
+            await prisma.landmarkReview.delete({ where: { id: this.id } });
         }
 
         for (const mockedUser of this.mockedUsers) {
             await mockedUser.remove();
         }
+
+        return this;
     }
 
-    public async addFeedback(params: { likes: number; dislikes: number }) {
-        const { ID: reviewId } = this;
-        if (reviewId === null) return;
+    public async addFeedback(params: { likes: number; dislikes: number }): Promise<MockLandmarkReview> {
+        const { id: reviewId } = this;
+        if (reviewId === null) return this;
         const data: Prisma.Enumerable<Prisma.LandmarkReviewLikeCreateManyInput> = [];
         // Store likes
         for (let i = 0; i < params.likes; i++) {
@@ -71,6 +75,8 @@ export default class MockLandmarkReview extends MockReviewAbstract implements Re
         await prisma.landmarkReviewLike.createMany({
             data,
         });
+
+        return this;
     }
 
     /**

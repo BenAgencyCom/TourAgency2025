@@ -34,7 +34,7 @@ export default class MockUser implements Mock {
 
     public constructor() {}
 
-    public async prepare(prepareParams?: PrepareParams) {
+    public async prepare(prepareParams?: PrepareParams): Promise<MockUser> {
         await this.createDatabaseRecord(prepareParams);
 
         if (this.credentials) {
@@ -45,9 +45,13 @@ export default class MockUser implements Mock {
             const unparsedCookie = (headers as RegisterResponse["headers"])["set-cookie"][0];
             this.accessTokenAsCookie = unparsedCookie;
         }
+
+        return this;
     }
-    public async remove() {
+    public async remove(): Promise<MockUser> {
         if (this.id) await prisma.user.delete({ where: { id: this.id } });
+
+        return this;
     }
 
     private async createDatabaseRecord(prepareParams?: PrepareParams) {

@@ -40,25 +40,25 @@ describe("GET: /api/landmark/[landmark_id]/reviews", () => {
 
         test("Review can be pinned", async () => {
             const res = await makeRequest(LANDMARK_ID)({
-                pinnedReviewId: review.ID as string,
+                pinnedReviewId: review.id as string,
                 perPage: 1,
             });
             expect(res.pinnedReview).not.toBeFalsy();
-            expect(res.pinnedReview?.id).toEqual(review.ID as string);
+            expect(res.pinnedReview?.id).toEqual(review.id as string);
         });
         test("Feedback has been assigned properly", async () => {
             const res = await makeRequest(LANDMARK_ID)({
-                pinnedReviewId: review.ID as string,
+                pinnedReviewId: review.id as string,
                 perPage: 1,
             });
             await expectAllRecordsToHaveProperlyAsignedFeedback([res.pinnedReview as Review]);
         });
         test("Pinned review does not repeat throughout the rest of the data", async () => {
             const res = await makeRequest(LANDMARK_ID)({
-                pinnedReviewId: review.ID as string,
+                pinnedReviewId: review.id as string,
             });
             const allReviewsIDs: string[] = res.reviews.map((el) => el.id);
-            expect(allReviewsIDs).not.toContain(review.ID as string);
+            expect(allReviewsIDs).not.toContain(review.id as string);
         });
     });
     describe("404", () => {
@@ -69,7 +69,7 @@ describe("GET: /api/landmark/[landmark_id]/reviews", () => {
             const destination = new MockDestination();
             const landmark = new MockLandmark();
             await destination.prepare();
-            await landmark.prepare(destination.id);
+            await landmark.prepare(destination.id as string);
             await testGETRequestStatus(`/api/landmark/${landmark.id}/reviews`, 404);
 
             await destination.remove();
@@ -118,7 +118,7 @@ describe("GET: /api/landmark/[landmark_id]/reviews", () => {
                     //
                     await user.prepare();
                     await destination.prepare();
-                    await landmark.prepare(destination.id);
+                    await landmark.prepare(destination.id as string);
                     await review.prepare({
                         landmarkId: landmark.id,
                         userId: user.id as string,

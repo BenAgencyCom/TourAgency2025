@@ -1,6 +1,7 @@
+// Types
+import type { ReviewType, Feedback as _Feedback } from "@prisma/client";
 import type { DestinationReview, User } from "@prisma/client";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
-import type { ReviewType } from "@prisma/client";
 
 export type BulkReviewsType = "landmarks" | "destinations"; // For `BulkReviewAPI` purpose
 export type OrderBy = "createdAt" | "points";
@@ -10,6 +11,12 @@ export type PointsDistribution = Record<ReviewType, number>;
 export interface Statistics {
     recordsInTotal: number;
     averageScore: number;
+}
+
+export interface Feedback {
+    likes: number;
+    dislikes: number;
+    authenticatedUserChoice?: _Feedback;
 }
 
 export interface Review {
@@ -29,10 +36,7 @@ export interface Review {
         avatar: User["avatar"];
         age: number; //
     };
-    feedback: {
-        likes: number;
-        dislikes: number;
-    };
+    feedback: Feedback;
 }
 
 export interface ConstructorParams {

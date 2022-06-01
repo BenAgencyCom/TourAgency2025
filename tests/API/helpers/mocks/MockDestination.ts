@@ -11,23 +11,16 @@ interface DestinationInfo {
 }
 
 export default class MockDestination implements Mock {
-    private readonly continent: Continent;
-    private slug: string;
-    public id: string;
+    public id: string | null = null;
 
-    public constructor(params?: DestinationInfo) {
-        this.continent = params ? params.continent : "Africa";
-        // it does not matter at all, just to be roughly random and it will be sufficient
-        this.slug = slugGenerator(faker.lorem.words(3));
-        this.id = `${Date.now()}_${this.slug}`;
-    }
+    public constructor() {}
 
-    public async prepare(): Promise<any> {
-        await prisma.destination.create({
+    public async prepare(params?: DestinationInfo): Promise<MockDestination> {
+        const slug = slugGenerator(faker.lorem.words(3));
+        const { id } = await prisma.destination.create({
             data: {
-                id: this.id,
-                continent: this.continent,
-                slug: this.slug,
+                continent: (params && params.continent) ?? "Europe",
+                slug,
                 //
                 city: "testing",
                 city_lowercase: "testing",
@@ -35,16 +28,18 @@ export default class MockDestination implements Mock {
                 countryCode: "testing",
                 country_lowercase: "testing",
                 description: [],
-                folder: this.slug,
+                folder: slug,
                 population: 1,
                 shortDescription: "testing lorem ipsum",
             },
         });
-        //
+        this.id = id;
+        return this;
     }
-    public async remove(): Promise<void> {
+    public async remove(): Promise<MockDestination> {
         await prisma.destination.delete({
-            where: { id: this.id },
+            where: { id: this.id as string },
         });
+        return this;
     }
 }

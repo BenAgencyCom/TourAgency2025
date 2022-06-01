@@ -1,8 +1,8 @@
 export interface Mock {
     /** Add record to the database. */
-    prepare: (...args: any[]) => Promise<any>;
+    prepare: (...args: any[]) => Promise<Mock>;
     /** Remove created record from the db */
-    remove: () => Promise<void>;
+    remove: () => Promise<Mock>;
 }
 
 export interface ReviewMock extends Mock {
@@ -14,5 +14,5 @@ export interface ReviewMock extends Mock {
         likes: number;
         /** Number of dislikes to add */
         dislikes: number;
-    }) => Promise<void>;
+    }) => Promise<Mock>;
 }

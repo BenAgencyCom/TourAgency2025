@@ -53,7 +53,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
         await testRequestStatus({
             method: "PATCH",
             body,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
             Cookie: author.accessTokenAsCookie as string,
             expectedStatus: 200,
         });
@@ -75,7 +75,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
         await testRequestStatus({
             method: "PATCH",
             body,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
             Cookie: admin.accessTokenAsCookie as string,
             expectedStatus: 403,
         });
@@ -119,7 +119,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
         await testRequestStatus({
             body,
             method: "PATCH",
-            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+            endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
             Cookie: diffrentUser.accessTokenAsCookie as string,
             expectedStatus: 403,
         });
@@ -144,7 +144,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -156,7 +156,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -168,7 +168,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -180,7 +180,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -194,7 +194,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -206,7 +206,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -218,7 +218,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -230,7 +230,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -243,7 +243,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -254,7 +254,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -266,7 +266,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -278,7 +278,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                 await testRequestStatus({
                     method: "PATCH",
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                     expectedStatus: 400,
                     Cookie: author.accessTokenAsCookie as string,
                 });
@@ -290,7 +290,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                     await testRequestStatus({
                         method: "PATCH",
                         body,
-                        endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                        endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                         expectedStatus: 400,
                         Cookie: author.accessTokenAsCookie as string,
                     });
@@ -301,7 +301,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                     await testRequestStatus({
                         method: "PATCH",
                         body,
-                        endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                        endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                         expectedStatus: 400,
                         Cookie: author.accessTokenAsCookie as string,
                     });
@@ -312,7 +312,7 @@ describe("PATCH: /api/landmark/[landmark_id]/reviews/[review_id]", () => {
                     await testRequestStatus({
                         method: "PATCH",
                         body,
-                        endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.ID as string}`,
+                        endpoint: `/api/landmark/${landmark.id as string}/reviews/${landmarkReview.id as string}`,
                         expectedStatus: 400,
                         Cookie: author.accessTokenAsCookie as string,
                     });
