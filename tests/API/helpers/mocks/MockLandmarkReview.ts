@@ -39,14 +39,15 @@ export default class MockLandmarkReview extends MockReviewAbstract implements Re
         return this;
     }
     public async remove(): Promise<MockLandmarkReview> {
-        if (this.id === null) return this;
-        if (await prisma.landmarkReview.findUnique({ where: { id: this.id } })) {
-            await prisma.landmarkReview.delete({ where: { id: this.id } });
-            this.id = null;
-        }
+        if (this.id !== null) {
+            if (await prisma.landmarkReview.findUnique({ where: { id: this.id } })) {
+                await prisma.landmarkReview.delete({ where: { id: this.id } });
+                this.id = null;
+            }
 
-        for (const mockedUser of this.mockedUsers) {
-            await mockedUser.remove();
+            for (const mockedUser of this.mockedUsers) {
+                await mockedUser.remove();
+            }
         }
 
         return this;

@@ -37,9 +37,11 @@ export default class MockDestination implements Mock {
         return this;
     }
     public async remove(): Promise<MockDestination> {
-        await prisma.destination.delete({
-            where: { id: this.id as string },
-        });
+        if (this.id !== null) {
+            await prisma.destination.delete({
+                where: { id: this.id },
+            });
+        }
         this.id = null;
         return this;
     }

@@ -49,9 +49,11 @@ export default class MockUser implements Mock {
         return this;
     }
     public async remove(): Promise<MockUser> {
-        if (this.id) await prisma.user.delete({ where: { id: this.id } });
+        if (this.id !== null) {
+            await prisma.user.delete({ where: { id: this.id } });
+            this.id = null;
+        }
 
-        this.id = null;
         return this;
     }
 

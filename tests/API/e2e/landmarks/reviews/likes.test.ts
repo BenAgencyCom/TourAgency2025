@@ -1,6 +1,6 @@
 // Tools
 import prisma from "@/tests/API/helpers/db";
-import { testGETRequestStatus } from "@/tests/API/helpers/testStatus";
+import { testRequestStatus } from "@/tests/API/helpers/testStatus";
 import makeRequest from "@/tests/API/helpers/landmarks/reviews/bulk/makeRequest";
 // Mocks
 import MockUser from "@/tests/API/helpers/mocks/MockUser";
@@ -13,6 +13,246 @@ import type { ReviewType, Feedback } from "@prisma/client";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 
 describe("All routes:", () => {
+    describe("POST: /api/landmark/[landmark_id]/reviews/[review_id]/like", () => {
+        const user = new MockUser();
+        const destination = new MockDestination();
+        const landmark = new MockLandmark({ status: "APPROVED" });
+        const review = new MockLandmarkReview();
+
+        const getReviewFeedback = async (): Promise<{ likes: number; dislikes: number }> => {
+            const juxtaposition = await prisma.landmarkReviewLike.groupBy({
+                by: ["feedback"],
+                where: { reviewId: review.id as string },
+                _count: {
+                    feedback: true,
+                },
+            });
+            return {
+                dislikes: juxtaposition.find((el) => el.feedback == "DISLIKE")?._count.feedback as number,
+                likes: juxtaposition.find((el) => el.feedback == "LIKE")?._count.feedback as number,
+            };
+        };
+
+        beforeAll(async () => {
+            await user.prepare();
+            await destination.prepare();
+            await landmark.prepare(destination.id as string);
+            await review
+                .prepare({
+                    landmarkId: landmark.id as string,
+                    userId: user.id as string,
+                })
+                .then((review) =>
+                    review.addFeedback({
+                        dislikes: 3,
+                        likes: 6,
+                    })
+                );
+        });
+        afterAll(async () => {
+            await review.remove();
+            await destination.remove();
+            await user.remove();
+        });
+        beforeEach(async () => {
+            await prisma.landmarkReviewLike.deleteMany({
+                where: {
+                    reviewId: review.id as string,
+                    userId: user.id as string,
+                },
+            });
+        });
+        describe("LIKE", () => {
+            test("Unauthenticated user cannot LIKE a landmark review", async () => {
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 403,
+                    body: { feedback: "LIKE" as Feedback },
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes);
+            });
+            test("User can LIKE their own landmark review", async () => {
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 200,
+                    body: { feedback: "LIKE" as Feedback },
+                    Cookie: user.accessTokenAsCookie as string,
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes + 1);
+            });
+            test("User can LIKE someone other's landmark review", async () => {
+                const otherUser = await new MockUser().prepare();
+
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 200,
+                    body: { feedback: "LIKE" as Feedback },
+                    Cookie: otherUser.accessTokenAsCookie as string,
+                });
+
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes + 1);
+            });
+            test("User can UNLIKE a landmark review", async () => {
+                // There is no need to store this mock, becouse it will be removed by CASCADE relation eather way
+                await new MockLandmarkReviewLike().prepare({
+                    reviewId: review.id as string,
+                    userId: user.id as string,
+                    type: "LIKE",
+                });
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 200,
+                    body: { feedback: "LIKE" as Feedback },
+                    Cookie: user.accessTokenAsCookie as string,
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes - 1);
+            });
+            test("User can change feedback from LIKE into DISLIKE", async () => {
+                // There is no need to store this mock, becouse it will be removed by CASCADE relation eather way
+                await new MockLandmarkReviewLike().prepare({
+                    reviewId: review.id as string,
+                    userId: user.id as string,
+                    type: "LIKE",
+                });
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 200,
+                    body: { feedback: "DISLIKE" as Feedback },
+                    Cookie: user.accessTokenAsCookie as string,
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes + 1);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes - 1);
+            });
+            test("404 while trying to LIKE unexisting review", async () => {
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/UNEXISTING_LANDMARK_REVIEW/feedback`,
+                    expectedStatus: 404,
+                    body: { feedback: "LIKE" as Feedback },
+                    Cookie: user.accessTokenAsCookie as string,
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes);
+            });
+        });
+
+        describe("DISLIKE", () => {
+            test("Unauthenticated user cannot DISLIKE a landmark review", async () => {
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 403,
+                    body: { feedback: "DISLIKE" as Feedback },
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes);
+            });
+            test("User can DISLIKE their own landmark review", async () => {
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 200,
+                    body: { feedback: "DISLIKE" as Feedback },
+                    Cookie: user.accessTokenAsCookie as string,
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes + 1);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes);
+            });
+            test("User can DISLIKE someone other's landmark review", async () => {
+                const otherUser = await new MockUser().prepare();
+
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 200,
+                    body: { feedback: "DISLIKE" as Feedback },
+                    Cookie: otherUser.accessTokenAsCookie as string,
+                });
+
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes + 1);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes);
+            });
+            test("User can UNDISLIKE a landmark review", async () => {
+                // There is no need to store this mock, becouse it will be removed by CASCADE relation eather way
+                await new MockLandmarkReviewLike().prepare({
+                    reviewId: review.id as string,
+                    userId: user.id as string,
+                    type: "DISLIKE",
+                });
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 200,
+                    body: { feedback: "DISLIKE" as Feedback },
+                    Cookie: user.accessTokenAsCookie as string,
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes - 1);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes);
+            });
+            test("User can change feedback from DISLIKE into LIKE", async () => {
+                // There is no need to store this mock, becouse it will be removed by CASCADE relation eather way
+                await new MockLandmarkReviewLike().prepare({
+                    reviewId: review.id as string,
+                    userId: user.id as string,
+                    type: "DISLIKE",
+                });
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/${review.id as string}/feedback`,
+                    expectedStatus: 200,
+                    body: { feedback: "LIKE" as Feedback },
+                    Cookie: user.accessTokenAsCookie as string,
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes - 1);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes + 1);
+            });
+            test("404 while trying to DISLIKE unexisting review", async () => {
+                const feedbackAtTheBegininning = await getReviewFeedback();
+                await testRequestStatus({
+                    method: "POST",
+                    endpoint: `/api/landmark/${landmark.id as string}/reviews/UNEXISTING_LANDMARK_REVIEW/feedback`,
+                    expectedStatus: 404,
+                    body: { feedback: "LIKE" as Feedback },
+                    Cookie: user.accessTokenAsCookie as string,
+                });
+                const feedbackAtTheEnd = await getReviewFeedback();
+                expect(feedbackAtTheEnd.dislikes).toEqual(feedbackAtTheBegininning.dislikes);
+                expect(feedbackAtTheEnd.likes).toEqual(feedbackAtTheBegininning.likes);
+            });
+        });
+    });
+
     describe("GET: /api/landmark/[landmark_id]/reviews", () => {
         test("Include authenticated user likes associated with bulk reviews on current page", async () => {
             const user = await new MockUser().prepare();
@@ -77,6 +317,4 @@ describe("All routes:", () => {
             await destination.remove();
         });
     });
-    describe("POST: /api/landmark/[landmark_id]/reviews/[review_id]/like", () => {});
-    describe("DELETE: /api/landmark/[landmark_id]/reviews/[review_id]/like", () => {});
 });
