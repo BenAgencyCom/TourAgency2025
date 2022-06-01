@@ -17,6 +17,8 @@ import FieldBackgroundMap from "@/components/_utils/FieldBackgroundMap";
 import ToggleReviewButton from "@/components/_utils/SingleLandmark/ToggleReviewButton";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
+import CardBottomNavigationWrapper from "@/components/_utils/styled/CardBottomNavigationWrapper";
+
 const DestinationReviewWrapper = styled("div")(({ theme }) => ({
     ...(RWD as any),
 }));
@@ -63,7 +65,13 @@ const SingleDestinationReview: FunctionComponent<DestinationReviewProps> = (prop
                             );
                         else return <DestinationInformation data={props.data}></DestinationInformation>;
                     })()}
-                    <ReadMore url={`/destinations/${slug}`}></ReadMore>
+                    <CardBottomNavigationWrapper>
+                        <ReadMore url={`/destinations/${slug}`}></ReadMore>
+                        <ReadMore
+                            url={`/destinations/${slug}/reviews?pinnedReviewId=${props.data.id}`} //
+                            msg="See this review"
+                        ></ReadMore>
+                    </CardBottomNavigationWrapper>
                 </FlexBox>
             </FlexBox>
         </DestinationReviewWrapper>

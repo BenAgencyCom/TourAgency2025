@@ -202,6 +202,7 @@ export default class BulkReviewsAPI {
                 applyPointsDistribution: String(params.applyPointsDistribution),
             } as Partial<Record<keyof ReviewsCallParams, string>>,
         } as NextApiRequest;
+
         // Erase every empty property
         Object.keys(feignedRequest.query).forEach((key) => {
             if ([undefined, "undefined"].includes(feignedRequest.query[key] as any)) {

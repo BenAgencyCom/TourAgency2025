@@ -57,6 +57,8 @@ export default styled(ButtonBase, {
         "span.bwlt-text": {
             position: "relative",
             zIndex: 2,
+            display: "flex",
+            alignItems: "center",
         },
     };
 });

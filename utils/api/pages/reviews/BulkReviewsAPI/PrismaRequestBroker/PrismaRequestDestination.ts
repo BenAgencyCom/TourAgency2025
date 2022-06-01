@@ -6,7 +6,7 @@ import PrismaRequestBody from "./PrismaRequestBody";
 import type { ReviewType } from "@prisma/client";
 import type { URLQueriesConvertedIntoPrismaBody } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
 import type { BulkReviewsType, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
-import type { PrismaRequestBroker, ReviewFromQuery, FeedbackFromQuery, AggregateCallParams, AggregateCallResponse } from "../@types";
+import type { PrismaRequestBroker, ReviewFromQuery, FeedbackFromQuery, AggregateCallParams, AggregateCallResponse, AuthenticatedUserFeedbackFromQuery } from "../@types";
 
 export default class DestinationBroker implements PrismaRequestBroker {
     public constructor(public type: BulkReviewsType, public id: string) {}
@@ -113,6 +113,19 @@ export default class DestinationBroker implements PrismaRequestBroker {
         return await prisma.destinationReview.findFirst({
             where: { id: reviewId, destinationId: this.id },
             select: new PrismaRequestBody().getSelect(),
+        });
+    }
+
+    public async getAuthenticatedUserFeedback(params: { reviewsIDsList: string[]; userId: string }): Promise<AuthenticatedUserFeedbackFromQuery[]> {
+        return await prisma.destinationReviewLike.findMany({
+            where: {
+                reviewId: { in: params.reviewsIDsList },
+                userId: params.userId,
+            },
+            select: {
+                reviewId: true,
+                feedback: true,
+            },
         });
     }
 }

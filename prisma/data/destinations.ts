@@ -143,6 +143,7 @@ export default (
         el._imagesDir = `destinations/${el.slug}`;
         el.shortDescription = generateShortDescription();
         el.description = createDescription();
+        el.status = "APPROVED";
 
         return el as any;
     })

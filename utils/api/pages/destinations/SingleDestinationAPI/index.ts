@@ -43,7 +43,6 @@ export default class SingleDestinationAPI {
     public async main(): Promise<DataFromAPI> {
         this.destinationFromQuery = await this.queryForDestination();
         this.createBulkReviewsApiInstance(this.destinationFromQuery.id);
-
         const { totalReviews, ratings } = await this.queryForRatingsSummary();
 
         const { destinationFromQuery: destination } = this;

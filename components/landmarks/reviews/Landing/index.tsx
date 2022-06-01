@@ -57,7 +57,7 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
                         );
                     } else return <PointsDistributionComponentSkeleton />;
                 })()}
-                <ReadMore url={`/landmarks/${props.landmark.slug}`} sx={{ height: "46px !important" }}></ReadMore>
+                <ReadMore url={`/landmarks/${props.landmark.slug}`} sx={{ height: "46px !important", mt: "30px" }}></ReadMore>
             </LeftSideContent>
 
             <LandmarkPicture folder={props.landmark.folder} />

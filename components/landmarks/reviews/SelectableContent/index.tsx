@@ -19,6 +19,17 @@ const NavigationWrapper = styled("div")(({ theme }) => ({
     marginBottom: "40px",
     button: {
         marginRight: "10px",
+        height: "46px",
+    },
+    ["@media (max-width:900px)"]: {
+        flexDirection: "column",
+        button: {
+            width: "100%",
+            marginTop: "10px",
+            "&:nth-of-type(1)": {
+                marginTop: "0px",
+            },
+        },
     },
 }));
 
@@ -65,7 +76,11 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
     useEffect(() => {
         if (router.query.pinnedReviewId) {
             if (pinnedReviewAndAuthenticatedUserReviewAreNotTheSame) setCurrentSection("pinnedReview");
-            else if (authenticatedUserReview) setCurrentSection("authenticatedUserReview");
+            else if (authenticatedUserReview) {
+                setCurrentSection("authenticatedUserReview");
+            }
+        } else if (authenticatedUserReview) {
+            setCurrentSection("authenticatedUserReview");
         }
     }, [router.query, pinnedReviewAndAuthenticatedUserReviewAreNotTheSame, authenticatedUserReview]);
 

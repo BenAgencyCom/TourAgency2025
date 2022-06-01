@@ -22,8 +22,11 @@ export default {
         position: "relative",
         overflow: "hidden",
     },
-    "&:nth-of-type(1),&:nth-of-type(4),&:nth-of-type(7),&:nth-of-type(10),&:nth-of-type(13),&:nth-of-type(16),&:nth-of-type(19),&:nth-of-type(22),&:nth-of-type(25),&:nth-of-type(28)": {
-        marginLeft: "0px",
+    ["@media (min-width:1341px)"]: {
+        width: "calc((100% - 40px)/ 3)",
+        "&:nth-of-type(1),&:nth-of-type(4),&:nth-of-type(7),&:nth-of-type(10),&:nth-of-type(13),&:nth-of-type(16),&:nth-of-type(19),&:nth-of-type(22),&:nth-of-type(25),&:nth-of-type(28)": {
+            marginLeft: "0px",
+        },
     },
 
     ["@media (max-width:1500px)"]: {
@@ -32,10 +35,14 @@ export default {
             fontSize: "1.2rem",
         },
     },
-    ["@media (max-width:1300px)"]: {
-        height: "450px",
+    ["@media (max-width:1340px)"]: {
+        height: "500px",
+        width: "calc((100% - 40px)/ 2)",
+        "&:nth-of-type(1),&:nth-of-type(3),&:nth-of-type(5),&:nth-of-type(7),&:nth-of-type(9),&:nth-of-type(11),&:nth-of-type(13),&:nth-of-type(15),&:nth-of-type(17),&:nth-of-type(19)": {
+            marginLeft: "0px",
+        },
         ".single-landmark-picture": {
-            height: "200px",
+            height: "270px",
         },
         p: {
             fontSize: "1.1rem",
@@ -46,7 +53,8 @@ export default {
             fontSize: "1.1rem",
         },
     },
-    ["@media (max-width:1000px)"]: {
+
+    ["@media (max-width:900px)"]: {
         width: "100%",
         margin: "60px 0 0 0",
         height: "auto",
@@ -64,22 +72,17 @@ export default {
         },
     },
     ["@media (max-width:700px)"]: {
-        minHeight: "600px",
         ".single-landmark-picture": {
             height: "350px",
         },
     },
     ["@media (max-width:600px)"]: {
-        minHeight: "550px",
         ".single-landmark-picture": {
             height: "300px",
         },
     },
-    ["@media (max-width:550px)"]: {
-        minHeight: "600px",
-    },
+
     ["@media (max-width:500px)"]: {
-        minHeight: "550px",
         ".single-landmark-picture": {
             height: "250px",
         },

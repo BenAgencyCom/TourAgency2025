@@ -1,4 +1,6 @@
 // Tools
+import { useMemo } from "react";
+import useWindowSizes from "@/hooks/useWindowSizes";
 import { GetLandmarkIcon } from "@/utils/client/getLandmarkIcon";
 // Types
 import type { FunctionComponent } from "react";
@@ -14,13 +16,16 @@ interface LandmarkInformationProps {
 
 const LandmarkInformation: FunctionComponent<LandmarkInformationProps> = (props) => {
     const { destination, title, shortDescription, type } = props.data;
+    const { width } = useWindowSizes();
 
-    const amountOfWordsInDescription: number = (() => {
-        const { length } = props.data.title;
+    const amountOfWordsInDescription = useMemo<number>(() => {
+        if (width < 900) return 150;
+
+        const { length } = title;
         if (length > 40) return 35;
         else if (length > 23) return 60;
         return 120;
-    })();
+    }, [width, title]);
 
     return (
         <>

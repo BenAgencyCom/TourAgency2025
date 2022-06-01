@@ -16,6 +16,7 @@ import FieldBackgroundMap from "@/components/_utils/FieldBackgroundMap";
 import LocalizationBreadCrumbs from "@/components/_utils/LocalizationBreadCrumbs";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
+import CardBottomNavigationWrapper from "@/components/_utils/styled/CardBottomNavigationWrapper";
 
 const Wrapper = styled("div")(({ theme }) => ({
     ...(RWD as any),
@@ -56,10 +57,10 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                         })}
                     </FlexBox>
 
-                    <FlexBox sx={{ mt: "10px" }}>
+                    <CardBottomNavigationWrapper>
                         <ReadMore url={`/destinations/${slug}`}></ReadMore>
-                        <ReadMore url={`/destinations/${slug}/reviews`} sx={{ ml: "10px" }} msg={"Go to reviews"}></ReadMore>
-                    </FlexBox>
+                        <ReadMore url={`/destinations/${slug}/reviews`} msg={"Go to reviews"}></ReadMore>
+                    </CardBottomNavigationWrapper>
                 </FlexBox>
             </Wrapper>
         </Fade>

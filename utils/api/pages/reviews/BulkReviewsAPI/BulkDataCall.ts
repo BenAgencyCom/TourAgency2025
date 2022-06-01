@@ -42,7 +42,6 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
         await this.PrismaRequestBroker.ensureThatRecordIsApproved();
 
         const authenticatedUserId: string | null = await this.getAutheticatedUserId();
-
         const reviewsFromQuery: ReviewFromQuery[] = await this.PrismaRequestBroker.callForReviews(this.converURLQueriesIntoPrismaBody());
         const reviews = await new MergeReviewsAndFeedback({
             reviewsFromQuery,

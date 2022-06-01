@@ -13,7 +13,13 @@ interface HeaderProps {
 const Header: FunctionComponent<HeaderProps> = (props) => {
     return (
         <MainHeader>
-            <Typography className="main-text" variant="h1">
+            <Typography
+                className={[
+                    "main-text", //
+                    props.main.length > 30 ? "long-text" : "",
+                ].join(" ")} //
+                variant="h1"
+            >
                 {props.main}
             </Typography>
             <BackgroundHeader fontSize="8rem">{props.backgroundHeader}</BackgroundHeader>

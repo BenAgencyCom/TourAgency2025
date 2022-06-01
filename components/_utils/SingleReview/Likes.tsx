@@ -16,9 +16,6 @@ const ThumbsWrapper = styled(Button)(({ theme }) => ({
         marginLeft: "5px",
     },
 }));
-const ReportButton = styled(Button)(({ theme }) => ({
-    padding: "3px 10px",
-}));
 
 interface LikesProps {
     feedback: Review["feedback"];
@@ -37,10 +34,6 @@ const Likes: FunctionComponent<LikesProps> = (props) => {
                     <strong>{props.feedback.dislikes}</strong>
                 </ThumbsWrapper>
             </FlexBox>
-
-            <ReportButton variant="outlined" color="inherit">
-                Report
-            </ReportButton>
         </FlexBox>
     );
 };

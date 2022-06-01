@@ -1,8 +1,9 @@
 // Tools
 import axios from "axios";
-import { useState } from "react";
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
+import { useState, useMemo } from "react";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { FunctionComponent } from "react";
 import type { Continent, LandmarkType } from "@prisma/client";
@@ -34,7 +35,13 @@ const BulkLandmarks: FunctionComponent = () => {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
     const [landmarks, setLandmarks] = useState<Landmark[]>([]);
+    const { width } = useWindowSizes();
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
+
+    const imageResolution = useMemo<"360p" | "480p">(() => {
+        if (width > 600 && width < 1000) return "480p";
+        return "360p";
+    }, [width]);
 
     const queryForData = async (urlQueries: string) => {
         try {
@@ -84,6 +91,9 @@ const BulkLandmarks: FunctionComponent = () => {
                             ] as { label: string; value: LandmarkType | "ALL" }[],
                             defaultValue: "ALL",
                             omitIfDeafult: true,
+                            sx: {
+                                width: "230px",
+                            },
                         },
                         {
                             key: "continent",
@@ -100,7 +110,7 @@ const BulkLandmarks: FunctionComponent = () => {
                             defaultValue: "all",
                             omitIfDeafult: true,
                             sx: {
-                                width: "250px",
+                                width: "270px",
                             },
                         },
                     ]}
@@ -146,7 +156,7 @@ const BulkLandmarks: FunctionComponent = () => {
                                             <SingleLandmark
                                                 key={item.slug} //
                                                 data={item}
-                                                imageResolution="360p"
+                                                imageResolution={imageResolution}
                                             ></SingleLandmark>
                                         );
                                     });

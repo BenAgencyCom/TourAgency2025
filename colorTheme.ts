@@ -120,16 +120,17 @@ export default createTheme({
                     fontSize: "2.5rem",
                     lineHeight: "40px",
                     ["@media (max-width:1600px)"]: {
+                        lineHeight: "38px",
                         fontSize: "2.2rem",
                     },
-                    ["@media (max-width:1300px)"]: {
+                    ["@media (max-width:1200px)"]: {
+                        lineHeight: "32px",
                         fontSize: "1.9rem",
                     },
-                    ["@media (max-width:1200px)"]: {
-                        fontSize: "1.7rem",
-                    },
-                    ["@media (max-width:1000px)"]: {
+
+                    ["@media (max-width:900px)"]: {
                         fontSize: "3rem ",
+                        lineHeight: "45px",
                     },
                     ["@media (max-width:700px)"]: {
                         fontSize: "2.5rem ",
@@ -145,7 +146,7 @@ export default createTheme({
                     letterSpacing: "-2px",
                 },
                 h1: {
-                    lineHeight: "90px",
+                    lineHeight: "84px",
                     fontSize: "5.5rem",
                     fontWeight: "900",
                     letterSpacing: "-2px",
@@ -160,6 +161,22 @@ export default createTheme({
                     ["@media (max-width:500px)"]: {
                         fontSize: "3.5rem",
                         lineHeight: "50px",
+                    },
+                    "&.long-text": {
+                        lineHeight: "78px",
+                        fontSize: "4.5rem",
+                        ["@media (max-width:1500px)"]: {
+                            fontSize: "4rem",
+                            lineHeight: "70px",
+                        },
+                        ["@media (max-width:700px)"]: {
+                            fontSize: "3.5rem",
+                            lineHeight: "60px",
+                        },
+                        ["@media (max-width:600px)"]: {
+                            fontSize: "2rem",
+                            lineHeight: "50px",
+                        },
                     },
                 },
                 body1: {

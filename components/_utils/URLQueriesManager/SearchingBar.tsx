@@ -12,9 +12,11 @@ const SelectOrder: FunctionComponent<InputBaseProps> = (props) => (
         placeholder="Search for a place of your dreams..."
         sx={{
             mr: "10px",
-            width: "450px",
-            svg: {
-                marginRight: "16px",
+            width: "490px",
+            ".MuiInputAdornment-positionEnd": {
+                svg: {
+                    marginRight: "16px",
+                },
             },
         }}
         inputProps={{

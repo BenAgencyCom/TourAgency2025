@@ -1,8 +1,8 @@
 // Tools
 import RWD from "./RWD";
-import { useState } from "react";
 import dynamic from "next/dynamic";
 import { styled } from "@mui/system";
+import { useState } from "react";
 import stated from "@/utils/client/stated";
 // Types
 import type { SxProps } from "@mui/system";
@@ -19,6 +19,7 @@ import ReviewScore from "@/components/_utils/ReviewScore";
 const ToggleReviewButton = dynamic(() => import("./ToggleReviewButton"));
 const ReviewInformation = dynamic(() => import("./body/ReviewInformation"));
 // Styled Components
+import CardBottomNavigationWrapper from "@/components/_utils/styled/CardBottomNavigationWrapper";
 
 const SingleLandmarkWrapper = styled("div")(({ theme }) => ({
     display: "flex",
@@ -112,7 +113,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                     })()}
                 </div>
 
-                <div className="navigation-buttons-wrapper">
+                <CardBottomNavigationWrapper>
                     <ReadMore url={`/landmarks/${slug}`}></ReadMore>
                     {(() => {
                         if (props.userReview) {
@@ -131,7 +132,7 @@ const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
                             );
                         }
                     })()}
-                </div>
+                </CardBottomNavigationWrapper>
             </SingleLandmarkWrapper>
         </Fade>
     );

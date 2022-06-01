@@ -19,7 +19,7 @@ const Information: FunctionComponent<InformationProps> = (props) => {
             <Grow in={true}>
                 <FlexBox sx={{ mb: 4 }} column horizontal="center">
                     <ColoredHeader className="colored-header">{props.headers.top}</ColoredHeader>
-                    <BigHeader>{props.headers.main}</BigHeader>
+                    <BigHeader className={props.headers.main.length > 30 ? "long-text" : ""}>{props.headers.main}</BigHeader>
 
                     <FlexBox center>
                         <BottomBar className="colored-bar"></BottomBar>

@@ -66,6 +66,7 @@ export default {
         },
     },
     ["@media (max-width:500px)"]: {
+        padding: "20px 10px",
         "div.landmark-review-header": {
             "div.landmark-reviewer-avatar": {
                 marginLeft: "0",
