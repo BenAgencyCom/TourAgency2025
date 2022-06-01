@@ -15,10 +15,10 @@ const SingleTag = styled("div")(({ theme }) => ({
     padding: "3px 10px",
     borderRadius: "3px",
     color: "#fff",
-    marginRight: "10px",
     display: "flex",
     alignItems: "center",
     transition: "background .3s ease-in-out",
+    margin: "10px 10px 0px 0",
     button: {
         padding: 0,
         marginLeft: "5px",

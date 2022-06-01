@@ -11,6 +11,13 @@ const OptionsRowBase = styled("div")(({ theme }) => ({
     marginTop: "5px",
     position: "relative",
     zIndex: 2,
+    "&:nth-of-type(1)": {
+        marginTop: "0px",
+    },
+    flexWrap: "wrap",
+    ["@media (max-width:700px)"]: {
+        justifyContent: "center",
+    },
 }));
 
 const Option = styled("div")(({ theme }) => ({
@@ -31,6 +38,12 @@ const Option = styled("div")(({ theme }) => ({
         background: `${alpha(theme.palette.text.primary, 0.5)} !important`,
         color: theme.palette.text.primary,
         cursor: "default",
+    },
+    ["@media (max-width:700px)"]: {
+        width: "60px",
+        height: "60px",
+        fontSize: "2rem",
+        marginBottom: "10px",
     },
 }));
 

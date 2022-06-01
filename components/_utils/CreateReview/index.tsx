@@ -1,4 +1,5 @@
 // Tools
+import RWD from "./RWD";
 import { useMemo } from "react";
 import { styled, alpha } from "@mui/system";
 import { CreateReviewContext } from "./context";
@@ -28,6 +29,7 @@ const CreateReviewWrapper = styled("div")(({ theme }) => ({
         position: "relative",
         marginBottom: "30px",
     },
+    ...(RWD as any),
 }));
 
 interface CreateReviewProps {

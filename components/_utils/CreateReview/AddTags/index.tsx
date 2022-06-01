@@ -51,32 +51,34 @@ const AddTags: FunctionComponent<AddTagsProps> = (props) => {
     };
 
     return (
-        <AddTagsWrapper>
-            <StyledInput
-                ref={inputRef}
-                value={newTag} //
-                onChange={(e) => setNewTag(e.target.value)}
-                sx={{
-                    width: "300px",
-                    input: {
-                        padding: "5px 0", //
-                    },
-                }}
-                placeholder="What's relevant..."
-                key={props.tags.value.length}
-                disabled={props.tags.value.length >= restrictions.tagsInGeneral.max}
-            ></StyledInput>
+        <AddTagsWrapper className="add-tags">
+            <FlexBox vertical="center">
+                <StyledInput
+                    ref={inputRef}
+                    value={newTag} //
+                    onChange={(e) => setNewTag(e.target.value)}
+                    sx={{
+                        width: "300px",
+                        input: {
+                            padding: "5px 0", //
+                        },
+                    }}
+                    placeholder="What's relevant..."
+                    key={props.tags.value.length}
+                    disabled={props.tags.value.length >= restrictions.tagsInGeneral.max}
+                ></StyledInput>
 
-            <StyledButton
-                primary //
-                sx={{ padding: "0", width: "40px", ml: "10px" }}
-                onClick={addNewTag}
-                disabled={disableAddButton}
-            >
-                <Add />
-            </StyledButton>
+                <StyledButton
+                    primary //
+                    sx={{ padding: "0", width: "40px", ml: "10px" }}
+                    onClick={addNewTag}
+                    disabled={disableAddButton}
+                >
+                    <Add />
+                </StyledButton>
+            </FlexBox>
 
-            <FlexBox sx={{ flexGrow: 1, ml: "50px" }}>
+            <FlexBox className="tags" sx={{ flexGrow: 1, ml: "50px" }}>
                 {(() => {
                     if (props.tags.value.length) {
                         return (

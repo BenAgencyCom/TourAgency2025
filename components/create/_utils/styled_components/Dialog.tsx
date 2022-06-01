@@ -9,8 +9,10 @@ import DialogContent from "@mui/material/DialogContent";
 export const StyledDialogBase = styled(Dialog)(({ theme }) => ({
     ".MuiPaper-root": {
         background: "#fff",
-        minWidth: "600px",
+        maxWidth: "600px",
+        width: "calc(100% - 20px)",
         overflow: "hidden",
+        margin: "0 !important",
     },
 }));
 export const BackgroundIcon = styled("span")(({ theme }) => ({
@@ -35,10 +37,26 @@ export const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
     fontSize: "1.3rem", //
     position: "relative",
     zIndex: "2",
+    ["@media (max-width: 900px)"]: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
 }));
 export const StyledDialogActions = styled(DialogActions)(({ theme }) => ({
     justifyContent: "flex-start", //
     paddingLeft: "24px",
     position: "relative",
     zIndex: "2",
+    ["@media (max-width: 900px)"]: {
+        alignItems: "center",
+        flexDirection: "column",
+        button: {
+            margin: "10px 0 0 0 !important",
+            minWidth: "300px",
+            "&:nth-of-type(1)": {
+                marginTop: "0 !important",
+            },
+        },
+    },
 }));

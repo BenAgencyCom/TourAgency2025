@@ -1,16 +1,19 @@
 // Tools
 import { styled } from "@mui/system";
-import { useMemo, useContext } from "react";
+import stated from "@/utils/client/stated";
 import { CreateReviewContext } from "../context";
+import useWindowSizes from "@/hooks/useWindowSizes";
+import { useMemo, useContext, useState } from "react";
 // Types
 import type { FunctionComponent } from "react";
-import type { ReviewType } from "@prisma/client";
 import type { StatedDataField } from "@/@types/StatedDataField";
 // Other components
 import OptionsRow from "./OptionsRow";
+import SelectScoreDialog from "./SelectScoreDialog";
+import ReviewScore from "@/components/_utils/ReviewScore";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
-import ReviewScore from "@/components/_utils/ReviewScore";
+import StyledButton from "@/components/create/_utils/forms/Button";
 
 const StyledReviewScore = styled(ReviewScore)(({ theme }) => ({
     width: "90px",
@@ -24,6 +27,7 @@ const StyledReviewScore = styled(ReviewScore)(({ theme }) => ({
 const SelectScoreWrapper = styled("header")(({ theme }) => ({
     display: "flex",
     position: "relative",
+    alignItems: "center",
     margin: "20px 0",
     button: {
         marginLeft: "10px",
@@ -46,28 +50,46 @@ interface SelectScoreProps {
 }
 
 const SelectScore: FunctionComponent<SelectScoreProps> = (props) => {
-    const context = useContext(CreateReviewContext);
+    const { width } = useWindowSizes();
     const { scoreFloat, scoreInt } = props;
+    const context = useContext(CreateReviewContext);
+    const [openChangeScoreDialog, setOpenChangeScoreDialog] = useState<boolean>(false);
 
     const points = useMemo<number>(() => {
         if (scoreInt.value === 10) return 10;
         return (scoreInt.value * 10 + scoreFloat.value) / 10;
     }, [scoreFloat, scoreInt]);
-
     return (
         <SelectScoreWrapper>
             <StyledReviewScore type={context.estimatedReviewType} points={points} />
-            <FlexBox column sx={{ flexGrow: 1 }}>
-                <OptionsRow
-                    range={{ start: 0, end: 10 }} //
-                    value={scoreInt}
-                ></OptionsRow>
-                <OptionsRow
-                    range={{ start: 0, end: 9 }} //
-                    value={scoreFloat}
-                    disabled={scoreInt.value === 10}
-                ></OptionsRow>
-            </FlexBox>
+            {(() => {
+                if (width > 700) {
+                    return (
+                        <FlexBox column sx={{ flexGrow: 1 }}>
+                            <OptionsRow
+                                range={{ start: 0, end: 10 }} //
+                                value={scoreInt}
+                            ></OptionsRow>
+                            <OptionsRow
+                                range={{ start: 0, end: 9 }} //
+                                value={scoreFloat}
+                                disabled={scoreInt.value === 10}
+                            ></OptionsRow>
+                        </FlexBox>
+                    );
+                } else {
+                    return (
+                        <>
+                            <StyledButton onClick={() => setOpenChangeScoreDialog(true)}>Change score</StyledButton>
+                            <SelectScoreDialog
+                                scoreInt={scoreInt} //
+                                scoreFloat={scoreFloat}
+                                open={stated(openChangeScoreDialog, setOpenChangeScoreDialog)}
+                            ></SelectScoreDialog>
+                        </>
+                    );
+                }
+            })()}
         </SelectScoreWrapper>
     );
 };

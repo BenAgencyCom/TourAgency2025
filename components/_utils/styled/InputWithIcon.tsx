@@ -117,7 +117,8 @@ const StyledInput: ForwardRefExoticComponent<StyledInputProps> = forwardRef((pro
                     )
                 }
                 endAdornment={
-                    !props.multiline && (
+                    !props.multiline &&
+                    props?.type !== "number" && (
                         <InputAdornment position="end" sx={{ p: 0, opacity: 0.7 }}>
                             <IconButton disabled={!!!(propsToForward.value as string).length} onClick={clearInputValue} tabIndex={-1}>
                                 <Clear></Clear>

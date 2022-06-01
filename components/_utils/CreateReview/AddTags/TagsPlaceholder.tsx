@@ -20,11 +20,13 @@ const TagPlaceholder = styled("div")(({ theme }) => ({
     padding: "3px 10px",
     display: "flex",
     alignItems: "center",
+    height: "30px",
+    marginBottom: "10px",
 }));
 
 const TagsPlaceholder: FunctionComponent = () => {
     return (
-        <FlexBox sx={{ flexGrow: 1 }}>
+        <>
             <FlexBox sx={{ flexGrow: 1 }}>
                 <TagPlaceholder>Benefit 1</TagPlaceholder>
                 <TagPlaceholder>Benefit 2</TagPlaceholder>
@@ -33,7 +35,7 @@ const TagsPlaceholder: FunctionComponent = () => {
             <ErrorMSG sx={{ alignSelf: "center" }}>
                 At least <strong>one is required</strong>
             </ErrorMSG>
-        </FlexBox>
+        </>
     );
 };
 
