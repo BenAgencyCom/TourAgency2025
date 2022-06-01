@@ -63,7 +63,7 @@ const UserProfileLanding: FunctionComponent<UserProfileLanding> = (props) => {
                 <ListPoint label="Latest review">
                     <ReviewScore
                         type={latestReview.type} //
-                        sx={{ padding: "0px 10px" }}
+                        sx={{ padding: "0px 10px", borderRadius: "3px" }}
                         points={latestReview.points}
                     ></ReviewScore>
                 </ListPoint>
