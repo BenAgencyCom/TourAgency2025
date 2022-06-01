@@ -12,6 +12,10 @@ export default {
     padding: "10px",
     position: "relative",
     height: "620px",
+    marginTop: "20px",
+    "&:nth-of-type(1)": {
+        marginTop: "0 !important",
+    },
     ".single-destination-review-body": {
         height: "250px",
         "&.extended": {
@@ -36,11 +40,12 @@ export default {
         width: "100%",
         marginLeft: "0",
         flexDirection: "row",
+        marginTop: "60px",
         ".single-destination-review-picture": {
             width: "400px",
         },
         ".single-destination-review-body": {
-            height: "350px",
+            height: "auto",
             width: "calc(100% - 420px)",
         },
     },
@@ -54,22 +59,14 @@ export default {
     },
     ["@media (max-width:750px)"]: {
         flexDirection: "column",
-        height: "640px",
         ".single-destination-review-picture": {
             width: "100%",
         },
         ".single-destination-review-body": {
             width: "100%",
-            height: "280px",
-        },
-    },
-    ["@media (max-width:600px)"]: {
-        ".single-destination-review-body": {
-            height: "300px",
         },
     },
     ["@media (max-width:500px)"]: {
-        height: "580px",
         ".single-destination-review-picture": {
             height: "250px",
         },

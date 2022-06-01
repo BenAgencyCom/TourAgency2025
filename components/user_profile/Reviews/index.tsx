@@ -20,6 +20,14 @@ import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import DestinationReviewSkeletonLoading from "./DestinationReview/SkeletonLoading";
 import LandmarkReviewSkeletonLoading from "@/components/_utils/SingleLandmark/SkeletonLoading";
 
+const SkeletonExtraSpace = styled("span")(({ theme }) => ({
+    height: "100px",
+    width: "100%",
+    ["@media (max-width:1000px)"]: {
+        height: "60px",
+    },
+}));
+
 const GeneralWrapper = styled("div")(({ theme }) => ({
     zIndex: "1",
     marginTop: "200px",
@@ -133,7 +141,7 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
                             if (currentlyFetchingReviewsType === "destination") {
                                 return (
                                     <>
-                                        <div style={{ height: "100px", width: "100%" }} />
+                                        <SkeletonExtraSpace />
                                         <DestinationReviewSkeletonLoading sx={{ display: "none" }} />
                                         <DestinationReviewSkeletonLoading />
                                         <DestinationReviewSkeletonLoading />
@@ -144,7 +152,7 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
                             } else {
                                 return (
                                     <>
-                                        <div style={{ height: "100px", width: "100%" }} />
+                                        <SkeletonExtraSpace />
                                         <LandmarkReviewSkeletonLoading sx={{ display: "none" }} />
                                         <LandmarkReviewSkeletonLoading sx={{ display: "none" }} />
                                         <LandmarkReviewSkeletonLoading />

@@ -34,6 +34,10 @@ const Wrapper = styled("div")(({ theme }) => ({
     "&:nth-of-type(2),&:nth-of-type(4),&:nth-of-type(6),&:nth-of-type(8)": {
         marginLeft: "20px",
     },
+    ["@media (max-width:1000px)"]: {
+        marginLeft: "0 !important",
+        width: "100%",
+    },
 }));
 
 const DestinationReviewSkeletonLoading: FunctionComponent<MUIStyledCommonProps> = (props) => {

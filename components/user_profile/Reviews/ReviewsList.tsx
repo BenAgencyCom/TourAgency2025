@@ -39,7 +39,7 @@ const ReviewsList: FunctionComponent<ReviewsListProps> = (props) => {
                                 <SingleLandmarkReview
                                     data={review.landmark} //
                                     key={review.landmark.slug}
-                                    sx={{ mb: "20px", ml: index % 3 ? "20px" : 0 }}
+                                    sx={{ ml: index % 3 ? "20px" : 0 }}
                                     userReview={{
                                         id: review.id,
                                         createdAt: review.createdAt as any,
@@ -57,7 +57,7 @@ const ReviewsList: FunctionComponent<ReviewsListProps> = (props) => {
                                 <SingleDestinationReview
                                     data={review} //
                                     key={review.destination.slug}
-                                    sx={{ mb: "20px", ml: index % 2 ? "20px" : 0 }}
+                                    sx={{ ml: index % 2 ? "20px" : 0 }}
                                 ></SingleDestinationReview>
                             );
                         });
