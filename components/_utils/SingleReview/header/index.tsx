@@ -25,7 +25,6 @@ const Age = styled("span")(({ theme }) => ({
 
 interface SingleReviewHeaderProps {
     review: Review;
-    color: ScoreColor;
 }
 
 const SingleReviewHeader: FunctionComponent<SingleReviewHeaderProps> = (props) => {
@@ -34,7 +33,11 @@ const SingleReviewHeader: FunctionComponent<SingleReviewHeaderProps> = (props) =
     const fullName = `${reviewer.name} ${reviewer.surname},`;
 
     return (
-        <FlexBox vertical="between" sx={{ position: "relative" }} className="landmark-review-header">
+        <FlexBox
+            vertical="between" //
+            sx={{ position: "relative" }}
+            className="landmark-review-header"
+        >
             <Flag
                 countryCode={reviewer.countryCode}
                 country={reviewer.country}

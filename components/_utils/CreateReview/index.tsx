@@ -33,11 +33,16 @@ const CreateReviewWrapper = styled("div")(({ theme }) => ({
 }));
 
 interface CreateReviewProps {
-    reviewToModify: Review | null;
+    tags: StatedDataField<string[]>;
     scoreInt: StatedDataField<number>;
     scoreFloat: StatedDataField<number>;
     reviewContent: StatedDataField<string>;
-    tags: StatedDataField<string[]>;
+    showAuthenticatedUserReview: () => void;
+    reviewToModify: StatedDataField<Review | null>;
+    record: {
+        id: string;
+        type: "landmark" | "destination";
+    };
 }
 
 const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
@@ -82,6 +87,8 @@ const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
                     reviewToModify={reviewToModify}
                     scoreInt={scoreInt.value}
                     scoreFloat={scoreFloat.value}
+                    record={props.record}
+                    showAuthenticatedUserReview={props.showAuthenticatedUserReview}
                 />
             </CreateReviewWrapper>
         </CreateReviewContext.Provider>

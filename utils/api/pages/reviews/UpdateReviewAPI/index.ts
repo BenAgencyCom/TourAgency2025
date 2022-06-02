@@ -4,7 +4,7 @@ import LandmarkReviewBroker from "./PrismaReqeustBrokers/LandmarkReviewBroker";
 import DestinationReviewBroker from "./PrismaReqeustBrokers/DestinationReviewBroker";
 // Types
 import type { GuardedAPIResponse } from "@/utils/api/GuardedAPIEndpoint";
-import type { UpdateRecordMethodParams, PrismaRequestBroker, PrismaRequestBrokerConstructorParams } from "./@types";
+import type { UpdateRecordMethodParams, PrismaRequestBroker, PrismaRequestBrokerConstructorParams, ModifiedReviewResponse } from "./@types";
 
 interface UpdateReviewAPIConstructorParams {
     idOfReview: string;
@@ -26,9 +26,9 @@ export default class UpdateReviewAPI {
         else this.PrismaRequestBroker = new LandmarkReviewBroker(brokerParams);
     }
 
-    public async updateRecord(params: UpdateRecordMethodParams) {
+    public async updateRecord(params: UpdateRecordMethodParams): Promise<ModifiedReviewResponse> {
         this.validateRequestBody(params);
-        await this.PrismaRequestBroker.updateRecord(params);
+        return await this.PrismaRequestBroker.updateRecord(params);
     }
 
     private validateRequestBody(params: UpdateRecordMethodParams) {

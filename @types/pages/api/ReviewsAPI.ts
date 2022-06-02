@@ -60,3 +60,10 @@ export interface ReviewsCallResponse {
     pointsDistribution?: PointsDistribution;
     statistics?: Statistics;
 }
+
+export interface ModifiedReviewResponse {
+    type: DestinationReview["type"];
+    points: DestinationReview["points"];
+    review: DestinationReview["review"];
+    tags: DestinationReview["tags"];
+}

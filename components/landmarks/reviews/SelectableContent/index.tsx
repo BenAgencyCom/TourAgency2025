@@ -1,9 +1,8 @@
 // Tools
-import { useMemo } from "react";
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 import stated from "@/utils/client/stated";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 // Types
 import type { FunctionComponent } from "react";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
@@ -36,13 +35,16 @@ const NavigationWrapper = styled("div")(({ theme }) => ({
 type Section = "pinnedReview" | "createReview" | "authenticatedUserReview";
 
 interface SelectableContentProps {
+    landmarkId: string;
     pinnedReview: null | Review;
     authenticatedUserReview: null | Review;
 }
 
 const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => {
     const router = useRouter();
-    const { pinnedReview, authenticatedUserReview } = props;
+    const { pinnedReview, authenticatedUserReview: _authenticatedUserReview } = props;
+
+    const [authenticatedUserReview, setAuthenticatedUserReview] = useState<Review | null>(_authenticatedUserReview ?? null);
 
     const pinnedReviewAndAuthenticatedUserReviewAreNotTheSame = useMemo<boolean>(() => {
         if (!pinnedReview || !authenticatedUserReview) return false;
@@ -64,25 +66,26 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
     const [tags, setTags] = useState<string[]>([]);
     // Update above create review properties when authenticated user review is loaded
     useEffect(() => {
-        if (authenticatedUserReview) {
-            const splitedScore = String(authenticatedUserReview.points).split(".");
+        if (props.authenticatedUserReview) {
+            setAuthenticatedUserReview(props.authenticatedUserReview);
+            const splitedScore = String(props.authenticatedUserReview.points).split(".");
             setScoreInt(Number(splitedScore[0]));
             setScoreFloat(Number(splitedScore[1]));
-            setReviewContent(authenticatedUserReview.review);
-            setTags(authenticatedUserReview.tags);
+            setReviewContent(props.authenticatedUserReview.review);
+            setTags(props.authenticatedUserReview.tags);
         }
-    }, [authenticatedUserReview]);
+    }, [props.authenticatedUserReview]);
     // Check whether the pinned review can be loaded
     useEffect(() => {
         if (router.query.pinnedReviewId) {
             if (pinnedReviewAndAuthenticatedUserReviewAreNotTheSame) setCurrentSection("pinnedReview");
-            else if (authenticatedUserReview) {
+            else if (props.authenticatedUserReview) {
                 setCurrentSection("authenticatedUserReview");
             }
-        } else if (authenticatedUserReview) {
+        } else if (props.authenticatedUserReview) {
             setCurrentSection("authenticatedUserReview");
         }
-    }, [router.query, pinnedReviewAndAuthenticatedUserReviewAreNotTheSame, authenticatedUserReview]);
+    }, [router.query, pinnedReviewAndAuthenticatedUserReviewAreNotTheSame, props.authenticatedUserReview]);
 
     const addPropsToButton = (type: Section) => {
         return {
@@ -109,11 +112,16 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
                 if (currentSection === "createReview") {
                     return (
                         <CreateReview
-                            reviewToModify={authenticatedUserReview} //
+                            reviewToModify={stated(authenticatedUserReview, setAuthenticatedUserReview)} //
                             scoreInt={stated(scoreInt, setScoreInt)}
                             scoreFloat={stated(scoreFloat, setScoreFloat)}
                             reviewContent={stated(reviewContent, setReviewContent)}
                             tags={stated(tags, setTags)}
+                            showAuthenticatedUserReview={() => setCurrentSection("authenticatedUserReview")}
+                            record={{
+                                id: props.landmarkId,
+                                type: "landmark",
+                            }}
                         />
                     );
                 } else if (currentSection === "pinnedReview") {
@@ -124,6 +132,10 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
                             review={authenticatedUserReview as Review} //
                             sx={{ mb: "100px" }}
                             authenticatedUserReview
+                            record={{
+                                id: props.landmarkId,
+                                type: "landmark",
+                            }}
                         />
                     );
                 }

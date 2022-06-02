@@ -70,6 +70,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
             <SelectableContent
                 pinnedReview={pinnedReview} //
                 authenticatedUserReview={authenticatedUserReview}
+                landmarkId={props.landmark.id}
             ></SelectableContent>
 
             <URLQueriesManager

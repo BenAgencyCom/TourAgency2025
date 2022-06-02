@@ -17,5 +17,12 @@ export interface PrismaRequestBrokerConstructorParams {
 }
 
 export interface PrismaRequestBroker extends PrismaRequestBrokerConstructorParams {
-    updateRecord: (params: UpdateRecordMethodParams) => Promise<void>;
+    updateRecord: (params: UpdateRecordMethodParams) => Promise<ModifiedReviewResponse>;
+}
+
+export interface ModifiedReviewResponse {
+    type: LandmarkReview["type"];
+    points: LandmarkReview["points"];
+    review: LandmarkReview["review"];
+    tags: LandmarkReview["tags"];
 }

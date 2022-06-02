@@ -3,7 +3,7 @@ import { prisma } from "@/prisma/db";
 import CircumstancesValidator from "../../_abstracts/CircumstancesValidator";
 // Types
 import type { ReviewType } from "@prisma/client";
-import type { PrismaRequestBrokerConstructorParams, PrismaRequestBroker, UpdateRecordMethodParams } from "../@types";
+import type { PrismaRequestBrokerConstructorParams, PrismaRequestBroker, UpdateRecordMethodParams, ModifiedReviewResponse } from "../@types";
 
 export default class DestinationReviewBroker extends CircumstancesValidator implements PrismaRequestBroker {
     public constructor(params: PrismaRequestBrokerConstructorParams) {
@@ -15,10 +15,10 @@ export default class DestinationReviewBroker extends CircumstancesValidator impl
         });
     }
 
-    public async updateRecord(params: UpdateRecordMethodParams): Promise<void> {
+    public async updateRecord(params: UpdateRecordMethodParams): Promise<ModifiedReviewResponse> {
         await this.ensureThatRecordExistsAndUserIsEntitledToDoIndendedAction();
 
-        await prisma.destinationReview.update({
+        return await prisma.destinationReview.update({
             where: {
                 id: this.idOfReview,
             },
@@ -28,12 +28,18 @@ export default class DestinationReviewBroker extends CircumstancesValidator impl
                 review: params.reviewContent,
                 type: this.generateReviewType(params.points),
             },
+            select: {
+                points: true,
+                review: true,
+                tags: true,
+                type: true,
+            },
         });
     }
 
     protected generateReviewType(points: number): ReviewType {
-        if (points > 0.7) return "POSITIVE";
-        else if (points < 0.4) return "MIXED";
+        if (points > 7) return "POSITIVE";
+        else if (points > 4) return "MIXED";
         return "NEGATIVE";
     }
 }

@@ -84,7 +84,7 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
             {props.pinned && <PushPin className="background-icon" />}
             {props.authenticatedUserReview && <Sailing className="background-icon" />}
 
-            <SingleReviewHeader review={review} color={color}></SingleReviewHeader>
+            <SingleReviewHeader review={review}></SingleReviewHeader>
             <SingleReviewTags tags={review.tags} color={color}></SingleReviewTags>
             <Typography variant="body2">{review.review}</Typography>
 

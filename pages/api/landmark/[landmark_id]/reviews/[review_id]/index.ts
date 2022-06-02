@@ -39,13 +39,13 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
                 idOfReview: request.query.review_id,
                 idOfElementAssociatedWithReview: request.query.landmark_id,
             });
-            await API.updateRecord({
+            const updatedReviewData = await API.updateRecord({
                 points: request.body.points,
                 reviewContent: request.body.reviewContent,
                 tags: request.body.tags,
             });
 
-            return res.status(200).end();
+            return res.status(200).send(updatedReviewData);
         }
         // Unhandled method request
         throw new MethodNotAllowed();

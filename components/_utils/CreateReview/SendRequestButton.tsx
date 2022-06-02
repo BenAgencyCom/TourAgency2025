@@ -1,10 +1,12 @@
 // Tools
+import axios from "axios";
 import { useMemo } from "react";
 import { styled } from "@mui/system";
 import restrictions from "@/utils/restrictions/createReview";
 // Types
 import type { FunctionComponent } from "react";
-import type { Review } from "@/@types/pages/api/ReviewsAPI";
+import type { StatedDataField } from "@/@types/StatedDataField";
+import type { Review, ModifiedReviewResponse } from "@/@types/pages/api/ReviewsAPI";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Other components
@@ -43,14 +45,45 @@ interface SendRequestButtonProps {
     scoreInt: number;
     scoreFloat: number;
     reviewContent: string;
-    reviewToModify: Review | null;
+    showAuthenticatedUserReview: () => void;
+    reviewToModify: StatedDataField<Review | null>;
+    record: {
+        id: string;
+        type: "landmark" | "destination";
+    };
 }
 
 const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => {
     const { reviewContent, tags, reviewToModify, scoreInt, scoreFloat } = props;
     const { isAuthenticated } = useAppSelector((state) => state.authentication);
 
+    const sendRequest = async () => {
+        if (!isAuthenticated || buttonIsDisabled) return;
+
+        if (reviewToModify.value === null) {
+            console.log("CREATE NEW REVIEW");
+        } else {
+            const res = await axios.patch(`/api/${props.record.type}/${props.record.id}/reviews/${reviewToModify.value.id}`, {
+                points: actualScore,
+                reviewContent,
+                tags,
+            });
+            const data: ModifiedReviewResponse = res.data;
+
+            reviewToModify.setValue((_current) => {
+                const value = _current as unknown as Review;
+                value.points = data.points;
+                value.type = data.type;
+                value.review = data.review;
+                value.tags = data.tags as any;
+                return value;
+            });
+            setTimeout(props.showAuthenticatedUserReview, 1);
+        }
+    };
+
     const actualScore = useMemo<number>(() => {
+        if (scoreInt === 10) return 10;
         return (scoreInt * 10 + scoreFloat) / 10;
     }, [scoreFloat, scoreInt]);
 
@@ -67,26 +100,31 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
     }, [tags]);
 
     const scoreHasNotBeenChanged = useMemo<boolean>(() => {
-        if (!reviewToModify) return false;
-        return actualScore === reviewToModify.points;
+        if (!reviewToModify.value) return false;
+        return actualScore === reviewToModify.value.points;
     }, [actualScore, reviewToModify]);
 
     const tagsHaveNotBeenChanged = useMemo<boolean>(() => {
-        if (!reviewToModify) return false;
-        return JSON.stringify(tags) === JSON.stringify(reviewToModify.tags);
+        if (!reviewToModify.value) return false;
+        return JSON.stringify(tags) === JSON.stringify(reviewToModify.value.tags);
     }, [tags, reviewToModify]);
 
     const reviewContentHasNotBeenChanged = useMemo<boolean>(() => {
-        if (!reviewToModify) return false;
-        return reviewContent === reviewToModify.review;
+        if (!reviewToModify.value) return false;
+        return reviewContent === reviewToModify.value.review;
     }, [reviewContent, reviewToModify]);
+
+    const buttonIsDisabled = useMemo<boolean>(() => {
+        return !isAuthenticated || reviewContentIsNotOK || tagsAreNotOK || (scoreHasNotBeenChanged && tagsHaveNotBeenChanged && reviewContentHasNotBeenChanged);
+    }, [isAuthenticated, reviewContentHasNotBeenChanged, reviewContentIsNotOK, scoreHasNotBeenChanged, tagsAreNotOK, tagsHaveNotBeenChanged]);
 
     return (
         <SendRequestButtonWrapper>
             <StyledButton
                 primary //
                 sx={{ width: "200px", mr: "20px" }}
-                disabled={!isAuthenticated || reviewContentIsNotOK || tagsAreNotOK || (scoreHasNotBeenChanged && tagsHaveNotBeenChanged && reviewContentHasNotBeenChanged)}
+                disabled={buttonIsDisabled}
+                onClick={sendRequest}
             >
                 {reviewToModify ? "Modify review" : "Add review"}
             </StyledButton>
