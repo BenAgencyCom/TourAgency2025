@@ -31,7 +31,7 @@ const ThumbsBase = styled(Button)(({ theme }) => ({
 interface ThumbProps {
     feedback: number;
     type: "DISLIKE" | "LIKE";
-    authenticatedUserChoice: Feedback | null;
+    authenticatedUserChoice?: Feedback | null;
 }
 
 const Thumb: ForwardRefExoticComponent<ThumbProps> = forwardRef((props, ref) => {

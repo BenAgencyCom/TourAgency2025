@@ -8,6 +8,7 @@ import type { Feedback } from "@prisma/client";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Other components
 import ThumbsWithTooltips from "./ThumbsWithTooltips";
+import ThumbsWithoutTooltips from "./ThumbsWithoutTooltips";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
@@ -36,12 +37,27 @@ const Likes: FunctionComponent<LikesProps> = (props) => {
 
     return (
         <FlexBox vertical="center">
-            <ThumbsWithTooltips
-                amountOfLikes={stated(amountOfLikes, setAmountOfLikes)}
-                amountOfDislikes={stated(amountOfDislikes, setAmountOfDislikes)}
-                authenticatedUserChoice={stated(authenticatedUserChoice, setAuthenticatedUserChoice)}
-                sendRequest={sendRequest}
-            ></ThumbsWithTooltips>
+            {(() => {
+                if (isAuthenticated) {
+                    return (
+                        <>
+                            <ThumbsWithTooltips
+                                amountOfLikes={stated(amountOfLikes, setAmountOfLikes)}
+                                amountOfDislikes={stated(amountOfDislikes, setAmountOfDislikes)}
+                                authenticatedUserChoice={stated(authenticatedUserChoice, setAuthenticatedUserChoice)}
+                                sendRequest={sendRequest}
+                            ></ThumbsWithTooltips>
+                        </>
+                    );
+                } else {
+                    return (
+                        <ThumbsWithoutTooltips
+                            amountOfLikes={amountOfLikes} //
+                            amountOfDislikes={amountOfDislikes}
+                        />
+                    );
+                }
+            })()}
         </FlexBox>
     );
 };
