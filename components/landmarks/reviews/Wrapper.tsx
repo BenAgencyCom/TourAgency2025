@@ -135,6 +135,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                                     reviews={reviews} //
                                     paginationProperties={paginationProperties}
                                     reviewsAreLoading={loading}
+                                    landmarkId={props.landmark.id}
                                 ></Reviews>
                             );
                         }

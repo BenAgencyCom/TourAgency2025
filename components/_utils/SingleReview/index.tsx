@@ -56,6 +56,10 @@ interface SingleReviewProps {
     sx?: SxProps;
     pinned?: true;
     authenticatedUserReview?: true;
+    record: {
+        id: string;
+        type: "destination" | "landmark";
+    };
 }
 const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     const { review } = props;
@@ -85,7 +89,11 @@ const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
             <Typography variant="body2">{review.review}</Typography>
 
             <Divider flexItem sx={{ my: "10px" }}></Divider>
-            <Likes feedback={review.feedback}></Likes>
+            <Likes
+                feedback={review.feedback} //
+                reviewId={review.id}
+                record={props.record}
+            ></Likes>
         </SingleReviewWrapper>
     );
 };

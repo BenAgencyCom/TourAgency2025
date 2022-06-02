@@ -13,7 +13,7 @@ import type { ReviewType, Feedback } from "@prisma/client";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 
 describe("All routes:", () => {
-    describe("POST: /api/landmark/[landmark_id]/reviews/[review_id]/like", () => {
+    describe("POST: /api/landmark/[landmark_id]/reviews/[review_id]/feedback", () => {
         const user = new MockUser();
         const destination = new MockDestination();
         const landmark = new MockLandmark({ status: "APPROVED" });

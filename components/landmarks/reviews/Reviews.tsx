@@ -13,8 +13,9 @@ import Loading from "@/components/_utils/Loading";
 
 interface ReviewsProps {
     reviews: Review[];
-    paginationProperties: PaginationProperties;
+    landmarkId: string;
     reviewsAreLoading: boolean;
+    paginationProperties: PaginationProperties;
 }
 
 const Reviews: FunctionComponent<ReviewsProps> = (props) => {
@@ -28,7 +29,16 @@ const Reviews: FunctionComponent<ReviewsProps> = (props) => {
                         <Fade in={true}>
                             <FlexBox column horizontal="center">
                                 {props.reviews.map((review, index) => {
-                                    return <SingleReview key={index} review={review}></SingleReview>;
+                                    return (
+                                        <SingleReview
+                                            key={index} //
+                                            review={review}
+                                            record={{
+                                                id: props.landmarkId,
+                                                type: "landmark",
+                                            }}
+                                        ></SingleReview>
+                                    );
                                 })}
                             </FlexBox>
                         </Fade>
