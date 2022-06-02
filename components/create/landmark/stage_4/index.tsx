@@ -1,3 +1,5 @@
+// Tools
+import { useEffect } from "react";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
@@ -5,10 +7,16 @@ import Preview from "./Preview";
 import StageHeader from "@/components/create/_utils/StageHeader";
 import Description from "@/components/create/_utils/description";
 // Redux
-import { useAppSelector } from "@/hooks/useRedux";
+import { actions } from "@/redux/slices/createContent";
+import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 
 const StageFour: FunctionComponent = (props) => {
     const { previewMode } = useAppSelector((state) => state.createContent);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(actions.setPreviewMode(false));
+    }, [dispatch]);
 
     return (
         <>

@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 // Styled components
 const StageHeaderWrapper = styled("div")(({ theme }) => ({
-    margin: "50px 0",
+    margin: "0 0 50px 0",
     position: "relative",
 }));
 interface StageHeaderProps {

@@ -46,7 +46,7 @@ const SplittedSubfiled: FunctionComponent<SplittedSubfiledProps> = (props) => {
             ></ChangeTypeDialog>
 
             {/* ACTUAL CONTENT */}
-            <SingleSubfieldWrapper>
+            <SingleSubfieldWrapper className="splitted-subfield">
                 <SplittedSubfieldHeader
                     fieldType={props.data.type} //
                     openTypeChangeDialog={() => setOpenChangeTypeDialog(true)}

@@ -80,7 +80,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                 return (
                     <Fade in={true}>
                         <CustomCard
-                            className="description-conent-field" //
+                            className="description-content-field" //
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}

@@ -33,6 +33,9 @@ const StyledCard = styled(Card)(({ theme }: { theme: Theme }) => ({
     background: "#fff",
     border: "none",
     position: "relative",
+    ["@media (max-width:900px)"]: {
+        marginBottom: "60px",
+    },
 }));
 
 const ValidationErrorIcon = styled("span")(({ theme }) => ({
@@ -94,7 +97,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                 return (
                     <Fade in={true}>
                         <StyledCard
-                            className="description-conent-field" //
+                            className="description-content-field" //
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
@@ -103,7 +106,7 @@ const SingleContentField: FunctionComponent<SingleContentFieldProps> = (props) =
                             <Fade in={!props.isValid}>
                                 <div>
                                     <ValidationErrorIcon>
-                                        <ReportGmailerrorred />
+                                        <ReportGmailerrorred className="validation-error" />
                                     </ValidationErrorIcon>
                                 </div>
                             </Fade>

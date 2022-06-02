@@ -78,6 +78,7 @@ const SelectThumbnail: FunctionComponent<SelectThumbnailProps> = (props) => {
                                 alt="choosen-thumbnail"
                                 layout="fill"
                                 modalMaxResolution="1"
+                                objectFit="contain"
                                 openFileSelectDialog={openFileBrowserWindow}
                             ></SkeletonImage>
                         </>

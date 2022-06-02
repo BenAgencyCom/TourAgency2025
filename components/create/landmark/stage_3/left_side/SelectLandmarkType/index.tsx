@@ -54,11 +54,17 @@ const SelectLandmarkType: FunctionComponent<SelectLandmarkTypeProps> = (props) =
                 sx={{ width: "100%", margin: "10px 0", height: "52px" }}
             ></SelectWithIcon>
 
-            <FlexBox sx={{ width: "100%", flexWrap: "wrap" }}>
+            <FlexBox sx={{ width: "100%", flexWrap: "wrap" }} className="tiles-wrapper">
                 {options.map((item, index) => {
                     return (
                         <Tooltip title={item.label} key={item.value} placement="bottom">
-                            <SingleLandmarkTypeTile className={item.value === props.landmarkType.value ? "selected" : ""} onClick={() => props.landmarkType.setValue(item.value)}>
+                            <SingleLandmarkTypeTile
+                                className={[
+                                    item.value === props.landmarkType.value ? "selected" : "", //
+                                    "single-landmark-type",
+                                ].join(" ")} //
+                                onClick={() => props.landmarkType.setValue(item.value)}
+                            >
                                 {GetLandmarkIcon(item.value)}
                             </SingleLandmarkTypeTile>
                         </Tooltip>

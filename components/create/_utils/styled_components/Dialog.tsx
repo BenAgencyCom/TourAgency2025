@@ -48,15 +48,4 @@ export const StyledDialogActions = styled(DialogActions)(({ theme }) => ({
     paddingLeft: "24px",
     position: "relative",
     zIndex: "2",
-    ["@media (max-width: 900px)"]: {
-        alignItems: "center",
-        flexDirection: "column",
-        button: {
-            margin: "10px 0 0 0 !important",
-            minWidth: "300px",
-            "&:nth-of-type(1)": {
-                marginTop: "0 !important",
-            },
-        },
-    },
 }));

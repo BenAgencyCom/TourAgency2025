@@ -40,14 +40,13 @@ const ImageField: FunctionComponent<ImageFieldProps> = (props) => {
 
     // ClassNames (for RWD purpose)
     const type: string = props.split ? "splitted-field-image" : "entire-field-image";
-    const pseudoElementRotation: string = props.side === "right" ? "image-with-reversed-shape" : "image-with-shape";
     return (
         <ImageFieldWrapper
             sx={{
                 width: `${width}% !important`, //
                 my: "20px",
             }}
-            className={[type, pseudoElementRotation].join(" ")}
+            className={[type].join(" ")}
         >
             {(() => {
                 if (props.imageURL) {

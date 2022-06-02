@@ -1,8 +1,9 @@
 // Tools
+import RWD from "./RWD";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 // Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
@@ -21,6 +22,7 @@ import { actions as createContentActions } from "@/redux/slices/createContent";
 import Public from "@mui/icons-material/Public";
 // Styled components
 const DestinationsWrapper = styled("div")(({ theme }) => ({
+    ...(RWD as any),
     display: "flex",
     flexWrap: "wrap",
 }));

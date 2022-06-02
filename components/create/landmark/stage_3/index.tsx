@@ -1,7 +1,8 @@
 // Tools
 import joi from "joi";
-import { useEffect, useCallback } from "react";
+import RWD from "./RWD";
 import { styled } from "@mui/system";
+import { useEffect, useCallback } from "react";
 import restrictions from "@/utils/restrictions/createLandmark";
 // Types
 import type { FunctionComponent } from "react";
@@ -24,6 +25,7 @@ const StageContentWrapper = styled("div")(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
+    ...(RWD as any),
 }));
 const ContentColumn = styled("div")(({ theme }) => ({
     width: "calc(50% - 25px)",

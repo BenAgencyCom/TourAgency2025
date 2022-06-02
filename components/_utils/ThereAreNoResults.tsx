@@ -59,6 +59,16 @@ const NoResultsWrapper = styled(FlexBoxColumnCenter)(({ theme }) => ({
             },
         },
     },
+    ["@media (max-width:900px)"]: {
+        h3: {
+            fontSize: "2.5rem",
+        },
+    },
+    ["@media (max-width:400px)"]: {
+        button: {
+            width: "100%",
+        },
+    },
 }));
 interface ThereAreNoResultsProps {
     router?: NextRouter;
@@ -139,7 +149,7 @@ const ThereAreNoResults: FunctionComponent<ThereAreNoResultsProps> = (props) => 
 
     return (
         <Fade in={true}>
-            <NoResultsWrapper>
+            <NoResultsWrapper className="there-are-no-results">
                 {(() => {
                     if (playEasterEgg) return <EasterEgg></EasterEgg>;
                     return (

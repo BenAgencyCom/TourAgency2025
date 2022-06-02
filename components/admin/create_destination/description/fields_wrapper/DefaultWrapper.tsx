@@ -28,7 +28,7 @@ const DefaultWrapper: FunctionComponent<DefaultWrapperProps> = (props) => {
 
     const handleScrollableSetting = () => {
         if (props.wrapper.current === null) return setScrollable(false);
-        const contentItemsTotalHeight = [...(document.querySelectorAll(".description-conent-field" as any) as any)].reduce((a, b) => a + b.getBoundingClientRect().height + 16, 0);
+        const contentItemsTotalHeight = [...(document.querySelectorAll(".description-content-field" as any) as any)].reduce((a, b) => a + b.getBoundingClientRect().height + 16, 0);
         setScrollable(contentItemsTotalHeight > props.wrapper.current.offsetHeight);
     };
     useEffect(() => handleScrollableSetting());

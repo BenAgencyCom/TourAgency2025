@@ -17,15 +17,11 @@ import { useAppDispatch } from "@/hooks/useRedux";
 import { displaySnackbar } from "@/redux/slices/snackbar";
 // Styled components
 const SingleDestinationWrapper = styled("div")(({ theme }) => ({
-    width: "calc((100% - 40px)/ 3)",
     position: "relative",
     marginLeft: "20px",
     marginBottom: "20px",
     paddingBottom: "10px",
     background: "#fff",
-    "&:nth-of-type(1),&:nth-of-type(4),&:nth-of-type(7),&:nth-of-type(10),&:nth-of-type(13),&:nth-of-type(16),&:nth-of-type(19),&:nth-of-type(22),&:nth-of-type(25),&:nth-of-type(28)": {
-        marginLeft: "0px",
-    },
     borderRadius: "10px 10px 0 0",
     transition: "background .3s ease-in-out, color .2s ease-in-out",
     boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
@@ -85,7 +81,10 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
 
     return (
         <SingleDestinationWrapper
-            className={isSelected ? "selected" : ""} //
+            className={[
+                isSelected ? "selected" : "", //
+                "single-destination",
+            ].join(" ")} //
         >
             <Pictrue
                 folder={folder} //

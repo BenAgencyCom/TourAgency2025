@@ -60,7 +60,12 @@ const ImageBody: FunctionComponent<ImageBodyProps> = (props) => {
     };
 
     return (
-        <ImageFieldWrapper className={props.split ? "splitted" : "full-size"}>
+        <ImageFieldWrapper
+            className={[
+                props.split ? "splitted" : "full-size", //
+                "image-field",
+            ].join(" ")}
+        >
             {!props.isDragging && (
                 <>
                     {(() => {

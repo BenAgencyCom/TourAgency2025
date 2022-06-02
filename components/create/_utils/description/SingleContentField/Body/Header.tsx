@@ -1,5 +1,4 @@
 // Tools
-import { useState } from "react";
 import CREATE_LANDMARK_RESTRICTIONS from "@/utils/restrictions/createLandmark";
 // Types
 import { ListItem } from "@/@types/redux";

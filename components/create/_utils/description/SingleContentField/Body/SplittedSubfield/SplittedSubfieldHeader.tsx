@@ -18,6 +18,13 @@ const SplittedSubfieldHeaderBase = styled("header")(({ theme }) => ({
     alignItems: "center",
     width: "100%",
     marginBottom: "16px",
+    ["@media (max-width:450px)"]: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        button: {
+            marginTop: "20px",
+        },
+    },
 }));
 
 const Header = styled("h5")(({ theme }) => ({

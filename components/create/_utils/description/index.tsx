@@ -1,11 +1,12 @@
 // Tools
+import RWD from "./RWD";
 import { styled } from "@mui/system";
 import stated from "@/utils/client/stated";
 import { useState, useEffect } from "react";
 import { validateDescriptionPrecisely } from "@/validators/helpers/create_destination/descriptionValidators";
 // Types
 import type { SxProps } from "@mui/system";
-import type { FunctionComponent, Dispatch, SetStateAction } from "react";
+import type { FunctionComponent } from "react";
 // Other Components
 import Header from "./Header";
 import SingleContentField from "./SingleContentField";
@@ -19,6 +20,7 @@ import { actions as createContentActions } from "@/redux/slices/createContent";
 const DescriptionWrapper = styled("section")(({ theme }) => ({
     display: "flex",
     flexDirection: "column",
+    ...(RWD as any),
 }));
 interface DescriptionProps {
     sx?: SxProps;

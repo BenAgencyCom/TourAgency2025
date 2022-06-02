@@ -2,6 +2,8 @@
 import type { FunctionComponent } from "react";
 // Material UI Components
 import Tooltip from "@mui/material/Tooltip";
+// Material UI Icons
+import Settings from "@mui/icons-material/Settings";
 // Styled components
 import Button from "@/components/create/_utils/forms/Button";
 
@@ -14,10 +16,10 @@ const SingleContentFieldControlHeader: FunctionComponent<SingleContentFieldContr
         <Tooltip title="Change type" placement="top">
             <div>
                 <Button
-                    sx={{ mr: "10px" }} //
+                    sx={{ mr: "10px", width: "60px" }} //
                     onClick={props.openAddingFieldTypeDialog}
                 >
-                    Change type
+                    <Settings />
                 </Button>
             </div>
         </Tooltip>

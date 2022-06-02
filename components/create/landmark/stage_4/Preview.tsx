@@ -20,7 +20,9 @@ const PreviewMode: FunctionComponent = (props) => {
     return (
         <>
             <Box sx={{ mb: "40px" }}>
-                <StyledButton onClick={openEditMode}>Edit</StyledButton>
+                <StyledButton onClick={openEditMode} sx={{ width: "200px" }}>
+                    Edit
+                </StyledButton>
             </Box>
             <DescriptionPreview
                 data={description.map((el) => el.data)} //

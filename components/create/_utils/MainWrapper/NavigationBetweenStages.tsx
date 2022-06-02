@@ -17,6 +17,30 @@ const StagesNavigationWrapper = styled("div")(({ theme }) => ({
         width: "200px",
         height: "40px",
     },
+    ["@media (max-width:900px)"]: {
+        flexWrap: "wrap",
+        alignItems: "flex-start",
+        marginTop: "0",
+        ">button": {
+            order: 2,
+        },
+        ">span": {
+            order: 1,
+            marginLeft: "0",
+            marginBottom: "20px",
+            width: "100%",
+        },
+    },
+    ["@media (max-width:500px)"]: {
+        ">button": {
+            width: "100%",
+            marginLeft: "0",
+            marginTop: "10px",
+            "&:nth-of-type(1)": {
+                order: 3,
+            },
+        },
+    },
 }));
 
 const BlockJustification = styled("span")(({ theme }) => ({
@@ -70,7 +94,7 @@ const NavigationBetweenStages: FunctionComponent<NavigationBetweenStagesProps> =
             <Button
                 reverse //
                 primary
-                sx={{ ml: "20px" }}
+                sx={{ ml: "10px" }}
                 disabled={disableNavigation}
                 onClick={goForward}
                 id="go-forward"

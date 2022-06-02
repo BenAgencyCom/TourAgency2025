@@ -1,5 +1,6 @@
 // Tools
 import { styled, alpha } from "@mui/system";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
@@ -53,28 +54,34 @@ const CreateProcessStepper: FunctionComponent<CreateProcessStepperProps> = (prop
     const { disableNavigation } = useAppSelector((state) => state.createContent);
     const { steps, activeStep, alreadyVisitedSteps } = props;
 
+    const { width } = useWindowSizes();
+
     return (
-        <Stepper>
-            {steps.map((step, index) => {
-                const isClickable: boolean = !disableNavigation && alreadyVisitedSteps.has(index);
-                const isActive = index === activeStep.value;
-                if (isActive || isClickable) {
-                    const tooltipMsg = isActive ? "Currently editing step" : "Correctly filled step";
-                    return (
-                        <Tooltip title={tooltipMsg}>
-                            <Step key={index} active={isActive} onClick={() => isClickable && activeStep.setValue(index)}>
-                                <StyledStepLabel className={isClickable ? "clickable" : ""}>{step}</StyledStepLabel>
+        <>
+            {width > 900 && (
+                <Stepper sx={{ mb: "50px" }}>
+                    {steps.map((step, index) => {
+                        const isClickable: boolean = !disableNavigation && alreadyVisitedSteps.has(index);
+                        const isActive = index === activeStep.value;
+                        if (isActive || isClickable) {
+                            const tooltipMsg = isActive ? "Currently editing step" : "Correctly filled step";
+                            return (
+                                <Tooltip title={tooltipMsg} key={index}>
+                                    <Step active={isActive} onClick={() => isClickable && activeStep.setValue(index)}>
+                                        <StyledStepLabel className={isClickable ? "clickable" : ""}>{step}</StyledStepLabel>
+                                    </Step>
+                                </Tooltip>
+                            );
+                        }
+                        return (
+                            <Step key={index} active={false}>
+                                <StyledStepLabel>{step}</StyledStepLabel>
                             </Step>
-                        </Tooltip>
-                    );
-                }
-                return (
-                    <Step key={index} active={false}>
-                        <StyledStepLabel>{step}</StyledStepLabel>
-                    </Step>
-                );
-            })}
-        </Stepper>
+                        );
+                    })}
+                </Stepper>
+            )}
+        </>
     );
 };
 

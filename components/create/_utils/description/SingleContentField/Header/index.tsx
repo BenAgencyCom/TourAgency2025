@@ -1,20 +1,20 @@
 // Tools
-import { styled } from "@mui/system";
-import { useState } from "react";
-import stated from "@/utils/client/stated";
 import RWD from "./RWD";
+import { useState } from "react";
+import { styled } from "@mui/system";
+import stated from "@/utils/client/stated";
 // Types
 import { ListItem } from "@/@types/redux";
 import type { FunctionComponent } from "react";
 import { FieldType } from "@/@types/Description";
 import type { DescriptionContentField, SplittedContentField } from "@/@types/Description";
 // Other components
-import ChangeTypeDialog from "./dialogs/ChangeTypeDialog";
-import DeleteConfirmationDialog from "./dialogs/DeleteConfirmationDialog";
+import HeaderText from "./Text";
 import ChangeType from "./buttons/ChangeType";
 import DeleteField from "./buttons/DeleteField";
+import ChangeTypeDialog from "./dialogs/ChangeTypeDialog";
 import SwapSplittedSides from "./buttons/SwapSplittedSides";
-import HeaderText from "./Text";
+import DeleteConfirmationDialog from "./dialogs/DeleteConfirmationDialog";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -51,7 +51,7 @@ const SingleContentFieldControlHeader: FunctionComponent<SingleContentFieldContr
             ></DeleteConfirmationDialog>
 
             {/* ACTUAL CONTENT */}
-            <HeaderWrapper>
+            <HeaderWrapper className="description-content-field-header">
                 <HeaderText currentType={currentType} index={props.index}></HeaderText>
 
                 <FlexBox>

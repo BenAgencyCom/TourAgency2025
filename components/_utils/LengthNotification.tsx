@@ -19,6 +19,12 @@ const LengthNotificationBase = styled("span")<{ error?: boolean }>(({ theme, ...
             color: props.error ? theme.palette.error.main : theme.palette.primary.main,
         },
     },
+    ["@media (max-width:1100px)"]: {
+        flexDirection: "column",
+        ">span:nth-of-type(1)": {
+            marginBottom: "5px",
+        },
+    },
 }));
 
 export const ErrorMSG = styled("span")(({ theme }) => ({
@@ -41,7 +47,7 @@ const LengthNotification: FunctionComponent<LengthNotificationProps> = (props) =
     const { min, max } = restrictions;
 
     return (
-        <LengthNotificationBase>
+        <LengthNotificationBase className="error-msg-wrapper">
             <span>
                 Length: <strong className="primary">{`${length} / ${max}`}</strong>
             </span>

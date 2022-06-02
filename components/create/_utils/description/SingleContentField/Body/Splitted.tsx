@@ -29,7 +29,7 @@ const SplittedBody: FunctionComponent<SplittedBodyProps> = (props) => {
     };
 
     return (
-        <SplittedContentFieldBox>
+        <SplittedContentFieldBox className="splitted-field">
             <SplittedSubfield
                 data={props.field.data["left"]} //
                 updateSubField={(data: SplittedContentField["left"]) => updateSubField("left", data)}
