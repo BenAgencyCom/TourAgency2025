@@ -19,6 +19,11 @@ const AddTagsWrapper = styled("div")(({ theme }) => ({
     marginBottom: "20px",
     display: "flex",
     width: "100%",
+    ["@media (max-width:500px)"]: {
+        ".MuiInputBase-root": {
+            width: "100% ",
+        },
+    },
 }));
 
 interface AddTagsProps {

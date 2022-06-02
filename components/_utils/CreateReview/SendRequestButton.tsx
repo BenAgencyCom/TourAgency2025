@@ -10,8 +10,25 @@ import { useAppSelector } from "@/hooks/useRedux";
 // Other components
 import Link from "next/link";
 // Styled components
-import FlexBox from "@/components/_utils/styled/FlexBox";
 import StyledButton from "@/components/create/_utils/forms/Button";
+
+const SendRequestButtonWrapper = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    marginTop: "40px",
+    ["@media (max-width:1100px)"]: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        ">span": {
+            marginTop: "10px",
+        },
+    },
+    ["@media (max-width:500px)"]: {
+        button: {
+            width: "100% ",
+        },
+    },
+}));
 
 const AuthenticationMessage = styled("span")(({ theme }) => ({
     fontSize: "1.2rem",
@@ -65,7 +82,7 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
     }, [reviewContent, reviewToModify]);
 
     return (
-        <FlexBox vertical="center" sx={{ mt: "40px" }}>
+        <SendRequestButtonWrapper>
             <StyledButton
                 primary //
                 sx={{ width: "200px", mr: "20px" }}
@@ -85,7 +102,7 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
                     <strong>Create one </strong>
                 </AuthenticationMessage>
             )}
-        </FlexBox>
+        </SendRequestButtonWrapper>
     );
 };
 

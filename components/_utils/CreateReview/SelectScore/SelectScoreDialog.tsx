@@ -47,7 +47,7 @@ const SelectScoreDialog: FunctionComponent<SelectScoreDialogProps> = (props) => 
     return (
         <StyledDialogBase open={props.open.value}>
             <StyledDialogTitle>Pick your score</StyledDialogTitle>
-            <StyledDialogContent>
+            <StyledDialogContent sx={{ minHeight: "420px" }}>
                 <StyledReviewScore sx={{ background: context.estimatedReviewColor }}>
                     {(() => {
                         if (scoreInt.value === 10) {
@@ -85,7 +85,7 @@ const SelectScoreDialog: FunctionComponent<SelectScoreDialogProps> = (props) => 
                 })()}
             </StyledDialogContent>
 
-            <StyledDialogActions>
+            <StyledDialogActions sx={{ justifyContent: "center", paddingLeft: "0" }}>
                 <StyledButton
                     onClick={() =>
                         setActiveStage((val) => {
@@ -94,6 +94,7 @@ const SelectScoreDialog: FunctionComponent<SelectScoreDialogProps> = (props) => 
                         })
                     }
                     disabled={scoreInt.value === 10}
+                    sx={{ width: "160px" }}
                 >
                     {activeStage === "scoreInt" ? "Continue" : "Go back"}
                 </StyledButton>

@@ -11,6 +11,8 @@ import type { StatedDataField } from "@/@types/StatedDataField";
 import OptionsRow from "./OptionsRow";
 import SelectScoreDialog from "./SelectScoreDialog";
 import ReviewScore from "@/components/_utils/ReviewScore";
+// Material UI Icons
+import Settings from "@mui/icons-material/Settings";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 import StyledButton from "@/components/create/_utils/forms/Button";
@@ -22,6 +24,12 @@ const StyledReviewScore = styled(ReviewScore)(({ theme }) => ({
     marginRight: "10px",
     fontWeight: "700",
     transition: "background .3s ease-in-out",
+    ["@media (max-width:700px)"]: {
+        width: "120px",
+        height: "120px",
+        fontSize: "4rem",
+        marginLeft: "50px",
+    },
 }));
 
 const SelectScoreWrapper = styled("header")(({ theme }) => ({
@@ -39,6 +47,13 @@ const SelectScoreWrapper = styled("header")(({ theme }) => ({
         strong: {
             marginLeft: "10px",
             fontWeight: "900",
+        },
+    },
+    ["@media (max-width:700px)"]: {
+        justifyContent: "center",
+        alignItems: "flex-end",
+        button: {
+            marginLeft: "0",
         },
     },
 }));
@@ -80,7 +95,12 @@ const SelectScore: FunctionComponent<SelectScoreProps> = (props) => {
                 } else {
                     return (
                         <>
-                            <StyledButton onClick={() => setOpenChangeScoreDialog(true)}>Change score</StyledButton>
+                            <StyledButton
+                                onClick={() => setOpenChangeScoreDialog(true)} //
+                                sx={{ width: "40px", height: "40p", padding: "0" }}
+                            >
+                                <Settings />
+                            </StyledButton>
                             <SelectScoreDialog
                                 scoreInt={scoreInt} //
                                 scoreFloat={scoreFloat}
