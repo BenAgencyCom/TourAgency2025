@@ -13,7 +13,7 @@ const FlexBox = styled("div")(({ theme }) => ({
 const TagPlaceholder = styled("div")(({ theme }) => ({
     background: theme.palette.text.primary,
     marginRight: "5px",
-    borderRadius: "5px",
+    borderRadius: "3px",
     fontSize: "1.2rem",
     userSelect: "none",
     color: "#fff",
@@ -21,7 +21,7 @@ const TagPlaceholder = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     height: "30px",
-    marginBottom: "10px",
+    marginTop: "10px",
 }));
 
 const TagsPlaceholder: FunctionComponent = () => {

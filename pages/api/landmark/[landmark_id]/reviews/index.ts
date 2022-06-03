@@ -31,9 +31,8 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
                 idOfElementToAddReview: request.query.landmark_id as string,
                 userId: authenticatedUserId,
             });
-            await API.create(request.body);
 
-            return res.status(201).end();
+            return res.status(201).send(await API.create(request.body));
         }
         // Unhandled method request
         throw new MethodNotAllowed();

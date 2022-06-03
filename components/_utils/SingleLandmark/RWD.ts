@@ -6,7 +6,7 @@ export default {
     marginLeft: "20px",
     boxSizing: "border-box",
     marginBottom: "20px",
-    height: "550px",
+    height: "480px",
     borderRadius: "5px",
     background: "#fff",
     padding: "10px",
@@ -18,17 +18,11 @@ export default {
     },
     ".single-landmark-picture": {
         width: "100%",
-        height: "290px",
+        height: "250px",
         position: "relative",
         overflow: "hidden",
     },
 
-    ["@media (max-width:1500px)"]: {
-        height: "500px",
-        p: {
-            fontSize: "1.2rem",
-        },
-    },
     ["@media (min-width:1341px)"]: {
         width: "calc((100% - 40px)/ 3)",
         "&:nth-of-type(1),&:nth-of-type(4),&:nth-of-type(7),&:nth-of-type(10),&:nth-of-type(13),&:nth-of-type(16),&:nth-of-type(19),&:nth-of-type(22),&:nth-of-type(25),&:nth-of-type(28)": {

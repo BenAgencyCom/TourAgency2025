@@ -11,7 +11,7 @@ import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineT
 const ReadMore = styled("a")(({ theme }) => ({
     marginTop: "10px",
     button: {
-        fontSize: "1.2rem", //
+        fontSize: "1rem", //
     },
     ["@media (max-width:1000px)"]: {
         marginTop: "50px",

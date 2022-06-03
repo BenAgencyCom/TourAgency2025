@@ -13,7 +13,7 @@ import FlexBox from "@/components/_utils/styled/FlexBox";
 
 const HelloThere = styled("span")(({ theme }) => ({
     marginLeft: "20px",
-    fontSize: "1.2rem",
+    fontSize: "1.1rem",
     letterSpacing: "1px",
     cursor: "default",
     strong: {

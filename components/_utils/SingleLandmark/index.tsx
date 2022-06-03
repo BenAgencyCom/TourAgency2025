@@ -32,7 +32,7 @@ const SingleLandmarkWrapper = styled("div")(({ theme }) => ({
         right: "0px",
         opacity: ".05",
         svg: {
-            fontSize: "10rem",
+            fontSize: "8rem",
         },
     },
     p: {

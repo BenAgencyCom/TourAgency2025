@@ -13,7 +13,7 @@ import FlexBox from "@/components/_utils/styled/FlexBox";
 const Wrapper = styled("div", {
     shouldForwardProp: (prop: string) => !["isScrolledDown"].includes(prop),
 })<{ isScrolledDown: boolean }>(({ theme, ...props }) => {
-    const size = props.isScrolledDown ? "60px" : "100px";
+    const size = props.isScrolledDown ? "60px" : "80px";
     return {
         position: "relative",
         zIndex: 1,

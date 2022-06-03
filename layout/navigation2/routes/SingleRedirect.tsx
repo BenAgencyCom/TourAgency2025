@@ -20,7 +20,7 @@ const SingleRedirect: FunctionComponent<SingleRedirectProps> = (props) => {
         <ButtonWithLineTransition
             primary //
             sx={{
-                fontSize: "1.2rem", //
+                fontSize: "1.1rem", //
                 letterSpacing: "1px",
             }}
             background="transparent"

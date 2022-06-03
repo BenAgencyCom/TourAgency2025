@@ -26,7 +26,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: "background .2s,border .2s",
     fontSize: colorTheme.typography.subtitle2.fontSize,
     "input,textarea": {
-        padding: "10px 20px",
+        padding: "7px 0px",
         display: "flex",
         alignItems: "center",
     },

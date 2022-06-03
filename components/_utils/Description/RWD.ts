@@ -3,7 +3,7 @@ import type { SxProps } from "@mui/system";
 export default {
     // Some general and frequently toggled properties
     ".entire-field-image": {
-        height: "700px",
+        height: "550px",
     },
     ".splitted-field-image": {
         height: "400px",

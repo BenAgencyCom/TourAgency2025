@@ -70,7 +70,7 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
             setAuthenticatedUserReview(props.authenticatedUserReview);
             const splitedScore = String(props.authenticatedUserReview.points).split(".");
             setScoreInt(Number(splitedScore[0]));
-            setScoreFloat(Number(splitedScore[1]));
+            setScoreFloat(Number(splitedScore[1] ?? 0));
             setReviewContent(props.authenticatedUserReview.review);
             setTags(props.authenticatedUserReview.tags);
         }

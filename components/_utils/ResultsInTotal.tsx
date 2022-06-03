@@ -5,9 +5,9 @@ import type { FunctionComponent } from "react";
 import type { MUIStyledCommonProps } from "@mui/system";
 // Styled Components
 const RecordsInTotalWrapper = styled("span")(({ theme }) => ({
-    margin: "20px 0 60px 0",
+    margin: "0px 0 40px 0",
     display: "block",
-    fontSize: "1.5rem",
+    fontSize: "1.2rem",
     strong: {
         color: theme.palette.primary.main,
         fontWeigt: 900,

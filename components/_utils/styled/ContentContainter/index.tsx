@@ -12,7 +12,7 @@ const Wrapper = styled("section")(({ theme }) => ({
     flexDirection: "column",
     maxWidth: "1450px",
     margin: "100px auto 0 auto",
-    width: "calc(100vw - 200px)",
+    width: "calc(100vw - 300px)",
     boxSizing: "border-box",
     color: theme.palette.text.primary,
     ["@media (max-width:1300px)"]: {

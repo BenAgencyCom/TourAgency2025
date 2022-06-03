@@ -65,10 +65,7 @@ export default createTheme({
     typography: {
         // Used for instance in `InputWithIcon` and `SelectWithIcon` components
         subtitle2: {
-            fontSize: "1.2rem",
-            ["@media (max-width:800px)"]: {
-                fontSize: "1.1rem",
-            },
+            fontSize: "1rem",
         },
     },
     components: {
@@ -117,23 +114,23 @@ export default createTheme({
                     fontWeight: 900,
                     letterSpacing: "-1px",
                     margin: "0 0 10px 0",
-                    fontSize: "2.5rem",
+                    fontSize: "2.2rem",
                     lineHeight: "40px",
                     ["@media (max-width:1600px)"]: {
                         lineHeight: "38px",
-                        fontSize: "2.2rem",
+                        fontSize: "2rem",
                     },
                     ["@media (max-width:1200px)"]: {
                         lineHeight: "32px",
-                        fontSize: "1.9rem",
+                        fontSize: "1.8rem",
                     },
 
                     ["@media (max-width:900px)"]: {
-                        fontSize: "3rem ",
+                        fontSize: "2.5rem ",
                         lineHeight: "45px",
                     },
                     ["@media (max-width:700px)"]: {
-                        fontSize: "2.5rem ",
+                        fontSize: "2.2rem ",
                         lineHeight: "36px",
                     },
                     ["@media (max-width:400px)"]: {
@@ -147,11 +144,11 @@ export default createTheme({
                 },
                 h1: {
                     lineHeight: "84px",
-                    fontSize: "5.5rem",
+                    fontSize: "5rem",
                     fontWeight: "900",
                     letterSpacing: "-2px",
                     ["@media (max-width:1500px)"]: {
-                        fontSize: "5rem",
+                        fontSize: "4.5rem",
                         lineHeight: "70px",
                     },
                     ["@media (max-width:700px)"]: {
@@ -164,13 +161,13 @@ export default createTheme({
                     },
                     "&.long-text": {
                         lineHeight: "78px",
-                        fontSize: "4.5rem",
+                        fontSize: "3.5rem",
                         ["@media (max-width:1500px)"]: {
-                            fontSize: "4rem",
+                            fontSize: "3rem",
                             lineHeight: "70px",
                         },
                         ["@media (max-width:700px)"]: {
-                            fontSize: "3.5rem",
+                            fontSize: "2.5rem",
                             lineHeight: "60px",
                         },
                         ["@media (max-width:600px)"]: {
@@ -180,18 +177,15 @@ export default createTheme({
                     },
                 },
                 body1: {
-                    fontSize: "1.5rem",
+                    fontSize: "1.3rem",
                     ["@media (max-width:1500px)"]: {
-                        fontSize: "1.4rem",
-                    },
-                    ["@media (max-width:1200px)"]: {
-                        fontSize: "1.3rem",
+                        fontSize: "1.1rem",
                     },
                 },
                 body2: {
-                    fontSize: "1.3rem",
-                    ["@media (max-width:1000px)"]: {
-                        fontSize: "1.1rem",
+                    fontSize: "1.1rem",
+                    ["@media (max-width:1200px)"]: {
+                        fontSize: "1rem",
                     },
                 },
             },

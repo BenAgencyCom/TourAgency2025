@@ -15,7 +15,7 @@ export default {
     justifyContent: "space-between",
     ".single-destination-picture": {
         width: "calc(50% - 10px)",
-        minHeight: "450px",
+        minHeight: "350px",
     },
     ".single-destination-information": {
         width: "calc(50% - 10px)",

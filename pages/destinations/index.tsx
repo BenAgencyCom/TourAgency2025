@@ -85,7 +85,7 @@ const Destinations: FunctionComponent = (props) => {
                             defaultValue: "all",
                             omitIfDeafult: true,
                             sx: {
-                                width: "250px",
+                                width: "230px",
                             },
                         },
                     ]}
@@ -102,8 +102,6 @@ const Destinations: FunctionComponent = (props) => {
                         if (loading) {
                             return (
                                 <>
-                                    <br />
-                                    <br />
                                     <br />
                                     <br />
                                     <br />

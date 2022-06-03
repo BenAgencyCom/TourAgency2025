@@ -32,7 +32,7 @@ const URLQueriesManagerWrapper = styled("div")(({ theme }) => ({
     ".MuiSkeleton-root, .MuiInputBase-root": {
         marginRight: "10px",
         marginBottom: "10px",
-        height: "46px",
+        height: "40px",
     },
     ["@media (max-width:900px)"]: {
         flexDirection: "column",

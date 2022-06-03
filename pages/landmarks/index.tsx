@@ -92,7 +92,7 @@ const BulkLandmarks: FunctionComponent = () => {
                             defaultValue: "ALL",
                             omitIfDeafult: true,
                             sx: {
-                                width: "230px",
+                                width: "200px",
                             },
                         },
                         {
@@ -110,7 +110,7 @@ const BulkLandmarks: FunctionComponent = () => {
                             defaultValue: "all",
                             omitIfDeafult: true,
                             sx: {
-                                width: "270px",
+                                width: "230px",
                             },
                         },
                     ]}
@@ -129,7 +129,7 @@ const BulkLandmarks: FunctionComponent = () => {
                                 return (
                                     <>
                                         {/* in order to make some phony margin */}
-                                        <div style={{ height: "100px", width: "100%" }} />
+                                        <div style={{ height: "60px", width: "100%" }} />
                                         <SkeletonLoading sx={{ display: "none" }} />
                                         <SkeletonLoading sx={{ display: "none" }} />
                                         <SkeletonLoading />

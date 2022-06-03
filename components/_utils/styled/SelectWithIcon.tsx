@@ -48,7 +48,7 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
             }}
             inputProps={{
                 sx: {
-                    padding: "10px 20px",
+                    padding: "7px 0px",
                     display: "flex",
                     alignItems: "center",
                     fontSize: colorTheme.typography.subtitle2.fontSize,

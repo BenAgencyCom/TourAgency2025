@@ -81,7 +81,7 @@ export default styled(FlexBox, {
     ["@media (max-width:1550px)"]: {
         "#page-logo": {
             h4: {
-                fontSize: "2.5rem",
+                fontSize: "2rem",
             },
         },
     },

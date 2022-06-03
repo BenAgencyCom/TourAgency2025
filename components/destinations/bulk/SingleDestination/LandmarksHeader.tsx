@@ -12,7 +12,9 @@ const LandmarksHeader: FunctionComponent = (props) => {
             <BackgroundHeader fontSize="3rem" sx={{ letterSpacing: "5px !important" }}>
                 Landmarks
             </BackgroundHeader>
-            <Typography variant="h4">Places to discover</Typography>
+            <Typography variant="h4" sx={{ fontSize: "1.8rem", fontWeight: 700 }}>
+                Places to discover
+            </Typography>
         </Box>
     );
 };

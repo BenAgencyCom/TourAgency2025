@@ -8,10 +8,10 @@ import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 const Header = styled("h1")(({ theme }) => ({
     position: "relative",
     margin: "60px 0 ",
-    fontSize: "4rem",
+    fontSize: "3.5rem",
     fontWeight: 900,
     ["@media (max-width:1500px)"]: {
-        fontSize: "3.5rem",
+        fontSize: "3rem",
         lineHeight: "55px",
     },
     ["@media (max-width:900px)"]: {
@@ -28,7 +28,7 @@ const Header = styled("h1")(({ theme }) => ({
 
 const LandingHeader: FunctionComponent<{ main: string; background: string }> = (props) => (
     <Header>
-        <BackgroundHeader fontSize="8rem">{props.background}</BackgroundHeader>
+        <BackgroundHeader fontSize="6rem">{props.background}</BackgroundHeader>
         <span className="main">{props.main}</span>
     </Header>
 );

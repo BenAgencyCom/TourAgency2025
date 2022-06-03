@@ -18,7 +18,7 @@ const SingleTag = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     transition: "background .3s ease-in-out",
-    margin: "10px 10px 0px 0",
+    margin: "10px 5px 0px 0",
     button: {
         padding: 0,
         marginLeft: "5px",

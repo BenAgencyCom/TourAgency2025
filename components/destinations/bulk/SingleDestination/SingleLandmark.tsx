@@ -15,7 +15,7 @@ const Wrapper = styled("div", {
     shouldForwardProp: (propname: string) => !["inactive"].includes(propname),
 })<Props>(({ theme, ...props }) => ({
     position: "relative",
-    height: "150px",
+    height: "120px",
     overflow: "hidden",
     borderRadius: "5px",
     opacity: "0.95",
