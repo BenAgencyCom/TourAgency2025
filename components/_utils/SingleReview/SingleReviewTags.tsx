@@ -14,11 +14,10 @@ const Tag = styled("div")(({ theme }) => ({
     padding: "3px 10px",
     borderRadius: 3,
     color: "#fff",
-    fontSize: "1.2rem",
+    fontSize: "1.1rem",
     textTransform: "capitalize",
     ["@media (max-width:700px)"]: {
         marginRight: "10px",
-        fontSize: "1.1rem",
     },
 }));
 

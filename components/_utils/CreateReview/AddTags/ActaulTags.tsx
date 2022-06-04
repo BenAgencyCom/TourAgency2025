@@ -12,7 +12,7 @@ import Close from "@mui/icons-material/Close";
 // Styled components
 
 const SingleTag = styled("div")(({ theme }) => ({
-    fontSize: "1.2rem",
+    fontSize: "1.1rem",
     padding: "3px 10px",
     borderRadius: "3px",
     color: "#fff",

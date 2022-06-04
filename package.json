@@ -6,7 +6,8 @@
         "build": "next build && next export",
         "start": "next start",
         "lint": "next lint",
-        "test": "jest --runInBand",
+        "diligent_test": "jest --runInBand",
+        "test": "jest",
         "seed": "ts-node ./prisma/seed.ts",
         "cypress": "./node_modules/.bin/cypress open"
     },

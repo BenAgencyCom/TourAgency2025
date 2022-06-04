@@ -15,7 +15,7 @@ const TagPlaceholder = styled("div")(({ theme }) => ({
     background: theme.palette.text.primary,
     marginRight: "5px",
     borderRadius: "3px",
-    fontSize: "1.2rem",
+    fontSize: "1.1rem",
     userSelect: "none",
     color: "#fff",
     padding: "3px 10px",
