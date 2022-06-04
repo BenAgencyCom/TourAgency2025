@@ -2,7 +2,7 @@ import type { ReviewType } from "@prisma/client";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (points: number): ReviewType => {
-    if (points > 7.5) return "POSITIVE";
-    else if (points > 4.5) return "MIXED";
+    if (points > 7) return "POSITIVE";
+    else if (points > 4) return "MIXED";
     return "NEGATIVE";
 };

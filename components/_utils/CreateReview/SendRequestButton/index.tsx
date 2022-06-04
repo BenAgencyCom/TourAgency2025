@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useMemo } from "react";
 import { styled } from "@mui/system";
-import restrictions from "@/utils/restrictions/createReview";
+import useNewReviewValidator from "./useNewReviewValidator";
 // Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
@@ -11,6 +11,7 @@ import type { Review, ModifiedReviewResponse } from "@/@types/pages/api/ReviewsA
 import { useAppSelector } from "@/hooks/useRedux";
 // Other components
 import Link from "next/link";
+import DeleteReviewButton from "./DeleteReviewButton";
 // Redux
 import { useAppDispatch } from "@/hooks/useRedux";
 import { displaySnackbar } from "@/redux/slices/snackbar";
@@ -59,6 +60,15 @@ interface SendRequestButtonProps {
 const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => {
     const { reviewContent, tags, reviewToModify, scoreInt, scoreFloat } = props;
     const { isAuthenticated } = useAppSelector((state) => state.authentication);
+
+    const { actualScore, buttonIsDisabled } = useNewReviewValidator({
+        isAuthenticated: isAuthenticated ?? false,
+        reviewContent: props.reviewContent,
+        reviewToModify: props.reviewToModify.value,
+        scoreFloat: props.scoreFloat,
+        scoreInt: props.scoreInt,
+        tags: props.tags,
+    });
 
     const dispatch = useAppDispatch();
 
@@ -140,43 +150,6 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
             }
         }
     };
-
-    const actualScore = useMemo<number>(() => {
-        if (scoreInt === 10) return 10;
-        return (scoreInt * 10 + scoreFloat) / 10;
-    }, [scoreFloat, scoreInt]);
-
-    const reviewContentIsNotOK = useMemo<boolean>(() => {
-        const { min, max } = restrictions.content;
-        const { length } = reviewContent;
-        return length > max || length < min;
-    }, [reviewContent]);
-
-    const tagsAreNotOK = useMemo<boolean>(() => {
-        const { min, max } = restrictions.tagsInGeneral;
-        const { length: amountOfTags } = tags;
-        return amountOfTags > max || amountOfTags < min;
-    }, [tags]);
-
-    const scoreHasNotBeenChanged = useMemo<boolean>(() => {
-        if (!reviewToModify.value) return false;
-        return actualScore === reviewToModify.value.points;
-    }, [actualScore, reviewToModify]);
-
-    const tagsHaveNotBeenChanged = useMemo<boolean>(() => {
-        if (!reviewToModify.value) return false;
-        return JSON.stringify(tags) === JSON.stringify(reviewToModify.value.tags);
-    }, [tags, reviewToModify]);
-
-    const reviewContentHasNotBeenChanged = useMemo<boolean>(() => {
-        if (!reviewToModify.value) return false;
-        return reviewContent === reviewToModify.value.review;
-    }, [reviewContent, reviewToModify]);
-
-    const buttonIsDisabled = useMemo<boolean>(() => {
-        return !isAuthenticated || reviewContentIsNotOK || tagsAreNotOK || (scoreHasNotBeenChanged && tagsHaveNotBeenChanged && reviewContentHasNotBeenChanged);
-    }, [isAuthenticated, reviewContentHasNotBeenChanged, reviewContentIsNotOK, scoreHasNotBeenChanged, tagsAreNotOK, tagsHaveNotBeenChanged]);
-
     return (
         <SendRequestButtonWrapper>
             <StyledButton
@@ -198,6 +171,12 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
                     <span>{`. Don't have an account? `}</span>
                     <strong>Create one </strong>
                 </AuthenticationMessage>
+            )}
+            {reviewToModify.value && (
+                <DeleteReviewButton
+                    record={props.record} //
+                    reviewId={reviewToModify.value.id}
+                />
             )}
         </SendRequestButtonWrapper>
     );
