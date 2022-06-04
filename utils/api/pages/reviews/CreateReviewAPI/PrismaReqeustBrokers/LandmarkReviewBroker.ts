@@ -1,5 +1,6 @@
 // Tools
 import { prisma } from "@/prisma/db";
+import { ageOnly } from "@/utils/api/dateFormat";
 import { Conflict, NotFound } from "@/utils/api/Errors";
 import PrismaReviewBrokerAbstract from "./PrismaReviewBrokerAbstract";
 // Types
@@ -17,7 +18,7 @@ export default class LandmarkReviewBroker extends PrismaReviewBrokerAbstract imp
     }
 
     public async addRecord(params: AddRecordMethodParams) {
-        await prisma.landmarkReview.create({
+        const res = await prisma.landmarkReview.create({
             data: {
                 points: params.points,
                 review: params.reviewContent,
@@ -26,7 +27,30 @@ export default class LandmarkReviewBroker extends PrismaReviewBrokerAbstract imp
                 landmarkId: this.idOfElementAssociatedWithReview,
                 reviewerId: this.userId,
             },
+            select: {
+                id: true,
+                review: true,
+                points: true,
+                tags: true,
+                createdAt: true,
+                type: true,
+                reviewer: {
+                    select: {
+                        id: true,
+                        name: true,
+                        surname: true,
+                        country: true,
+                        countryCode: true,
+                        gender: true,
+                        avatar: true,
+                        birth: true,
+                    },
+                },
+            },
         });
+        (res as any).reviewer.age = ageOnly((res as any).reviewer.birth);
+        delete (res as any).reviewer.birth;
+        return res as any;
     }
 
     public async ensureThatThereIsNoDuplicate() {

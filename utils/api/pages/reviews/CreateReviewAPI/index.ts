@@ -3,6 +3,7 @@ import ReviewBodyValidator from "../ReviewBodyValidator";
 import LandmarkReviewBroker from "./PrismaReqeustBrokers/LandmarkReviewBroker";
 import DestinationReviewBroker from "./PrismaReqeustBrokers/DestinationReviewBroker";
 // Types
+import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { PrismaRequestBroker, AddRecordMethodParams, PrismaRequestBrokerConstructorParams } from "./@types";
 
 interface CreateReviewParams {
@@ -24,12 +25,21 @@ export default class CreateReview {
         else this.PrismaRequestBroker = new LandmarkReviewBroker(brokerParams);
     }
 
-    public async create(params: AddRecordMethodParams) {
+    public async create(params: AddRecordMethodParams): Promise<Review> {
         this.validateRequestBody(params);
 
         await this.PrismaRequestBroker.ensureThatModelExists();
         await this.PrismaRequestBroker.ensureThatThereIsNoDuplicate();
-        await this.PrismaRequestBroker.addRecord(params);
+        const createdRecord = await this.PrismaRequestBroker.addRecord(params);
+        return {
+            ...createdRecord,
+            ...{
+                feedback: {
+                    dislikes: 0,
+                    likes: 0,
+                },
+            },
+        };
     }
 
     private validateRequestBody(params: AddRecordMethodParams) {

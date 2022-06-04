@@ -1,4 +1,5 @@
 import type { LandmarkReview } from "@prisma/client";
+import type { Review } from "@/@types/pages/api/ReviewsAPI";
 
 export interface PrismaRequestBrokerConstructorParams {
     userId: string;
@@ -6,7 +7,7 @@ export interface PrismaRequestBrokerConstructorParams {
 }
 
 export interface PrismaRequestBroker extends PrismaRequestBrokerConstructorParams {
-    addRecord: (params: AddRecordMethodParams) => Promise<void>;
+    addRecord: (params: AddRecordMethodParams) => Promise<Omit<Review, "feedback">>;
     ensureThatThereIsNoDuplicate: () => Promise<void>;
     ensureThatModelExists: () => Promise<void>;
 }
