@@ -64,6 +64,7 @@ const AddTags: FunctionComponent<AddTagsProps> = (props) => {
                     onChange={(e) => setNewTag(e.target.value)}
                     sx={{
                         width: "300px",
+                        height: "40px",
                         input: {
                             padding: "5px 0", //
                         },

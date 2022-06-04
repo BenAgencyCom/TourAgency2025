@@ -8,3 +8,14 @@ export const KeyframeScaleX = keyframes({
         transform: "scaleX(1)",
     },
 });
+
+export const fadeIn = keyframes({
+    from: {
+        opacity: 0,
+        visibility: "hidden",
+    },
+    to: {
+        opacity: 1,
+        visibility: "visible",
+    },
+});

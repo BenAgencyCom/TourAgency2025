@@ -8,8 +8,7 @@ import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
-const Tag = styled("div")<{ color: ScoreColor }>(({ theme, ...props }) => ({
-    background: theme.palette[props.color].main,
+const Tag = styled("div")(({ theme }) => ({
     marginRight: "5px",
     marginBottom: "5px",
     padding: "3px 10px",
@@ -25,7 +24,7 @@ const Tag = styled("div")<{ color: ScoreColor }>(({ theme, ...props }) => ({
 
 interface TagsProps {
     tags: Review["tags"];
-    color: ScoreColor;
+    color: string;
     sx?: SxProps;
 }
 
@@ -35,7 +34,11 @@ const ReviewsTags: FunctionComponent<TagsProps> = (props) => {
         <FlexBox sx={{ my: "15px", flexWrap: "wrap", ...props.sx }} className="landmark-review-tags">
             {tags.map((item, index) => {
                 return (
-                    <Tag color={color} key={index}>
+                    <Tag
+                        color={color} //
+                        key={index}
+                        sx={{ background: color }}
+                    >
                         {item}
                     </Tag>
                 );

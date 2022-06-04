@@ -1,7 +1,8 @@
 // Tools
-import { styled } from "@mui/system";
 import { useContext } from "react";
+import { styled } from "@mui/system";
 import { CreateReviewContext } from "../context";
+import { fadeIn } from "@/components/_utils/styled/keyframes";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
@@ -19,6 +20,7 @@ const SingleTag = styled("div")(({ theme }) => ({
     alignItems: "center",
     transition: "background .3s ease-in-out",
     margin: "10px 5px 0px 0",
+    animation: `${fadeIn} .3s ease-in-out both`,
     button: {
         padding: 0,
         marginLeft: "5px",

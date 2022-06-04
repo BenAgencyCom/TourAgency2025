@@ -18,7 +18,8 @@ const NavigationWrapper = styled("div")(({ theme }) => ({
     marginBottom: "40px",
     button: {
         marginRight: "10px",
-        height: "46px",
+        height: "40px",
+        fontSize: "1rem",
     },
     ["@media (max-width:900px)"]: {
         flexDirection: "column",

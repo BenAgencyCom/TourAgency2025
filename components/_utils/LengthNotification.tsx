@@ -6,7 +6,7 @@ import type { Restriction } from "@/@types/Restriction";
 // Styled components
 
 const LengthNotificationBase = styled("span")<{ error?: boolean }>(({ theme, ...props }) => ({
-    fontSize: "1.2rem",
+    fontSize: "1rem",
     display: "flex",
     width: "100%",
     justifyContent: "space-between",
@@ -29,7 +29,7 @@ const LengthNotificationBase = styled("span")<{ error?: boolean }>(({ theme, ...
 
 export const ErrorMSG = styled("span")(({ theme }) => ({
     color: theme.palette.error.main,
-    fontSize: "1.1rem",
+    fontSize: "1rem",
     strong: {
         color: "inherit",
     },

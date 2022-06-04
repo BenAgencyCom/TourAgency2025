@@ -1,3 +1,6 @@
+// Tools
+import { styled } from "@mui/system";
+// Types
 import type { FunctionComponent } from "react";
 // Material UI Components
 import Snackbar from "@mui/material/Snackbar";
@@ -9,6 +12,20 @@ import Close from "@mui/icons-material/Close";
 // Redux
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { closeSnackbar } from "@/redux/slices/snackbar";
+// Styled components
+const StyledAlert = styled(Alert)(({ theme }) => ({
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    fontSize: "1.2rem",
+    "&>.MuiAlert-message": {
+        flexGrow: 1,
+        justifyContent: "space-between",
+        display: "flex",
+        alignItems: "center",
+        padding: "3px 10px",
+    },
+}));
 
 const AppSnackbar: FunctionComponent<{}> = () => {
     const GLOBAL_THIS_PROPERTY = "_snackbar_timeout";
@@ -34,21 +51,9 @@ const AppSnackbar: FunctionComponent<{}> = () => {
             data-cy="snackbar"
             data-cy-severity={severity}
         >
-            <Alert
+            <StyledAlert
                 severity={severity} //
                 variant="filled"
-                sx={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: "1.2rem",
-                    "&>.MuiAlert-message": {
-                        flexGrow: 1,
-                        justifyContent: "space-between",
-                        display: "flex",
-                        alignItems: "center",
-                    },
-                }}
             >
                 <span>{msg}</span>
                 <Tooltip title="Close">
@@ -56,10 +61,10 @@ const AppSnackbar: FunctionComponent<{}> = () => {
                         data-cy="snackbar-close" //
                         onClick={() => dispatch(closeSnackbar())}
                     >
-                        <Close></Close>
+                        <Close />
                     </IconButton>
                 </Tooltip>
-            </Alert>
+            </StyledAlert>
         </Snackbar>
     );
 };

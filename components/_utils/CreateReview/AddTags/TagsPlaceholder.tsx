@@ -1,5 +1,6 @@
 // Tools
 import { styled } from "@mui/system";
+import { fadeIn } from "@/components/_utils/styled/keyframes";
 // Types
 import type { FunctionComponent } from "react";
 // Styled components
@@ -22,6 +23,13 @@ const TagPlaceholder = styled("div")(({ theme }) => ({
     alignItems: "center",
     height: "30px",
     marginTop: "10px",
+    animation: `${fadeIn} .3s ease-in-out both`,
+    "&:nth-of-type(2)": {
+        animationDelay: ".05s",
+    },
+    "&:nth-of-type(3)": {
+        animationDelay: ".1s",
+    },
 }));
 
 const TagsPlaceholder: FunctionComponent = () => {

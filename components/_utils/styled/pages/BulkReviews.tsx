@@ -41,15 +41,19 @@ export const PictureWrapper = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: "0px 50px 0px 50px",
     overflow: "hidden",
-    minHeight: "600px",
-    ["@media (max-width:1500px)"]: {
+    height: "550px",
+    ["@media (max-width:1700px)"]: {
         width: "600px",
     },
+    ["@media (max-width:1400px)"]: {
+        width: "500px",
+        height: "450px",
+    },
     ["@media (max-width:1200px)"]: {
-        height: "600px",
         width: "100%",
         marginBottom: "20px",
         minHeight: "auto",
+        height: "550px",
     },
     ["@media (max-width:1000px)"]: {
         height: "500px",
