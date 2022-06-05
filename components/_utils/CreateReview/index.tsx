@@ -1,6 +1,6 @@
 // Tools
 import RWD from "./RWD";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { styled, alpha } from "@mui/system";
 import { CreateReviewContext } from "./context";
 import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
@@ -47,6 +47,7 @@ interface CreateReviewProps {
 
 const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
     const { scoreInt, scoreFloat, reviewContent, tags, reviewToModify } = props;
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
 
     const estimatedReviewType = useMemo<ReviewType>(() => {
         if (scoreInt.value >= 7) return "POSITIVE";
@@ -59,6 +60,14 @@ const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
     }, [estimatedReviewType]);
     //
 
+    const showAuthenticatedUserReview = () => {
+        scrollTo({
+            top: wrapperRef.current ? wrapperRef.current.offsetTop - 100 : 0,
+            behavior: "smooth",
+        });
+        props.showAuthenticatedUserReview();
+    };
+
     return (
         <CreateReviewContext.Provider
             value={{
@@ -66,7 +75,7 @@ const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
                 estimatedReviewType,
             }}
         >
-            <CreateReviewWrapper>
+            <CreateReviewWrapper ref={wrapperRef}>
                 <Typography variant="h3" sx={{ userSelect: "none" }}>
                     Share your opinion
                     <BackgroundHeader fontSize="5rem">Ratings</BackgroundHeader>
@@ -88,7 +97,7 @@ const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
                     scoreInt={scoreInt.value}
                     scoreFloat={scoreFloat.value}
                     record={props.record}
-                    showAuthenticatedUserReview={props.showAuthenticatedUserReview}
+                    showAuthenticatedUserReview={showAuthenticatedUserReview}
                 />
             </CreateReviewWrapper>
         </CreateReviewContext.Provider>

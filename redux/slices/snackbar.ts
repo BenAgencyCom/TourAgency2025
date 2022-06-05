@@ -1,8 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface SnackbarState {
+export interface SnackbarState {
     display: boolean;
+    msg: string;
+    severity: "success" | "error" | "warning" | "info";
+    hideAfter?: number | null;
+}
+
+export interface DisplaySnackbarParams {
     msg: string;
     severity: "success" | "error" | "warning" | "info";
     hideAfter?: number | null;

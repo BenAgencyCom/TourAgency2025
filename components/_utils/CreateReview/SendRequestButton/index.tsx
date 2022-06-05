@@ -1,20 +1,19 @@
 // Tools
 import axios from "axios";
-import { useMemo } from "react";
 import { styled } from "@mui/system";
+import useSnackbar from "@/hooks/useSnackbar";
+import handleCreateRequest from "./requests/create";
+import handleUpdateRequest from "./requests/update";
 import useNewReviewValidator from "./useNewReviewValidator";
 // Types
 import type { FunctionComponent } from "react";
+import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { StatedDataField } from "@/@types/StatedDataField";
-import type { Review, ModifiedReviewResponse } from "@/@types/pages/api/ReviewsAPI";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 // Other components
 import Link from "next/link";
 import DeleteReviewButton from "./DeleteReviewButton";
 // Redux
-import { useAppDispatch } from "@/hooks/useRedux";
-import { displaySnackbar } from "@/redux/slices/snackbar";
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import StyledButton from "@/components/create/_utils/forms/Button";
 
@@ -58,8 +57,9 @@ interface SendRequestButtonProps {
 }
 
 const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => {
-    const { reviewContent, tags, reviewToModify, scoreInt, scoreFloat } = props;
+    const { reviewContent, tags, reviewToModify, showAuthenticatedUserReview, record } = props;
     const { isAuthenticated } = useAppSelector((state) => state.authentication);
+    const displaySnackbar = useSnackbar();
 
     const { actualScore, buttonIsDisabled } = useNewReviewValidator({
         isAuthenticated: isAuthenticated ?? false,
@@ -70,7 +70,13 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
         tags: props.tags,
     });
 
-    const dispatch = useAppDispatch();
+    const displaySomethingWentWrongMsg = () => {
+        displaySnackbar({
+            msg: "Something went wrong",
+            severity: "error",
+            hideAfter: 3000,
+        });
+    };
 
     const sendRequest = async () => {
         if (!isAuthenticated || buttonIsDisabled) return;
@@ -78,75 +84,32 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
         if (reviewToModify.value === null) {
             // Create a new review
             try {
-                const { data }: { data: Review } = await axios.post(`/api/${props.record.type}/${props.record.id}/reviews`, {
-                    points: actualScore,
-                    reviewContent,
+                await handleCreateRequest({
                     tags,
+                    record,
+                    actualScore,
+                    reviewContent,
+                    displaySnackbar,
+                    showAuthenticatedUserReview,
+                    reviewToModify: reviewToModify as any,
                 });
-
-                dispatch(
-                    displaySnackbar({
-                        msg: "Review has been created successfully",
-                        severity: "success",
-                        hideAfter: 3000,
-                    })
-                );
-
-                reviewToModify.setValue({
-                    createdAt: data.createdAt,
-                    feedback: data.feedback,
-                    id: data.id,
-                    points: data.points,
-                    review: data.review,
-                    reviewer: data.reviewer,
-                    tags: data.tags,
-                    type: data.type,
-                });
-                setTimeout(props.showAuthenticatedUserReview, 1);
             } catch (e: unknown) {
-                dispatch(
-                    displaySnackbar({
-                        msg: "Something went wrong",
-                        severity: "error",
-                        hideAfter: 3000,
-                    })
-                );
+                displaySomethingWentWrongMsg();
             }
         } else {
             // Update existing review
             try {
-                const res = await axios.patch(`/api/${props.record.type}/${props.record.id}/reviews/${reviewToModify.value.id}`, {
-                    points: actualScore,
-                    reviewContent,
+                await handleUpdateRequest({
                     tags,
+                    record,
+                    actualScore,
+                    reviewContent,
+                    displaySnackbar,
+                    showAuthenticatedUserReview,
+                    reviewToModify: reviewToModify as any,
                 });
-                const data: ModifiedReviewResponse = res.data;
-
-                reviewToModify.setValue((_current) => {
-                    const value = _current as unknown as Review;
-                    value.points = data.points;
-                    value.type = data.type;
-                    value.review = data.review;
-                    value.tags = data.tags as any;
-                    return value;
-                });
-                setTimeout(props.showAuthenticatedUserReview, 1);
-
-                dispatch(
-                    displaySnackbar({
-                        msg: "Review has been updated successfully",
-                        severity: "success",
-                        hideAfter: 3000,
-                    })
-                );
             } catch (e: unknown) {
-                dispatch(
-                    displaySnackbar({
-                        msg: "Something went wrong",
-                        severity: "error",
-                        hideAfter: 3000,
-                    })
-                );
+                displaySomethingWentWrongMsg();
             }
         }
     };
