@@ -21,6 +21,7 @@ export default class MockDestination implements Mock {
             data: {
                 continent: (params && params.continent) ?? "Europe",
                 slug,
+                status: "APPROVED",
                 //
                 city: "testing",
                 city_lowercase: "testing",

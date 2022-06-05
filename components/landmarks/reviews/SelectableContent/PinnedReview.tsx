@@ -11,6 +11,10 @@ import SingleReviewSkeletonLoading from "@/components/_utils/SingleReview/Skelet
 
 interface PinnedReviewProps {
     review: Review | null;
+    record: {
+        id: string;
+        type: "destination" | "landmark";
+    };
 }
 
 const PinnedReview: FunctionComponent<PinnedReviewProps> = (props) => {
@@ -29,6 +33,7 @@ const PinnedReview: FunctionComponent<PinnedReviewProps> = (props) => {
                 <SingleReview
                     review={props.review} //
                     sx={{ mb: "100px" }}
+                    record={props.record}
                     pinned
                 ></SingleReview>
             )}

@@ -126,7 +126,15 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
                         />
                     );
                 } else if (currentSection === "pinnedReview") {
-                    return <PinnedReview review={pinnedReview} />;
+                    return (
+                        <PinnedReview
+                            review={pinnedReview} //
+                            record={{
+                                id: props.landmarkId,
+                                type: "landmark",
+                            }}
+                        />
+                    );
                 } else if (currentSection === "authenticatedUserReview") {
                     return (
                         <SingleReview

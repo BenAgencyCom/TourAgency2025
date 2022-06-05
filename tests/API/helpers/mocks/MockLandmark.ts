@@ -20,7 +20,7 @@ export default class MockLandmark implements Mock {
 
     public constructor(params?: LandmarkInfo) {
         this.type = params?.type ? params.type : "ANTIQUE";
-        this.status = params?.status ? params.status : "WAITING_FOR_APPROVAL";
+        this.status = params?.status ? params.status : "APPROVED";
         // it does not matter at all, just to be roughly random and it will be sufficient
         this.slug = slugGenerator(faker.lorem.words(3));
         this.id = `${Date.now()}_${this.slug}`;

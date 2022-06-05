@@ -15,16 +15,16 @@ interface AuthenticatedUserReviewParams {
 export type AuthenticatedUserReviewResult = { authenticatedUserReview: Review } | null;
 
 export default class AuthenticatedUserReview extends FindOneReview {
-    private readonly authenticatedUserId: string | null;
     /**
      * Check whether the user is authenticated via the access token received from cookies,
      * subsequently look for associated with the user review and if one exists then get all
      * related with it feedback
      */
     public constructor(params: AuthenticatedUserReviewParams) {
-        super({ PrismaRequestBroker: params.PrismaRequestBroker });
-
-        this.authenticatedUserId = params.authenticatedUserId;
+        super({
+            PrismaRequestBroker: params.PrismaRequestBroker,
+            authenticatedUserId: params.authenticatedUserId,
+        });
     }
 
     public async findReview(): Promise<AuthenticatedUserReviewResult> {

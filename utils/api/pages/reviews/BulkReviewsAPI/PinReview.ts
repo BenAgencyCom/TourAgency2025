@@ -5,15 +5,19 @@ import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { PrismaRequestBroker } from "./@types";
 
 interface PinReviewParams {
-    PrismaRequestBroker: PrismaRequestBroker;
     pinnedReviewId?: string;
+    authenticatedUserId: string | null;
+    PrismaRequestBroker: PrismaRequestBroker;
 }
 
 export default class PinReview extends FindOneReview {
     private readonly pinnedReviewId?: string;
 
     public constructor(params: PinReviewParams) {
-        super({ PrismaRequestBroker: params.PrismaRequestBroker });
+        super({
+            PrismaRequestBroker: params.PrismaRequestBroker,
+            authenticatedUserId: params.authenticatedUserId,
+        });
 
         this.pinnedReviewId = params.pinnedReviewId;
     }

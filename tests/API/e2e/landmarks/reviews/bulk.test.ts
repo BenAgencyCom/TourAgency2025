@@ -61,13 +61,14 @@ describe("GET: /api/landmark/[landmark_id]/reviews", () => {
             expect(allReviewsIDs).not.toContain(review.id as string);
         });
     });
+
     describe("404", () => {
         test("When landmark does not exist", async () => {
             await testGETRequestStatus(`/api/landmark/UNEXISTING/reviews`, 404);
         });
         test("When landmark is not APPROVED", async () => {
             const destination = new MockDestination();
-            const landmark = new MockLandmark();
+            const landmark = new MockLandmark({ status: "WAITING_FOR_APPROVAL" });
             await destination.prepare();
             await landmark.prepare(destination.id as string);
             await testGETRequestStatus(`/api/landmark/${landmark.id}/reviews`, 404);

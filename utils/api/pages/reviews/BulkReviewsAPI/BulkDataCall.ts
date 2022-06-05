@@ -61,6 +61,7 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
         const pinnedReview = await new PinReview({
             PrismaRequestBroker: this.PrismaRequestBroker,
             pinnedReviewId: this.queriesFromRequest.pinnedReviewId,
+            authenticatedUserId: authenticatedUserId,
         }).findReview();
 
         return {
