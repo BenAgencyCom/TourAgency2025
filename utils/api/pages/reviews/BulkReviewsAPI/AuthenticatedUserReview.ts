@@ -5,12 +5,14 @@ import FindOneReview from "./abstracts/FindOneReview";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { ReviewFromQuery, PrismaRequestBroker } from "./@types";
 
+class ThereIsNoAuthenticatedUserReview extends Error {}
+
 interface AuthenticatedUserReviewParams {
     PrismaRequestBroker: PrismaRequestBroker;
     authenticatedUserId: string | null;
 }
 
-class ThereIsNoAuthenticatedUserReview extends Error {}
+export type AuthenticatedUserReviewResult = { authenticatedUserReview: Review } | null;
 
 export default class AuthenticatedUserReview extends FindOneReview {
     private readonly authenticatedUserId: string | null;
@@ -25,7 +27,7 @@ export default class AuthenticatedUserReview extends FindOneReview {
         this.authenticatedUserId = params.authenticatedUserId;
     }
 
-    public async findReview(): Promise<{ authenticatedUserReview: Review } | null> {
+    public async findReview(): Promise<AuthenticatedUserReviewResult> {
         if (this.authenticatedUserId === null) return null;
         try {
             const unprocessedReview = await this.getAuthenticatedUserReview();

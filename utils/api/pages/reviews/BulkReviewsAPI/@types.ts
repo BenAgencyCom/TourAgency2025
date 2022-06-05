@@ -1,4 +1,6 @@
+// Types
 import type { ReviewType } from "@prisma/client";
+import type { AuthenticatedUserReviewResult } from "./AuthenticatedUserReview";
 import type { DestinationReview, User, Feedback as _Feedback } from "@prisma/client";
 import type { BulkReviewsType, PointsDistribution } from "@/@types/pages/api/ReviewsAPI";
 import type { URLQueriesConvertedIntoPrismaBody } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
@@ -91,4 +93,9 @@ export interface ExtraProperties {
     certianReviewType: ReviewType | null;
     applyPointsDistribution: "1" | false;
     pinnedReviewId?: string;
+}
+
+export interface CallForReviewsParams {
+    authenticatedUserReview: AuthenticatedUserReviewResult;
+    authenticatedUserId: string | null;
 }

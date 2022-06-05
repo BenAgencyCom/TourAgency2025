@@ -92,24 +92,26 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
         return {};
     }
 
-    private _generateWhereClausule(): Record<any, any> {
+    private _generateWhereClausule(_excludedIDs: string[] = []): Record<any, any> {
         let result: Record<any, any> = {};
+        const excludedIDs: string[] = _excludedIDs;
+
         this.extraProperties.forEach((prop) => {
             const value = this.queriesFromRequest[prop.alias ? prop.alias : prop.name];
             // Handle comparision
-            if (prop.compareWith && (value || prop.alwaysCompare)) {
+            if (prop.compareWith && (value !== undefined || prop.alwaysCompare)) {
                 result = { ...result, ...transformPrismaNastedModels(prop.compareWith, value) };
             }
             // Handle excluding
-            if (prop.treatThisPropertyAsIDandExcludeItFromResults) {
-                result = {
-                    ...result,
-                    ...{
-                        id: { not: value },
-                    },
-                };
-            }
+            if (prop.treatThisPropertyAsIDandExcludeItFromResults && value !== undefined) excludedIDs.push(value);
         });
+        result = {
+            ...result,
+            ...{
+                id: { not: { in: excludedIDs } },
+            },
+        };
+
         return result;
     }
 
@@ -125,7 +127,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
      * }
      * ```
      */
-    protected converURLQueriesIntoPrismaBody(): URLQueriesConvertedIntoPrismaBody {
+    protected converURLQueriesIntoPrismaBody(_excludedIDs: string[] = []): URLQueriesConvertedIntoPrismaBody {
         const { orderBy, sort } = this.queriesFromRequest;
 
         return {
@@ -135,7 +137,7 @@ export default abstract class BulkAPIsURLQueriesHandler<ExtraProperties extends 
                 },
             },
             ...this._handlePagination(),
-            where: this._generateWhereClausule(),
+            where: this._generateWhereClausule(_excludedIDs),
         };
     }
     /**

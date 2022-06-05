@@ -10,9 +10,10 @@ import BulkAPIsURLQueriesHandler from "@/utils/api/abstracts/BulkAPIsURLQueriesH
 // Types
 import type { NextApiRequest } from "next";
 import type { ReviewType } from "@prisma/client";
-import type { ReviewsCallResponse } from "@/@types/pages/api/ReviewsAPI";
+import type { AuthenticatedUserReviewResult } from "./AuthenticatedUserReview";
+import type { ReviewsCallResponse, Review } from "@/@types/pages/api/ReviewsAPI";
 import type { ExtraProperty } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
-import type { ReviewFromQuery, PrismaRequestBroker, ExtraProperties } from "./@types";
+import type { ReviewFromQuery, PrismaRequestBroker, ExtraProperties, CallForReviewsParams } from "./@types";
 
 export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraProperties> {
     public constructor(private request: NextApiRequest, private PrismaRequestBroker: PrismaRequestBroker) {
@@ -20,7 +21,7 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
             {
                 name: "certianReviewType",
                 compareWith: "type",
-                default: null,
+                default: undefined,
                 required: false,
                 values: ["MIXED", "NEGATIVE", "POSITIVE"] as ReviewType[],
             },
@@ -40,38 +41,38 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
     public async main(): Promise<ReviewsCallResponse> {
         // ensure that landmark with given id exists
         await this.PrismaRequestBroker.ensureThatRecordIsApproved();
-
         const authenticatedUserId: string | null = await this.getAutheticatedUserId();
-        const reviewsFromQuery: ReviewFromQuery[] = await this.PrismaRequestBroker.callForReviews(this.converURLQueriesIntoPrismaBody());
-        const reviews = await new MergeReviewsAndFeedback({
-            reviewsFromQuery,
-            feedbackFromQuery: await this.PrismaRequestBroker.callForFeedback(reviewsFromQuery.map((el) => el.id)),
-            authenticatedUserId: authenticatedUserId,
+        // Points distribution && statistics
+        const pointsDistribution = await new ReviewsPointsDistribution({
             PrismaRequestBroker: this.PrismaRequestBroker,
-        }).combine();
+            applyPointsDistribution: this.queriesFromRequest.applyPointsDistribution !== undefined,
+        }).establish();
+        // Current user review
+        const authenticatedUserReview = await new AuthenticatedUserReview({
+            PrismaRequestBroker: this.PrismaRequestBroker,
+            authenticatedUserId: authenticatedUserId,
+        }).findReview();
+        // Pagination properties
+        const paginationProperties = await new GeneratePaginationProperties({
+            PrismaRequestBroker: this.PrismaRequestBroker,
+            queriesFromRequest: this.queriesFromRequest,
+        }).generate();
+        // Pin one review
+        const pinnedReview = await new PinReview({
+            PrismaRequestBroker: this.PrismaRequestBroker,
+            pinnedReviewId: this.queriesFromRequest.pinnedReviewId,
+        }).findReview();
 
         return {
-            reviews: reviews,
-            // Pagination properties
-            ...(await new GeneratePaginationProperties({
-                PrismaRequestBroker: this.PrismaRequestBroker,
-                queriesFromRequest: this.queriesFromRequest,
-            }).generate()),
-            // Points distribution && statistics
-            ...(await new ReviewsPointsDistribution({
-                PrismaRequestBroker: this.PrismaRequestBroker,
-                applyPointsDistribution: this.queriesFromRequest.applyPointsDistribution !== undefined,
-            }).establish()),
-            // Current user review
-            ...(await new AuthenticatedUserReview({
-                PrismaRequestBroker: this.PrismaRequestBroker,
-                authenticatedUserId: authenticatedUserId,
-            }).findReview()),
-            // Pin one review
-            ...(await new PinReview({
-                PrismaRequestBroker: this.PrismaRequestBroker,
-                pinnedReviewId: this.queriesFromRequest.pinnedReviewId,
-            }).findReview()),
+            ...pinnedReview,
+            ...pointsDistribution,
+            ...paginationProperties,
+            ...authenticatedUserReview,
+            //
+            reviews: await this.callForReviews({
+                authenticatedUserId,
+                authenticatedUserReview,
+            }),
         };
     }
 
@@ -86,5 +87,18 @@ export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraPropert
             if (e instanceof Forbidden) return null;
             else throw new Error();
         }
+    }
+
+    private async callForReviews(params: CallForReviewsParams): Promise<Review[]> {
+        const { authenticatedUserId, authenticatedUserReview } = params;
+
+        const prismaRequestBody = this.converURLQueriesIntoPrismaBody([authenticatedUserReview?.authenticatedUserReview.id ?? ""]);
+        const reviewsFromQuery: ReviewFromQuery[] = await this.PrismaRequestBroker.callForReviews(prismaRequestBody);
+        return await new MergeReviewsAndFeedback({
+            reviewsFromQuery,
+            feedbackFromQuery: await this.PrismaRequestBroker.callForFeedback(reviewsFromQuery.map((el) => el.id)),
+            authenticatedUserId: authenticatedUserId,
+            PrismaRequestBroker: this.PrismaRequestBroker,
+        }).combine();
     }
 }
