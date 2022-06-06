@@ -43,6 +43,12 @@ interface CreateReviewProps {
         id: string;
         type: "landmark" | "destination";
     };
+    /**
+     * This function is used while deleting current review in order to erase previous
+     * values from the form and create a room for newer or simply to forget about
+     * unexisting review
+     */
+    resetCreateReviewFields: () => void;
 }
 
 const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
@@ -98,6 +104,7 @@ const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
                     scoreFloat={scoreFloat.value}
                     record={props.record}
                     showAuthenticatedUserReview={showAuthenticatedUserReview}
+                    resetCreateReviewFields={props.resetCreateReviewFields}
                 />
             </CreateReviewWrapper>
         </CreateReviewContext.Provider>

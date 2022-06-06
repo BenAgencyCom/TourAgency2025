@@ -19,30 +19,38 @@ interface HandleCreateRequestParams {
 }
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (params: HandleCreateRequestParams) => {
-    const { reviewToModify, record } = params;
+    try {
+        const { reviewToModify, record } = params;
 
-    const { data }: { data: Review } = await axios.post(`/api/${record.type}/${record.id}/reviews`, {
-        points: params.actualScore,
-        reviewContent: params.reviewContent,
-        tags: params.tags,
-    });
+        const { data }: { data: Review } = await axios.post(`/api/${record.type}/${record.id}/reviews`, {
+            points: params.actualScore,
+            reviewContent: params.reviewContent,
+            tags: params.tags,
+        });
 
-    reviewToModify.setValue({
-        createdAt: data.createdAt,
-        feedback: data.feedback,
-        id: data.id,
-        points: data.points,
-        review: data.review,
-        reviewer: data.reviewer,
-        tags: data.tags,
-        type: data.type,
-    });
+        reviewToModify.setValue({
+            createdAt: data.createdAt,
+            feedback: data.feedback,
+            id: data.id,
+            points: data.points,
+            review: data.review,
+            reviewer: data.reviewer,
+            tags: data.tags,
+            type: data.type,
+        });
 
-    setTimeout(params.showAuthenticatedUserReview, 1);
+        setTimeout(params.showAuthenticatedUserReview, 1);
 
-    params.displaySnackbar({
-        msg: "Review has been created successfully",
-        severity: "success",
-        hideAfter: 3000,
-    });
+        params.displaySnackbar({
+            msg: "Review has been created successfully",
+            severity: "success",
+            hideAfter: 3000,
+        });
+    } catch (e: unknown) {
+        params.displaySnackbar({
+            msg: "Something went wrong",
+            severity: "error",
+            hideAfter: 3000,
+        });
+    }
 };

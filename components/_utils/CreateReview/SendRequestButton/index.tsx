@@ -1,5 +1,4 @@
 // Tools
-import axios from "axios";
 import { styled } from "@mui/system";
 import useSnackbar from "@/hooks/useSnackbar";
 import handleCreateRequest from "./requests/create";
@@ -36,7 +35,7 @@ const SendRequestButtonWrapper = styled("div")(({ theme }) => ({
 }));
 
 const AuthenticationMessage = styled("span")(({ theme }) => ({
-    fontSize: "1.2rem",
+    fontSize: "1.1rem",
     strong: {
         color: theme.palette.primary.main,
         cursor: "pointer",
@@ -54,6 +53,7 @@ interface SendRequestButtonProps {
         id: string;
         type: "landmark" | "destination";
     };
+    resetCreateReviewFields: () => void;
 }
 
 const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => {
@@ -82,35 +82,26 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
         if (!isAuthenticated || buttonIsDisabled) return;
 
         if (reviewToModify.value === null) {
-            // Create a new review
-            try {
-                await handleCreateRequest({
-                    tags,
-                    record,
-                    actualScore,
-                    reviewContent,
-                    displaySnackbar,
-                    showAuthenticatedUserReview,
-                    reviewToModify: reviewToModify as any,
-                });
-            } catch (e: unknown) {
-                displaySomethingWentWrongMsg();
-            }
+            await handleCreateRequest({
+                tags,
+                record,
+                actualScore,
+                reviewContent,
+                displaySnackbar,
+                showAuthenticatedUserReview,
+                reviewToModify: reviewToModify as any,
+            });
         } else {
             // Update existing review
-            try {
-                await handleUpdateRequest({
-                    tags,
-                    record,
-                    actualScore,
-                    reviewContent,
-                    displaySnackbar,
-                    showAuthenticatedUserReview,
-                    reviewToModify: reviewToModify as any,
-                });
-            } catch (e: unknown) {
-                displaySomethingWentWrongMsg();
-            }
+            await handleUpdateRequest({
+                tags,
+                record,
+                actualScore,
+                reviewContent,
+                displaySnackbar,
+                showAuthenticatedUserReview,
+                reviewToModify: reviewToModify as any,
+            });
         }
     };
     return (
@@ -138,7 +129,8 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
             {reviewToModify.value && (
                 <DeleteReviewButton
                     record={props.record} //
-                    reviewId={reviewToModify.value.id}
+                    reviewToModify={reviewToModify}
+                    resetCreateReviewFields={props.resetCreateReviewFields}
                 />
             )}
         </SendRequestButtonWrapper>

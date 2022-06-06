@@ -19,28 +19,36 @@ interface HandleUpdateRequestParams {
 }
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (params: HandleUpdateRequestParams) => {
-    const { reviewToModify, record } = params;
+    try {
+        const { reviewToModify, record } = params;
 
-    const res = await axios.patch(`/api/${record.type}/${record.id}/reviews/${reviewToModify.value.id}`, {
-        points: params.actualScore,
-        reviewContent: params.reviewContent,
-        tags: params.tags,
-    });
-    const data: ModifiedReviewResponse = res.data;
+        const res = await axios.patch(`/api/${record.type}/${record.id}/reviews/${reviewToModify.value.id}`, {
+            points: params.actualScore,
+            reviewContent: params.reviewContent,
+            tags: params.tags,
+        });
+        const data: ModifiedReviewResponse = res.data;
 
-    reviewToModify.setValue((_current) => {
-        const value = _current as unknown as Review;
-        value.points = data.points;
-        value.type = data.type;
-        value.review = data.review;
-        value.tags = data.tags as any;
-        return value;
-    });
-    setTimeout(params.showAuthenticatedUserReview, 1);
+        reviewToModify.setValue((_current) => {
+            const value = _current as unknown as Review;
+            value.points = data.points;
+            value.type = data.type;
+            value.review = data.review;
+            value.tags = data.tags as any;
+            return value;
+        });
+        setTimeout(params.showAuthenticatedUserReview, 1);
 
-    params.displaySnackbar({
-        msg: "Review has been updated successfully",
-        severity: "success",
-        hideAfter: 3000,
-    });
+        params.displaySnackbar({
+            msg: "Review has been updated successfully",
+            severity: "success",
+            hideAfter: 3000,
+        });
+    } catch (e: unknown) {
+        params.displaySnackbar({
+            msg: "Something went wrong",
+            severity: "error",
+            hideAfter: 3000,
+        });
+    }
 };
