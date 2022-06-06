@@ -133,7 +133,7 @@ describe("GET: api/landmark/bulk", () => {
     describe("Searching phrase", () => {
         test("Not approved content cannot be displayed", async () => {
             const mockedDestination = new MockDestination();
-            const mockedLandmark = new MockLandmark();
+            const mockedLandmark = new MockLandmark({ status: "WAITING_FOR_APPROVAL" });
             await mockedDestination.prepare();
             await mockedLandmark.prepare(mockedDestination.id as string);
             //
