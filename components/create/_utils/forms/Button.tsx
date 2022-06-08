@@ -1,7 +1,8 @@
 // Tools
+import { forwardRef } from "react";
 import { styled, alpha } from "@mui/system";
 // Types
-import type { FunctionComponent } from "react";
+import type { ForwardRefExoticComponent } from "react";
 import type { ButtonWithColorTransitionProps } from "@/components/_utils/styled/ButtonWithColorTransition";
 // Styled components
 import ButtonWithColorTransition from "@/components/_utils/styled/ButtonWithColorTransition";
@@ -25,12 +26,14 @@ const Button = styled(ButtonWithColorTransition, {
 interface FormButtonProps extends ButtonWithColorTransitionProps {
     iconButton?: true;
 }
-const FormButton: FunctionComponent<FormButtonProps> = (props) => {
+const FormButton: ForwardRefExoticComponent<FormButtonProps> = forwardRef((props, ref) => {
     return (
-        <Button {...(props as any)} reverse>
+        <Button {...(props as any)} reverse ref={ref}>
             {props.children}
         </Button>
     );
-};
+});
+
+FormButton.displayName = "Styled button";
 
 export default FormButton;

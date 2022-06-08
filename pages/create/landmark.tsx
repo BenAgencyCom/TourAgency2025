@@ -16,6 +16,8 @@ const StageThree = dynamic(() => import("@/components/create/landmark/stage_3"),
 const StageFour = dynamic(() => import("@/components/create/landmark/stage_4"), { ...staticImportLoader, ssr: false });
 const StageFive = dynamic(() => import("@/components/create/landmark/stage_5"), staticImportLoader);
 const CreateAnAccountModal = dynamic(() => import("@/components/create/_utils/CreateAnAccountModal"), staticImportLoader);
+// Redux
+import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import MainWrapper from "@/components/create/_utils/MainWrapper";
 
@@ -23,6 +25,8 @@ interface CreateLandmarkPageProps {
     //
 }
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
+    const { isAuthenticated } = useAppSelector((state) => state.authentication);
+    //
     const [activeStep, setActiveStep] = useState<number>(0);
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
     // New landmarks' data:
@@ -40,7 +44,7 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                 <title>Create Landmark</title>
             </Head>
 
-            <CreateAnAccountModal></CreateAnAccountModal>
+            {!isAuthenticated && <CreateAnAccountModal />}
 
             <MainWrapper
                 steps={["Destination", "Thumbnail", "General information", "Description", "Summary"]} //

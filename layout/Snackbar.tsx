@@ -17,7 +17,7 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
     width: "100%",
     display: "flex",
     alignItems: "center",
-    fontSize: "1.2rem",
+    fontSize: "1.1rem",
     "&>.MuiAlert-message": {
         flexGrow: 1,
         justifyContent: "space-between",
