@@ -19,7 +19,7 @@ export default styled(FlexBox, {
     zIndex: 1000,
     transition: "all .3s !important",
     maxHeight: "150px",
-    height: "150px",
+    height: "120px",
     padding: "10px 0",
     "div#navigation-main-conteiner": {
         maxWidth: "1920px",

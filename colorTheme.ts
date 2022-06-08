@@ -105,6 +105,11 @@ export default createTheme({
         },
         MuiTypography: {
             styleOverrides: {
+                h5: {
+                    fontWeight: 700,
+                    letterSpacing: "-1px",
+                    fontSize: "1.8rem",
+                },
                 h4: {
                     fontWeight: 700,
                     letterSpacing: "-1px",
@@ -183,6 +188,7 @@ export default createTheme({
                     },
                 },
                 body2: {
+                    lineHeight: 1.6,
                     fontSize: "1.1rem",
                     ["@media (max-width:1200px)"]: {
                         fontSize: "1rem",

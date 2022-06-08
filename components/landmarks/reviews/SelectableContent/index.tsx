@@ -95,6 +95,18 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
         };
     };
 
+    /**
+     * This function is used while deleting current review in order to erase previous
+     * values from the form and create a room for newer or simply to forget about
+     * unexisting review
+     */
+    const resetCreateReviewFields = () => {
+        setScoreInt(0);
+        setScoreFloat(0);
+        setTags([]);
+        setReviewContent("");
+    };
+
     return (
         <>
             {(() => {
@@ -123,6 +135,7 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
                                 id: props.landmarkId,
                                 type: "landmark",
                             }}
+                            resetCreateReviewFields={resetCreateReviewFields}
                         />
                     );
                 } else if (currentSection === "pinnedReview") {

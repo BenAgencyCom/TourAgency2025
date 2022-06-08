@@ -34,7 +34,7 @@ export const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
     userSelect: "none",
 }));
 export const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
-    fontSize: "1.3rem", //
+    fontSize: "1.1rem", //
     position: "relative",
     zIndex: "2",
     ["@media (max-width: 900px)"]: {

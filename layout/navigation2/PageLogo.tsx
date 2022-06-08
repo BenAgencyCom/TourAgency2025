@@ -28,7 +28,7 @@ const Header = styled("h4", {
     shouldForwardProp: (prop: string) => !["isScrolledDown"].includes(prop),
 })<{ isScrolledDown: boolean }>(({ theme, ...props }) => ({
     marginLeft: "10px",
-    fontSize: props.isScrolledDown ? "1.5rem !important" : "3rem",
+    fontSize: props.isScrolledDown ? "1.5rem !important" : "2rem",
     fontWeight: 900,
     userSelect: "none",
 }));
@@ -60,7 +60,7 @@ const PageLogo: FunctionComponent<PageLogoProps> = (props) => {
             </Wrapper>
             {/*  */}
             {width > 1200 && (
-                <Header className="contrast-color" isScrolledDown={props.isScrolledDown}>
+                <Header className="contrast-color alternative-font-family" isScrolledDown={props.isScrolledDown}>
                     My exquisite page
                 </Header>
             )}

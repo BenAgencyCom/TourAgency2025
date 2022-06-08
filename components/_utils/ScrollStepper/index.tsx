@@ -1,9 +1,8 @@
 // Tools
 import dynamic from "next/dynamic";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Other components
 const ScrollStepper = dynamic(() => import("./_ScrollStepper"));
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 
 import type { FunctionComponent } from "react";
 
@@ -15,7 +14,7 @@ interface ScrollStepperWrapperProps {
 }
 
 const ScrollStepperWrapper: FunctionComponent<ScrollStepperWrapperProps> = (props) => {
-    const width = useAppSelector((state) => state.windowSizes.width);
+    const { width } = useWindowSizes();
     if (width > 1000) return <ScrollStepper steps={props.steps} />;
     return <></>;
 };

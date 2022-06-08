@@ -2,11 +2,10 @@ import { styled } from "@mui/system";
 
 export default styled("h4")(({ theme }) => ({
     fontWeight: 700,
-    letterSpacing: "-1px",
-    fontSize: "2rem",
-    margin: "0 0 5px 0",
+    fontSize: "1.8rem",
+    margin: "0 0 10px 0",
     position: "relative",
-    paddingLeft: "20px",
+    paddingLeft: "24px",
     "&::after": {
         content: "''",
         position: "absolute",

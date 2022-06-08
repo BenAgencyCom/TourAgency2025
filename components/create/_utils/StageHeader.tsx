@@ -19,8 +19,8 @@ interface StageHeaderProps {
 const StageHeader: FunctionComponent<StageHeaderProps> = (props) => {
     return (
         <StageHeaderWrapper>
-            <Typography variant="h1">{props.title}</Typography>
-            <BackgroundHeader fontSize="10rem">{`STAGE ${props.stageNumber}`}</BackgroundHeader>
+            <Typography variant="h2">{props.title}</Typography>
+            <BackgroundHeader fontSize="6rem">{`STAGE ${props.stageNumber}`}</BackgroundHeader>
         </StageHeaderWrapper>
     );
 };

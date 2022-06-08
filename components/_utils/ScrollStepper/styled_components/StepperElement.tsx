@@ -28,4 +28,13 @@ export default styled(Step)(({ theme }) => ({
         fill: theme.palette.text.primary,
         transition: "fill .4s ease-in-out",
     },
+    ["@media (max-width:1600px)"]: {
+        svg: {
+            width: "32px",
+            height: "32px",
+        },
+        ".MuiStepLabel-label": {
+            fontSize: "1rem",
+        },
+    },
 }));

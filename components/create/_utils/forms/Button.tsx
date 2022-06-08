@@ -9,7 +9,7 @@ import ButtonWithColorTransition from "@/components/_utils/styled/ButtonWithColo
 const Button = styled(ButtonWithColorTransition, {
     shouldForwardProp: (prop: string) => !["iconButton"].includes(prop),
 })<{ iconButton?: boolean }>(({ theme, ...props }) => ({
-    fontSize: "1.2rem",
+    fontSize: "1rem",
     height: "40px",
     ...(props.disabled && {
         border: `2px solid rgb(130,143,156)`,

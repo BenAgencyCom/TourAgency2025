@@ -23,7 +23,10 @@ export default styled(Stepper, {
             fill: "#fff !important",
         },
     }),
-    ["@media (max-width:1500px)"]: {
+    ["@media (max-width:1600px)"]: {
+        left: "20px",
+    },
+    ["@media (max-width:1400px)"]: {
         left: "10px",
     },
     ["@media (max-width:1300px)"]: {

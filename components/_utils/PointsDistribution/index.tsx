@@ -26,7 +26,7 @@ const PointsDistributionComponent: FunctionComponent<PointsDistributionProps> = 
     return (
         <FlexBox column sx={props.sx}>
             <Box sx={{ my: "20px" }}>
-                <Typography variant="h4" sx={{ my: "0px" }}>
+                <Typography variant="h5" sx={{ my: "0px" }}>
                     Reviews distribution
                 </Typography>
                 {!props.hideBasedOn && (

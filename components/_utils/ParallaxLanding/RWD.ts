@@ -29,14 +29,47 @@ export default {
             lineHeight: "45px",
         },
     },
+    h1: {
+        fontSize: "6rem",
+        lineHeight: "100px",
+        ["@media (max-width:1600px)"]: {
+            fontSize: "5rem",
+            lineHeight: "90px",
+        },
+        ["@media (max-width:1400px)"]: {
+            fontSize: "4.5rem",
+            lineHeight: "80px",
+        },
+        ["@media (max-width:1200px)"]: {
+            fontSize: "4rem",
+            lineHeight: "75px",
+        },
+        ["@media (max-width:1100px)"]: {
+            fontSize: "3.5rem",
+            lineHeight: "75px",
+        },
+        ["@media (max-width:1000px)"]: {
+            fontSize: "5rem",
+            lineHeight: "80px",
+            margin: "5px 0",
+        },
+        ["@media (max-width:800px)"]: {
+            fontSize: "4.5rem",
+            lineHeight: "70px",
+        },
+        ["@media (max-width:600px)"]: {
+            fontSize: "4rem",
+            lineHeight: "60px",
+        },
+        ["@media (max-width:500px)"]: {
+            fontSize: "3.5rem",
+            margin: "10px 0",
+        },
+    },
     ".information": {
         maxWidth: "calc(100% - 350px)",
     },
     ["@media (max-width:1500px)"]: {
-        h1: {
-            fontSize: "8rem",
-            lineHeight: "120px",
-        },
         ".colored-header": {
             fontSize: "1.5rem",
         },
@@ -49,10 +82,6 @@ export default {
         ".information": {
             maxWidth: "calc(100% - 40px)",
         },
-        h1: {
-            fontSize: "7rem",
-            lineHeight: "100px",
-        },
         "span.colored-bar": {
             width: "70px",
         },
@@ -64,26 +93,7 @@ export default {
         },
     },
     //
-    ["@media (max-width:700px)"]: {
-        h1: {
-            fontSize: "6rem",
-            lineHeight: "80px",
-            margin: "5px 0",
-        },
-    },
-    //
-    ["@media (max-width:600px)"]: {
-        h1: {
-            fontSize: "5rem",
-            lineHeight: "70px",
-        },
-    },
-    //
     ["@media (max-width:500px)"]: {
-        h1: {
-            fontSize: "4rem",
-            lineHeight: "60px",
-        },
         p: {
             fontSize: "1.2rem",
         },
@@ -93,11 +103,6 @@ export default {
     },
     //
     ["@media (max-width:400px)"]: {
-        h1: {
-            fontSize: "3.5rem",
-            lineHeight: "50px",
-            margin: "10px 0",
-        },
         "span.colored-bar": {
             width: "50px",
         },

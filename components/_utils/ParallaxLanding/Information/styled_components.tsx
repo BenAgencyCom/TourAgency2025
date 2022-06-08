@@ -15,14 +15,12 @@ export const InformationWrapper = styled(FlexBox)({
 export const ColoredHeader = styled("span")(({ theme }) => ({
     color: theme.palette.primary.main,
     fontWeight: 700,
-    fontSize: "2rem",
+    fontSize: "1.7rem",
     textTransform: "uppercase",
 }));
 export const BigHeader = styled("h1")({
     fontWeight: 700,
     textTransform: "uppercase",
-    fontSize: "9rem",
-    lineHeight: "150px",
     textAlign: "center",
     margin: 0,
 });
@@ -35,7 +33,7 @@ export const BottomBar = styled("span")(({ theme }) => ({
 export const Description = styled("p")({
     width: "100%",
     textAlign: "center",
-    fontSize: "1.5rem",
+    fontSize: "1.3rem",
     margin: 0,
     letterSpacing: "1px",
 });

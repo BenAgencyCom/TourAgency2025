@@ -31,7 +31,7 @@ const FooterContent = styled(FlexBox)(({ theme }) => ({
     padding: "30px 0px",
     h3: {
         color: theme.palette.primary.main,
-        fontSize: "3rem",
+        fontSize: "2.5rem",
         margin: "60px 0 20px 0",
     },
     ["@media (max-width: 1300px)"]: {

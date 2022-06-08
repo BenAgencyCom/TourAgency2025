@@ -62,6 +62,9 @@ export const PictureWrapper = styled("div")(({ theme }) => ({
     ["@media (max-width:600px)"]: {
         height: "400px",
     },
+    ["@media (max-width:450px)"]: {
+        height: "300px",
+    },
 }));
 
 export const MainHeader = styled("div")(({ theme }) => ({

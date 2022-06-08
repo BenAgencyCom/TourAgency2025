@@ -1,5 +1,3 @@
-// Tools
-import colorTheme from "@/colorTheme";
 // Types
 import type { FunctionComponent } from "react";
 import type { ButtonWithLineTransitionProps } from "@/components/_utils/styled/ButtonWithLineTransition/@types";
@@ -20,7 +18,7 @@ const SingleRedirect: FunctionComponent<SingleRedirectProps> = (props) => {
         <ButtonWithLineTransition
             primary //
             sx={{
-                fontSize: "1.1rem", //
+                fontSize: "1rem", //
                 letterSpacing: "1px",
             }}
             background="transparent"

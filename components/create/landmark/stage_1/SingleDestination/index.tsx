@@ -31,7 +31,7 @@ const SingleDestinationWrapper = styled("div")(({ theme }) => ({
         alignItems: "flex-start",
         padding: "0 10px",
         button: {
-            fontSize: "1.2rem",
+            fontSize: "1.1rem",
             marginTop: "10px",
         },
     },
@@ -101,7 +101,11 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                         <Explore />
                     </span>
                 )}
-                <ButtonWithColorTransition reverse primary onClick={pickThisDestination}>
+                <ButtonWithColorTransition
+                    reverse //
+                    primary
+                    onClick={pickThisDestination}
+                >
                     {isSelected ? "Selected" : "Select"}
                 </ButtonWithColorTransition>
             </div>

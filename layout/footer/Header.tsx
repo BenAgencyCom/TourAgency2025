@@ -26,7 +26,7 @@ const Header: FunctionComponent = () => {
             <BackgroundHeader className="bigger-header" sx={{ display: "block !important" }}>
                 See also
             </BackgroundHeader>
-            <h3>My exquisite page</h3>
+            <h3 className="alternative-font-family">My exquisite page</h3>
         </HeaderWrapper>
     );
 };
