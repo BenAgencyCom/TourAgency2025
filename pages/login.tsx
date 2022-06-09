@@ -2,32 +2,84 @@
 import joi from "joi";
 import axios from "axios";
 import Router from "next/router";
+import { alpha, styled } from "@mui/system";
 import { useState, useEffect } from "react";
 import GuardedRoute from "@/utils/client/GuardedRoute";
+import { lineIntroFromLeft } from "@/components/_utils/styled/keyframes";
 // Types
 import type { FunctionComponent } from "react";
 import type { GetServerSideProps } from "next";
 // Other components
-import Image from "next/Image";
+import Link from "next/link";
 import Head from "next/Head";
-import LoginHeader from "@/components/login/LoginHeader";
+import RememberMe from "@/components/login/RememberMe";
+import StyledButton from "@/components/create/_utils/forms/Button";
+import InputWithIcon from "@/components/_utils/styled/InputWithIcon";
+import LineIntroAnimation from "@/components/login/LineIntroAnimation";
 import CredentialsDoNotMatch from "@/components/login/CredentialsDoNotMatch";
-import Redirects from "@/components/login/Redirects";
-import TextInput from "@/components/register/_formFields/TextInput";
-import PasswordInput from "@/components/register/_formFields/PasswordInput";
 // Material UI Components
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
-import Fade from "@mui/material/Fade";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 // Redux
 import { displaySnackbar } from "@/redux/slices/snackbar";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { setAuthentication } from "@/redux/slices/authentication";
-// Styles
 import styles from "@/sass/pages/register.module.sass";
 import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
-import backgroundImage from "@/public/images/login/bgc.jpg";
+// Styled components
+import BackgroundShape from "@/components/login/BackgroundShape";
+
+const StyledContentContainter = styled("div")(({ theme }) => ({
+    left: "50%",
+    top: "50%",
+    position: "absolute",
+    transform: "translate(-50%, -50%)",
+    maxHeight: "500px",
+    width: "100vw",
+    maxWidth: "550px",
+    padding: "10px 20px",
+    borderRadius: "5px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    color: theme.palette.text.primary,
+    ["@media (min-width: 800px)"]: {
+        background: "#fff",
+        marginTop: "5vh",
+        height: "100vh",
+    },
+    h2: {
+        userSelect: "none",
+        marginBottom: "20px",
+        flexGrow: 1,
+        display: "flex",
+        alignItems: "flex-end",
+    },
+    ".MuiInputBase-root": {
+        width: "400px",
+        maxWidth: "calc(100vw - 20px)",
+    },
+    "#continue-button": {
+        height: "40px",
+        width: "250px",
+        maxWidth: "calc(100vw - 20px)",
+        marginBottom: "10px",
+        position: "relative",
+    },
+    "span.navigation": {
+        padding: "5px 10px",
+        marginTop: "5px",
+        borderRadius: "3px",
+        cursor: "pointer",
+        transition: "background .3s ease-in-out",
+        "&:nth-of-type(1)": {
+            marginTop: "0",
+        },
+        "&:hover": {
+            background: alpha(theme.palette.primary.main, 0.2),
+        },
+    },
+}));
 
 const Login: FunctionComponent<{}> = () => {
     const [email, setEmail] = useState<string>("jebac_gorzen@gmail.com");
@@ -93,53 +145,68 @@ const Login: FunctionComponent<{}> = () => {
             <Head>
                 <title>Login</title>
             </Head>
+            <BackgroundShape />
+            <BackgroundShape />
 
-            <Fade in={true}>
-                <Box className={bgIMGStyles.background}>
-                    <Image
-                        className={bgIMGStyles["bg-image"]} //
-                        src={backgroundImage}
-                        layout="fill"
-                        alt="background"
-                        objectFit="cover"
-                        objectPosition="center"
-                        placeholder="blur"
-                    ></Image>
-                    <Card
-                        className={styles.formCard}
-                        sx={{
-                            alignItems: "center", //
-                            justifyContent: "center",
-                        }}
-                    >
-                        <Box className={styles["content-wrapper"]} component="form">
-                            <LoginHeader pending={pending}></LoginHeader>
-                            <TextInput
-                                label="Email" //
-                                value={email}
-                                updateValue={setEmail}
-                                disabled={pending}
-                                _cypressTag="email"
-                                sx={{ mb: 2 }}
-                            ></TextInput>
-                            <PasswordInput
-                                label="Password" //
-                                value={password}
-                                updateValue={setPassword}
-                                disabled={pending}
-                                _cypressTag="password"
-                            ></PasswordInput>
-                            <CredentialsDoNotMatch credentialsDoNotMatch={credentialsDoNotMatch}></CredentialsDoNotMatch>
+            <StyledContentContainter>
+                <Typography variant="h2">Login</Typography>
 
-                            <Button variant="contained" sx={{ mt: 5 }} disabled={blockContinue || pending} onClick={continueClick} data-cy="continue">
-                                Continue
-                            </Button>
-                        </Box>
+                <LineIntroAnimation
+                    in={true} //
+                    intro="left"
+                    outro="bottom"
+                    color="paperDefault"
+                >
+                    <InputWithIcon
+                        value={email} //
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </LineIntroAnimation>
 
-                        <Redirects></Redirects>
-                    </Card>
-                </Box>
-            </Fade>
+                <LineIntroAnimation
+                    in={true} //
+                    intro="top"
+                    outro="right"
+                    color="paperDefault"
+                    delay={600}
+                    sx={{ mt: "10px" }}
+                >
+                    <InputWithIcon
+                        value={password} //
+                        placeholder="Password"
+                        password
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </LineIntroAnimation>
+
+                <LineIntroAnimation
+                    in={true} //
+                    intro="bottom"
+                    outro="left"
+                    color="paperDefault"
+                    delay={600}
+                >
+                    <RememberMe />
+                </LineIntroAnimation>
+
+                <LineIntroAnimation
+                    in={true} //
+                    intro="right"
+                    outro="left"
+                    color="paperDefault"
+                >
+                    <StyledButton primary id="continue-button">
+                        Continue
+                    </StyledButton>
+                </LineIntroAnimation>
+
+                <Divider flexItem sx={{ my: "10px" }} />
+
+                <Link href="/register" passHref>
+                    <span className="navigation">Create an account</span>
+                </Link>
+            </StyledContentContainter>
         </>
     );
 };

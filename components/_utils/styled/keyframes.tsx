@@ -19,3 +19,27 @@ export const fadeIn = keyframes({
         visibility: "visible",
     },
 });
+
+export const lineIntroFromLeft = keyframes({
+    "0%": {
+        "&:after": {
+            content: "''",
+            position: "absolute",
+            top: "0",
+            left: "0",
+            width: "0%",
+            height: "100%",
+            background: "red",
+        },
+    },
+    "50%%": {
+        "&:after": {
+            width: "100%",
+        },
+    },
+    "100%": {
+        "&:after": {
+            width: "0%",
+        },
+    },
+});

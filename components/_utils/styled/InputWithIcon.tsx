@@ -14,6 +14,9 @@ import InputAdornment from "@mui/material/InputAdornment";
 import LengthNotification from "@/components/_utils/LengthNotification";
 // Material UI Icons
 import Clear from "@mui/icons-material/Clear";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
 // Styled components
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     borderColor: theme.palette.text.primary,
@@ -61,6 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 interface StyledInputProps extends InputBaseProps {
     icon?: ReactNode;
+    password?: boolean;
     lengthNotification?: {
         fieldName: string;
         restrictions: Restriction;
@@ -68,9 +72,10 @@ interface StyledInputProps extends InputBaseProps {
 }
 
 const StyledInput: ForwardRefExoticComponent<StyledInputProps> = forwardRef((props, ref) => {
-    const { icon, onChange, lengthNotification, ...propsToForward } = props;
+    const { icon, onChange, lengthNotification, password, ...propsToForward } = props;
 
     const inputRef = useRef<HTMLInputElement>();
+    const [inputType, setInputType] = useState<"text" | "password">(password ? "password" : "text");
     const [newContent, setNewContent] = useState<string>(props.value as string);
 
     // Manage received ref property
@@ -120,9 +125,21 @@ const StyledInput: ForwardRefExoticComponent<StyledInputProps> = forwardRef((pro
                     !props.multiline &&
                     props?.type !== "number" && (
                         <InputAdornment position="end" sx={{ p: 0, opacity: 0.7 }}>
-                            <IconButton disabled={!!!(propsToForward.value as string).length} onClick={clearInputValue} tabIndex={-1}>
-                                <Clear></Clear>
-                            </IconButton>
+                            {(() => {
+                                if (props.password) {
+                                    return (
+                                        <IconButton onClick={() => setInputType((val) => (val === "password" ? "text" : "password"))} tabIndex={-1}>
+                                            {inputType === "text" ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    );
+                                } else {
+                                    return (
+                                        <IconButton disabled={!!!(propsToForward.value as string).length} onClick={clearInputValue} tabIndex={-1}>
+                                            <Clear></Clear>
+                                        </IconButton>
+                                    );
+                                }
+                            })()}
                         </InputAdornment>
                     )
                 }
@@ -131,6 +148,7 @@ const StyledInput: ForwardRefExoticComponent<StyledInputProps> = forwardRef((pro
                 // Has to be at the end so as to overwritte every above property!
                 {...(propsToForward as any)}
                 value={newContent}
+                type={inputType}
             ></StyledInputBase>
 
             {lengthNotification && (
