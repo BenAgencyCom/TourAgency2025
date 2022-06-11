@@ -57,6 +57,7 @@ const Destinations: FunctionComponent = (props) => {
                 <URLQueriesManager
                     queryForData={queryForData}
                     searchingPhrase
+                    lineAnimationColor="paperDefault"
                     extraOrderOptions={[
                         {
                             label: "Biggest",

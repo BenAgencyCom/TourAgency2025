@@ -65,6 +65,7 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
         <>
             <StageHeader title="Select destination" stageNumber={1}></StageHeader>
             <URLQueriesManager
+                lineAnimationColor="paperLight"
                 queryForData={queryForData} //
                 searchingPhrase
                 paginationProperties={

@@ -85,8 +85,8 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
             <StageContentWrapper>
                 <ContentColumn id="left-side">
                     <Title title={props.title}></Title>
-                    <ShortDescription shortDescription={props.shortDescription} sx={{ mt: "50px" }}></ShortDescription>
-                    <SelectLandmarkType landmarkType={props.landmarkType} sx={{ mt: "50px" }}></SelectLandmarkType>
+                    <ShortDescription shortDescription={props.shortDescription} sx={{ mt: "20px" }}></ShortDescription>
+                    <SelectLandmarkType landmarkType={props.landmarkType} sx={{ mt: "20px" }}></SelectLandmarkType>
                 </ContentColumn>{" "}
                 <ContentColumn id="right-side">
                     <Thumbnail thumbnailURL={props.thumbnailURL}></Thumbnail>

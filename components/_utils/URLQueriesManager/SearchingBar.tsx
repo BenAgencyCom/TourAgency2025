@@ -11,7 +11,6 @@ const SelectOrder: FunctionComponent<InputBaseProps> = (props) => (
         icon={<Search />} //
         placeholder="Search for a place of your dreams..."
         sx={{
-            mr: "10px",
             width: "400px",
             ".MuiInputAdornment-positionEnd": {
                 svg: {

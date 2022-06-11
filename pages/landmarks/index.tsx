@@ -26,11 +26,11 @@ const LandmarksWrapper = styled("div")(({ theme }) => ({
     display: "flex",
     width: "100%",
     flexWrap: "wrap",
-    minHeight: "1000px",
+    paddingBottom: "100px",
 }));
 
 const BulkLandmarks: FunctionComponent = () => {
-    const PER_PAGE = 12;
+    const PER_PAGE = 15;
 
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
@@ -75,6 +75,7 @@ const BulkLandmarks: FunctionComponent = () => {
                 <URLQueriesManager
                     queryForData={queryForData}
                     searchingPhrase
+                    lineAnimationColor="paperDefault"
                     extraSelects={[
                         {
                             key: "certainLandmarkType",

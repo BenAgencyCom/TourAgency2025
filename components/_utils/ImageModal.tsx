@@ -25,7 +25,7 @@ const Wrapper = styled("div")(({ theme }) => ({
     transform: "translate(-50%, -50%)",
     maxWidth: "1920px",
     width: "calc(100vw - 100px)",
-    height: "calc(100vh - 100px)",
+    height: "calc(100vh - 60px)",
     display: "flex",
     flexDirection: "column",
     "div.imageWrapper": {
@@ -35,7 +35,7 @@ const Wrapper = styled("div")(({ theme }) => ({
     h4: {
         margin: "0",
         color: "#fff",
-        fontSize: "2.5rem",
+        fontSize: "1.5rem",
         userSelect: "none",
         fontWeight: "300",
         marginBottom: "10px",
@@ -61,7 +61,7 @@ const Wrapper = styled("div")(({ theme }) => ({
         },
         borderRadius: "5px",
         strong: {
-            fontSize: "1.8rem",
+            fontSize: "1.4rem",
             margin: "0 30px",
             width: "60px",
             userSelect: "none",

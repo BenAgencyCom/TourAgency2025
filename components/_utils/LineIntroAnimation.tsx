@@ -120,7 +120,7 @@ const LineIntroAnimation: FunctionComponent<LineIntroAnimationProps> = (props) =
     }, [props.in, props.intro, props.introDuration, props.outro, props.outroDuration, props.timeBetweenAnimations, props.delay, showChildren, animationHasBeenShown]);
 
     return (
-        <LineIntroAnimationBase sx={props.sx}>
+        <LineIntroAnimationBase sx={props.sx} className="line-animation-wrapper">
             {!animationHasBeenShown && props.in && (
                 <Line
                     sx={{

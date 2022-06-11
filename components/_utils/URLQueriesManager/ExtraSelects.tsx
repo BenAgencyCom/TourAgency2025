@@ -3,11 +3,13 @@
 import type { FunctionComponent } from "react";
 // Other Components
 import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
+import LineIntroAnimation from "@/components/_utils/LineIntroAnimation";
 
 interface ExtraSelectsProps {
     extraSelects?: any[];
     update: (prop: string, e: any) => void;
     state: Record<string, any>;
+    lineAnimationColor: "primary" | "text" | "background" | "paperDefault" | "paperLight";
 }
 
 const ExtraSelects: FunctionComponent<ExtraSelectsProps> = (props) => {
@@ -17,15 +19,23 @@ const ExtraSelects: FunctionComponent<ExtraSelectsProps> = (props) => {
                 props.extraSelects.map((item, index) => {
                     const { key, options, icon, sx, defaultValue } = item;
                     return (
-                        <SelectWithIcon
+                        <LineIntroAnimation
                             key={key} //
-                            options={options}
-                            value={props.state[key]}
-                            icon={icon}
-                            sx={sx}
-                            onChange={(e) => props.update(key, e)}
-                            defaultValue={defaultValue}
-                        ></SelectWithIcon>
+                            in={true}
+                            intro="left"
+                            outro={index % 2 ? "top" : "bottom"}
+                            color={props.lineAnimationColor}
+                            delay={150 + index * 50}
+                        >
+                            <SelectWithIcon
+                                options={options} //
+                                value={props.state[key]}
+                                icon={icon}
+                                sx={sx}
+                                onChange={(e) => props.update(key, e)}
+                                defaultValue={defaultValue}
+                            ></SelectWithIcon>
+                        </LineIntroAnimation>
                     );
                 })}
         </>

@@ -20,6 +20,7 @@ import SelectOrder from "./SelectOrder";
 import DebounceBar from "./DebounceBar";
 import ExtraSelects from "./ExtraSelects";
 import SearchingBar from "./SearchingBar";
+import LineIntroAnimation from "@/components/_utils/LineIntroAnimation";
 // Styled components
 import Pagination from "@/components/_utils/Pagination";
 import ResultsInTotal from "@/components/_utils/ResultsInTotal";
@@ -29,18 +30,23 @@ const URLQueriesManagerWrapper = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
     marginBottom: "20px",
     position: "relative",
-    ".MuiSkeleton-root, .MuiInputBase-root": {
+    ".MuiSkeleton-root, .line-animation-wrapper": {
         marginRight: "10px",
         marginBottom: "10px",
-        height: "40px",
+        ".MuiInputBase-root": {
+            height: "40px",
+        },
     },
     ["@media (max-width:900px)"]: {
         flexDirection: "column",
-        ".MuiSkeleton-root, .MuiInputBase-root": {
+        ".MuiSkeleton-root, .line-animation-wrapper": {
             marginRight: "0px",
             marginBottom: "10px",
-            height: "46px",
             width: "100%",
+            ".MuiInputBase-root": {
+                height: "40px",
+                width: "100%",
+            },
         },
     },
 }));
@@ -61,6 +67,7 @@ interface URLQueriesManagerProps {
      * properties are already been included, so there is no need to worry about them
      */
     queryForData: (urlQueries: string) => any;
+    lineAnimationColor: "primary" | "text" | "background" | "paperDefault" | "paperLight";
     /**
      * Could be either `true` to simply text input and handle all
      * operations related with it OR to be more precise about the input appearance
@@ -255,11 +262,19 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                                 {(() => {
                                     if (props.searchingPhrase) {
                                         return (
-                                            <SearchingBar
-                                                value={temporarySearchingPhrase} //
-                                                onChange={changeSearchingPhrase}
-                                                {...(props.searchingPhrase !== true && props.searchingPhrase)}
-                                            ></SearchingBar>
+                                            <LineIntroAnimation
+                                                in={true} //
+                                                intro="left"
+                                                outro="top"
+                                                color={props.lineAnimationColor}
+                                                delay={100}
+                                            >
+                                                <SearchingBar
+                                                    value={temporarySearchingPhrase} //
+                                                    onChange={changeSearchingPhrase}
+                                                    {...(props.searchingPhrase !== true && props.searchingPhrase)}
+                                                ></SearchingBar>
+                                            </LineIntroAnimation>
                                         );
                                     }
                                 })()}
@@ -267,14 +282,23 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                                     state={state} //
                                     update={changeProperty}
                                     extraSelects={props.extraSelects}
+                                    lineAnimationColor={props.lineAnimationColor}
                                 ></ExtraSelects>
 
-                                <SelectOrder
-                                    {...selectOrderData} //
-                                    options={selectOrderData.options as SelectExtraOrderOption[]}
-                                    value={state["order"]}
-                                    update={(e) => changeProperty("order", e as any)}
-                                ></SelectOrder>
+                                <LineIntroAnimation
+                                    in={true} //
+                                    intro="left"
+                                    outro="top"
+                                    color={props.lineAnimationColor}
+                                    delay={150 + (props.extraSelects ? props.extraSelects.length * 50 : 0)}
+                                >
+                                    <SelectOrder
+                                        {...selectOrderData} //
+                                        options={selectOrderData.options as SelectExtraOrderOption[]}
+                                        value={state["order"]}
+                                        update={(e) => changeProperty("order", e as any)}
+                                    ></SelectOrder>
+                                </LineIntroAnimation>
                             </>
                         );
                     }
@@ -292,7 +316,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                     );
                 }
             })()}
-            {props.paginationProperties && !props.disableResultsInTotal && <ResultsInTotal resultsInTotal={props.paginationProperties.recordsInTotal}></ResultsInTotal>}
+            {props.paginationProperties && !props.disableResultsInTotal && <ResultsInTotal resultsInTotal={props.paginationProperties.recordsInTotal} />}
             {/*  */}
             {/*  */}
             {props.children}

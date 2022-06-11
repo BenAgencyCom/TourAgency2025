@@ -13,8 +13,9 @@ import BlurOff from "@mui/icons-material/BlurOff";
 // Styled components
 
 const Divider = styled("hr")(({ theme }) => ({
-    marginTop: "280px",
-    width: "350px",
+    maxWidth: "350px",
+    marginTop: "50px",
+    width: "100vw",
     height: "1px",
     opacity: ".3",
     background: theme.palette.text.primary,
@@ -27,7 +28,7 @@ const FlexBoxColumnCenter = styled("div")(({ theme }) => ({
 }));
 
 const NoResultsWrapper = styled(FlexBoxColumnCenter)(({ theme }) => ({
-    margin: "100px auto 0px auto",
+    width: "100%",
     svg: {
         fontSize: "10rem",
         color: theme.palette.primary.main,
@@ -36,11 +37,11 @@ const NoResultsWrapper = styled(FlexBoxColumnCenter)(({ theme }) => ({
     strong: {
         color: theme.palette.primary.main,
     },
-    fontSize: "1.5rem",
+    fontSize: "1.2rem",
     cursor: "default",
     h3: {
-        fontSize: "3rem",
-        margin: "0 0 30px 0",
+        fontSize: "2rem",
+        margin: "0 0 10px 0",
     },
     "span.asterisks": {
         fontWeight: "900",
@@ -49,7 +50,7 @@ const NoResultsWrapper = styled(FlexBoxColumnCenter)(({ theme }) => ({
     },
     "div.explanations": {
         fontStyle: "italic",
-        fontSize: "1.3rem",
+        fontSize: "1.2rem",
     },
     "div.more-information": {
         "span.single-more-information-point": {
