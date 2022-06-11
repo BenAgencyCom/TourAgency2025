@@ -1,8 +1,6 @@
 // Tools
 import { styled, keyframes } from "@mui/system";
 import { fadeIn } from "@/components/_utils/styled/keyframes";
-// Types
-import type { FunctionComponent } from "react";
 
 const rotateAnimation = keyframes({
     "0%": {

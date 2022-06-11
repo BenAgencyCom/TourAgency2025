@@ -1,11 +1,6 @@
 // Tools
-import joi from "joi";
-import axios from "axios";
-import Router from "next/router";
-import { alpha, styled } from "@mui/system";
-import { useState, useEffect } from "react";
 import GuardedRoute from "@/utils/client/GuardedRoute";
-import { lineIntroFromLeft } from "@/components/_utils/styled/keyframes";
+import useLoginRequest from "@/hooks/requests/useLoginRequest";
 // Types
 import type { FunctionComponent } from "react";
 import type { GetServerSideProps } from "next";
@@ -15,131 +10,18 @@ import Head from "next/Head";
 import RememberMe from "@/components/login/RememberMe";
 import StyledButton from "@/components/create/_utils/forms/Button";
 import InputWithIcon from "@/components/_utils/styled/InputWithIcon";
-import LineIntroAnimation from "@/components/login/LineIntroAnimation";
-import CredentialsDoNotMatch from "@/components/login/CredentialsDoNotMatch";
+import LineIntroAnimation from "@/components/_utils/LineIntroAnimation";
 // Material UI Components
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-// Redux
-import { displaySnackbar } from "@/redux/slices/snackbar";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { setAuthentication } from "@/redux/slices/authentication";
-import styles from "@/sass/pages/register.module.sass";
-import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
 // Styled components
-import BackgroundShape from "@/components/login/BackgroundShape";
-
-const StyledContentContainter = styled("div")(({ theme }) => ({
-    left: "50%",
-    top: "50%",
-    position: "absolute",
-    transform: "translate(-50%, -50%)",
-    maxHeight: "500px",
-    width: "100vw",
-    maxWidth: "550px",
-    padding: "10px 20px",
-    borderRadius: "5px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    color: theme.palette.text.primary,
-    ["@media (min-width: 800px)"]: {
-        background: "#fff",
-        marginTop: "5vh",
-        height: "100vh",
-    },
-    h2: {
-        userSelect: "none",
-        marginBottom: "20px",
-        flexGrow: 1,
-        display: "flex",
-        alignItems: "flex-end",
-    },
-    ".MuiInputBase-root": {
-        width: "400px",
-        maxWidth: "calc(100vw - 20px)",
-    },
-    "#continue-button": {
-        height: "40px",
-        width: "250px",
-        maxWidth: "calc(100vw - 20px)",
-        marginBottom: "10px",
-        position: "relative",
-    },
-    "span.navigation": {
-        padding: "5px 10px",
-        marginTop: "5px",
-        borderRadius: "3px",
-        cursor: "pointer",
-        transition: "background .3s ease-in-out",
-        "&:nth-of-type(1)": {
-            marginTop: "0",
-        },
-        "&:hover": {
-            background: alpha(theme.palette.primary.main, 0.2),
-        },
-    },
-}));
+import BackgroundShape from "@/components/login/styled_components/BackgroundShape";
+import StyledCircularProgress from "@/components/login/styled_components/StyledCircularProgress";
+import StyledContentContainter from "@/components/login/styled_components/StyledContentContainter";
 
 const Login: FunctionComponent<{}> = () => {
-    const [email, setEmail] = useState<string>("jebac_gorzen@gmail.com");
-    const [password, setPassword] = useState<string>("jebac_gorzen123");
-    const [blockContinue, setBlockContinue] = useState<boolean>(true);
-    const [credentialsDoNotMatch, setCredentialsDoNotMatch] = useState<boolean>(false);
-    const [pending, setPending] = useState<boolean>(false);
-    //
-    const dispatch = useAppDispatch();
-    //
-    // Validation
-    //
-    const joiScheme = joi.object({
-        password: joi.string().min(6).max(255).trim(),
-        email: joi.string().max(255).email({ tlds: false }),
-    });
-    const test = () => {
-        const { error } = joiScheme.validate({ email, password });
-        setBlockContinue(Boolean(error));
-    };
-    useEffect(test, [password, email, joiScheme]);
-    //
-    //
-    //
-    const continueClick = async () => {
-        if (blockContinue) return;
-        setPending(true);
-        setCredentialsDoNotMatch(false);
+    const { email, password, requestIsPending, credentialsAreValid, performRequest } = useLoginRequest();
 
-        axios
-            .post("/api/auth/login", { email, password })
-            .then(() => {
-                dispatch(
-                    displaySnackbar({
-                        msg: "You have been successfully logged in!",
-                        severity: "success",
-                    })
-                );
-                dispatch(setAuthentication(null));
-                Router.push("/");
-            })
-            .catch((e) => {
-                const { status } = e.toJSON();
-                if (status === 401) setCredentialsDoNotMatch(true);
-                else if (status === 500) {
-                    dispatch(
-                        displaySnackbar({
-                            msg: "Unknown error has occured! ",
-                            severity: "error",
-                            hideAfter: 6000,
-                        })
-                    );
-                }
-
-                setPending(false);
-            });
-    };
-    //
-    //
-    //
     return (
         <>
             <Head>
@@ -149,7 +31,19 @@ const Login: FunctionComponent<{}> = () => {
             <BackgroundShape />
 
             <StyledContentContainter>
-                <Typography variant="h2">Login</Typography>
+                {requestIsPending && <StyledCircularProgress />}
+
+                <div id="login-header-wrapper">
+                    <LineIntroAnimation
+                        in={true} //
+                        intro="bottom"
+                        outro="right"
+                        color="paperDefault"
+                        delay={400}
+                    >
+                        <Typography variant="h2">Login</Typography>
+                    </LineIntroAnimation>
+                </div>
 
                 <LineIntroAnimation
                     in={true} //
@@ -158,9 +52,10 @@ const Login: FunctionComponent<{}> = () => {
                     color="paperDefault"
                 >
                     <InputWithIcon
-                        value={email} //
+                        value={email.value} //
                         placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => email.setValue(e.target.value)}
+                        disabled={requestIsPending}
                     />
                 </LineIntroAnimation>
 
@@ -169,14 +64,15 @@ const Login: FunctionComponent<{}> = () => {
                     intro="top"
                     outro="right"
                     color="paperDefault"
-                    delay={600}
+                    delay={400}
                     sx={{ mt: "10px" }}
                 >
                     <InputWithIcon
-                        value={password} //
+                        value={password.value} //
                         placeholder="Password"
                         password
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => password.setValue(e.target.value)}
+                        disabled={requestIsPending}
                     />
                 </LineIntroAnimation>
 
@@ -185,7 +81,8 @@ const Login: FunctionComponent<{}> = () => {
                     intro="bottom"
                     outro="left"
                     color="paperDefault"
-                    delay={600}
+                    delay={300}
+                    sx={{ mt: "10px" }}
                 >
                     <RememberMe />
                 </LineIntroAnimation>
@@ -195,8 +92,14 @@ const Login: FunctionComponent<{}> = () => {
                     intro="right"
                     outro="left"
                     color="paperDefault"
+                    sx={{ mt: "10px" }}
                 >
-                    <StyledButton primary id="continue-button">
+                    <StyledButton
+                        primary //
+                        id="continue- button"
+                        disabled={!credentialsAreValid}
+                        onClick={performRequest}
+                    >
                         Continue
                     </StyledButton>
                 </LineIntroAnimation>

@@ -8,7 +8,7 @@ import type { FunctionComponent } from "react";
 // Styled components
 const moveFromLeftToCenter = keyframes({
     from: {
-        transform: "translateX(-100%)",
+        transform: "translateX(calc(-100% - 10px))",
     },
     to: {
         transform: "translateX(0%)",
@@ -16,7 +16,7 @@ const moveFromLeftToCenter = keyframes({
 });
 const moveFromRightToCenter = keyframes({
     from: {
-        transform: "translateX(100%)",
+        transform: "translateX(calc(100% + 10px))",
     },
     to: {
         transform: "translateX(0%)",
@@ -24,7 +24,7 @@ const moveFromRightToCenter = keyframes({
 });
 const moveFromTopToCenter = keyframes({
     from: {
-        transform: "translateY(-100%)",
+        transform: "translateY(calc(-100% - 10px))",
     },
     to: {
         transform: "translateY(0%)",
@@ -32,7 +32,7 @@ const moveFromTopToCenter = keyframes({
 });
 const moveFromBottomToCenter = keyframes({
     from: {
-        transform: "translateY(100%)",
+        transform: "translateY(calc(100% + 10px))",
     },
     to: {
         transform: "translateY(0%)",

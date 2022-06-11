@@ -9,8 +9,11 @@ export interface SnackbarState {
 }
 
 export interface DisplaySnackbarParams {
+    /** Message displayed in the snackbar*/
     msg: string;
+    /** Color of the snackbar*/
     severity: "success" | "error" | "warning" | "info";
+    /** Optional, **expresed in ms** period of time after which the snackbar will be hidden automatically*/
     hideAfter?: number | null;
 }
 

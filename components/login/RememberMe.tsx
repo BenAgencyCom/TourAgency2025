@@ -1,13 +1,15 @@
 // Tools
 import { styled } from "@mui/system";
+import useSnackbar from "@/hooks/useSnackbar";
 // Types
-import type { FunctionComponent } from "react";
+import type { FunctionComponent, ChangeEvent } from "react";
 // Material UI Components
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 // Styled components
 const RememberMeBase = styled(FormControlLabel)(({ theme }) => ({
     ".MuiCheckbox-root": {
+        height: "30px",
         ".MuiSvgIcon-root": {
             color: theme.palette.text.primary,
         },
@@ -22,14 +24,20 @@ const RememberMeBase = styled(FormControlLabel)(({ theme }) => ({
         userSelect: "none",
     },
 }));
-interface RememberMeProps {
-    //
-}
 
-const RememberMe: FunctionComponent<RememberMeProps> = (props) => {
+const RememberMe: FunctionComponent = (props) => {
+    const displaySnackbar = useSnackbar();
+
+    const onChecked = (e: ChangeEvent<HTMLInputElement>) => {
+        displaySnackbar({
+            msg: `Credentials ${e.target.checked ? "will" : "won't"} be saved`,
+            severity: "success",
+            hideAfter: 1500,
+        });
+    };
     return (
         <RememberMeBase
-            control={<Checkbox defaultChecked />} //
+            control={<Checkbox defaultChecked onChange={onChecked} />} //
             label="Remember me"
             sx={{ my: "5px" }}
         />
