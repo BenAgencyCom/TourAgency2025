@@ -1,7 +1,7 @@
 // Tools
 import moment from "moment";
-import { useState } from "react";
 import { styled } from "@mui/system";
+import getColorBasedOnType from "@/utils/client/getColorBasedOnType";
 // Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
@@ -32,13 +32,9 @@ interface ReviewInformationProps {
 }
 
 const ReviewInformation: FunctionComponent<ReviewInformationProps> = (props) => {
-    const { tags, review, points, createdAt } = props.userReview;
+    const { tags, review, points, createdAt, type } = props.userReview;
 
-    const color = ((): ScoreColor => {
-        if (points > 7.5) return "success";
-        else if (points > 4.5) return "warning";
-        return "error";
-    })();
+    const color = getColorBasedOnType(type);
 
     const isExtended: boolean = props.extendReview.value;
 
@@ -87,7 +83,7 @@ const ReviewInformation: FunctionComponent<ReviewInformationProps> = (props) => 
                     );
                 } else {
                     return (
-                        <ScrollableBox maxHeight="370px" sx={{ paddingLeft: "0 !important" }}>
+                        <ScrollableBox maxHeight="300px" sx={{ paddingLeft: "0 !important" }}>
                             <Typography variant="body2">
                                 {review}
                                 <ExtendCollapseButton onClick={() => props.extendReview.setValue((val) => !val)}>Collapse</ExtendCollapseButton>

@@ -1,7 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 import _SingleReviewWrapperStyles from "./_SingleReviewWrapperStyles";
-import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
+import getColorBasedOnType from "@/utils/client/getColorBasedOnType";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
@@ -64,7 +64,7 @@ interface SingleReviewProps {
 }
 const SingleReview: FunctionComponent<SingleReviewProps> = (props) => {
     const { review } = props;
-    const color = getColorBasedOnScore(review.type);
+    const color = getColorBasedOnType(review.type);
 
     return (
         <SingleReviewWrapper

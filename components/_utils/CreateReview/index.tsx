@@ -3,7 +3,7 @@ import RWD from "./RWD";
 import { useMemo, useRef } from "react";
 import { styled, alpha } from "@mui/system";
 import { CreateReviewContext } from "./context";
-import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
+import getColorBasedOnType from "@/utils/client/getColorBasedOnType";
 // Types
 import type { FunctionComponent } from "react";
 import type { ReviewType } from "@prisma/client";
@@ -62,7 +62,7 @@ const CreateReview: FunctionComponent<CreateReviewProps> = (props) => {
     }, [scoreInt]);
 
     const estimatedReviewColor = useMemo<string>(() => {
-        return getColorBasedOnScore(estimatedReviewType);
+        return getColorBasedOnType(estimatedReviewType);
     }, [estimatedReviewType]);
     //
 

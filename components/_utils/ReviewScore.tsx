@@ -1,6 +1,6 @@
 // Tools
 import { styled } from "@mui/system";
-import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
+import getColorBasedOnType from "@/utils/client/getColorBasedOnType";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
@@ -31,7 +31,7 @@ const ReviewScore: FunctionComponent<ReviewScoreProps> = (props) => {
     return (
         <Wrapper
             sx={{
-                background: getColorBasedOnScore(props.type), //
+                background: getColorBasedOnType(props.type), //
                 ...props.sx,
             }}
             className={props.className}

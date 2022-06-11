@@ -4,7 +4,6 @@ import { styled } from "@mui/system";
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
-import type { ScoreColor } from "@/@types/pages/destinations/SingleDestination";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -34,9 +33,8 @@ const ReviewsTags: FunctionComponent<TagsProps> = (props) => {
             {tags.map((item, index) => {
                 return (
                     <Tag
-                        color={color} //
+                        sx={{ background: color }} //
                         key={index}
-                        sx={{ background: color }}
                     >
                         {item}
                     </Tag>

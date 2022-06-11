@@ -1,6 +1,6 @@
 // Tools
 import { styled, alpha } from "@mui/system";
-import getColorBasedOnScore from "@/utils/client/getColorBasedOnScore";
+import getColorBasedOnType from "@/utils/client/getColorBasedOnType";
 import { KeyframeScaleX } from "@/components/_utils/styled/keyframes";
 // Types
 import type { FunctionComponent } from "react";
@@ -31,7 +31,7 @@ const Bar = styled("div", {
         position: "absolute",
         height: "100%",
         width: `${props.ratio}%`,
-        background: getColorBasedOnScore(props.type),
+        background: getColorBasedOnType(props.type),
         left: "0",
         animation: `${KeyframeScaleX} 1s ease-in-out .5s both`,
         transformOrigin: "left",

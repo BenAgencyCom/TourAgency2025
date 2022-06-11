@@ -73,7 +73,6 @@ interface SingleLandmarkProps {
 const SingleLandmark: FunctionComponent<SingleLandmarkProps> = (props) => {
     const { destination, slug, title, folder } = props.data;
     const { imageResolution, userReview } = props;
-
     const [displayReview, setDisplayReview] = useState<boolean>(false);
     const [extendReview, setExtendReview] = useState<boolean>(false);
 
