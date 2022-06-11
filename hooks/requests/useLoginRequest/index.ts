@@ -1,7 +1,7 @@
 // Tools
 import axios from "axios";
 import { useState } from "react";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import stated from "@/utils/client/stated";
 import useSnackbar from "@/hooks/useSnackbar";
 import useCredentialsValidator from "./useCredentialsValidator";
@@ -24,6 +24,7 @@ interface UseLoginRequestResult {
 export default (): UseLoginRequestResult => {
     const dispatch = useAppDispatch();
     const displaySnackbar = useSnackbar();
+    const router = useRouter();
 
     const [password, setPassword] = useState<string>("jebac_gorzen123");
     const [email, setEmail] = useState<string>("jebac_gorzen@gmail.com");
@@ -45,7 +46,7 @@ export default (): UseLoginRequestResult => {
                 });
                 dispatch(setAuthentication(null));
                 setTimeout(() => {
-                    Router.push("/");
+                    router.push("/");
                 }, 100);
             })
             .catch((e) => {

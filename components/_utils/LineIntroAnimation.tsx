@@ -77,6 +77,7 @@ interface LineIntroAnimationProps {
 const LineIntroAnimation: FunctionComponent<LineIntroAnimationProps> = (props) => {
     const [animation, setAnimation] = useState<string>("");
     const [showChildren, setShowChildren] = useState<boolean>(false);
+    const [animationHasBeenShown, setAnimationHasBeenShown] = useState<boolean>(false);
 
     const getBackgroundColor = (color: LineIntroAnimationProps["color"]): string => {
         if (color === "background") return theme.palette.background.default;
@@ -94,7 +95,7 @@ const LineIntroAnimation: FunctionComponent<LineIntroAnimationProps> = (props) =
     };
 
     useEffect(() => {
-        if (showChildren) return;
+        if (props.in === false || showChildren || animationHasBeenShown) return;
         let isMounted = true;
 
         const introAnimationDuration = props.introDuration ?? 200;
@@ -107,23 +108,28 @@ const LineIntroAnimation: FunctionComponent<LineIntroAnimationProps> = (props) =
             if (isMounted) {
                 setShowChildren(true);
                 setAnimation(`${getKeyframeName(props.outro)} ${outroAnimationDuration}ms linear reverse both`);
+                setTimeout(() => {
+                    setAnimationHasBeenShown(true);
+                }, outroAnimationDuration + 50);
             }
         }, introAnimationDuration + timeBetweenAnimations + delay);
 
         return () => {
             isMounted = false;
         };
-    }, [props.in, props.intro, props.introDuration, props.outro, props.outroDuration, props.timeBetweenAnimations, props.delay, showChildren]);
+    }, [props.in, props.intro, props.introDuration, props.outro, props.outroDuration, props.timeBetweenAnimations, props.delay, showChildren, animationHasBeenShown]);
 
     return (
         <LineIntroAnimationBase sx={props.sx}>
-            <Line
-                sx={{
-                    animation, //
-                    background: getBackgroundColor(props.color ?? "text"),
-                }}
-                key={animation}
-            />
+            {!animationHasBeenShown && props.in && (
+                <Line
+                    sx={{
+                        animation, //
+                        background: getBackgroundColor(props.color ?? "text"),
+                    }}
+                    key={animation}
+                />
+            )}
             <ChildWrapper sx={{ visibility: showChildren ? "visible" : "hidden" }}>{props.children}</ChildWrapper>
         </LineIntroAnimationBase>
     );
