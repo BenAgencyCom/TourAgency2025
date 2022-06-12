@@ -32,7 +32,7 @@ const ParagraphSkeleton = styled(Skeleton)(({ theme }) => ({
 
 const PointsDistributionSkeletonLoading: FunctionComponent<MUIStyledCommonProps> = (props) => {
     return (
-        <FlexBox column sx={{ ...props.sx, ...(RWD as any) }}>
+        <FlexBox column sx={{ ...props.sx, ...(RWD as any) }} className="single-landmark-skeleton-wrapper">
             <Skeleton className="single-landmark-picture" variant="rectangular" />
 
             <FlexBox className="single-landmark-content" sx={{ mt: "10px" }} column>
@@ -42,6 +42,7 @@ const PointsDistributionSkeletonLoading: FunctionComponent<MUIStyledCommonProps>
             </FlexBox>
 
             <ReadMoreSkeletonLoading variant="rectangular" />
+            {props.children}
         </FlexBox>
     );
 };
