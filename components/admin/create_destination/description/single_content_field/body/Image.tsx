@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { styled } from "@mui/system";
 // Types
-import { ListItem } from "@/@types/redux";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { ImageContentField } from "@/@types/Description";
 // Material UI Components
