@@ -7,7 +7,7 @@ import ContinueButton from "./ContinueButton";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
-import Header from "./styled_components/_Header";
+import Header from "./styled_components/Header";
 import Wrapper from "./styled_components/Wrapper";
 import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 
@@ -23,12 +23,12 @@ const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
     const { buttonMsg, onClick, url } = props;
     const { width } = useAppSelector((state) => state.windowSizes);
     return (
-        <UnfadeOnScroll duration={700}>
+        <UnfadeOnScroll>
             <Wrapper>
                 <Header>
                     {(() => {
                         if (width > 1000) {
-                            return props.biggerHeader && <BackgroundHeader>{props.biggerHeader}</BackgroundHeader>;
+                            return props.biggerHeader && <BackgroundHeader fontSize="6rem">{props.biggerHeader}</BackgroundHeader>;
                         } else {
                             return props.mobileIcon;
                         }

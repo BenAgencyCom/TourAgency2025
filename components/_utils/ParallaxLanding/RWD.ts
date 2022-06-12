@@ -29,6 +29,15 @@ export default {
             lineHeight: "45px",
         },
     },
+    p: {
+        fontSize: "1.3rem",
+        ["@media (max-width:1600px)"]: {
+            fontSize: "1.2rem",
+        },
+        ["@media (max-width:1000px)"]: {
+            fontSize: "1.1rem",
+        },
+    },
     h1: {
         fontSize: "6rem",
         lineHeight: "100px",
@@ -88,15 +97,9 @@ export default {
         ".colored-header": {
             fontSize: "1.4rem",
         },
-        p: {
-            fontSize: "1.3rem",
-        },
     },
     //
     ["@media (max-width:500px)"]: {
-        p: {
-            fontSize: "1.2rem",
-        },
         "button.explore": {
             position: "relative",
         },
@@ -109,9 +112,6 @@ export default {
         ".colored-header": {
             fontSize: "1.2rem",
             margin: "0 15px",
-        },
-        p: {
-            fontSize: "1.1rem",
         },
     },
 } as SxProps;

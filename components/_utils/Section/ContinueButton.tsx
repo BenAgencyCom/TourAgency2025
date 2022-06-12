@@ -11,7 +11,7 @@ import ButtonWithLineTransition from "@/components/_utils/styled/ButtonWithLineT
 const StyledButton = styled(ButtonWithLineTransition)(({ theme }) => ({
     padding: "10px 40px",
     minWidth: "200px",
-    fontSize: "1.3rem",
+    fontSize: "1.1rem",
 }));
 
 interface SectionHeaderProps {

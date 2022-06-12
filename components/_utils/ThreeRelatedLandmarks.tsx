@@ -19,6 +19,11 @@ const Wrapper = styled("div")(({ theme }) => ({
     ["@media (max-width:1200px)"]: {
         flexDirection: "column",
     },
+    ["@media (max-width:1700px) and (min-width:1000px)"]: {
+        ".single-landmark-picture": {
+            height: "230px",
+        },
+    },
     ["@media (max-width:1200px) and (min-width:1000px)"]: {
         "div.single-landmark": {
             width: "100%",
@@ -32,6 +37,7 @@ const Wrapper = styled("div")(({ theme }) => ({
             },
             h3: {
                 fontSize: "3rem",
+                margin: "10px 0 20px 0",
             },
         },
     },

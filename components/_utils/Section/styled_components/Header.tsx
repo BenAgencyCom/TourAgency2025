@@ -5,7 +5,7 @@ export default styled("h2")(({ theme }) => ({
     userSelect: "none",
     position: "relative",
     margin: 0,
-    fontSize: "4rem",
+    fontSize: "3.5rem",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -19,5 +19,9 @@ export default styled("h2")(({ theme }) => ({
         zIndex: 1,
         letterSpacing: "-2px",
         textTransform: "uppercase", //
+    },
+    ["@media (max-width:1500px)"]: {
+        fontSize: "3rem",
+        lineHeight: "55px",
     },
 }));
