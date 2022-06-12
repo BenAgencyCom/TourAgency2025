@@ -6,6 +6,7 @@ import type { FunctionComponent } from "react";
 import Typography from "@mui/material/Typography";
 // Other components
 import Link from "next/link";
+import LineIntroAnimation from "@/components/_utils/LineIntroAnimation";
 // Styled components
 import StyledButton from "@/components/create/_utils/forms/Button";
 import { StyledDialogBase, BackgroundIcon, StyledDialogTitle, StyledDialogContent, StyledDialogActions } from "@/components/create/_utils/styled_components/Dialog";
@@ -29,15 +30,23 @@ const CreateAnAccountModel: FunctionComponent = (props) => {
                 <WarningAmber />
             </BackgroundIcon>
             <StyledDialogActions sx={{ justifyContent: "flex-start", paddingLeft: "24px" }}>
-                <StyledButton primary onClick={() => setOpen(false)}>
-                    Okey
-                </StyledButton>
-                <Link href="/login" passHref>
-                    <StyledButton sx={{ ml: "10px" }}>Login</StyledButton>
-                </Link>
-                <Link href="/register" passHref>
-                    <StyledButton>Register</StyledButton>
-                </Link>
+                <LineIntroAnimation in={true} intro="bottom" outro="left" color="paperLight">
+                    <StyledButton primary onClick={() => setOpen(false)}>
+                        Okey
+                    </StyledButton>
+                </LineIntroAnimation>
+
+                <LineIntroAnimation in={true} intro="top" outro="left" color="paperLight" delay={100}>
+                    <Link href="/login" passHref>
+                        <StyledButton>Login</StyledButton>
+                    </Link>
+                </LineIntroAnimation>
+
+                <LineIntroAnimation in={true} intro="bottom" outro="left" color="paperLight" delay={200}>
+                    <Link href="/register" passHref>
+                        <StyledButton>Register</StyledButton>
+                    </Link>
+                </LineIntroAnimation>
             </StyledDialogActions>
         </StyledDialogBase>
     );

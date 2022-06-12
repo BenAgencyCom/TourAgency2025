@@ -15,7 +15,7 @@ const StageTwo = dynamic(() => import("@/components/create/landmark/stage_2"), s
 const StageThree = dynamic(() => import("@/components/create/landmark/stage_3"), staticImportLoader);
 const StageFour = dynamic(() => import("@/components/create/landmark/stage_4"), { ...staticImportLoader, ssr: false });
 const StageFive = dynamic(() => import("@/components/create/landmark/stage_5"), staticImportLoader);
-const CreateAnAccountModal = dynamic(() => import("@/components/create/_utils/CreateAnAccountModal"), staticImportLoader);
+const AuthenticationIsRequiredModal = dynamic(() => import("@/components/create/_utils/AuthenticationIsRequiredModal"), staticImportLoader);
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
@@ -44,7 +44,7 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                 <title>Create Landmark</title>
             </Head>
 
-            {!isAuthenticated && <CreateAnAccountModal />}
+            {!isAuthenticated && <AuthenticationIsRequiredModal />}
 
             <MainWrapper
                 steps={["Destination", "Thumbnail", "General information", "Description", "Summary"]} //
