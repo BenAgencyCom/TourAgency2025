@@ -81,6 +81,7 @@ const SingleLandmark: FunctionComponent<DataFromAPI> = (props) => {
                     reviews={reviews} //
                     reviewsInTotal={reviewsInTotal}
                     url={`/landmarks/${landmark.slug}/reviews`}
+                    reviewsType="landmark"
                 ></FewLatestReviews>
             </Content>
         </>

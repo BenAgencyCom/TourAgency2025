@@ -89,6 +89,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                         reviews={destination.reviews} //
                         reviewsInTotal={totalReviews}
                         url={`/destinations/${destination.slug}/reviews`}
+                        reviewsType="destination"
                     ></FewLatestReviews>
                 </Content>
             </RWDContentWrapper>

@@ -26,6 +26,7 @@ interface AllReviewsProps {
     sx?: SxProps;
     totalReviews: number;
     url: string;
+    reviewsType: "landmark" | "destination";
 }
 const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
     const { width } = useAppSelector((state) => state.windowSizes);
@@ -43,10 +44,15 @@ const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
             className="reviews-wrapper"
         >
             {reviewToDisplay.map((item, index) => {
+                console.log(item.feedback);
                 return (
                     <SingleReview
                         key={index} //
                         review={item}
+                        record={{
+                            id: item.id,
+                            type: props.reviewsType,
+                        }}
                     ></SingleReview>
                 );
             })}

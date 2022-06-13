@@ -14,10 +14,11 @@ interface ReviewsProps {
     reviews: Review[];
     url: string;
     reviewsInTotal: number;
+    reviewsType: "landmark" | "destination";
 }
 
 const Reviews: FunctionComponent<ReviewsProps> = (props) => {
-    const { reviews, url, reviewsInTotal } = props;
+    const { reviews, url, reviewsInTotal, reviewsType } = props;
     return (
         <Section
             id="reviews"
@@ -35,6 +36,7 @@ const Reviews: FunctionComponent<ReviewsProps> = (props) => {
                     reviews={reviews} //
                     totalReviews={reviewsInTotal}
                     url={url}
+                    reviewsType={reviewsType}
                 ></AllReviews>
             </UnfadeOnScroll>
         </Section>
