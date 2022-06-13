@@ -1,5 +1,6 @@
 // Tools
 import { styled } from "@mui/system";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
@@ -10,8 +11,6 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import SingleReview from "@/components/_utils/SingleReview";
 import ScrollableBox from "@/components/_utils/styled/ScrollableBox";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 const SeeAllReviews = styled(Button)(({ theme }) => ({
     fontSize: "1.3rem",
@@ -29,7 +28,7 @@ interface AllReviewsProps {
     reviewsType: "landmark" | "destination";
 }
 const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
-    const { width } = useAppSelector((state) => state.windowSizes);
+    const { width } = useWindowSizes();
     const { reviews } = props;
 
     const reviewToDisplay = width <= 700 ? reviews.slice(0, 4) : reviews;
@@ -44,7 +43,6 @@ const AllReviews: FunctionComponent<AllReviewsProps> = (props) => {
             className="reviews-wrapper"
         >
             {reviewToDisplay.map((item, index) => {
-                console.log(item.feedback);
                 return (
                     <SingleReview
                         key={index} //

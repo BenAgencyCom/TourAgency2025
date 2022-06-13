@@ -1,5 +1,6 @@
 // Tools
 import { styled } from "@mui/system";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent, ReactNode } from "react";
@@ -8,8 +9,6 @@ import Box from "@mui/material/Box";
 // Other components
 import ContinueButton from "./ContinueButton";
 import SectionHeader from "@/components/_utils/Section/SectionHeader";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
 const Wrapper = styled(Box)({
     width: "100%",
@@ -61,7 +60,7 @@ interface SectionProps {
     sx?: SxProps;
 }
 const Section: FunctionComponent<SectionProps> = (props) => {
-    const { width } = useAppSelector((state) => state.windowSizes);
+    const { width } = useWindowSizes();
 
     return (
         <Wrapper

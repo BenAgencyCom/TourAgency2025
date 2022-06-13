@@ -1,12 +1,11 @@
 // Tools
 import { styled } from "@mui/system";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
 import Link from "next/link";
 import Image from "next/Image";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -37,7 +36,7 @@ interface PageLogoProps {
     isScrolledDown: boolean;
 }
 const PageLogo: FunctionComponent<PageLogoProps> = (props) => {
-    const { width } = useAppSelector((state) => state.windowSizes);
+    const { width } = useWindowSizes();
     const isScrolledDown = props.isScrolledDown;
     const src: string = isScrolledDown || props.forceAlternativeLogo ? "/logo_reversed_contrast.png" : "/logo.png";
 

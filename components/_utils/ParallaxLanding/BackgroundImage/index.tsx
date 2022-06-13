@@ -18,7 +18,6 @@ interface BackgroundImageProps {
 
 const BackgroundImage: FunctionComponent<BackgroundImageProps> = (props) => {
     const { scrollY } = useAppSelector((state) => state.windowSizes);
-
     const scrollingMaskElement = useRef<HTMLElement | null>(null);
     const [renderLoadingHiddingMask, setRenderLoadingHiddingMask] = useState<boolean>(true);
     // After component mount

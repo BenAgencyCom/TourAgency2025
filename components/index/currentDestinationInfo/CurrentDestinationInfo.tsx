@@ -1,28 +1,28 @@
+// Tools
+import { useState, useEffect } from "react";
+import useWindowSizes from "@/hooks/useWindowSizes";
+// Types
 import type { FunctionComponent } from "react";
 import type { TravelDestination } from "@/data/destinations";
-import { useState, useEffect } from "react";
-// My components
+// Other components
 import BottomSidePartialInfo from "./BottomSidePartialInfo";
 import BackgroundCountryName from "./BackgroundCountryName";
-// Material Components
+// Material UI Components
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
-// Material Icons
+// Material UI Icons
 import AccessTime from "@mui/icons-material/AccessTime";
 import StarBorder from "@mui/icons-material/StarBorder";
 import Star from "@mui/icons-material/Star";
 import Euro from "@mui/icons-material/Euro";
 // Styles
 import styles from "@/sass/indexPage/indexPage.module.sass";
-import colors from "@/sass/variables.module.sass";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 
 const CurrentDestinationInfo: FunctionComponent<{ currentDestination: TravelDestination }> = ({ currentDestination }) => {
-    const width = useAppSelector((state) => state.windowSizes.width);
+    const { width } = useWindowSizes();
     const [triggerAnimations, setTriggerAnimations] = useState<number>(0);
     useEffect(() => {
         setTriggerAnimations((t) => t + 1);

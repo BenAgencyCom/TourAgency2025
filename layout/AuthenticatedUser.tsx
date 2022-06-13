@@ -1,4 +1,6 @@
+// Tools
 import axios from "axios";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { FunctionComponent } from "react";
 import LocalStorageUserData from "@/@types/LocalStorageUserData";
@@ -15,9 +17,10 @@ import { setUserData, setAuthentication } from "@/redux/slices/authentication";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 
 const AuthenticatedUser: FunctionComponent<{ buttonStyles: Record<string, unknown> }> = ({ buttonStyles }) => {
-    const userData = useAppSelector((state) => state.authentication.userData) as LocalStorageUserData;
     const dispatch = useAppDispatch();
-    const width = useAppSelector((state) => state.windowSizes.width);
+
+    const userData = useAppSelector((state) => state.authentication.userData) as LocalStorageUserData;
+    const { width } = useWindowSizes();
 
     const logout = async () => {
         axios

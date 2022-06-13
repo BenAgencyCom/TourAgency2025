@@ -22,8 +22,6 @@ interface LayoutProps {
 
 const Layout: FunctionComponent<LayoutProps> = (props) => {
     const router = useRouter();
-    const extraStyles = { backgroundColor: "transparent !important", backgroundImage: "none !important", backdropFilter: "none !important", boxShadow: "none !important" };
-    const [displayExtraStyles, setDisplayExtraStyles] = useState<boolean>(false);
     const [displayAppBar, setDisplayAppBar] = useState<boolean>(true);
 
     const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
@@ -32,11 +30,6 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
     useEffect(() => {
         let isMounted = true;
         if (isMounted) {
-            setDisplayExtraStyles(true);
-            window.addEventListener("scroll", () => {
-                if (window.scrollY < 1080) setDisplayExtraStyles(true);
-                else setDisplayExtraStyles(false);
-            });
             //
             // Toogle visibility
             //

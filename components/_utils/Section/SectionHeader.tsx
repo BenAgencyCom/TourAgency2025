@@ -1,11 +1,10 @@
+// Tools
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { FunctionComponent, ReactNode } from "react";
 // Other components
-import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
-// Other components
 import ContinueButton from "./ContinueButton";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
+import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 // Styled Components
 import Header from "./styled_components/Header";
 import Wrapper from "./styled_components/Wrapper";
@@ -21,7 +20,8 @@ interface SectionHeaderProps {
 }
 const SectionHeader: FunctionComponent<SectionHeaderProps> = (props) => {
     const { buttonMsg, onClick, url } = props;
-    const { width } = useAppSelector((state) => state.windowSizes);
+    const { width } = useWindowSizes();
+
     return (
         <UnfadeOnScroll>
             <Wrapper>

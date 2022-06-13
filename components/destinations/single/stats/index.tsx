@@ -1,12 +1,11 @@
 // Tools
 import { styled } from "@mui/system";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import SingleStat from "./SingleStat";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -48,10 +47,10 @@ const Stats: FunctionComponent = () => {
             hideDivider: true,
         },
     ];
-    const { width } = useAppSelector((state) => state.windowSizes);
+    const { width } = useWindowSizes();
 
     return (
-        <UnfadeOnScroll animationRatio={0.5}>
+        <UnfadeOnScroll>
             <Wrapper horizontal="between" vertical="center" id="destination-general-stats">
                 {stats.map((item, index) => {
                     return (

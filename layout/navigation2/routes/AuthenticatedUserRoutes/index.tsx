@@ -1,13 +1,12 @@
 // Tools
 import { styled } from "@mui/system";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { FunctionComponent } from "react";
 import type LocalStorageUserData from "@/@types/LocalStorageUserData";
 // Other components
 import Logout from "./Logout";
 import Avatar from "./Avatar";
-// Redux
-import { useAppSelector } from "@/hooks/useRedux";
 // Styled Components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 
@@ -23,7 +22,7 @@ const HelloThere = styled("span")(({ theme }) => ({
 
 const GeneralRoutes: FunctionComponent<{ userData: LocalStorageUserData }> = (props) => {
     const { id, avatar, name } = props.userData;
-    const { width } = useAppSelector((state) => state.windowSizes);
+    const { width } = useWindowSizes();
 
     return (
         <FlexBox vertical="center">
