@@ -1,15 +1,16 @@
-import type { FunctionComponent, ReactNode } from "react";
-import { useEffect, useState } from "react";
-// Components
-import Navigation from "@/layout/navigation2";
-import Snackbar from "@/layout//Snackbar";
-import ScrollButton from "@/layout/ScrollButton";
-import Footer from "@/layout/Footer";
-// Material UI Components
-import Box from "@mui/material/Box";
 // Tools
 import { useRouter } from "next/router";
 import { authenticateToken, getUserData } from "@/utils/client/authenticate";
+import { useEffect, useState } from "react";
+// Types
+import type { FunctionComponent, ReactNode } from "react";
+// Material UI Components
+import Box from "@mui/material/Box";
+// Other components
+import Navigation from "@/layout/navigation";
+import Snackbar from "@/layout//Snackbar";
+import ScrollButton from "@/layout/ScrollButton";
+import Footer from "@/layout/Footer";
 // Redux
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { resize, setScroll } from "@/redux/slices/windowSizes";
