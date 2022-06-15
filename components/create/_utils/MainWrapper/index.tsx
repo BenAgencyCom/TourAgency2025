@@ -2,6 +2,7 @@
 import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
 // Types
+import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
 // Other components
@@ -41,6 +42,7 @@ interface MainWrapperProps {
     activeStep: StatedDataField<number>;
     /** Callback which is supposed to be called instead of going farther on the last step */
     alternativeContinueCallback?: () => any;
+    sx?: SxProps;
 }
 
 const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
@@ -56,7 +58,8 @@ const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
     }, [activeStep, alreadyVisitedSteps]);
 
     return (
-        <Wrapper id="create-content-wrapper">
+        <Wrapper id="create-content-wrapper" sx={props.sx}>
+            {/* in order to change the color of the background, two sections have to be nested like that */}
             <ContentContainter sx={{ flexGrow: "1" }}>
                 <CreateProcessStepper
                     steps={steps} //

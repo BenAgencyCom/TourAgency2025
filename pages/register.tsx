@@ -1,147 +1,161 @@
 // Tools
+import { styled } from "@mui/system";
 import { FunctionComponent, useState } from "react";
 import GuardedRoute from "@/utils/client/GuardedRoute";
 // Types
 import type { GetServerSideProps } from "next";
 import type { CountryType } from "@/data/countries";
-// My components
-import Stepper from "@/components/register/stepper/Stepper";
-// Sections
+// Other components
+import StageHeader from "@/components/create/_utils/StageHeader";
+import ContentContainter from "@/components/_utils/styled/ContentContainter";
+import StyledButton from "@/components/create/_utils/forms/Button";
 import PersonalData from "@/components/register/PersonalData";
 import Credentials from "@/components/register/Credentials";
 import Avatar from "@/components/register/Avatar";
-import Upload from "@/components/register/Upload";
-// Material UI components
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
-import CardActions from "@mui/material/CardActions";
-import Divider from "@mui/material/Divider";
-// NextJS compoennts
-import Image from "next/Image";
-import Link from "next/link";
-// Styles
-import backgroundImage from "@/public/images/register/bgc.jpg";
-import styles from "@/sass/pages/register.module.sass";
-import bgIMGStyles from "@/sass/large_image_as_background.module.sass";
+
+const MainWrapper = styled(ContentContainter)(({ theme }) => ({
+    paddingTop: "50px",
+    marginBottom: "100px",
+    display: "flex",
+    ".content-wrapper": {
+        display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+        ["@media (max-width:1000px)"]: {
+            flexDirection: "column-reverse",
+            alignItems: "center",
+        },
+    },
+    ".MuiFormControl-root ": {
+        width: "100%",
+        "input, select, .MuiSelect-select": {
+            color: theme.palette.text.primary,
+        },
+        ".MuiInputLabel-root": {
+            color: theme.palette.text.primary,
+            padding: "0px 10px",
+            borderRadius: "3px",
+        },
+    },
+}));
+
+const LeftSideContent = styled("div")(({ theme }) => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: "50%",
+    ["@media (max-width:1000px)"]: {
+        width: "calc(100vw - 20px)",
+        maxWidth: "600px",
+    },
+    ".MuiFormControl-root": {
+        marginTop: "20px",
+        width: "100%",
+    },
+    ".strength-bar": {
+        marginTop: "5px",
+        width: "100%",
+        div: {
+            div: {
+                height: "4px !important",
+            },
+        },
+    },
+}));
+
+const ContinueButton = styled(StyledButton)(({ theme }) => ({
+    marginTop: "50px",
+    width: "200px",
+    ["@media (max-width:1000px)"]: {
+        alignSelf: "center",
+        width: "100%",
+        maxWidth: "400px",
+    },
+}));
+
+const RightSide = styled("div")(({ theme }) => ({}));
 
 const Registration: FunctionComponent<{}> = () => {
-    // Form Data
-    // const [name, setName] = useState<string>("");
-    // const [surname, setSurname] = useState<string>("");
-    // const [email, setEmail] = useState<string>("");
-    // const [country, setCountry] = useState<CountryType | null>(null);
-    // const [gender, setGender] = useState<"MALE" | "FEMALE" | "OTHER">("MALE");
-    // const [born, setBorn] = useState<Date | null>(null);
-    // const [password, setPassword] = useState<string>("");
-    // const [passwordRepeatation, setPasswordRepeatation] = useState<string>("");
-    // MOCKED
-    const [name, setName] = useState<string>("Kacper");
-    const [surname, setSurname] = useState<string>("Ksiazek");
-    const [email, setEmail] = useState<string>("jebac_gorzen@gmail.com");
-    const [country, setCountry] = useState<CountryType | null>({ code: "PL", label: "Poland", phone: "48" });
-    const [gender, setGender] = useState<"MALE" | "FEMALE" | "OTHER">("MALE");
-    const [born, setBorn] = useState<Date | null>(new Date());
-    const [password, setPassword] = useState<string>("jebac_gorzen123");
-    const [passwordRepeatation, setPasswordRepeatation] = useState<string>("jebac_gorzen123");
     const [avatar, setAvatar] = useState<File | null>(null);
+    // Form Data
+    const [name, setName] = useState<string>("");
+    const [surname, setSurname] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [country, setCountry] = useState<CountryType | null>(null);
+    const [gender, setGender] = useState<"MALE" | "FEMALE" | "OTHER">("MALE");
+    const [born, setBorn] = useState<Date | null>(null);
+    const [password, setPassword] = useState<string>("");
+    const [passwordRepeatation, setPasswordRepeatation] = useState<string>("");
+    // MOCKED
+    // const [name, setName] = useState<string>("Kacper");
+    // const [surname, setSurname] = useState<string>("Ksiazek");
+    // const [email, setEmail] = useState<string>("jebac_gorzen@gmail.com");
+    // const [country, setCountry] = useState<CountryType | null>({ code: "PL", label: "Poland", phone: "48" });
+    // const [gender, setGender] = useState<"MALE" | "FEMALE" | "OTHER">("MALE");
+    // const [born, setBorn] = useState<Date | null>(new Date());
+    // const [password, setPassword] = useState<string>("jebac_gorzen123");
+    // const [passwordRepeatation, setPasswordRepeatation] = useState<string>("jebac_gorzen123");
     // Auxiliary
     const buttonStyles = { my: 1 };
     const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
+
+    const upload = () => alert("uploading");
+
     //
     return (
-        <Box
-            className={bgIMGStyles.background}
-            sx={{
-                backgroundPositionY: ``,
-            }}
-        >
-            <Image
-                className={bgIMGStyles["bg-image"]} //
-                src={backgroundImage}
-                layout="fill"
-                alt="background"
-                objectFit="cover"
-                objectPosition={`center ${50 - currentSlideIndex * 15}%`}
-                placeholder="blur"
-                //
-            ></Image>
-            <Card className={styles.formCard}>
-                <Stepper currentSlideIndex={currentSlideIndex}></Stepper>
+        <MainWrapper>
+            <StageHeader title="Create an account" stageNumber={1} alternateBackgroundText="Register" />
+            <div className="content-wrapper">
+                <LeftSideContent>
+                    <PersonalData
+                        // Data
+                        name={{ value: name, setValue: setName }}
+                        surname={{ value: surname, setValue: setSurname }}
+                        gender={{ value: gender, setValue: setGender }}
+                        born={{ value: born, setValue: setBorn }}
+                        country={{ value: country, setValue: setCountry }}
+                        //
+                        currentSlideIndex={currentSlideIndex}
+                        updateSlideIndex={setCurrentSlideIndex}
+                    />
+                    <Credentials
+                        // Data
+                        password={{ value: password, setValue: setPassword }}
+                        passwordRepeatation={{ value: passwordRepeatation, setValue: setPasswordRepeatation }}
+                        email={{ value: email, setValue: setEmail }}
+                        //
+                        buttonStyles={buttonStyles}
+                        currentSlideIndex={currentSlideIndex}
+                        updateSlideIndex={setCurrentSlideIndex}
+                    />
+                    <ContinueButton primary>Continue</ContinueButton>
+                </LeftSideContent>
 
-                {(() => {
-                    switch (currentSlideIndex) {
-                        case 0:
-                            return (
-                                <PersonalData
-                                    // Data
-                                    name={{ value: name, setValue: setName }}
-                                    surname={{ value: surname, setValue: setSurname }}
-                                    gender={{ value: gender, setValue: setGender }}
-                                    born={{ value: born, setValue: setBorn }}
-                                    country={{ value: country, setValue: setCountry }}
-                                    //
-                                    currentSlideIndex={currentSlideIndex}
-                                    updateSlideIndex={setCurrentSlideIndex}
-                                ></PersonalData>
-                            );
-                        case 1:
-                            return (
-                                <Credentials
-                                    // Data
-                                    password={{ value: password, setValue: setPassword }}
-                                    passwordRepeatation={{ value: passwordRepeatation, setValue: setPasswordRepeatation }}
-                                    email={{ value: email, setValue: setEmail }}
-                                    //
-                                    buttonStyles={buttonStyles}
-                                    currentSlideIndex={currentSlideIndex}
-                                    updateSlideIndex={setCurrentSlideIndex}
-                                ></Credentials>
-                            );
-                        case 2:
-                            return (
-                                <Avatar
-                                    avatar={{ value: avatar, setValue: setAvatar }}
-                                    //
-                                    currentSlideIndex={currentSlideIndex}
-                                    updateSlideIndex={setCurrentSlideIndex}
-                                ></Avatar>
-                            );
-                        case 3:
-                            return (
-                                <Upload
-                                    name={name}
-                                    surname={surname}
-                                    gender={gender}
-                                    born={born}
-                                    country={country}
-                                    password={password}
-                                    passwordRepeatation={passwordRepeatation}
-                                    email={email}
-                                    avatar={avatar}
-                                    //
-                                    buttonStyles={buttonStyles}
-                                    currentSlideIndex={currentSlideIndex}
-                                    updateSlideIndex={setCurrentSlideIndex}
-                                ></Upload>
-                            );
-                    }
-                })()}
-                <Divider sx={{ mt: 3, mb: 0 }}></Divider>
-                <CardActions sx={{ justifyContent: "center", mb: 1 }}>
-                    <Button data-cy="redirect-login">
-                        <Link href="/login">
-                            <a>Already have an account</a>
-                        </Link>
-                    </Button>
-                    <Button data-cy="redirect-main-page">
-                        <Link href="/">
-                            <a>Main page</a>
-                        </Link>
-                    </Button>
-                </CardActions>
-            </Card>
-        </Box>
+                <RightSide>
+                    <Avatar
+                        avatar={{ value: avatar, setValue: setAvatar }} //
+                        currentSlideIndex={currentSlideIndex}
+                        updateSlideIndex={setCurrentSlideIndex}
+                    />
+                </RightSide>
+            </div>
+            {/* 
+                <Upload
+                    name={name}
+                    surname={surname}
+                    gender={gender}
+                    born={born}
+                    country={country}
+                    password={password}
+                    passwordRepeatation={passwordRepeatation}
+                    email={email}
+                    avatar={avatar}
+                    //
+                    buttonStyles={buttonStyles}
+                    currentSlideIndex={currentSlideIndex}
+                    updateSlideIndex={setCurrentSlideIndex}
+                ></Upload> */}
+        </MainWrapper>
     );
 };
 export const getServerSideProps: GetServerSideProps = (ctx) => GuardedRoute("anonymous", ctx);

@@ -41,7 +41,9 @@ const Login: FunctionComponent<{}> = () => {
                         color="paperDefault"
                         delay={400}
                     >
-                        <Typography variant="h2">Login</Typography>
+                        <Typography variant="h2" sx={{ mb: "10px" }}>
+                            Login
+                        </Typography>
                     </LineIntroAnimation>
                 </div>
 

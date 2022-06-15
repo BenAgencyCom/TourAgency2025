@@ -32,7 +32,7 @@ const CreateAnAccountModel: FunctionComponent = (props) => {
             <StyledDialogActions sx={{ justifyContent: "flex-start", paddingLeft: "24px" }}>
                 <LineIntroAnimation in={true} intro="bottom" outro="left" color="paperLight">
                     <StyledButton primary onClick={() => setOpen(false)}>
-                        Okey
+                        Okay
                     </StyledButton>
                 </LineIntroAnimation>
 

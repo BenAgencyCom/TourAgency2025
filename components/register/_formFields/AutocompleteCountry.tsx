@@ -1,16 +1,21 @@
-import type { FunctionComponent } from "react";
-import Autocomplete from "@mui/material/Autocomplete";
+// Tools
 import { countries } from "@/data/countries";
+import type { FunctionComponent } from "react";
+// Types
+import type { SxProps } from "@mui/system";
 import type { CountryType } from "@/data/countries";
+// Material UI Components
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
+
 interface AutocompleteProps {
     // Properties
     label: string;
     value: CountryType | null;
     _cypressTag?: string;
-    sx?: Record<string, unknown>;
+    sx?: SxProps;
     // Methods
     updateValue: (value: CountryType | null) => void;
 }

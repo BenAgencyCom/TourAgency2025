@@ -14,13 +14,19 @@ const StageHeaderWrapper = styled("div")(({ theme }) => ({
 interface StageHeaderProps {
     title: string;
     stageNumber: number;
+    alternateBackgroundText?: string;
 }
 
 const StageHeader: FunctionComponent<StageHeaderProps> = (props) => {
+    const { alternateBackgroundText, stageNumber, title } = props;
     return (
         <StageHeaderWrapper>
-            <Typography variant="h2">{props.title}</Typography>
-            <BackgroundHeader fontSize="6rem">{`STAGE ${props.stageNumber}`}</BackgroundHeader>
+            <Typography variant="h2">{title}</Typography>
+            <BackgroundHeader
+                fontSize="6rem" //
+            >
+                {alternateBackgroundText ? alternateBackgroundText : `STAGE ${stageNumber}`}
+            </BackgroundHeader>
         </StageHeaderWrapper>
     );
 };
