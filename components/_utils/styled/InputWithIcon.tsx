@@ -33,6 +33,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         display: "flex",
         alignItems: "center",
     },
+    svg: {
+        color: "#fff",
+    },
     textarea: {
         "&::-webkit-scrollbar": { width: "10px" },
         "&::-webkit-scrollbar-track": { boxShadow: "inset 0 0 2px rgba(0,0,0,0.5)" },

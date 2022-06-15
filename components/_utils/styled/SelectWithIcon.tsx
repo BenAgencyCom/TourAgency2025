@@ -1,6 +1,8 @@
 // Tools
+import { styled } from "@mui/system";
 import colorTheme from "@/colorTheme";
 // Types
+import type { SxProps } from "@mui/system";
 import type { SelectProps } from "@mui/material/Select";
 import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
@@ -10,6 +12,22 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 // Material UI Icons
 import Clear from "@mui/icons-material/Clear";
+// Styled components
+const StyledSelectBase = styled(Select)(({ theme }) => ({
+    borderColor: theme.palette.text.primary,
+    width: "220px",
+    background: theme.palette.text.primary,
+    transition: "background .2s,border .2s",
+    svg: {
+        color: "#fff",
+    },
+    "&.Mui-focused": {
+        background: theme.palette.primary.main,
+    },
+    ".MuiSelect-icon": {
+        display: "none",
+    },
+}));
 
 interface StyledSelectProps extends SelectProps {
     options: {
@@ -18,6 +36,7 @@ interface StyledSelectProps extends SelectProps {
     }[];
     defaultValue?: any;
     icon: ReactNode;
+    sx?: SxProps;
 }
 
 const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
@@ -28,24 +47,9 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
     };
 
     return (
-        <Select
+        <StyledSelectBase
             {...propsToForward}
-            sx={{
-                borderColor: colorTheme.palette.text.primary,
-                width: "220px",
-                background: colorTheme.palette.text.primary,
-                transition: "background .2s,border .2s",
-
-                "&.Mui-focused": {
-                    background: colorTheme.palette.primary.main,
-                },
-                ".MuiSelect-icon": {
-                    display: "none",
-                },
-
-                // Has to be at the end so as to overwritte every above property!
-                ...sx,
-            }}
+            sx={sx}
             inputProps={{
                 sx: {
                     padding: "7px 0px",
@@ -88,7 +92,7 @@ const StyledSelect: FunctionComponent<StyledSelectProps> = (props) => {
                     </MenuItem>
                 );
             })}
-        </Select>
+        </StyledSelectBase>
     );
 };
 

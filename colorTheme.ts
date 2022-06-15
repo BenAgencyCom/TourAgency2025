@@ -30,7 +30,6 @@ declare module "@mui/material/FormHelperText" {
 
 export default createTheme({
     palette: {
-        mode: "dark",
         primary: {
             main: "#fc8e77",
             dark: "#b06353",
@@ -146,6 +145,13 @@ export default createTheme({
                 h2: {
                     fontWeight: 900,
                     letterSpacing: "-2px",
+                    lineHeight: "55px",
+                    ["@media (max-width:700px)"]: {
+                        fontSize: "3.5rem",
+                    },
+                    ["@media (max-width:500px)"]: {
+                        fontSize: "3rem",
+                    },
                 },
                 h1: {
                     lineHeight: "84px",
