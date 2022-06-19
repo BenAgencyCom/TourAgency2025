@@ -17,7 +17,6 @@ interface PersonalDataAndCredentialsProps {
     // Auxiliary stuff
     currentSlideIndex: number;
     updateSlideIndex: (x: number) => void;
-    buttonStyles: Record<string, any>;
 }
 
 const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsProps> = (props) => {
