@@ -8,7 +8,7 @@ interface InputProps {
     value: string;
     // Optional
     sx?: Record<string, unknown>;
-    errorMsg?: string | false;
+    error?: boolean;
     onBlur?: () => void;
     disabled?: boolean;
     multiline?: boolean;
@@ -28,11 +28,10 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
             value={value}
             onChange={handleChange}
             onBlur={props.onBlur}
-            error={Boolean(props.errorMsg)}
+            error={props.error}
             multiline={props.multiline ? props.multiline : false}
             disabled={disabled !== undefined ? disabled : false}
             sx={{ ...props.sx }}
-            helperText={props.errorMsg}
             FormHelperTextProps={{
                 "data-cy": `${props._cypressTag}-error`,
             }}

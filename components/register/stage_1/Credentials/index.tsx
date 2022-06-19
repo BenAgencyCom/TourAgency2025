@@ -1,7 +1,7 @@
+// Tools
 import joi from "joi";
-import axios from "axios";
 import PasswordStrengthBar from "react-password-strength-bar";
-import useSnackbar from "@/hooks/useSnackbar";
+import useEmailUniquenessValidator from "../hooks/useEmailUniquenessValidator";
 // Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
@@ -21,7 +21,7 @@ interface PersonalDataAndCredentialsProps {
 
 const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsProps> = (props) => {
     const { password, passwordRepeatation, email } = props;
-    const displaySnackbar = useSnackbar();
+    const { checkEmailUniqueness, emailIsNotAvailable } = useEmailUniquenessValidator();
     //
     // Validation
     //
@@ -30,36 +30,9 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
         passwordRepeatation: joi.string().valid(joi.ref("password")),
         email: joi.string().max(255).email({ tlds: false }),
     });
-    const isEmailValid = () => {
-        const { error } = joiScheme.validate({
-            password: password.value,
-            passwordRepeatation: passwordRepeatation.value,
-            email: email.value,
-        });
-        return !Boolean(error);
-    };
-    const checkEmail = async () => {
-        try {
-            const { available } = (await axios.get(`./api/is_email_available/${email.value}`)).data as { available: boolean };
-            if (!available) {
-                if (isEmailValid()) {
-                    displaySnackbar({
-                        msg: "This email is not available",
-                        severity: "error",
-                        hideAfter: 3000,
-                    });
-                }
-            }
-        } catch (e: unknown) {
-            if (isEmailValid()) {
-                displaySnackbar({
-                    msg: "This email is not available",
-                    severity: "error",
-                    hideAfter: 3000,
-                });
-            }
-        }
-    };
+
+    const checkEmail = async () => await checkEmailUniqueness(email.value);
+
     //
     //
     //
@@ -70,6 +43,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                 value={email.value}
                 updateValue={email.setValue}
                 onBlur={checkEmail}
+                error={emailIsNotAvailable}
                 _cypressTag="email"
             ></TextInput>
             <PasswordInput
