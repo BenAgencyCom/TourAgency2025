@@ -1,41 +1,27 @@
 // Tools
-import joi from "joi";
 import PasswordStrengthBar from "react-password-strength-bar";
 import useEmailUniquenessValidator from "../hooks/useEmailUniquenessValidator";
 // Types
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
+import type { CheckWhetherAFieldIsInvalid } from "@/components/register/stage_1/hooks/useFormFieldsWithValidation";
 // My components
 import TextInput from "@/components/register/stage_1/_TextInput";
 import PasswordInput from "@/components/register/stage_1/PersonalData/PasswordInput";
 
 interface PersonalDataAndCredentialsProps {
-    // Data
+    email: StatedDataField<string>;
     password: StatedDataField<string>;
     passwordRepeatation: StatedDataField<string>;
-    email: StatedDataField<string>;
-    // Auxiliary stuff
-    currentSlideIndex: number;
-    updateSlideIndex: (x: number) => void;
+    checkWhetherAFieldIsInvalid: CheckWhetherAFieldIsInvalid;
 }
 
 const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsProps> = (props) => {
-    const { password, passwordRepeatation, email } = props;
-    const { checkEmailUniqueness, emailIsNotAvailable } = useEmailUniquenessValidator();
-    //
-    // Validation
-    //
-    const joiScheme = joi.object({
-        password: joi.string().min(6).max(255).trim(),
-        passwordRepeatation: joi.string().valid(joi.ref("password")),
-        email: joi.string().max(255).email({ tlds: false }),
-    });
+    const { password, passwordRepeatation, email, checkWhetherAFieldIsInvalid } = props;
 
+    const { checkEmailUniqueness, emailIsNotAvailable } = useEmailUniquenessValidator();
     const checkEmail = async () => await checkEmailUniqueness(email.value);
 
-    //
-    //
-    //
     return (
         <>
             <TextInput
@@ -43,7 +29,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                 value={email.value}
                 updateValue={email.setValue}
                 onBlur={checkEmail}
-                error={emailIsNotAvailable}
+                error={emailIsNotAvailable || checkWhetherAFieldIsInvalid("email")}
                 _cypressTag="email"
             ></TextInput>
             <PasswordInput
@@ -51,6 +37,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                 value={password.value}
                 updateValue={password.setValue}
                 _cypressTag="password"
+                error={checkWhetherAFieldIsInvalid("password")}
             ></PasswordInput>
             <PasswordStrengthBar password={password.value} className="strength-bar" />
             <PasswordInput
@@ -58,6 +45,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
                 value={passwordRepeatation.value}
                 updateValue={passwordRepeatation.setValue}
                 _cypressTag="repeat-password"
+                error={checkWhetherAFieldIsInvalid("passwordRepeatation")}
             ></PasswordInput>
         </>
     );

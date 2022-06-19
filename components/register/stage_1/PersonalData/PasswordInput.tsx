@@ -18,6 +18,7 @@ interface InputProps {
     disabled?: boolean;
     sx?: Record<string, unknown>;
     _cypressTag?: string;
+    error?: boolean;
     // Methods
     updateValue: (value: string) => void;
 }
@@ -44,6 +45,7 @@ const PasswordInput: FunctionComponent<InputProps> = (props) => {
                 inputProps={{
                     "data-cy": props._cypressTag,
                 }}
+                error={props.error}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton onClick={togglePasswordVisibility} tabIndex={-1} data-cy={`${props._cypressTag}-toggle-visibility`}>

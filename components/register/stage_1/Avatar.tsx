@@ -1,10 +1,10 @@
 // Tools
 import { useRef, useState } from "react";
 import useSnackbar from "@/hooks/useSnackbar";
+import { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
-import type { ImageFileMimetypes } from "@/utils/restrictions/imageFile";
 // Material UI icons
 import Person from "@mui/icons-material/Person";
 import Settings from "@mui/icons-material/Settings";
@@ -14,8 +14,6 @@ import ChangeAvatarButton from "./styled_components/ChangeAvatarButton";
 
 interface AvatarAndBackgroundProps {
     avatar: StatedDataField<File | null>;
-    currentSlideIndex: number;
-    updateSlideIndex: (x: number) => void;
 }
 const AvatarAndBackground: FunctionComponent<AvatarAndBackgroundProps> = (props) => {
     const displaySnackbar = useSnackbar();

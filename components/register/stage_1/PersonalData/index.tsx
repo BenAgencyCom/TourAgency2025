@@ -6,6 +6,7 @@ import { styled } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { CountryType } from "@/data/countries";
 import type { StatedDataField } from "@/@types/StatedDataField";
+import type { CheckWhetherAFieldIsInvalid } from "@/components/register/stage_1/hooks/useFormFieldsWithValidation";
 // Other components
 import TextInput from "@/components/register/stage_1/_TextInput";
 import Select from "@/components/register/stage_1/PersonalData/Select";
@@ -28,82 +29,56 @@ const FormFieldsWrapper = styled("div")(({ theme }) => ({
 }));
 
 interface PersonalDataAndCredentialsProps {
-    // Data
     name: StatedDataField<string>;
     surname: StatedDataField<string>;
     country: StatedDataField<CountryType | null>;
     gender: StatedDataField<"MALE" | "FEMALE" | "OTHER">;
     born: StatedDataField<Date | null>;
-    // Auxiliary stuff
-    currentSlideIndex: number;
-    updateSlideIndex: (x: number) => void;
+    checkWhetherAFieldIsInvalid: CheckWhetherAFieldIsInvalid;
 }
 
 const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsProps> = (props) => {
-    const { name, surname, country, gender, born } = props;
-    //
-    // Validation
-    //
-    const joiScheme = joi.object({
-        name: joi.string().min(3).max(30).trim(),
-        surname: joi.string().min(3).max(40).trim(),
-        gender: joi.valid("MALE", "FEMALE", "OTHER"),
-        born: joi.date(),
-        country: joi.object({
-            code: joi.string().length(2),
-            label: joi.string().max(60),
-            phone: joi.string().max(10),
-        }),
-    });
-    const test = () => {
-        const { error } = joiScheme.validate({
-            name: name.value,
-            surname: surname.value,
-            country: country.value,
-            gender: gender.value,
-            born: born.value,
-        });
-        // setBlockContinue(Boolean(error));
-    };
-    useEffect(test, [name, surname, country, gender, born, joiScheme]);
-    //
-    //
-    //
+    const { name, surname, country, gender, born, checkWhetherAFieldIsInvalid } = props;
+
     return (
         <>
             <TextInput
                 label="Name" //
-                value={props.name.value}
-                updateValue={props.name.setValue}
+                value={name.value}
+                updateValue={name.setValue}
                 _cypressTag="name"
+                error={checkWhetherAFieldIsInvalid("name")}
             ></TextInput>
             <TextInput
                 label="Surame" //
-                value={props.surname.value}
-                updateValue={props.surname.setValue}
+                value={surname.value}
+                updateValue={surname.setValue}
                 _cypressTag="surname"
+                error={checkWhetherAFieldIsInvalid("surname")}
             ></TextInput>
             <AutocompleteCountry
                 label="Country" //
-                value={props.country.value}
-                updateValue={props.country.setValue}
+                value={country.value}
+                updateValue={country.setValue}
                 _cypressTag="country"
                 sx={{ width: "100%" }}
+                error={checkWhetherAFieldIsInvalid("country")}
             ></AutocompleteCountry>
 
             <FormFieldsWrapper className="form-fields-wrapper">
                 <DataPicker
                     label="Born" //
-                    value={props.born.value}
-                    updateValue={props.born.setValue}
+                    value={born.value}
+                    updateValue={born.setValue}
                     _cypressTag="born"
                 ></DataPicker>
                 <Select
                     label="Gender" //
-                    value={props.gender.value}
+                    value={gender.value}
                     options={["MALE", "FEMALE", "OTHER"]}
-                    updateValue={(val) => props.gender.setValue(val as "MALE" | "FEMALE" | "OTHER")}
+                    updateValue={(val) => gender.setValue(val as "MALE" | "FEMALE" | "OTHER")}
                     _cypressTag="gender"
+                    error={checkWhetherAFieldIsInvalid("gender")}
                 ></Select>
             </FormFieldsWrapper>
         </>

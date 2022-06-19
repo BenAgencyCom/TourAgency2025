@@ -16,6 +16,7 @@ interface AutocompleteProps {
     value: CountryType | null;
     _cypressTag?: string;
     sx?: SxProps;
+    error?: boolean;
     // Methods
     updateValue: (value: CountryType | null) => void;
 }
@@ -57,6 +58,7 @@ const AutocompleteCountry: FunctionComponent<AutocompleteProps> = (props) => {
                             ...params.inputProps,
                             "data-cy": props._cypressTag,
                         }}
+                        error={props.error}
                         InputProps={{
                             ...params.InputProps,
                             ...{

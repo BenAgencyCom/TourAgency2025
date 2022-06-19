@@ -14,6 +14,7 @@ interface InputProps {
     sx?: Record<string, unknown>;
     tabIndex?: number;
     _cypressTag?: string;
+    error?: boolean;
 
     // Methods
     updateValue: (value: string) => void;
@@ -35,6 +36,7 @@ const TextInput: FunctionComponent<InputProps> = (props) => {
                 sx={buttonStyles}
                 inputProps={{ tabIndex: props.tabIndex ? props.tabIndex : 1 }}
                 data-cy={props._cypressTag}
+                error={props.error}
             >
                 {options.map((option) => {
                     return (
