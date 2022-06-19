@@ -6,8 +6,8 @@ import useSnackbar from "@/hooks/useSnackbar";
 import type { FunctionComponent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
 // My components
-import TextInput from "@/components/register/_formFields/TextInput";
-import PasswordInput from "@/components/register/_formFields/PasswordInput";
+import TextInput from "@/components/register/stage_1/_TextInput";
+import PasswordInput from "@/components/register/stage_1/PersonalData/PasswordInput";
 
 interface PersonalDataAndCredentialsProps {
     // Data

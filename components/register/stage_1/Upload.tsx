@@ -3,9 +3,6 @@ import axios from "axios";
 import Router from "next/router";
 import type { FunctionComponent } from "react";
 import type { CountryType } from "@/data/countries";
-// My components
-import StepHeader from "@/components/register/stepper/StepHeader";
-import StepNavigaton from "@/components/register/stepper/StepNavagation";
 // Material UI components
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";

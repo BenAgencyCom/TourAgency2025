@@ -2,25 +2,22 @@
 import { styled } from "@mui/system";
 import { FunctionComponent, useState } from "react";
 import GuardedRoute from "@/utils/client/GuardedRoute";
-import { RegisterContext, defaultContextData, useRegisterContext } from "@/components/register/context";
 // Types
 import type { GetServerSideProps } from "next";
 import type { CountryType } from "@/data/countries";
 // Other components
 import StageHeader from "@/components/create/_utils/StageHeader";
-import PersonalData from "@/components/register/PersonalData";
-import Credentials from "@/components/register/Credentials";
-import Avatar from "@/components/register/Avatar";
+import PersonalData from "@/components/register/stage_1/PersonalData";
+import Credentials from "@/components/register/stage_1/Credentials";
+import Avatar from "@/components/register/stage_1/Avatar";
 // Styled components
-import MainWrapper from "@/components/register/styled_components/MainWrapper";
-import ContinueButton from "@/components/register/styled_components/ContinueButton";
-import LeftSideContent from "@/components/register/styled_components/LeftSideContent";
+import MainWrapper from "@/components/register/stage_1/styled_components/MainWrapper";
+import ContinueButton from "@/components/register/stage_1/styled_components/ContinueButton";
+import LeftSideContent from "@/components/register/stage_1/styled_components/LeftSideContent";
 
 const RightSide = styled("div")(({ theme }) => ({}));
 
 const Registration: FunctionComponent<{}> = () => {
-    const dataFromContext = useRegisterContext();
-
     const [avatar, setAvatar] = useState<File | null>(null);
     // Form Data
     const [name, setName] = useState<string>("");
@@ -47,43 +44,42 @@ const Registration: FunctionComponent<{}> = () => {
 
     //
     return (
-        <RegisterContext.Provider value={defaultContextData}>
-            <MainWrapper>
-                <StageHeader title="Create an account" stageNumber={1} alternateBackgroundText="Register" />
-                <div className="content-wrapper">
-                    <LeftSideContent>
-                        <PersonalData
-                            // Data
-                            name={{ value: name, setValue: setName }}
-                            surname={{ value: surname, setValue: setSurname }}
-                            gender={{ value: gender, setValue: setGender }}
-                            born={{ value: born, setValue: setBorn }}
-                            country={{ value: country, setValue: setCountry }}
-                            //
-                            currentSlideIndex={currentSlideIndex}
-                            updateSlideIndex={setCurrentSlideIndex}
-                        />
-                        <Credentials
-                            // Data
-                            password={{ value: password, setValue: setPassword }}
-                            passwordRepeatation={{ value: passwordRepeatation, setValue: setPasswordRepeatation }}
-                            email={{ value: email, setValue: setEmail }}
-                            //
-                            currentSlideIndex={currentSlideIndex}
-                            updateSlideIndex={setCurrentSlideIndex}
-                        />
-                        <ContinueButton primary>Continue</ContinueButton>
-                    </LeftSideContent>
+        <MainWrapper>
+            <StageHeader title="Create an account" stageNumber={1} alternateBackgroundText="Register" />
+            <div className="content-wrapper">
+                <LeftSideContent>
+                    <PersonalData
+                        // Data
+                        name={{ value: name, setValue: setName }}
+                        surname={{ value: surname, setValue: setSurname }}
+                        gender={{ value: gender, setValue: setGender }}
+                        born={{ value: born, setValue: setBorn }}
+                        country={{ value: country, setValue: setCountry }}
+                        //
+                        currentSlideIndex={currentSlideIndex}
+                        updateSlideIndex={setCurrentSlideIndex}
+                    />
+                    <Credentials
+                        // Data
+                        password={{ value: password, setValue: setPassword }}
+                        passwordRepeatation={{ value: passwordRepeatation, setValue: setPasswordRepeatation }}
+                        email={{ value: email, setValue: setEmail }}
+                        //
+                        currentSlideIndex={currentSlideIndex}
+                        updateSlideIndex={setCurrentSlideIndex}
+                    />
+                    <ContinueButton primary>Continue</ContinueButton>
+                </LeftSideContent>
 
-                    <RightSide>
-                        <Avatar
-                            avatar={{ value: avatar, setValue: setAvatar }} //
-                            currentSlideIndex={currentSlideIndex}
-                            updateSlideIndex={setCurrentSlideIndex}
-                        />
-                    </RightSide>
-                </div>
-                {/* 
+                <RightSide>
+                    <Avatar
+                        avatar={{ value: avatar, setValue: setAvatar }} //
+                        currentSlideIndex={currentSlideIndex}
+                        updateSlideIndex={setCurrentSlideIndex}
+                    />
+                </RightSide>
+            </div>
+            {/* 
                 <Upload
                     name={name}
                     surname={surname}
@@ -99,8 +95,7 @@ const Registration: FunctionComponent<{}> = () => {
                     currentSlideIndex={currentSlideIndex}
                     updateSlideIndex={setCurrentSlideIndex}
                 ></Upload> */}
-            </MainWrapper>
-        </RegisterContext.Provider>
+        </MainWrapper>
     );
 };
 export const getServerSideProps: GetServerSideProps = (ctx) => GuardedRoute("anonymous", ctx);

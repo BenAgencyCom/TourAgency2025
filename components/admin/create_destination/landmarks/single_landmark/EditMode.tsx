@@ -7,7 +7,7 @@ import { ListItem } from "@/@types/redux";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 // Other components
-import Select from "@/components/register/_formFields/Select";
+import Select from "@/components/register/stage_1/PersonalData/Select";
 import Tags from "./edit_mode_utils/Tags";
 import Title from "./edit_mode_utils/Title";
 import Description from "./edit_mode_utils/Description";

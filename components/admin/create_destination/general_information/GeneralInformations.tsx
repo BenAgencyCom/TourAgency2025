@@ -14,8 +14,8 @@ import CreateDestinationSingleStep from "@/components/admin/create_destination/_
 import QuickDescription from "./QuickDescription";
 import Population from "./Population";
 import City from "./City";
-import Select from "@/components/register/_formFields/Select";
-import AutocompleteCountry from "@/components/register/_formFields/AutocompleteCountry";
+import Select from "@/components/register/stage_1/PersonalData/Select";
+import AutocompleteCountry from "@/components/register/stage_1/PersonalData/AutocompleteCountry";
 import Image from "next/Image";
 // Styled components
 const FormFieldsWrap = styled(Box)({

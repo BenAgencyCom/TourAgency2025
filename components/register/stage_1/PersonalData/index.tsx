@@ -7,10 +7,10 @@ import type { FunctionComponent } from "react";
 import type { CountryType } from "@/data/countries";
 import type { StatedDataField } from "@/@types/StatedDataField";
 // Other components
-import TextInput from "@/components/register/_formFields/TextInput";
-import Select from "@/components/register/_formFields/Select";
-import DataPicker from "@/components/register/_formFields/DataPicker";
-import AutocompleteCountry from "@/components/register/_formFields/AutocompleteCountry";
+import TextInput from "@/components/register/stage_1/_TextInput";
+import Select from "@/components/register/stage_1/PersonalData/Select";
+import DataPicker from "@/components/register/stage_1/PersonalData/DataPicker";
+import AutocompleteCountry from "@/components/register/stage_1/PersonalData/AutocompleteCountry";
 // Other components
 const FormFieldsWrapper = styled("div")(({ theme }) => ({
     display: "flex",
