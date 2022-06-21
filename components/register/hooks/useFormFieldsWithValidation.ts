@@ -5,25 +5,12 @@ import { useEffect, useState, useMemo } from "react";
 // Types
 import type { Gender } from "@prisma/client";
 import type { CountryType } from "@/data/countries";
-import type { StatedDataField } from "@/@types/StatedDataField";
-
-export type Field = "name" | "surname" | "gender" | "born" | "country" | "password" | "passwordRepeatation" | "email";
-
-export type CheckWhetherAFieldIsInvalid = (field: Field) => boolean;
+import type { CheckWhetherAFieldIsInvalid, RegisterContextDataFields, Field } from "@/components/register/@types";
 
 interface UseFormFieldsWithValidationResult {
     checkWhetherAFieldIsInvalid: CheckWhetherAFieldIsInvalid;
     allFieldsAreValid: boolean;
-    data: {
-        name: StatedDataField<string>;
-        email: StatedDataField<string>;
-        gender: StatedDataField<Gender>;
-        surname: StatedDataField<string>;
-        password: StatedDataField<string>;
-        born: StatedDataField<Date | null>;
-        country: StatedDataField<CountryType | null>;
-        passwordRepeatation: StatedDataField<string>;
-    };
+    data: RegisterContextDataFields;
 }
 
 const joiScheme = joi.object({
@@ -51,6 +38,7 @@ export default (): UseFormFieldsWithValidationResult => {
     const [country, setCountry] = useState<CountryType | null>(null);
     const [gender, setGender] = useState<Gender>("MALE");
     const [born, setBorn] = useState<Date | null>(null);
+    const [avatar, setAvatar] = useState<File | null>(null);
     const [password, setPassword] = useState<string>("");
     const [passwordRepeatation, setPasswordRepeatation] = useState<string>("");
 
@@ -80,6 +68,7 @@ export default (): UseFormFieldsWithValidationResult => {
             country: stated(country, setCountry),
             email: stated(email, setEmail),
             gender: stated(gender, setGender),
+            avatar: stated(avatar, setAvatar),
             name: stated(name, setName),
             password: stated(password, setPassword),
             passwordRepeatation: stated(passwordRepeatation, setPasswordRepeatation),

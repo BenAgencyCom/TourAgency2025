@@ -1,12 +1,8 @@
 // Tools
-import joi from "joi";
-import { useEffect } from "react";
 import { styled } from "@mui/system";
+import useRegisterContext from "@/components/register/hooks/useRegisterContext";
 // Types
 import type { FunctionComponent } from "react";
-import type { CountryType } from "@/data/countries";
-import type { StatedDataField } from "@/@types/StatedDataField";
-import type { CheckWhetherAFieldIsInvalid } from "@/components/register/stage_1/hooks/useFormFieldsWithValidation";
 // Other components
 import TextInput from "@/components/register/stage_1/_TextInput";
 import Select from "@/components/register/stage_1/PersonalData/Select";
@@ -28,17 +24,8 @@ const FormFieldsWrapper = styled("div")(({ theme }) => ({
     },
 }));
 
-interface PersonalDataAndCredentialsProps {
-    name: StatedDataField<string>;
-    surname: StatedDataField<string>;
-    country: StatedDataField<CountryType | null>;
-    gender: StatedDataField<"MALE" | "FEMALE" | "OTHER">;
-    born: StatedDataField<Date | null>;
-    checkWhetherAFieldIsInvalid: CheckWhetherAFieldIsInvalid;
-}
-
-const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsProps> = (props) => {
-    const { name, surname, country, gender, born, checkWhetherAFieldIsInvalid } = props;
+const PersonalDataAndCredentials: FunctionComponent = (props) => {
+    const { name, surname, country, gender, born, checkWhetherAFieldIsInvalid } = useRegisterContext();
 
     return (
         <>

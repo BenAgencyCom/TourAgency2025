@@ -1,23 +1,15 @@
 // Tools
 import PasswordStrengthBar from "react-password-strength-bar";
 import useEmailUniquenessValidator from "../hooks/useEmailUniquenessValidator";
+import useRegisterContext from "@/components/register/hooks/useRegisterContext";
 // Types
 import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StatedDataField";
-import type { CheckWhetherAFieldIsInvalid } from "@/components/register/stage_1/hooks/useFormFieldsWithValidation";
 // My components
 import TextInput from "@/components/register/stage_1/_TextInput";
 import PasswordInput from "@/components/register/stage_1/PersonalData/PasswordInput";
 
-interface PersonalDataAndCredentialsProps {
-    email: StatedDataField<string>;
-    password: StatedDataField<string>;
-    passwordRepeatation: StatedDataField<string>;
-    checkWhetherAFieldIsInvalid: CheckWhetherAFieldIsInvalid;
-}
-
-const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsProps> = (props) => {
-    const { password, passwordRepeatation, email, checkWhetherAFieldIsInvalid } = props;
+const PersonalDataAndCredentials: FunctionComponent = (props) => {
+    const { password, passwordRepeatation, email, checkWhetherAFieldIsInvalid } = useRegisterContext();
 
     const { checkEmailUniqueness, emailIsNotAvailable } = useEmailUniquenessValidator();
     const checkEmail = async () => await checkEmailUniqueness(email.value);

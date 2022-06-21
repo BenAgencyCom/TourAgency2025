@@ -1,25 +1,27 @@
 // Tools
+import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
-import type { CountryType } from "@/data/countries";
-import type { StatedDataField } from "@/@types/StatedDataField";
+// Other components
+import PersonalData from "@/components/register/stage_1/PersonalData";
+import Credentials from "@/components/register/stage_1/Credentials";
+import Avatar from "@/components/register/stage_1/Avatar";
+// Styled components
+import LeftSideContent from "@/components/register/stage_1/styled_components/LeftSideContent";
 
-interface RegisterStage1Props {
-    name: StatedDataField<string>;
-    surname: StatedDataField<string>;
-    country: StatedDataField<CountryType | null>;
-    gender: StatedDataField<"MALE" | "FEMALE" | "OTHER">;
-    born: StatedDataField<Date | null>;
-    password: StatedDataField<string>;
-    passwordRepeatation: StatedDataField<string>;
-    email: StatedDataField<string>;
-    avatar: StatedDataField<File | null>;
-}
+const RightSide = styled("div")(({ theme }) => ({}));
 
-const RegisterStage1: FunctionComponent<RegisterStage1Props> = (props) => {
+const RegisterStage1: FunctionComponent = () => {
     return (
         <>
-            <span></span>
+            <LeftSideContent>
+                <PersonalData />
+                <Credentials />
+            </LeftSideContent>
+
+            <RightSide>
+                <Avatar />
+            </RightSide>
         </>
     );
 };

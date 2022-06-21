@@ -61,7 +61,7 @@ const AppSnackbar: FunctionComponent<{}> = () => {
                         data-cy="snackbar-close" //
                         onClick={() => dispatch(closeSnackbar())}
                     >
-                        <Close />
+                        <Close sx={{ color: "#fff" }} />
                     </IconButton>
                 </Tooltip>
             </StyledAlert>
