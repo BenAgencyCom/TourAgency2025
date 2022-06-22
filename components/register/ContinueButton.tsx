@@ -21,10 +21,15 @@ const ContinueButtonBase = styled(StyledButton)(({ theme }) => ({
 interface ContinueButtonProps {
     allFieldsAreValid: boolean;
     stage: StatedDataField<Stage>;
+    disabled: boolean;
 }
 
 const ContinueButton: FunctionComponent<ContinueButtonProps> = (props) => {
-    return <ContinueButtonBase primary>Continue</ContinueButtonBase>;
+    return (
+        <ContinueButtonBase primary disabled={props.disabled}>
+            Continue
+        </ContinueButtonBase>
+    );
 };
 
 export default ContinueButton;

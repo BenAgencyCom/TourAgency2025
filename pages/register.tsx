@@ -17,8 +17,9 @@ import ContinueButton from "@/components/register/ContinueButton";
 import MainWrapper from "@/components/register/stage_1/styled_components/MainWrapper";
 
 const Registration: NextPage = () => {
-    const [stage, setStage] = useState<Stage>("RESULT");
+    const [stage, setStage] = useState<Stage>("CONFIRMATION");
     const { data, checkWhetherAFieldIsInvalid, allFieldsAreValid } = useFormFieldsWithValidation();
+    const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
 
     return (
         <RegisterContext.Provider
@@ -28,14 +29,23 @@ const Registration: NextPage = () => {
             }}
         >
             <MainWrapper>
-                <StageHeader title="Create an account" stageNumber={1} alternateBackgroundText="Register" />
+                <StageHeader
+                    title="Create an account" //
+                    stageNumber={1}
+                    alternateBackgroundText="Register"
+                    sx={{ mt: "20px" }}
+                />
                 <div className="content-wrapper">
                     {(() => {
                         switch (stage) {
                             case "PERSONAL_DATA":
                                 return <Stage1 />;
                             case "CONFIRMATION":
-                                return <Stage2 />;
+                                return (
+                                    <Stage2
+                                        disableContinueButton={stated(disableContinueButton, setDisableContinueButton)} //
+                                    />
+                                );
                             case "RESULT":
                                 return <Stage3 />;
                         }
@@ -44,6 +54,7 @@ const Registration: NextPage = () => {
                 <ContinueButton
                     allFieldsAreValid={allFieldsAreValid} //
                     stage={stated(stage, setStage)}
+                    disabled={disableContinueButton}
                 />
             </MainWrapper>
         </RegisterContext.Provider>
