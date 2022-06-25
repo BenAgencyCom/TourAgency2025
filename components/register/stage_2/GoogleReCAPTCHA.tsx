@@ -1,16 +1,15 @@
 // Tools
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 // Types
-import type { FunctionComponent } from "react";
+import type { FunctionComponent, SetStateAction, Dispatch } from "react";
 // Other components
 import ReCAPTCHA from "react-google-recaptcha";
 
 interface GoogleReCAPTCHAProps {
-    //
+    setReCAPTCHAIsApproved: Dispatch<SetStateAction<boolean>>;
 }
 
 const GoogleReCAPTCHA: FunctionComponent<GoogleReCAPTCHAProps> = (props) => {
-    const [RECAPTCHAVerified, setRECAPTCHAVerified] = useState<boolean>(false);
     const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
     useEffect(() => (recaptchaRef.current as ReCAPTCHA).reset(), []);
@@ -25,9 +24,9 @@ const GoogleReCAPTCHA: FunctionComponent<GoogleReCAPTCHAProps> = (props) => {
 
     const onReCAPTCHAChange = (captchaCode: unknown) => {
         if (!captchaCode) {
-            return setRECAPTCHAVerified(false);
+            return props.setReCAPTCHAIsApproved(false);
         }
-        setRECAPTCHAVerified(true);
+        props.setReCAPTCHAIsApproved(true);
     };
 
     return (

@@ -9,6 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 // Other components
 import Link from "next/link";
+import GoogleReCAPTCHA from "./GoogleReCAPTCHA";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 import StyledCheckboxWrapper from "@/components/_utils/styled/StyledCheckboxWrapper";
@@ -25,11 +26,10 @@ interface RegisterStage2Props {
 }
 
 const RegisterStage2: FunctionComponent<RegisterStage2Props> = (props) => {
-    const [ReCAPTCHAIsApproved, setReCAPTCHAIsApproved] = useState<boolean>(true);
+    const [ReCAPTCHAIsApproved, setReCAPTCHAIsApproved] = useState<boolean>(false);
     const [termsOfServicesHasBeenAccepted, setTermsOfServicesHasBeenAccepted] = useState<boolean>(false);
 
     const onChecked = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.checked);
         setTermsOfServicesHasBeenAccepted(e.target.checked);
     };
 
@@ -47,12 +47,13 @@ const RegisterStage2: FunctionComponent<RegisterStage2Props> = (props) => {
                     </Link>
                 </StyledLinkBase>
             </Typography>
-
             <StyledCheckboxWrapper
                 control={<Checkbox checked={termsOfServicesHasBeenAccepted} onChange={onChecked} />} //
                 label="I'm acknowledged"
-                sx={{ my: "5px" }}
+                sx={{ m: "5px 0 20px 0" }}
             />
+
+            <GoogleReCAPTCHA setReCAPTCHAIsApproved={setReCAPTCHAIsApproved} />
         </FlexBox>
     );
 };
