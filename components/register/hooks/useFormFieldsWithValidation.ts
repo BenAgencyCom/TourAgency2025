@@ -47,6 +47,7 @@ export default (): UseFormFieldsWithValidationResult => {
 
     useEffect(() => {
         const { error } = joiScheme.validate({ name, surname, email, country, gender, born, password, passwordRepeatation }, { abortEarly: false });
+        console.log(error);
         if (error) {
             const errors: Field[] = [];
             // Extract all properties names from joi's error

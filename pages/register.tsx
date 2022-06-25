@@ -1,5 +1,5 @@
 // Tools
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import stated from "@/utils/client/stated";
 import GuardedRoute from "@/utils/client/GuardedRoute";
 import { RegisterContext } from "@/components/register/context";
@@ -18,9 +18,13 @@ import ContinueButton from "@/components/register/ContinueButton";
 import MainWrapper from "@/components/register/MainWrapper";
 
 const Registration: NextPage = () => {
-    const [stage, setStage] = useState<Stage>("CONFIRMATION");
+    const [stage, setStage] = useState<Stage>("PERSONAL_DATA");
     const { data, checkWhetherAFieldIsInvalid, allFieldsAreValid } = useFormFieldsWithValidation();
     const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (stage === "PERSONAL_DATA") setDisableContinueButton(!allFieldsAreValid);
+    }, [stage, allFieldsAreValid]);
 
     return (
         <>

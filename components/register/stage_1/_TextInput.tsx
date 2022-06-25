@@ -1,3 +1,6 @@
+// Tools
+import { useState } from "react";
+// Types
 import type { FunctionComponent, ChangeEvent } from "react";
 // Material UI components
 import TextField from "@mui/material/TextField";
@@ -19,13 +22,25 @@ interface InputProps {
 
 const TextInput: FunctionComponent<InputProps> = (props) => {
     const { label, value, updateValue, disabled } = props;
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateValue(e.target.value);
+    const [newInputValue, setNewInputValue] = useState<string>(value);
+    const [debounce, setDebounce] = useState<number>(0);
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewInputValue(e.target.value);
+
+        if (debounce) clearTimeout(debounce);
+        setDebounce(
+            setTimeout(() => {
+                updateValue(e.target.value);
+            }, 50) as any
+        );
+    };
 
     return (
         <TextField
             variant="outlined"
             label={label}
-            value={value}
+            value={newInputValue}
             onChange={handleChange}
             onBlur={props.onBlur}
             error={props.error}

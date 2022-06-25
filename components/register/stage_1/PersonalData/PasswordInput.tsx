@@ -24,21 +24,30 @@ interface InputProps {
 }
 const PasswordInput: FunctionComponent<InputProps> = (props) => {
     const { label, value, updateValue, disabled } = props;
-    const id = `password-inp-${label}`;
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => updateValue(e.target.value);
-
     const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
-    const togglePasswordVisibility = () => setPasswordVisibility((val) => !val);
+    const [newInputValue, setNewInputValue] = useState<string>(value);
+    const [debounce, setDebounce] = useState<number>(0);
 
-    const icon = !passwordVisibility ? <Visiblity></Visiblity> : <VisibilityOff></VisibilityOff>;
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewInputValue(e.target.value);
+
+        if (debounce) clearTimeout(debounce);
+        setDebounce(
+            setTimeout(() => {
+                updateValue(e.target.value);
+            }, 50) as any
+        );
+    };
+
+    const togglePasswordVisibility = () => setPasswordVisibility((val) => !val);
 
     return (
         <FormControl variant="outlined" sx={props.sx}>
-            <InputLabel htmlFor={id}>{label}</InputLabel>
+            <InputLabel htmlFor={`password-inp-${label}`}>{label}</InputLabel>
             <OutlinedInput
-                id={id}
+                id={`password-inp-${label}`}
                 label={label}
-                value={value}
+                value={newInputValue}
                 onChange={handleChange}
                 type={passwordVisibility ? "text" : "password"}
                 disabled={disabled !== undefined ? disabled : false}
@@ -49,7 +58,7 @@ const PasswordInput: FunctionComponent<InputProps> = (props) => {
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton onClick={togglePasswordVisibility} tabIndex={-1} data-cy={`${props._cypressTag}-toggle-visibility`}>
-                            {icon}
+                            {!passwordVisibility ? <Visiblity></Visiblity> : <VisibilityOff></VisibilityOff>}
                         </IconButton>
                     </InputAdornment>
                 }
