@@ -34,6 +34,7 @@ const GoogleReCAPTCHA: FunctionComponent<GoogleReCAPTCHAProps> = (props) => {
             ref={recaptchaRef} //
             sitekey={siteKey()}
             onChange={onReCAPTCHAChange}
+            theme="dark"
         />
     );
 };

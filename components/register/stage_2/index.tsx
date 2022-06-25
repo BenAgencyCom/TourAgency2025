@@ -15,10 +15,12 @@ import FlexBox from "@/components/_utils/styled/FlexBox";
 import StyledCheckboxWrapper from "@/components/_utils/styled/StyledCheckboxWrapper";
 
 const StyledLinkBase = styled("span")(({ theme }) => ({
-    color: theme.palette.primary.main,
-    fontWeight: 700,
     cursor: "pointer",
     marginLeft: "5px",
+    a: {
+        fontWeight: 700,
+        color: theme.palette.primary.main,
+    },
 }));
 
 interface RegisterStage2Props {
@@ -43,7 +45,15 @@ const RegisterStage2: FunctionComponent<RegisterStage2Props> = (props) => {
                 One last step before creating an account is to read and accpet the
                 <StyledLinkBase>
                     <Link href="/terms-of-services" passHref>
-                        <span>terms of services and privacy policy</span>
+                        <a target="_blank" rel="noopener noreferrer">
+                            terms of services
+                        </a>
+                    </Link>
+                    <span> and </span>
+                    <Link href="/privacy-policy" passHref>
+                        <a target="_blank" rel="noopener noreferrer">
+                            privacy policy
+                        </a>
                     </Link>
                 </StyledLinkBase>
             </Typography>

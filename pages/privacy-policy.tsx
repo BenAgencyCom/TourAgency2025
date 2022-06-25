@@ -11,11 +11,11 @@ const AccountPolitics: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Terms of services</title>
+                <title>Privacy policy</title>
             </Head>
             <ContentContainter
                 header={{
-                    main: "Terms of services",
+                    main: "Privacy policy",
                     background: "rules",
                 }}
             >
