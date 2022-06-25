@@ -25,7 +25,7 @@ const FormFieldsWrapper = styled("div")(({ theme }) => ({
 }));
 
 const PersonalDataAndCredentials: FunctionComponent = (props) => {
-    const { name, surname, country, gender, born, checkWhetherAFieldIsInvalid } = useRegisterContext();
+    const { name, surname, country, gender, birth, checkWhetherAFieldIsInvalid } = useRegisterContext();
 
     return (
         <>
@@ -55,9 +55,9 @@ const PersonalDataAndCredentials: FunctionComponent = (props) => {
             <FormFieldsWrapper className="form-fields-wrapper">
                 <DataPicker
                     label="Born" //
-                    value={born.value}
-                    updateValue={born.setValue}
-                    _cypressTag="born"
+                    value={birth.value}
+                    updateValue={birth.setValue}
+                    _cypressTag="birth"
                 ></DataPicker>
                 <Select
                     label="Gender" //

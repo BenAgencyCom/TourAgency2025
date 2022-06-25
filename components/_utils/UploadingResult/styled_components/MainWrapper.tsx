@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 // Styled components
 export default styled("div")(({ theme }) => ({
     width: "100%",
-    height: "calc(100vh - 250px)",
+    height: "calc(100vh - 360px)",
     position: "relative",
     "p, h3": {
         userSelect: "none",

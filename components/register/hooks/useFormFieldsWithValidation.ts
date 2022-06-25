@@ -17,7 +17,7 @@ const joiScheme = joi.object({
     name: joi.string().min(3).max(30).trim(),
     surname: joi.string().min(3).max(40).trim(),
     gender: joi.valid("MALE", "FEMALE", "OTHER"),
-    born: joi.date(),
+    birth: joi.date(),
     country: joi.object({
         code: joi.string().length(2),
         label: joi.string().max(60),
@@ -37,7 +37,7 @@ export default (): UseFormFieldsWithValidationResult => {
     const [email, setEmail] = useState<string>("");
     const [country, setCountry] = useState<CountryType | null>(null);
     const [gender, setGender] = useState<Gender>("MALE");
-    const [born, setBorn] = useState<Date | null>(null);
+    const [birth, setBorn] = useState<Date | null>(null);
     const [avatar, setAvatar] = useState<File | null>(null);
     const [password, setPassword] = useState<string>("");
     const [passwordRepeatation, setPasswordRepeatation] = useState<string>("");
@@ -46,7 +46,7 @@ export default (): UseFormFieldsWithValidationResult => {
     const checkWhetherAFieldIsInvalid = (field: Field): boolean => invalidFields.includes(field);
 
     useEffect(() => {
-        const { error } = joiScheme.validate({ name, surname, email, country, gender, born, password, passwordRepeatation }, { abortEarly: false });
+        const { error } = joiScheme.validate({ name, surname, email, country, gender, birth, password, passwordRepeatation }, { abortEarly: false });
         console.log(error);
         if (error) {
             const errors: Field[] = [];
@@ -59,13 +59,13 @@ export default (): UseFormFieldsWithValidationResult => {
         } else {
             setInvalidFields([]);
         }
-    }, [name, surname, email, country, gender, born, password, passwordRepeatation]);
+    }, [name, surname, email, country, gender, birth, password, passwordRepeatation]);
     //
     return {
         checkWhetherAFieldIsInvalid,
         allFieldsAreValid,
         data: {
-            born: stated(born, setBorn),
+            birth: stated(birth, setBorn),
             country: stated(country, setCountry),
             email: stated(email, setEmail),
             gender: stated(gender, setGender),

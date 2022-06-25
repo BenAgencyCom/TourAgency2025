@@ -20,13 +20,27 @@ const ContinueButtonBase = styled(StyledButton)(({ theme }) => ({
 
 interface ContinueButtonProps {
     allFieldsAreValid: boolean;
-    stage: StatedDataField<Omit<Stage>, "RESULT">;
+    stage: StatedDataField<Stage>;
     disabled: boolean;
 }
 
 const ContinueButton: FunctionComponent<ContinueButtonProps> = (props) => {
+    const { stage, disabled } = props;
+    const onClick = () => {
+        if (disabled) return;
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        // Change stage
+        setTimeout(() => {
+            if (stage.value === "PERSONAL_DATA") stage.setValue("CONFIRMATION");
+            else if (stage.value === "CONFIRMATION") stage.setValue("RESULT");
+        }, 100);
+    };
     return (
-        <ContinueButtonBase primary disabled={props.disabled}>
+        <ContinueButtonBase
+            primary //
+            disabled={disabled}
+            onClick={onClick}
+        >
             Continue
         </ContinueButtonBase>
     );

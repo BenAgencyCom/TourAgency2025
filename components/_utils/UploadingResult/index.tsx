@@ -9,7 +9,7 @@ const Success = dynamic(() => import("./Success"));
 // Styled components
 import MainWrapper from "./styled_components/MainWrapper";
 
-export type UploadingResult = "success" | "pending" | "error";
+export type UploadingResultStatus = "success" | "pending" | "error";
 
 export type ActionAfterError =
     | {
@@ -26,7 +26,7 @@ export type ActionAfterError =
       };
 
 interface UploadingResultProps {
-    status: UploadingResult;
+    status: UploadingResultStatus;
     successMsg: string;
     errorMsg: string;
     redirectURLAfterSuccess: string;

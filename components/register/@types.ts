@@ -5,7 +5,7 @@ import type { StatedDataField } from "@/@types/StatedDataField";
 
 export type Stage = "PERSONAL_DATA" | "CONFIRMATION" | "RESULT";
 
-export type Field = "name" | "surname" | "gender" | "born" | "country" | "password" | "passwordRepeatation" | "email";
+export type Field = "name" | "surname" | "gender" | "birth" | "country" | "password" | "passwordRepeatation" | "email";
 export type CheckWhetherAFieldIsInvalid = (field: Field) => boolean;
 
 export interface RegisterContextDataFields {
@@ -15,7 +15,7 @@ export interface RegisterContextDataFields {
     surname: StatedDataField<string>;
     avatar: StatedDataField<File | null>;
     password: StatedDataField<string>;
-    born: StatedDataField<Date | null>;
+    birth: StatedDataField<Date | null>;
     country: StatedDataField<CountryType | null>;
     passwordRepeatation: StatedDataField<string>;
 }

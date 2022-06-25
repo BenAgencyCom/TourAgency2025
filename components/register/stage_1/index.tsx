@@ -1,7 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
 // Types
-import type { FunctionComponent } from "react";
+import type { FunctionComponent, Dispatch, SetStateAction } from "react";
 // Other components
 import PersonalData from "@/components/register/stage_1/PersonalData";
 import Credentials from "@/components/register/stage_1/Credentials";
@@ -11,12 +11,16 @@ import LeftSideContent from "@/components/register/stage_1/styled_components/Lef
 
 const RightSide = styled("div")(({ theme }) => ({}));
 
-const RegisterStage1: FunctionComponent = () => {
+interface RegisterStage1Props {
+    setDisableContinueButton: Dispatch<SetStateAction<boolean>>;
+}
+
+const RegisterStage1: FunctionComponent<RegisterStage1Props> = (props) => {
     return (
         <>
             <LeftSideContent>
                 <PersonalData />
-                <Credentials />
+                <Credentials setDisableContinueButton={props.setDisableContinueButton} />
             </LeftSideContent>
 
             <RightSide>

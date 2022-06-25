@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI Components
+import { Fade } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 // Other components
@@ -40,31 +41,33 @@ const RegisterStage2: FunctionComponent<RegisterStage2Props> = (props) => {
     }, [ReCAPTCHAIsApproved, props.disableContinueButton, termsOfServicesHasBeenAccepted]);
 
     return (
-        <FlexBox column>
-            <Typography variant="body2">
-                One last step before creating an account is to read and accpet the
-                <StyledLinkBase>
-                    <Link href="/terms-of-services" passHref>
-                        <a target="_blank" rel="noopener noreferrer">
-                            terms of services
-                        </a>
-                    </Link>
-                    <span> and </span>
-                    <Link href="/privacy-policy" passHref>
-                        <a target="_blank" rel="noopener noreferrer">
-                            privacy policy
-                        </a>
-                    </Link>
-                </StyledLinkBase>
-            </Typography>
-            <StyledCheckboxWrapper
-                control={<Checkbox checked={termsOfServicesHasBeenAccepted} onChange={onChecked} />} //
-                label="I'm acknowledged"
-                sx={{ m: "5px 0 20px 0" }}
-            />
+        <Fade in={true}>
+            <FlexBox column>
+                <Typography variant="body2">
+                    One last step before creating an account is to read and accpet the
+                    <StyledLinkBase>
+                        <Link href="/terms-of-services" passHref>
+                            <a target="_blank" rel="noopener noreferrer">
+                                terms of services
+                            </a>
+                        </Link>
+                        <span> and </span>
+                        <Link href="/privacy-policy" passHref>
+                            <a target="_blank" rel="noopener noreferrer">
+                                privacy policy
+                            </a>
+                        </Link>
+                    </StyledLinkBase>
+                </Typography>
+                <StyledCheckboxWrapper
+                    control={<Checkbox checked={termsOfServicesHasBeenAccepted} onChange={onChecked} />} //
+                    label="I'm acknowledged"
+                    sx={{ m: "5px 0 20px 0" }}
+                />
 
-            <GoogleReCAPTCHA setReCAPTCHAIsApproved={setReCAPTCHAIsApproved} />
-        </FlexBox>
+                <GoogleReCAPTCHA setReCAPTCHAIsApproved={setReCAPTCHAIsApproved} />
+            </FlexBox>
+        </Fade>
     );
 };
 

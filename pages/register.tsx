@@ -47,7 +47,7 @@ const Registration: NextPage = () => {
                         {(() => {
                             switch (stage) {
                                 case "PERSONAL_DATA":
-                                    return <Stage1 />;
+                                    return <Stage1 setDisableContinueButton={setDisableContinueButton} />;
                                 case "CONFIRMATION":
                                     return (
                                         <Stage2
@@ -55,14 +55,14 @@ const Registration: NextPage = () => {
                                         />
                                     );
                                 case "RESULT":
-                                    return <Stage3 />;
+                                    return <Stage3 setStage={setStage} />;
                             }
                         })()}
                     </div>
                     {stage !== "RESULT" && (
                         <ContinueButton
                             allFieldsAreValid={allFieldsAreValid} //
-                            stage={stated(stage, setStage)}
+                            stage={stated(stage, setStage) as any}
                             disabled={disableContinueButton}
                         />
                     )}
