@@ -85,6 +85,7 @@ const BulkReviews: FunctionComponent<ReviewsWrapperProps> = (props) => {
             </Header>
             <URLQueriesManager
                 queryForData={queryForData}
+                disableEverything={props.thereIsNoDataAtAll}
                 lineAnimationColor="paperDefault"
                 extraOrderOptions={[
                     {

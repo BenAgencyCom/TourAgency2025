@@ -1,5 +1,5 @@
 // Tools
-import { styled } from "@mui/system";
+import { styled, alpha } from "@mui/system";
 import colorTheme from "@/colorTheme";
 // Types
 import type { SxProps } from "@mui/system";
@@ -26,6 +26,15 @@ const StyledSelectBase = styled(Select)(({ theme }) => ({
     },
     ".MuiSelect-icon": {
         display: "none",
+    },
+    "&.Mui-disabled": {
+        border: `2px solid rgb(130,143,156)`,
+        background: alpha(theme.palette.text.primary, 0.5),
+        "button,textarea,input": {
+            color: theme.palette.text.primary,
+            "-WebkitTextFillColor": theme.palette.text.primary,
+            fontWeight: 500,
+        },
     },
 }));
 

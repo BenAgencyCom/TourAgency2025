@@ -86,6 +86,7 @@ interface URLQueriesManagerProps {
     };
     disableResultsInTotal?: true;
     otherURLQueries?: string[];
+    disableEverything?: boolean;
     /**Extra styles applied to highest-level wrapper */
     sx?: SxProps;
 }
@@ -272,6 +273,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                                                 <SearchingBar
                                                     value={temporarySearchingPhrase} //
                                                     onChange={changeSearchingPhrase}
+                                                    disabled={props.disableEverything}
                                                     {...(props.searchingPhrase !== true && props.searchingPhrase)}
                                                 ></SearchingBar>
                                             </LineIntroAnimation>
@@ -283,6 +285,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                                     update={changeProperty}
                                     extraSelects={props.extraSelects}
                                     lineAnimationColor={props.lineAnimationColor}
+                                    disabled={props.disableEverything}
                                 ></ExtraSelects>
 
                                 <LineIntroAnimation
@@ -297,6 +300,7 @@ const URLQueriesManager: FunctionComponent<URLQueriesManagerProps> = (props) => 
                                         options={selectOrderData.options as SelectExtraOrderOption[]}
                                         value={state["order"]}
                                         update={(e) => changeProperty("order", e as any)}
+                                        disabled={props.disableEverything}
                                     ></SelectOrder>
                                 </LineIntroAnimation>
                             </>

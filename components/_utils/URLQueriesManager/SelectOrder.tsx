@@ -11,6 +11,7 @@ import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
 interface SelectOrderProps extends Omit<SelectProps, "options"> {
     options: SelectExtraOrderOption[];
     value: any;
+    disabled?: boolean;
     update: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -38,6 +39,7 @@ const SelectOrder: FunctionComponent<SelectOrderProps> = (props) => {
             data-compounded-value={compounded}
             onChange={(e) => onChange(e as any)}
             defaultValue={defaultValue}
+            disabled={props.disabled}
         ></SelectWithIcon>
     );
 };

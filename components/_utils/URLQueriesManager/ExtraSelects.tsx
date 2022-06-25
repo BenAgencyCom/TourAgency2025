@@ -7,9 +7,11 @@ import LineIntroAnimation from "@/components/_utils/LineIntroAnimation";
 
 interface ExtraSelectsProps {
     extraSelects?: any[];
-    update: (prop: string, e: any) => void;
     state: Record<string, any>;
+    disabled?: boolean;
     lineAnimationColor: "primary" | "text" | "background" | "paperDefault" | "paperLight";
+
+    update: (prop: string, e: any) => void;
 }
 
 const ExtraSelects: FunctionComponent<ExtraSelectsProps> = (props) => {
@@ -34,6 +36,7 @@ const ExtraSelects: FunctionComponent<ExtraSelectsProps> = (props) => {
                                 sx={sx}
                                 onChange={(e) => props.update(key, e)}
                                 defaultValue={defaultValue}
+                                disabled={props.disabled}
                             ></SelectWithIcon>
                         </LineIntroAnimation>
                     );
