@@ -66,7 +66,7 @@ export default styled(FlexBox, {
             },
         }),
         ...(!props.scrolledDown && {
-            color: `${props.reverseContrast ? theme.palette.text.primary : "#fff"} !important`,
+            color: `${props.reverseContrast ? "#fff" : theme.palette.text.primary} !important`,
             height: "100%",
         }),
     },
