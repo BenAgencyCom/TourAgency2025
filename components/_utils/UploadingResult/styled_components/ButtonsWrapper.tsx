@@ -1,5 +1,5 @@
 // Tools
-import { styled } from "@mui/system";
+import { styled, alpha } from "@mui/system";
 // Styled components
 export default styled("div", {
     shouldForwardProp: (propName: string) => !["status"].includes(propName),
@@ -23,8 +23,12 @@ export default styled("div", {
             padding: "0 20px",
             height: "32px",
             borderRadius: "3px",
+            transition: "background .3s",
             "&:nth-of-type(1)": {
                 marginLeft: "0",
+            },
+            "&:hover": {
+                background: alpha(background, 0.8),
             },
         },
     };
