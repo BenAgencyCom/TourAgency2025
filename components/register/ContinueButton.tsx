@@ -20,7 +20,7 @@ const ContinueButtonBase = styled(StyledButton)(({ theme }) => ({
 
 interface ContinueButtonProps {
     allFieldsAreValid: boolean;
-    stage: StatedDataField<Stage>;
+    stage: StatedDataField<Omit<Stage>, "RESULT">;
     disabled: boolean;
 }
 

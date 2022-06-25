@@ -17,7 +17,7 @@ import ContinueButton from "@/components/register/ContinueButton";
 import MainWrapper from "@/components/register/stage_1/styled_components/MainWrapper";
 
 const Registration: NextPage = () => {
-    const [stage, setStage] = useState<Stage>("CONFIRMATION");
+    const [stage, setStage] = useState<Stage>("RESULT");
     const { data, checkWhetherAFieldIsInvalid, allFieldsAreValid } = useFormFieldsWithValidation();
     const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
 
@@ -29,12 +29,6 @@ const Registration: NextPage = () => {
             }}
         >
             <MainWrapper>
-                <StageHeader
-                    title="Create an account" //
-                    stageNumber={1}
-                    alternateBackgroundText="Register"
-                    sx={{ mt: "20px" }}
-                />
                 <div className="content-wrapper">
                     {(() => {
                         switch (stage) {
@@ -51,11 +45,13 @@ const Registration: NextPage = () => {
                         }
                     })()}
                 </div>
-                <ContinueButton
-                    allFieldsAreValid={allFieldsAreValid} //
-                    stage={stated(stage, setStage)}
-                    disabled={disableContinueButton}
-                />
+                {stage !== "RESULT" && (
+                    <ContinueButton
+                        allFieldsAreValid={allFieldsAreValid} //
+                        stage={stated(stage, setStage)}
+                        disabled={disableContinueButton}
+                    />
+                )}
             </MainWrapper>
         </RegisterContext.Provider>
     );
