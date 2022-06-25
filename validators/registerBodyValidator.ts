@@ -26,7 +26,6 @@ const validate = async (data: RegisterBody): Promise<ValidationResult> => {
     dataToValidate.birth = new Date(dataToValidate.birth);
 
     const bodyValidationResult = validator(schema, dataToValidate);
-    console.log(dataToValidate, bodyValidationResult);
     if (bodyValidationResult !== true) return bodyValidationResult;
     // Ensure that email is unique
     const prisma = new PrismaClient();
