@@ -20,7 +20,7 @@ import MainWrapper from "@/components/register/MainWrapper";
 const Registration: NextPage = () => {
     const [stage, setStage] = useState<Stage>("PERSONAL_DATA");
     const { data, checkWhetherAFieldIsInvalid, allFieldsAreValid } = useFormFieldsWithValidation();
-    const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
+    const [disableContinueButton, setDisableContinueButton] = useState<boolean>(true);
 
     useEffect(() => {
         if (stage === "PERSONAL_DATA") setDisableContinueButton(!allFieldsAreValid);

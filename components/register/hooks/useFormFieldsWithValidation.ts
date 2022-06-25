@@ -42,12 +42,14 @@ export default (): UseFormFieldsWithValidationResult => {
     const [password, setPassword] = useState<string>("");
     const [passwordRepeatation, setPasswordRepeatation] = useState<string>("");
 
-    const allFieldsAreValid = useMemo<boolean>(() => invalidFields.length === 0, [invalidFields]);
+    const allFieldsAreValid = useMemo<boolean>(() => {
+        return invalidFields.length === 0;
+    }, [invalidFields]);
     const checkWhetherAFieldIsInvalid = (field: Field): boolean => invalidFields.includes(field);
 
     useEffect(() => {
         const { error } = joiScheme.validate({ name, surname, email, country, gender, birth, password, passwordRepeatation }, { abortEarly: false });
-        console.log(error);
+
         if (error) {
             const errors: Field[] = [];
             // Extract all properties names from joi's error

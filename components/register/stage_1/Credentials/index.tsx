@@ -20,7 +20,7 @@ const PersonalDataAndCredentials: FunctionComponent<PersonalDataAndCredentialsPr
     const checkEmail = async () => await checkEmailUniqueness(email.value);
 
     useEffect(() => {
-        props.setDisableContinueButton(emailIsNotAvailable);
+        if (emailIsNotAvailable) props.setDisableContinueButton(true);
     }, [emailIsNotAvailable, props]);
 
     return (
