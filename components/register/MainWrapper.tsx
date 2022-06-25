@@ -7,8 +7,10 @@ export default styled(ContentContainter)(({ theme }) => ({
     paddingTop: "50px",
     marginBottom: "100px",
     display: "flex",
+    minHeight: "calc(100vh - 200px)",
     ".content-wrapper": {
         display: "flex",
+        flexGrow: 1,
         alignItems: "flex-start",
         justifyContent: "space-between",
         ["@media (max-width:1000px)"]: {

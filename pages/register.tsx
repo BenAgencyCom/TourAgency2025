@@ -14,10 +14,10 @@ import Stage3 from "@/components/register/stage_3";
 import StageHeader from "@/components/create/_utils/StageHeader";
 import ContinueButton from "@/components/register/ContinueButton";
 // Styled components
-import MainWrapper from "@/components/register/stage_1/styled_components/MainWrapper";
+import MainWrapper from "@/components/register/MainWrapper";
 
 const Registration: NextPage = () => {
-    const [stage, setStage] = useState<Stage>("RESULT");
+    const [stage, setStage] = useState<Stage>("CONFIRMATION");
     const { data, checkWhetherAFieldIsInvalid, allFieldsAreValid } = useFormFieldsWithValidation();
     const [disableContinueButton, setDisableContinueButton] = useState<boolean>(false);
 
@@ -29,6 +29,11 @@ const Registration: NextPage = () => {
             }}
         >
             <MainWrapper>
+                <StageHeader
+                    title="Create an account" //
+                    alternateBackgroundText="Register"
+                    stageNumber={1}
+                ></StageHeader>
                 <div className="content-wrapper">
                     {(() => {
                         switch (stage) {
