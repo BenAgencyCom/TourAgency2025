@@ -11,7 +11,7 @@ const AccountPolitics: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Terms of services</title>
+                <title>MES | Terms of services</title>
             </Head>
             <ContentContainter
                 header={{

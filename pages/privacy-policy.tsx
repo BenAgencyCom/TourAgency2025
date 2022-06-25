@@ -11,7 +11,7 @@ const AccountPolitics: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Privacy policy</title>
+                <title>MES | Privacy policy</title>
             </Head>
             <ContentContainter
                 header={{

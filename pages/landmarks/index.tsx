@@ -30,18 +30,22 @@ const LandmarksWrapper = styled("div")(({ theme }) => ({
 }));
 
 const BulkLandmarks: FunctionComponent = () => {
-    const PER_PAGE = 15;
-
     const router = useRouter();
+    const { width } = useWindowSizes();
+
     const [loading, setLoading] = useState<boolean>(true);
     const [landmarks, setLandmarks] = useState<Landmark[]>([]);
-    const { width } = useWindowSizes();
     const [paginationProperties, setPaginationProperties] = useState<PaginationProperties | null>(null);
 
-    const imageResolution = useMemo<"360p" | "480p">(() => {
+    // Computed properties
+    const PER_PAGE: number = (() => {
+        if (width > 1000) return 12;
+        return 6;
+    })();
+    const imageResolution: "360p" | "480p" = (() => {
         if (width > 600 && width < 1000) return "480p";
         return "360p";
-    }, [width]);
+    })();
 
     const queryForData = async (urlQueries: string) => {
         try {
@@ -60,7 +64,7 @@ const BulkLandmarks: FunctionComponent = () => {
     return (
         <>
             <Head>
-                <title>Landmarks to Discover</title>
+                <title>MES | Landmarks</title>
             </Head>
 
             <ContentContainter

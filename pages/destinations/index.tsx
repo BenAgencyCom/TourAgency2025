@@ -43,7 +43,7 @@ const Destinations: FunctionComponent = (props) => {
     return (
         <>
             <Head>
-                <title>Destinations</title>
+                <title>MES | Destinations</title>
             </Head>
             <ContentContainter
                 id="destinations-wrapper" //

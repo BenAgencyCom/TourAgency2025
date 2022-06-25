@@ -24,7 +24,7 @@ const LandmarkInformation: FunctionComponent<LandmarkInformationProps> = (props)
         const { length } = title;
         if (length > 40) return 35;
         else if (length > 23) return 60;
-        return 120;
+        return 100;
     }, [width, title]);
 
     return (

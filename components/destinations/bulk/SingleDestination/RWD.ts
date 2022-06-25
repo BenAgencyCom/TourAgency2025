@@ -13,6 +13,9 @@ export default {
     cursor: "default",
     display: "flex",
     justifyContent: "space-between",
+    h2: {
+        margin: "10px 0",
+    },
     ".single-destination-picture": {
         width: "calc(50% - 10px)",
         minHeight: "350px",

@@ -39,7 +39,7 @@ const SelectWhatToCreate: FunctionComponent = (props) => {
     return (
         <>
             <Head>
-                <title>Create Content</title>
+                <title>MES | Create Content</title>
             </Head>
             <StyledContentContainter
                 backgroundMap //

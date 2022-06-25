@@ -25,7 +25,7 @@ const Login: FunctionComponent<{}> = () => {
     return (
         <>
             <Head>
-                <title>Login</title>
+                <title>MES | Login</title>
             </Head>
             <BackgroundShape />
             <BackgroundShape />

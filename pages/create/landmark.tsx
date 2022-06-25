@@ -41,7 +41,7 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
     return (
         <>
             <Head>
-                <title>Create Landmark</title>
+                <title>Create Content | Landmark</title>
             </Head>
 
             {!isAuthenticated && <AuthenticationIsRequiredModal />}

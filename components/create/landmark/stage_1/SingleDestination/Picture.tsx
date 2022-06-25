@@ -9,7 +9,7 @@ import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
 // Styled Components
 
 const Wrapper = styled("div")(({ theme }) => ({
-    height: "280px",
+    height: "250px",
     position: "relative",
     borderRadius: "10px 10px 0 0 ",
     overflow: "hidden",

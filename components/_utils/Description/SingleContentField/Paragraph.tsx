@@ -10,7 +10,6 @@ const Paragraph = styled(Typography)(({ theme }) => ({
     marginBottom: theme.spacing(1),
     fontWeight: 300,
     textAlign: "justify",
-    letterSpacing: "1px",
 }));
 
 interface ParagraphFieldProps {
