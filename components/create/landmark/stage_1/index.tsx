@@ -4,9 +4,9 @@ import axios from "axios";
 import { styled } from "@mui/system";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import useCreateLandmarkContext from "@/components/create/landmark/hooks/useCreateLandmarkContext";
 // Types
 import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StatedDataField";
 import type { Destination } from "@/@types/pages/create/CreateLandmark";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 // Other components
@@ -27,13 +27,10 @@ const DestinationsWrapper = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
 }));
 
-interface StageOneProps {
-    selectedDestination: StatedDataField<Destination | null>;
-}
-
-const StageOne: FunctionComponent<StageOneProps> = (props) => {
+const StageOne: FunctionComponent = (props) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
+    const { selectedDestination } = useCreateLandmarkContext();
 
     const [loading, setLoading] = useState<boolean>(true);
     const [destinations, setDestinations] = useState<Destination[]>([]);
@@ -56,11 +53,11 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
     useEffect(() => {
         dispatch(
             createContentActions.handleValidationResult({
-                disableNavigation: props.selectedDestination.value === null,
+                disableNavigation: selectedDestination.value === null,
                 reason: "",
             })
         );
-    }, [dispatch, props]);
+    }, [dispatch, selectedDestination]);
     return (
         <>
             <StageHeader title="Select destination" stageNumber={1}></StageHeader>
@@ -132,7 +129,7 @@ const StageOne: FunctionComponent<StageOneProps> = (props) => {
                                         <SingleDestination
                                             key={destination.id} //
                                             destination={destination}
-                                            selectedDestination={props.selectedDestination}
+                                            selectedDestination={selectedDestination}
                                         ></SingleDestination>
                                     );
                                 });

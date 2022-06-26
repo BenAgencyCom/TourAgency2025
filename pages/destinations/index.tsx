@@ -18,7 +18,7 @@ import Public from "@mui/icons-material/Public";
 // Styled Components
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
 
-const Destinations: FunctionComponent = (props) => {
+const Destinations: FunctionComponent = () => {
     const PER_PAGE = 4;
 
     const router = useRouter();

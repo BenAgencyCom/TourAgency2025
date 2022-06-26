@@ -5,7 +5,7 @@ import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Pending: FunctionComponent = (props) => {
+const Pending: FunctionComponent = () => {
     return (
         <Fade in={true}>
             <div className="result-content">

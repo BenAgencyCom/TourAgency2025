@@ -35,7 +35,7 @@ const NavigationButton = styled(StyledButton)(({ theme }) => ({
     width: "250px",
 }));
 
-const SelectWhatToCreate: FunctionComponent = (props) => {
+const SelectWhatToCreate: FunctionComponent = () => {
     return (
         <>
             <Head>

@@ -1,9 +1,9 @@
 // Tools
-import { styled, alpha } from "@mui/system";
 import { useRef } from "react";
+import { styled, alpha } from "@mui/system";
+import useCreateLandmarkContext from "@/components/create/landmark/hooks/useCreateLandmarkContext";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
-import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI components
 import Button from "@mui/material/Button";
 // Material UI Icons
@@ -36,15 +36,10 @@ const SelectThumbnailButton = styled(Button)(({ theme }) => ({
     },
 }));
 
-interface SelectThumbnailProps {
-    thumbnail: StatedDataField<File | null>;
-    thumbnailURL: StatedDataField<string | null>;
-}
-
-const SelectThumbnail: FunctionComponent<SelectThumbnailProps> = (props) => {
+const SelectThumbnail: FunctionComponent = () => {
     const dispatch = useAppDispatch();
 
-    const { thumbnail, thumbnailURL } = props;
+    const { thumbnail, thumbnailURL } = useCreateLandmarkContext();
     const fileInput = useRef<HTMLInputElement | null>(null);
 
     const openFileBrowserWindow = () => fileInput.current?.click();
@@ -70,12 +65,12 @@ const SelectThumbnail: FunctionComponent<SelectThumbnailProps> = (props) => {
     return (
         <ThumbnailWrapper>
             {(() => {
-                if (props.thumbnailURL.value) {
+                if (thumbnailURL.value) {
                     return (
                         <>
                             <Loading />
                             <SkeletonImage
-                                src={props.thumbnailURL.value} //
+                                src={thumbnailURL.value} //
                                 alt="choosen-thumbnail"
                                 layout="fill"
                                 modalMaxResolution="1"

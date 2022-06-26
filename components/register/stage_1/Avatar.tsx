@@ -12,7 +12,7 @@ import Settings from "@mui/icons-material/Settings";
 import StyledAvatar from "./styled_components/StyledAvatar";
 import ChangeAvatarButton from "./styled_components/ChangeAvatarButton";
 
-const AvatarAndBackground: FunctionComponent = (props) => {
+const AvatarAndBackground: FunctionComponent = () => {
     const { avatar } = useRegisterContext();
     const displaySnackbar = useSnackbar();
 

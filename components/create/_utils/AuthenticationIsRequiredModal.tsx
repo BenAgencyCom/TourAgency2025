@@ -13,7 +13,7 @@ import { StyledDialogBase, BackgroundIcon, StyledDialogTitle, StyledDialogConten
 // Material UI Icons
 import WarningAmber from "@mui/icons-material/WarningAmber";
 
-const CreateAnAccountModel: FunctionComponent = (props) => {
+const CreateAnAccountModel: FunctionComponent = () => {
     const [open, setOpen] = useState<boolean>(true);
 
     return (

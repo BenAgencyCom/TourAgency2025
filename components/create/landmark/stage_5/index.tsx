@@ -12,7 +12,7 @@ import GoogleReCAPTCHA from "@/components/_utils/GoogleReCAPTCHA";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { actions as createContentActions } from "@/redux/slices/createContent";
 
-const StageFive: FunctionComponent = (props) => {
+const StageFive: FunctionComponent = () => {
     const dispatch = useAppDispatch();
     const [ReCAPTCHAIsApproved, setReCAPTCHAIsApproved] = useState<boolean>(false);
 

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 // Styled Components
 import BackgroundHeader from "@/components/_utils/styled/BackgroundHeader";
 
-const LandmarksHeader: FunctionComponent = (props) => {
+const LandmarksHeader: FunctionComponent = () => {
     return (
         <Box sx={{ position: "relative", my: "20px" }}>
             <BackgroundHeader fontSize="3rem" sx={{ letterSpacing: "5px !important" }}>

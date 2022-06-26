@@ -1,10 +1,10 @@
 // Tools
 import { GetLandmarkIcon } from "@/utils/client/getLandmarkIcon";
+import useCreateLandmarkContext from "@/components/create/landmark/hooks/useCreateLandmarkContext";
 // Types
 import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { LandmarkType } from "@prisma/client";
-import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI components
 import Tooltip from "@mui/material/Tooltip";
 // Other components
@@ -17,11 +17,12 @@ import Label from "@/components/create/_utils/styled_components/Label";
 import SingleLandmarkTypeTile from "./SingleLandmarkTypeTile";
 
 interface SelectLandmarkTypeProps {
-    landmarkType: StatedDataField<LandmarkType>;
     sx?: SxProps;
 }
 
 const SelectLandmarkType: FunctionComponent<SelectLandmarkTypeProps> = (props) => {
+    const { landmarkType } = useCreateLandmarkContext();
+
     const options: { label: string; value: LandmarkType }[] = [
         { label: "Antique", value: "ANTIQUE" },
         { label: "Art", value: "ART" },
@@ -38,19 +39,9 @@ const SelectLandmarkType: FunctionComponent<SelectLandmarkTypeProps> = (props) =
 
             <SelectWithIcon
                 icon={<Surfing />} //
-                onChange={(e: any) => props.landmarkType.setValue(e.target.value)}
-                value={props.landmarkType.value}
-                options={
-                    [
-                        { label: "Antique", value: "ANTIQUE" },
-                        { label: "Art", value: "ART" },
-                        { label: "Building", value: "BUILDING" },
-                        { label: "Monument", value: "MONUMENT" },
-                        { label: "Museum", value: "MUSEUM" },
-                        { label: "Nature", value: "NATURE" },
-                        { label: "Restaurant", value: "RESTAURANT" },
-                    ] as { label: string; value: LandmarkType }[]
-                }
+                onChange={(e: any) => landmarkType.setValue(e.target.value)}
+                value={landmarkType.value}
+                options={options as { label: string; value: LandmarkType }[]}
                 sx={{ width: "100%", margin: "10px 0", height: "52px" }}
             ></SelectWithIcon>
 
@@ -60,10 +51,10 @@ const SelectLandmarkType: FunctionComponent<SelectLandmarkTypeProps> = (props) =
                         <Tooltip title={item.label} key={item.value} placement="bottom">
                             <SingleLandmarkTypeTile
                                 className={[
-                                    item.value === props.landmarkType.value ? "selected" : "", //
+                                    item.value === landmarkType.value ? "selected" : "", //
                                     "single-landmark-type",
                                 ].join(" ")} //
-                                onClick={() => props.landmarkType.setValue(item.value)}
+                                onClick={() => landmarkType.setValue(item.value)}
                             >
                                 {GetLandmarkIcon(item.value)}
                             </SingleLandmarkTypeTile>

@@ -2,10 +2,9 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import stated from "@/utils/client/stated";
+import CreateLandmarkContextProvider from "@/components/create/landmark/CreateLandmarkContextProvider";
 // Types
 import type { FunctionComponent } from "react";
-import type { LandmarkType } from "@prisma/client";
-import type { Destination } from "@/@types/pages/create/CreateLandmark";
 // Other components
 import Head from "next/Head";
 import Loading from "@/components/_utils/Loading";
@@ -21,20 +20,9 @@ import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 import MainWrapper from "@/components/create/_utils/MainWrapper";
 
-interface CreateLandmarkPageProps {
-    //
-}
-const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
+const CreateLandmarkPage: FunctionComponent = () => {
     const { isAuthenticated } = useAppSelector((state) => state.authentication);
-    //
-    const [activeStep, setActiveStep] = useState<number>(4);
-    const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
-    // New landmarks' data:
-    const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
-    const [thumbnail, setThumbnail] = useState<File | null>(null);
-    const [title, setTitle] = useState<string>("");
-    const [shortDescription, setShortDescription] = useState<string>("");
-    const [landmarkType, setLandmarkType] = useState<LandmarkType>("ANTIQUE");
+    const [activeStep, setActiveStep] = useState<number>(0);
 
     const upload = () => alert("uploading");
 
@@ -51,28 +39,22 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                 alternativeContinueCallback={activeStep === 4 ? upload : undefined}
                 activeStep={stated(activeStep, setActiveStep)}
             >
-                {(() => {
-                    switch (activeStep) {
-                        case 0:
-                            return <StageOne selectedDestination={stated(selectedDestination, setSelectedDestination)}></StageOne>;
-                        case 1:
-                            return <StageTwo thumbnail={stated(thumbnail, setThumbnail)} thumbnailURL={stated(thumbnailURL, setThumbnailURL)}></StageTwo>;
-                        case 2:
-                            return (
-                                <StageThree
-                                    thumbnailURL={thumbnailURL} //
-                                    title={stated(title, setTitle)}
-                                    selectedDestination={selectedDestination}
-                                    landmarkType={stated(landmarkType, setLandmarkType)}
-                                    shortDescription={stated(shortDescription, setShortDescription)}
-                                ></StageThree>
-                            );
-                        case 3:
-                            return <StageFour></StageFour>;
-                        case 4:
-                            return <StageFive></StageFive>;
-                    }
-                })()}
+                <CreateLandmarkContextProvider>
+                    {(() => {
+                        switch (activeStep) {
+                            case 0:
+                                return <StageOne />;
+                            case 1:
+                                return <StageTwo />;
+                            case 2:
+                                return <StageThree />;
+                            case 3:
+                                return <StageFour />;
+                            case 4:
+                                return <StageFive />;
+                        }
+                    })()}
+                </CreateLandmarkContextProvider>
             </MainWrapper>
         </>
     );

@@ -7,7 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 // Styled components
 import StyledCheckboxWrapper from "@/components/_utils/styled/StyledCheckboxWrapper";
 
-const RememberMe: FunctionComponent = (props) => {
+const RememberMe: FunctionComponent = () => {
     const displaySnackbar = useSnackbar();
 
     const onChecked = (e: ChangeEvent<HTMLInputElement>) => {

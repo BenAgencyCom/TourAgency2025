@@ -24,7 +24,7 @@ const FormFieldsWrapper = styled("div")(({ theme }) => ({
     },
 }));
 
-const PersonalDataAndCredentials: FunctionComponent = (props) => {
+const PersonalDataAndCredentials: FunctionComponent = () => {
     const { name, surname, country, gender, birth, checkWhetherAFieldIsInvalid } = useRegisterContext();
 
     return (

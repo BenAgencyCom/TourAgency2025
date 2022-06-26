@@ -10,7 +10,7 @@ import Description from "@/components/create/_utils/description";
 import { actions } from "@/redux/slices/createContent";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 
-const StageFour: FunctionComponent = (props) => {
+const StageFour: FunctionComponent = () => {
     const { previewMode } = useAppSelector((state) => state.createContent);
     const dispatch = useAppDispatch();
 

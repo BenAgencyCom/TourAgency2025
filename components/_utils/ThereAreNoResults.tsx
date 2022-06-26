@@ -190,7 +190,7 @@ const EasterEggWrapper = styled("div")(({ theme }) => ({
         height: "300px",
     },
 }));
-const EasterEgg: FunctionComponent = (props) => {
+const EasterEgg: FunctionComponent = () => {
     return (
         <EasterEggWrapper>
             <Image src="/easter_egg.gif" unoptimized layout="fill" alt="easer egg"></Image>

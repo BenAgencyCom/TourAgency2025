@@ -11,7 +11,7 @@ import { actions as createContentActions } from "@/redux/slices/createContent";
 // Styled components
 import StyledButton from "@/components/create/_utils/forms/Button";
 
-const PreviewMode: FunctionComponent = (props) => {
+const PreviewMode: FunctionComponent = () => {
     const dispatch = useAppDispatch();
     const { list: description } = useAppSelector((state) => state.createContent);
 
