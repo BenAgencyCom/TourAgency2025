@@ -80,6 +80,7 @@ const StyledInput: ForwardRefExoticComponent<StyledInputProps> = forwardRef((pro
     const inputRef = useRef<HTMLInputElement>();
     const [inputType, setInputType] = useState<"text" | "password">(password ? "password" : "text");
     const [newContent, setNewContent] = useState<string>(props.value as string);
+    const [debounce, setDebounce] = useState<number>(0);
 
     // Manage received ref property
     useEffect(() => {
@@ -105,8 +106,17 @@ const StyledInput: ForwardRefExoticComponent<StyledInputProps> = forwardRef((pro
             if (length > max) return;
         }
         setNewContent(e.target.value as string);
-        onBlur();
+
+        if (debounce) clearTimeout(debounce);
+        setDebounce(
+            setTimeout(() => {
+                if (props.onChange) {
+                    props.onChange({ target: { value: inputRef.current?.value as string } } as any);
+                }
+            }, 50) as any
+        );
     };
+
     const onBlur = () => {
         if (props.onChange) {
             props.onChange({ target: { value: inputRef.current?.value as string } } as any);

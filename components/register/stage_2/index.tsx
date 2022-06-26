@@ -10,7 +10,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 // Other components
 import Link from "next/link";
-import GoogleReCAPTCHA from "./GoogleReCAPTCHA";
+import GoogleReCAPTCHA from "@/components/_utils/GoogleReCAPTCHA";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 import StyledCheckboxWrapper from "@/components/_utils/styled/StyledCheckboxWrapper";

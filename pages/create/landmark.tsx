@@ -27,7 +27,7 @@ interface CreateLandmarkPageProps {
 const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) => {
     const { isAuthenticated } = useAppSelector((state) => state.authentication);
     //
-    const [activeStep, setActiveStep] = useState<number>(0);
+    const [activeStep, setActiveStep] = useState<number>(4);
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
     // New landmarks' data:
     const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
@@ -44,7 +44,7 @@ const CreateLandmarkPage: FunctionComponent<CreateLandmarkPageProps> = (props) =
                 <title>Create Content | Landmark</title>
             </Head>
 
-            {!isAuthenticated && <AuthenticationIsRequiredModal />}
+            {isAuthenticated === false && <AuthenticationIsRequiredModal />}
 
             <MainWrapper
                 steps={["Destination", "Thumbnail", "General information", "Description", "Summary"]} //

@@ -6,6 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 export default styled(FormControlLabel)(({ theme }) => ({
     ".MuiCheckbox-root": {
         height: "30px",
+        width: "40px",
         padding: "0",
         ".MuiSvgIcon-root": {
             color: theme.palette.text.primary,
