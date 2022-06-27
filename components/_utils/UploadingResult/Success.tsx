@@ -1,6 +1,7 @@
 // Tools
 import Router from "next/router";
 import { useEffect } from "react";
+import useSnackbar from "@/hooks/useSnackbar";
 // Types
 import type { FunctionComponent } from "react";
 // Material UI Components
@@ -22,6 +23,16 @@ interface SuccessProps {
 }
 
 const Success: FunctionComponent<SuccessProps> = (props) => {
+    const displaySnackbar = useSnackbar();
+
+    useEffect(() => {
+        displaySnackbar({
+            msg: `Everything went fine!`,
+            severity: "success",
+            hideAfter: 1500,
+        });
+    }, [displaySnackbar]);
+
     useEffect(() => {
         setTimeout(() => {
             let isMounted = true;

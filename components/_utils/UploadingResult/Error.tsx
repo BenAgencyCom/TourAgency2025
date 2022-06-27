@@ -1,5 +1,7 @@
 // Tools
 import { styled } from "@mui/system";
+import { useEffect } from "react";
+import useSnackbar from "@/hooks/useSnackbar";
 // Types
 import type { FunctionComponent } from "react";
 import type { ActionAfterError } from "./index";
@@ -29,6 +31,15 @@ interface ErrorProps {
 
 const Error: FunctionComponent<ErrorProps> = (props) => {
     const { msg, errorHTTPStatusCode, actions } = props;
+    const displaySnackbar = useSnackbar();
+
+    useEffect(() => {
+        displaySnackbar({
+            msg: `Something went wrong!`,
+            severity: "error",
+            hideAfter: 1500,
+        });
+    }, [displaySnackbar]);
 
     return (
         <Fade in={true}>
