@@ -42,6 +42,7 @@ interface MainWrapperProps {
     activeStep: StatedDataField<number>;
     /** Callback which is supposed to be called instead of going farther on the last step */
     alternativeContinueCallback?: () => any;
+    hideNavigation?: boolean;
     sx?: SxProps;
 }
 
@@ -65,9 +66,10 @@ const MainWrapper: FunctionComponent<MainWrapperProps> = (props) => {
                     steps={steps} //
                     activeStep={activeStep}
                     alreadyVisitedSteps={alreadyVisitedSteps}
+                    blockNavigation={props.hideNavigation}
                 />
                 <div className="children-wrapper">{children}</div>
-                <NavigationBetweenStages activeStep={activeStep} alternativeContinueCallback={alternativeContinueCallback}></NavigationBetweenStages>
+                {!props.hideNavigation && <NavigationBetweenStages activeStep={activeStep} alternativeContinueCallback={alternativeContinueCallback}></NavigationBetweenStages>}
             </ContentContainter>
         </Wrapper>
     );

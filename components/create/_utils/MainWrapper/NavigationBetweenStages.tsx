@@ -46,7 +46,7 @@ const StagesNavigationWrapper = styled("div")(({ theme }) => ({
 const BlockJustification = styled("span")(({ theme }) => ({
     marginLeft: "20px",
     color: theme.palette.error.main,
-    fontSize: "1.2rem",
+    fontSize: "1rem",
     userSelect: "none",
 }));
 

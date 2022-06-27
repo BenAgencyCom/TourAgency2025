@@ -23,8 +23,9 @@ import MainWrapper from "@/components/create/_utils/MainWrapper";
 const CreateLandmarkPage: FunctionComponent = () => {
     const { isAuthenticated } = useAppSelector((state) => state.authentication);
     const [activeStep, setActiveStep] = useState<number>(0);
+    const [fireUploading, setFireUploading] = useState<boolean>(false);
 
-    const upload = () => alert("uploading");
+    const upload = () => setFireUploading(true);
 
     return (
         <>
@@ -38,6 +39,7 @@ const CreateLandmarkPage: FunctionComponent = () => {
                 steps={["Destination", "Thumbnail", "General information", "Description", "Summary"]} //
                 alternativeContinueCallback={activeStep === 4 ? upload : undefined}
                 activeStep={stated(activeStep, setActiveStep)}
+                hideNavigation={fireUploading}
             >
                 <CreateLandmarkContextProvider>
                     {(() => {
@@ -51,7 +53,16 @@ const CreateLandmarkPage: FunctionComponent = () => {
                             case 3:
                                 return <StageFour />;
                             case 4:
-                                return <StageFive />;
+                                return (
+                                    <StageFive
+                                        fireUploading={fireUploading} //
+                                        isAuthenticated={isAuthenticated}
+                                        goBack={() => {
+                                            setActiveStep(3);
+                                            setFireUploading(false);
+                                        }}
+                                    />
+                                );
                         }
                     })()}
                 </CreateLandmarkContextProvider>

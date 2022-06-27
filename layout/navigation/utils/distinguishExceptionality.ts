@@ -16,6 +16,8 @@ export const isDisabled = (currentPathname: string): boolean => {
  * - general- like `"/users/*`" and refer to all routes matching given base
  */
 export const isContrastReversed = (currentPathname: string): boolean => {
+    if (currentPathname.includes("/reviews")) return false;
+
     return Boolean(
         ROUTES_WITH_REVERSED_CONTRAST.find((route) => {
             // General searching scenerio:

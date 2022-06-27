@@ -14,11 +14,11 @@ import { useAppSelector } from "@/hooks/useRedux";
 // Styled components
 const StyledStepLabel = styled(StepLabel)(({ theme }) => ({
     svg: {
-        width: "40px",
-        height: "40px",
+        width: "32px",
+        height: "32px",
     },
     ".MuiStepLabel-label": {
-        fontSize: "1.2rem",
+        fontSize: "1rem",
         fontWeight: "300 !important",
         color: theme.palette.text.primary,
         transition: "color .4s ease-in-out",
@@ -48,6 +48,7 @@ interface CreateProcessStepperProps {
     steps: string[];
     activeStep: StatedDataField<number>;
     alreadyVisitedSteps: Set<number>;
+    blockNavigation?: boolean;
 }
 
 const CreateProcessStepper: FunctionComponent<CreateProcessStepperProps> = (props) => {
@@ -63,7 +64,8 @@ const CreateProcessStepper: FunctionComponent<CreateProcessStepperProps> = (prop
                     {steps.map((step, index) => {
                         const isClickable: boolean = !disableNavigation && alreadyVisitedSteps.has(index);
                         const isActive = index === activeStep.value;
-                        if (isActive || isClickable) {
+
+                        if (!props.blockNavigation && (isActive || isClickable)) {
                             const tooltipMsg = isActive ? "Currently editing step" : "Correctly filled step";
                             return (
                                 <Tooltip title={tooltipMsg} key={index}>
@@ -74,7 +76,7 @@ const CreateProcessStepper: FunctionComponent<CreateProcessStepperProps> = (prop
                             );
                         }
                         return (
-                            <Step key={index} active={false}>
+                            <Step key={index} active={isActive}>
                                 <StyledStepLabel>{step}</StyledStepLabel>
                             </Step>
                         );
