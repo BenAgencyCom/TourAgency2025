@@ -22,7 +22,7 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
             >
                 {props.main}
             </Typography>
-            <BackgroundHeader fontSize="8rem">{props.backgroundHeader}</BackgroundHeader>
+            <BackgroundHeader fontSize="6rem">{props.backgroundHeader}</BackgroundHeader>
         </MainHeader>
     );
 };

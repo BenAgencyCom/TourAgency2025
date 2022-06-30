@@ -10,9 +10,9 @@ import type { Review, PointsDistribution, Statistics } from "@/@types/pages/api/
 // Other components
 import Landing from "./Landing";
 import Reviews from "./Reviews";
+import SelectableContent from "./SelectableContent";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
-import SelectableContent from "./SelectableContent";
 // Material UI Icons
 import Star from "@mui/icons-material/Star";
 // Styled components
@@ -76,6 +76,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
             <URLQueriesManager
                 queryForData={queryForData}
                 disableResultsInTotal
+                lineAnimationColor="paperDefault"
                 extraOrderOptions={[
                     {
                         label: "Best score",
@@ -104,6 +105,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                 ]}
                 paginationProperties={paginationProperties && !loading ? paginationProperties : undefined}
                 otherURLQueries={["pinnedReviewId"]}
+                disableEverything={reviews.length === 0}
             >
                 {(() => {
                     if (loading || !statistics || !pointsDistribution || !paginationProperties) {
@@ -127,7 +129,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                             return (
                                 <ThereAreNoResults
                                     router={router} //
-                                    header="There are no reviews"
+                                    header="There are no reviews yet"
                                 ></ThereAreNoResults>
                             );
                         } else {

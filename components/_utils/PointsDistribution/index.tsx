@@ -23,6 +23,7 @@ interface PointsDistributionProps {
 
 const PointsDistributionComponent: FunctionComponent<PointsDistributionProps> = (props) => {
     const { predominant, reviewsInTotal, pointsDistribution, averageScore } = props;
+
     return (
         <FlexBox column sx={props.sx}>
             <Box sx={{ my: "20px" }}>

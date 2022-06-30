@@ -17,14 +17,14 @@ export default styled("span")<{ fontSize?: string }>(({ theme, ...props }) => {
         left: 0,
         top: "50%",
         transform: "translateY(-50%)",
-        fontSize: props.fontSize ?? "9rem",
+        fontSize: props.fontSize ?? "8rem",
         color: alpha(theme.palette.text.primary, 0.1),
         userSelect: "none",
         fontWeight: 900,
         zIndex: 0,
         ["@media (max-width:1500px)"]: {
             fontSize: _applyFontSize("6rem"),
-            letterSpacing: "8px",
+            letterSpacing: "7px",
         },
         ["@media (max-width:1080px)"]: {
             fontSize: _applyFontSize("5.5rem"),

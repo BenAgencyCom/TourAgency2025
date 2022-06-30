@@ -10,7 +10,7 @@ import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
 import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
 
 const Wrapper = styled("div")(({ theme }) => ({
-    height: "500px",
+    height: "450px",
     position: "relative",
     borderRadius: "10px 50px 10px 50px",
     overflow: "hidden",

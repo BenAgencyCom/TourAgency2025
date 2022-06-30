@@ -25,10 +25,12 @@ interface LandingProps {
 
 const Landing: FunctionComponent<LandingProps> = (props) => {
     // Establish predominant review's type:
-    const predominant: ReviewType | "_loading" = ((): ReviewType | "_loading" => {
+    const predominant: ReviewType | "_loading" | "NO_SCORE" = (() => {
         if (!props.pointsDistribution) return "_loading";
         const { MIXED, NEGATIVE, POSITIVE } = props.pointsDistribution;
-        if (POSITIVE >= NEGATIVE && POSITIVE >= MIXED) return "POSITIVE";
+
+        if (MIXED + NEGATIVE + POSITIVE === 0) return "NO_SCORE";
+        else if (POSITIVE >= NEGATIVE && POSITIVE >= MIXED) return "POSITIVE";
         else if (MIXED > POSITIVE && MIXED >= NEGATIVE) return "MIXED";
         return "NEGATIVE";
     })();
@@ -41,7 +43,7 @@ const Landing: FunctionComponent<LandingProps> = (props) => {
                 <FlexBox column horizontal="start">
                     <LocalizationBreadCrumbs crumbs={[continent, country, city]} />
                     <Header main={props.landmark.title} backgroundHeader="Reviews" />
-                    <Stars score={props.statistics?.averageScore} />
+                    <Stars score={props.statistics?.averageScore} thereAreNoResults={predominant === "NO_SCORE"} />
                     <Typography variant="body2">{props.landmark.shortDescription}</Typography>
                 </FlexBox>
 

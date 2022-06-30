@@ -29,6 +29,7 @@ const FlexBoxColumnCenter = styled("div")(({ theme }) => ({
 
 const NoResultsWrapper = styled(FlexBoxColumnCenter)(({ theme }) => ({
     width: "100%",
+    marginBottom: "100px",
     svg: {
         fontSize: "10rem",
         color: theme.palette.primary.main,

@@ -1,5 +1,6 @@
 // Tools
 import colorTheme from "@/colorTheme";
+import { useRouter } from "next/router";
 // Types
 import type { FunctionComponent } from "react";
 import type { Review } from "@/@types/pages/landmarks/SingleLandmark";
@@ -7,6 +8,7 @@ import type { Review } from "@/@types/pages/landmarks/SingleLandmark";
 import AllReviews from "./AllReviews";
 import Section from "@/components/_utils/Section";
 import UnfadeOnScroll from "@/components/_utils/UnfadeOnScroll";
+import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
 // Material UI Icons
 import ShowChart from "@mui/icons-material/ShowChart";
 
@@ -19,6 +21,8 @@ interface ReviewsProps {
 
 const Reviews: FunctionComponent<ReviewsProps> = (props) => {
     const { reviews, url, reviewsInTotal, reviewsType } = props;
+    const router = useRouter();
+
     return (
         <Section
             id="reviews"
@@ -32,12 +36,25 @@ const Reviews: FunctionComponent<ReviewsProps> = (props) => {
             }}
         >
             <UnfadeOnScroll>
-                <AllReviews
-                    reviews={reviews} //
-                    totalReviews={reviewsInTotal}
-                    url={url}
-                    reviewsType={reviewsType}
-                ></AllReviews>
+                {(() => {
+                    if (reviewsInTotal === 0) {
+                        return (
+                            <ThereAreNoResults
+                                router={router} //
+                                header="There are no reviews yet"
+                            ></ThereAreNoResults>
+                        );
+                    } else {
+                        return (
+                            <AllReviews
+                                reviews={reviews} //
+                                totalReviews={reviewsInTotal}
+                                url={url}
+                                reviewsType={reviewsType}
+                            ></AllReviews>
+                        );
+                    }
+                })()}
             </UnfadeOnScroll>
         </Section>
     );
