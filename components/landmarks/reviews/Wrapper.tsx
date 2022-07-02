@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import useWindowSizes from "@/hooks/useWindowSizes";
 // Types
 import type { FunctionComponent } from "react";
 import type { Landmark } from "@/@types/pages/landmarks/Reviews";
@@ -23,7 +24,9 @@ interface ContentParams {
     landmark: Landmark;
 }
 const Content: FunctionComponent<ContentParams> = (props) => {
-    const REVIEWS_PER_PAGE = 12;
+    const { width } = useWindowSizes();
+
+    const REVIEWS_PER_PAGE = width > 800 ? 12 : 8;
 
     const [reviews, setReviews] = useState<Review[]>([]);
     const [loading, setLoading] = useState<boolean>(true);

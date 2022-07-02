@@ -13,7 +13,6 @@ const Wrapper = styled("div")(({ theme }) => ({
 const Label = styled("span")(({ theme, ...props }) => ({
     textTransform: "capitalize",
     userSelect: "none",
-    letterSpacing: "1px",
     strong: {
         color: theme.palette.text.primary,
     },

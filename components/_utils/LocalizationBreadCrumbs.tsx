@@ -6,9 +6,11 @@ import type { FunctionComponent } from "react";
 // Material UI Icons
 import LocationOn from "@mui/icons-material/LocationOn";
 // Styled Components
-import FlexBox from "@/components/_utils/styled/FlexBox";
-const Wrapper = styled(FlexBox)(({ theme }) => ({
+const Wrapper = styled("div")(({ theme }) => ({
     color: theme.palette.primary.main,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     fontWeight: 500,
     fontSize: "1.1rem",
     margin: "10px 0 0 0",
@@ -32,8 +34,9 @@ interface LocalizationProps {
 }
 const Localization: FunctionComponent<LocalizationProps> = (props) => {
     const crumbsInTotal = props.crumbs.length;
+
     return (
-        <Wrapper center sx={props.sx} className="localization-breadcrumbs">
+        <Wrapper sx={props.sx} className="localization-breadcrumbs">
             <LocationOn></LocationOn>
             {props.crumbs.map((item, index) => {
                 if (index + 1 === crumbsInTotal) return <span key={index}>{item}</span>;

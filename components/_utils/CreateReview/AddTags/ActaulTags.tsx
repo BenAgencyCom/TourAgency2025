@@ -10,7 +10,12 @@ import IconButton from "@mui/material/IconButton";
 // Material UI Icons
 import Close from "@mui/icons-material/Close";
 // Styled components
-
+const ActualTagsWrapper = styled("div")(({ theme }) => ({
+    minHeight: "64px",
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+}));
 const SingleTag = styled("div")(({ theme }) => ({
     fontSize: "1.1rem",
     padding: "3px 10px",
@@ -24,6 +29,9 @@ const SingleTag = styled("div")(({ theme }) => ({
     button: {
         padding: 0,
         marginLeft: "5px",
+        svg: {
+            color: "#fff",
+        },
     },
 }));
 
@@ -35,7 +43,7 @@ interface ActualTagsProps {
 const ActualTags: FunctionComponent<ActualTagsProps> = (props) => {
     const context = useContext(CreateReviewContext);
     return (
-        <>
+        <ActualTagsWrapper>
             {props.tags.map((item, index) => {
                 return (
                     <SingleTag
@@ -49,7 +57,7 @@ const ActualTags: FunctionComponent<ActualTagsProps> = (props) => {
                     </SingleTag>
                 );
             })}
-        </>
+        </ActualTagsWrapper>
     );
 };
 

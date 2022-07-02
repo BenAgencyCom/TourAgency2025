@@ -117,11 +117,11 @@ export default createTheme({
                 h3: {
                     fontWeight: 900,
                     letterSpacing: "-1px",
-                    margin: "0 0 10px 0",
+                    margin: "5px 0 10px 0",
                     fontSize: "2.2rem",
-                    lineHeight: "40px",
+                    lineHeight: "36px",
                     ["@media (max-width:1600px)"]: {
-                        lineHeight: "38px",
+                        lineHeight: "34px",
                         fontSize: "2rem",
                     },
                     ["@media (max-width:1200px)"]: {
@@ -131,7 +131,7 @@ export default createTheme({
 
                     ["@media (max-width:900px)"]: {
                         fontSize: "2.5rem ",
-                        lineHeight: "45px",
+                        lineHeight: "40px",
                     },
                     ["@media (max-width:700px)"]: {
                         fontSize: "2.2rem ",
@@ -154,7 +154,7 @@ export default createTheme({
                     },
                 },
                 h1: {
-                    lineHeight: "84px",
+                    lineHeight: "70px",
                     fontSize: "5rem",
                     fontWeight: "900",
                     letterSpacing: "-2px",
@@ -171,19 +171,19 @@ export default createTheme({
                         lineHeight: "50px",
                     },
                     "&.long-text": {
-                        lineHeight: "78px",
+                        lineHeight: "60px",
                         fontSize: "3.5rem",
                         ["@media (max-width:1500px)"]: {
                             fontSize: "3rem",
-                            lineHeight: "70px",
+                            lineHeight: "50px",
                         },
                         ["@media (max-width:700px)"]: {
                             fontSize: "2.5rem",
-                            lineHeight: "60px",
+                            lineHeight: "45px",
                         },
                         ["@media (max-width:600px)"]: {
                             fontSize: "2rem",
-                            lineHeight: "50px",
+                            lineHeight: "35px",
                         },
                     },
                 },

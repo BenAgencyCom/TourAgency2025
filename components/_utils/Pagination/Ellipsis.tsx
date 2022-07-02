@@ -9,6 +9,9 @@ const EllipsisBase = styled("span")(({ theme }) => ({
     margin: "0 10px",
     userSelect: "none",
     cursor: "default",
+    ["@media (max-width:600px)"]: {
+        margin: "0 5px",
+    },
 }));
 
 const Ellipsis: FunctionComponent<MUIStyledCommonProps> = (props) => {

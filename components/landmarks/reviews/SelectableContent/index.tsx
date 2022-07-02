@@ -48,7 +48,7 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
     const [authenticatedUserReview, setAuthenticatedUserReview] = useState<Review | null>(_authenticatedUserReview ?? null);
 
     const pinnedReviewAndAuthenticatedUserReviewAreNotTheSame = useMemo<boolean>(() => {
-        if (!pinnedReview || !authenticatedUserReview) return false;
+        if (!pinnedReview || !authenticatedUserReview) return true;
         else return pinnedReview.id !== authenticatedUserReview.id;
     }, [authenticatedUserReview, pinnedReview]);
 
@@ -106,7 +106,7 @@ const SelectableContent: FunctionComponent<SelectableContentProps> = (props) => 
         setTags([]);
         setReviewContent("");
     };
-
+    console.log(pinnedReview);
     return (
         <>
             {(() => {

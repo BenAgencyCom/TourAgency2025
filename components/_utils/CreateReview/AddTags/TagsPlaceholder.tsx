@@ -40,7 +40,7 @@ const TagsPlaceholder: FunctionComponent = () => {
                 <TagPlaceholder>Benefit 2</TagPlaceholder>
                 <TagPlaceholder>Benefit 3</TagPlaceholder>
             </FlexBox>
-            <ErrorMSG sx={{ alignSelf: "center" }}>
+            <ErrorMSG sx={{ alignSelf: "center", mt: "5px" }}>
                 At least <strong>one is required</strong>
             </ErrorMSG>
         </>

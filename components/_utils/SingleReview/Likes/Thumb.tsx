@@ -4,18 +4,16 @@ import { styled, alpha } from "@mui/system";
 // Types
 import type { Feedback } from "@prisma/client";
 import type { ForwardRefExoticComponent } from "react";
-import type { Review } from "@/@types/pages/api/ReviewsAPI";
 // Material UI Components
-import Button from "@mui/material/Button";
+import ButtonBase from "@mui/material/ButtonBase";
 // Material UI Icons
 import ThumbUp from "@mui/icons-material/ThumbUp";
 import ThumbDown from "@mui/icons-material/ThumbDown";
 
-const ThumbsBase = styled(Button)(({ theme }) => ({
-    marginRight: "5px",
-    strong: {
-        marginLeft: "5px",
-    },
+const ThumbsBase = styled(ButtonBase)(({ theme }) => ({
+    marginRight: "10px",
+    marginTop: "10px",
+    fontWeight: 700,
     svg: {
         marginRight: "5px",
     },

@@ -20,6 +20,15 @@ const NavigationButtonBase = styled(PaginationStep)(({ theme }) => ({
     "&.previous": {
         marginRight: "20px",
     },
+
+    ["@media (max-width:600px)"]: {
+        "&.next": {
+            marginLeft: "10px",
+        },
+        "&.previous": {
+            marginRight: "10px",
+        },
+    },
 }));
 
 interface PaginationNavigationButtonProps {

@@ -29,7 +29,6 @@ interface AverageScoreProps {
 }
 const AverageScore: FunctionComponent<AverageScoreProps> = (props) => {
     const score = Math.floor(props.averageScore * 10);
-    console.log(props.predominant);
 
     return (
         <AverageScoreWrapper predominant={props.predominant} center>
