@@ -94,7 +94,9 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
             ></Pictrue>
             <div className="content">
                 <LocalizationBreadCrumbs crumbs={[country, city]}></LocalizationBreadCrumbs>
-                <Typography variant="h3">{city}</Typography>
+                <Typography variant="h3" sx={{ m: "0" }}>
+                    {city}
+                </Typography>
                 <Typography variant="body2">{shortDescription.slice(0, 100)}</Typography>
                 {isSelected && (
                     <span className="icon-in-background">
