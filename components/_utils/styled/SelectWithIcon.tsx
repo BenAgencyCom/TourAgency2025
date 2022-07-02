@@ -32,7 +32,6 @@ const StyledSelectBase = styled(Select)(({ theme }) => ({
         background: alpha(theme.palette.text.primary, 0.5),
         "button,textarea,input": {
             color: theme.palette.text.primary,
-            "-WebkitTextFillColor": theme.palette.text.primary,
             fontWeight: 500,
         },
     },

@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 // Types
 import type { SelectProps, SelectExtraOrderOption } from "./@types";
 import type { FunctionComponent, ChangeEvent } from "react";
-// Material UI Components
-import Fade from "@mui/material/Fade";
 // Other components
 import SelectWithIcon from "@/components/_utils/styled/SelectWithIcon";
 
@@ -20,7 +18,6 @@ const SelectOrder: FunctionComponent<SelectOrderProps> = (props) => {
     const [compounded, setCompoundedValue] = useState<string>("");
 
     const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        //
         props.update(e);
     };
 
