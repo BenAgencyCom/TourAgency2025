@@ -4,24 +4,27 @@ import prisma from "@/tests/API/helpers/db";
 import slugGenerator from "@/utils/api/slugGenerator";
 // Types
 import type { Mock } from "./@types";
-import type { Continent } from "@prisma/client";
+import type { Continent, ContentStatus } from "@prisma/client";
 
 interface DestinationInfo {
-    continent: Continent;
+    continent?: Continent;
+    status?: ContentStatus;
 }
 
 export default class MockDestination implements Mock {
     public id: string | null = null;
+    public city: string | null = null;
+    public country: string | null = null;
 
     public constructor() {}
 
     public async prepare(params?: DestinationInfo): Promise<MockDestination> {
         const slug = slugGenerator(faker.lorem.words(3));
-        const { id } = await prisma.destination.create({
+        const { id, country, city, status } = await prisma.destination.create({
             data: {
                 continent: (params && params.continent) ?? "Europe",
                 slug,
-                status: "APPROVED",
+                status: (params && params.status) ?? "APPROVED",
                 //
                 city: "testing",
                 city_lowercase: "testing",
@@ -35,6 +38,9 @@ export default class MockDestination implements Mock {
             },
         });
         this.id = id;
+        this.city = city;
+        this.country = country;
+
         return this;
     }
     public async remove(): Promise<MockDestination> {
@@ -44,6 +50,9 @@ export default class MockDestination implements Mock {
             });
         }
         this.id = null;
+        this.city = null;
+        this.country = null;
+
         return this;
     }
 }
