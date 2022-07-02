@@ -14,7 +14,7 @@ import { actions as createContentActions } from "@/redux/slices/createContent";
 
 const StageTwo: FunctionComponent = () => {
     const dispatch = useAppDispatch();
-    const { thumbnailURL } = useCreateLandmarkContext();
+    const { thumbnail, thumbnailURL } = useCreateLandmarkContext();
 
     useEffect(() => {
         dispatch(
@@ -30,7 +30,7 @@ const StageTwo: FunctionComponent = () => {
             <StageHeader title="Select thumbnail" stageNumber={2}></StageHeader>
             <Fade in={true}>
                 <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-                    <SelectThumbnail />
+                    <SelectThumbnail thumbnail={thumbnail} thumbnailURL={thumbnailURL} />
                 </div>
             </Fade>
         </>

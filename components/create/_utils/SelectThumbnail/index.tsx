@@ -1,45 +1,28 @@
 // Tools
 import { useRef } from "react";
-import { styled, alpha } from "@mui/system";
-import useCreateLandmarkContext from "@/components/create/landmark/hooks/useCreateLandmarkContext";
 // Types
 import type { FunctionComponent, ChangeEvent } from "react";
-// Material UI components
-import Button from "@mui/material/Button";
+import type { StatedDataField } from "@/@types/StatedDataField";
 // Material UI Icons
 import FileUpload from "@mui/icons-material/FileUpload";
-// Styled components
-import Loading from "@/components/_utils/Loading";
-import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
 // Redux
 import { useAppDispatch } from "@/hooks/useRedux";
 import { displaySnackbar } from "@/redux/slices/snackbar";
+// Styled components
+import Loading from "@/components/_utils/Loading";
+import SkeletonImage from "@/components/_utils/styled/SkeletonImage";
+import ThumbnailWrapper from "./styled_components/ThumbnailWrapper";
+import SelectThumbnailButton from "./styled_components/SelectThumbnailButton";
 
-const ThumbnailWrapper = styled("div")(({ theme }) => ({
-    width: "100%",
-    flexGrow: "1",
-    position: "relative",
-    background: alpha(theme.palette.text.primary, 0.1),
-    maxHeight: "calc(100vh - 500px)",
-    height: "1px", // has to be here, otherwise image component will not render
-    minHeight: "300px",
-}));
+interface SelectThumbnailProps {
+    thumbnail: StatedDataField<File | null>;
+    thumbnailURL: StatedDataField<string | null>;
+}
 
-const SelectThumbnailButton = styled(Button)(({ theme }) => ({
-    fontSize: "1.3rem",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%,-50%)",
-    svg: {
-        fontSize: "2rem",
-    },
-}));
-
-const SelectThumbnail: FunctionComponent = () => {
+const SelectThumbnail: FunctionComponent<SelectThumbnailProps> = (props) => {
     const dispatch = useAppDispatch();
 
-    const { thumbnail, thumbnailURL } = useCreateLandmarkContext();
+    const { thumbnail, thumbnailURL } = props;
     const fileInput = useRef<HTMLInputElement | null>(null);
 
     const openFileBrowserWindow = () => fileInput.current?.click();
