@@ -1,6 +1,5 @@
 // Types
 import type { FunctionComponent } from "react";
-import type { StatedDataField } from "@/@types/StatedDataField";
 // Other components
 import Thumb from "./Thumb";
 

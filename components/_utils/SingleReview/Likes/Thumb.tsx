@@ -17,7 +17,9 @@ const ThumbsBase = styled(ButtonBase)(({ theme }) => ({
     svg: {
         marginRight: "5px",
     },
+    padding: "3px 0",
     "&.authenticated-user-choice": {
+        padding: "3px",
         background: theme.palette.primary.main,
         color: "#fff",
         "&:hover": {

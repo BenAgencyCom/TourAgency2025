@@ -63,7 +63,7 @@ const LikesWithTooltips: FunctionComponent<LikesWithTooltipsProps> = (props) => 
                 />
             </Tooltip>
             <Tooltip
-                title={authenticatedUserChoice.value === "DISLIKE" ? "Undislike it!" : "Don't like it!"} //
+                title={authenticatedUserChoice.value === "DISLIKE" ? "Undislike it!" : "Dislike it!"} //
                 placement="top"
                 onClick={handleDislike}
             >
