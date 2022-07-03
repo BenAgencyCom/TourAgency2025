@@ -1,5 +1,4 @@
 // Tools
-import { prisma } from "@/prisma/db";
 import ReviewsFormatterAbstract from "./abstracts/ReviewsFormatter";
 // Types
 import type { Feedback } from "@prisma/client";

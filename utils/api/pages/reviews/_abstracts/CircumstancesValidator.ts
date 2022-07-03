@@ -56,7 +56,6 @@ export default abstract class CircumstancesValidator {
             },
         });
         if (!model) throw new NotFound();
-
         this.authorize(model.reviewer.id);
     }
 
@@ -75,7 +74,6 @@ export default abstract class CircumstancesValidator {
             },
         });
         if (!model) throw new NotFound();
-
         this.authorize(model.reviewer.id);
     }
     /**
