@@ -24,7 +24,7 @@ export default class FieldsValidator extends DescriptionValidator {
         // validate destination ID
         await this.findDestinationWithRecivedId();
         //
-        await this.validateDescription();
+        this.validateDescription();
     }
 
     /** Validate each field **expect** `description` */

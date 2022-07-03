@@ -10,10 +10,18 @@ interface CreateLandmarkRestrictions {
     city: Restriction;
     shortDescription: Restriction;
     description: CreateDescriptionRestrictions;
+    country: {
+        label: Restriction;
+        phone: Restriction;
+    };
 }
 
 export default {
     city: createRestriction(3, 50),
     shortDescription: createRestriction(10, 150),
     description: createDescriptionRestrictions,
+    country: {
+        label: createRestriction(3, 60),
+        phone: createRestriction(1, 10),
+    },
 } as CreateLandmarkRestrictions;

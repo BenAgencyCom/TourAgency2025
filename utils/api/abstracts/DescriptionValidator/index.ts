@@ -1,8 +1,5 @@
 // Tools
-import joi from "joi";
 import { InvalidRequestedBody } from "@/utils/api/Errors";
-import createBetterJoiErrors from "@/utils/api/betterJoiErrors";
-import restrictions from "@/utils/restrictions/createDescription";
 // Fields' validators
 import ImageFieldValidator from "./ImageFieldValidator";
 import HeaderFieldValidator from "./HeaderFieldValidator";
@@ -22,8 +19,9 @@ import type { DescriptionContentField, HeaderContentField, ParagraphContentField
 export default abstract class DescriptionValidator {
     public constructor(private description?: DescriptionContentField[]) {}
 
-    public async validateDescription() {
+    public validateDescription() {
         this.ensureThatDescriptionHasBeenReceived();
+        this.ensureThatDescriptionIsTypeOfObject();
 
         (this.description as DescriptionContentField[]).forEach((field, index) => {
             this.distinguishFurtherValidationStep(field, index);
@@ -41,6 +39,22 @@ export default abstract class DescriptionValidator {
             ]);
         }
     }
+
+    /**
+     * Functions ensures that received description is type of object and furthermore is an array.
+     */
+    private ensureThatDescriptionIsTypeOfObject() {
+        if (!(this.description instanceof Object && this.description.map)) {
+            throw new InvalidRequestedBody([
+                {
+                    element: "description",
+                    message: `description property has been received with unprocessable type`,
+                    type: "invalid type",
+                },
+            ]);
+        }
+    }
+
     /**
      * Expect one param of type `DescriptionContentField`, pushes field into further
      * validation step based on it's type
