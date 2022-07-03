@@ -12,7 +12,11 @@ const CreateDestinationStage1: FunctionComponent<CreateDestinationStage1Props> =
     return (
         <>
             <StageHeader title="General information" stageNumber={1} />
-            <span>Stage 1</span>
+            <span>City</span>
+            <span>Country</span>
+            <span>Continent</span>
+            <span>Short description</span>
+            <span>Population</span>
         </>
     );
 };

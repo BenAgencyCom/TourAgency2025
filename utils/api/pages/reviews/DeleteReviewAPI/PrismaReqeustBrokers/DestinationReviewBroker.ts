@@ -16,7 +16,7 @@ export default class DestinationReviewBroker extends CircumstancesValidator impl
     }
 
     public async deleteRecord(): Promise<void> {
-        this.ensureThatRecordExistsAndUserIsEntitledToDoIndendedAction();
+        await this.ensureThatRecordExistsAndUserIsEntitledToDoIndendedAction();
         await prisma.destinationReview.deleteMany({
             where: {
                 id: this.idOfReview,

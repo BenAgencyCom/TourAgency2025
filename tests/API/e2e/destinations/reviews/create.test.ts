@@ -2,118 +2,115 @@
 import prisma from "@/tests/API/helpers/db";
 import { validDataRequestBody } from "@/tests/API/data/review";
 import { testRequestStatus } from "@/tests/API/helpers/testStatus";
-import { VERY_LONG_STRING } from "@/tests/API/data/landmarks/create/index";
+import { VERY_LONG_STRING } from "@/tests/API/data/destinations/create/index";
 // Mocks
 import MockUser from "@/tests/API/helpers/mocks/MockUser";
-import MockLandmark from "@/tests/API/helpers/mocks/MockLandmark";
 import MockDestination from "@/tests/API/helpers/mocks/MockDestination";
 // Types
-import type { CreateReviewRequest } from "@/pages/api/landmark/[landmark_id]/reviews/@types";
+import type { CreateReviewRequest } from "@/pages/api/destination/[destination_id]/reviews/@types";
 
 const createRequestBody = (): Partial<CreateReviewRequest["body"]> => JSON.parse(JSON.stringify(validDataRequestBody));
 
-describe("POST: /api/landmark/[landmark_id]/reviews", () => {
+describe("POST: /api/destination/[destination_id]/reviews", () => {
     const user = new MockUser();
     const destination = new MockDestination();
-    const landmark = new MockLandmark();
 
     beforeAll(async () => {
         await user.prepare();
         await destination.prepare();
-        await landmark.prepare(destination.id as string);
     });
 
     beforeEach(async () => {
         const where = {
             reviewerId: user.id as string,
-            landmarkId: landmark.id as string,
+            destinationId: destination.id as string,
         };
-        if (await prisma.landmarkReview.findMany({ where })) {
-            await prisma.landmarkReview.deleteMany({ where });
+        if (await prisma.destinationReview.findMany({ where })) {
+            await prisma.destinationReview.deleteMany({ where });
         }
     });
 
     afterAll(async () => {
         await user.remove();
-        await destination.remove(); // landmark will be deleted automatically due to the CASCADE relation
+        await destination.remove(); // destination will be deleted automatically due to the CASCADE relation
     });
 
     test("User can create a review", async () => {
         await testRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+            endpoint: `/api/destination/${destination.id as string}/reviews`,
             expectedStatus: 201,
             Cookie: user.accessTokenAsCookie as string,
         });
-        const reviewInDatabase = await prisma.landmarkReview.findFirst({
+        const reviewInDatabase = await prisma.destinationReview.findFirst({
             where: {
                 reviewerId: user.id as string,
-                landmarkId: landmark.id as string,
+                destinationId: destination.id as string,
             },
         });
         expect(reviewInDatabase).not.toBeFalsy();
-        await prisma.landmarkReview.deleteMany({
+        await prisma.destinationReview.deleteMany({
             where: {
                 reviewerId: user.id as string,
-                landmarkId: landmark.id as string,
+                destinationId: destination.id as string,
             },
         });
     });
 
-    test("One user cannot create a few reviews to the same landmark", async () => {
+    test("One user cannot create a few reviews to the same destination", async () => {
         await testRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+            endpoint: `/api/destination/${destination.id as string}/reviews`,
             expectedStatus: 201,
             Cookie: user.accessTokenAsCookie as string,
         });
         await testRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+            endpoint: `/api/destination/${destination.id as string}/reviews`,
             expectedStatus: 409,
             Cookie: user.accessTokenAsCookie as string,
         });
 
-        const reviewInDatabase = await prisma.landmarkReview.findMany({
+        const reviewInDatabase = await prisma.destinationReview.findMany({
             where: {
                 reviewerId: user.id as string,
-                landmarkId: landmark.id as string,
+                destinationId: destination.id as string,
             },
         });
         expect(reviewInDatabase).toHaveLength(1);
 
-        await prisma.landmarkReview.deleteMany({
+        await prisma.destinationReview.deleteMany({
             where: {
                 reviewerId: user.id as string,
-                landmarkId: landmark.id as string,
+                destinationId: destination.id as string,
             },
         });
     });
     test("Anonymous cannot create a review", async () => {
         await testRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+            endpoint: `/api/destination/${destination.id as string}/reviews`,
             expectedStatus: 403,
         });
-        const reviewInDatabase = await prisma.landmarkReview.findMany({
+        const reviewInDatabase = await prisma.destinationReview.findMany({
             where: {
                 reviewerId: user.id as string,
-                landmarkId: landmark.id as string,
+                destinationId: destination.id as string,
             },
         });
         expect(reviewInDatabase).toHaveLength(0);
     });
-    test("404 while trying to create a review of unexisting landmark", async () => {
+    test("404 while trying to create a review of unexisting destination", async () => {
         await testRequestStatus({
             body: validDataRequestBody,
-            endpoint: `/api/landmark/uexsitingi23u9128u329/reviews`,
+            endpoint: `/api/destination/uexsitingi23u9128u329/reviews`,
             expectedStatus: 404,
             Cookie: user.accessTokenAsCookie as string,
         });
-        const reviewInDatabase = await prisma.landmarkReview.findMany({
+        const reviewInDatabase = await prisma.destinationReview.findMany({
             where: {
                 reviewerId: user.id as string,
-                landmarkId: "uexsitingi23u9128u329",
+                destinationId: "uexsitingi23u9128u329",
             },
         });
         expect(reviewInDatabase).toHaveLength(0);
@@ -126,7 +123,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -137,7 +134,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -148,7 +145,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -159,7 +156,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -172,7 +169,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -183,7 +180,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -194,7 +191,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -205,7 +202,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -217,7 +214,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
                 delete body.tags;
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -227,7 +224,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
                 body.tags = ["lorem1", "lorem2", "lorem3", "lorem4", "lorem5", "lorem6"];
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -238,7 +235,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -249,7 +246,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
 
                 await testRequestStatus({
                     body,
-                    endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                    endpoint: `/api/destination/${destination.id as string}/reviews`,
                     expectedStatus: 400,
                     Cookie: user.accessTokenAsCookie as string,
                 });
@@ -260,7 +257,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
                     body.tags = ["lorem1", VERY_LONG_STRING];
                     await testRequestStatus({
                         body,
-                        endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                        endpoint: `/api/destination/${destination.id as string}/reviews`,
                         expectedStatus: 400,
                         Cookie: user.accessTokenAsCookie as string,
                     });
@@ -270,7 +267,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
                     body.tags = [1, 2, 3] as any;
                     await testRequestStatus({
                         body,
-                        endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                        endpoint: `/api/destination/${destination.id as string}/reviews`,
                         expectedStatus: 400,
                         Cookie: user.accessTokenAsCookie as string,
                     });
@@ -280,7 +277,7 @@ describe("POST: /api/landmark/[landmark_id]/reviews", () => {
                     body.tags = ["lorem1", "l"];
                     await testRequestStatus({
                         body,
-                        endpoint: `/api/landmark/${landmark.id as string}/reviews`,
+                        endpoint: `/api/destination/${destination.id as string}/reviews`,
                         expectedStatus: 400,
                         Cookie: user.accessTokenAsCookie as string,
                     });
