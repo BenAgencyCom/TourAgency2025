@@ -17,7 +17,7 @@ export default class DestinactionReview implements PrismaRequestBroker {
     }
 
     public async ensureThatReviewExists(): Promise<void> {
-        const review = await prisma.landmarkReview.findUnique({ where: { id: this.idOfReview } });
+        const review = await prisma.destinationReview.findUnique({ where: { id: this.idOfReview } });
         if (!review) throw new NotFound();
     }
 
