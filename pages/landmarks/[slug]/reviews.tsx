@@ -6,19 +6,31 @@ import type { GetStaticPaths, GetStaticProps } from "next";
 import type { Landmark } from "@/@types/pages/landmarks/Reviews";
 // Other components
 import Head from "next/Head";
-import Content from "@/components/landmarks/reviews/Wrapper";
+import BulkReviews from "@/components/_utils/BulkReviews";
 
 interface SingleLandmarkReviewsProps {
     landmark: Landmark;
 }
 
 const SingleLandmarkReviews: FunctionComponent<SingleLandmarkReviewsProps> = ({ landmark }) => {
+    const { destination } = landmark;
+
     return (
         <>
             <Head>
                 <title>{landmark.title} | Reviews</title>
             </Head>
-            <Content landmark={landmark}></Content>
+            <BulkReviews
+                reviewsType="landmark" //
+                idOfReviewingItem={landmark.id}
+                landingScreen={{
+                    breadcrumbs: [destination.continent, destination.country, destination.city],
+                    description: landmark.shortDescription,
+                    folder: landmark.folder,
+                    header: landmark.title,
+                    slug: landmark.slug,
+                }}
+            />
         </>
     );
 };

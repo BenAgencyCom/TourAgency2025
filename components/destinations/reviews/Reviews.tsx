@@ -15,6 +15,7 @@ interface ReviewsProps {
     reviews: Review[];
     paginationProperties: PaginationProperties;
     reviewsAreLoading: boolean;
+    destinationId: string;
 }
 
 const Reviews: FunctionComponent<ReviewsProps> = (props) => {
@@ -28,7 +29,16 @@ const Reviews: FunctionComponent<ReviewsProps> = (props) => {
                         <Fade in={true}>
                             <FlexBox column horizontal="center">
                                 {props.reviews.map((review, index) => {
-                                    return <SingleReview key={index} review={review}></SingleReview>;
+                                    return (
+                                        <SingleReview
+                                            key={index} //
+                                            review={review}
+                                            record={{
+                                                id: props.destinationId,
+                                                type: "destination",
+                                            }}
+                                        ></SingleReview>
+                                    );
                                 })}
                             </FlexBox>
                         </Fade>

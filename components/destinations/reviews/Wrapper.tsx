@@ -43,8 +43,9 @@ const Content: FunctionComponent<ContentParams> = (props) => {
             const applyPointsDistribution = !statistics || !pointsDistribution;
             const res = await axios.get(`/api/destination/${destinationID}/reviews${urlQueries}&perPage=${REVIEWS_PER_PAGE}${applyPointsDistribution ? "&applyPointsDistribution=1" : ""} `);
             if (res.data) {
-                const { pagination, reviews, pointsDistribution, statistics } = res.data;
+                console.log(res.data);
 
+                const { pagination, reviews, pointsDistribution, statistics } = res.data;
                 setLoading(false);
                 setReviews(reviews);
                 setPaginationProperties(pagination);
@@ -127,6 +128,7 @@ const Content: FunctionComponent<ContentParams> = (props) => {
                                     reviews={reviews} //
                                     paginationProperties={paginationProperties}
                                     reviewsAreLoading={loading}
+                                    destinationId={props.destination.id}
                                 ></Reviews>
                             );
                         }
