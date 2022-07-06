@@ -1,5 +1,6 @@
 // Tools
 import axios from "axios";
+import moment from "moment";
 // Types
 import type { Review } from "@/@types/pages/api/ReviewsAPI";
 import type { StatedDataField } from "@/@types/StatedDataField";
@@ -29,7 +30,7 @@ export default async (params: HandleCreateRequestParams) => {
         });
 
         authenticatedUserReview.setValue({
-            createdAt: data.createdAt,
+            createdAt: moment(data.createdAt).format("YYYY-MM-DD HH:mm:ss"),
             feedback: data.feedback,
             id: data.id,
             points: data.points,
