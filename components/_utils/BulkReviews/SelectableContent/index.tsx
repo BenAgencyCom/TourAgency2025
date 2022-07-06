@@ -57,15 +57,19 @@ const SelectableContent: FunctionComponent = (props) => {
 
     // Check whether the pinned review can be loaded
     useEffect(() => {
+        if (!authenticatedUserReview && !pinnedReview) {
+            setCurrentSection("createReview");
+            return;
+        }
         if (router.query.pinnedReviewId) {
-            if (pinnedReviewAndAuthenticatedUserReviewAreNotTheSame) setCurrentSection("pinnedReview");
+            if (pinnedReview && pinnedReviewAndAuthenticatedUserReviewAreNotTheSame) setCurrentSection("pinnedReview");
             else if (authenticatedUserReview) {
                 setCurrentSection("authenticatedUserReview");
             }
         } else if (authenticatedUserReview) {
             setCurrentSection("authenticatedUserReview");
         }
-    }, [router.query, pinnedReviewAndAuthenticatedUserReviewAreNotTheSame, authenticatedUserReview]);
+    }, [router.query, pinnedReviewAndAuthenticatedUserReviewAreNotTheSame, authenticatedUserReview, pinnedReview]);
 
     const addPropsToButton = (type: Section) => {
         return {
@@ -101,7 +105,7 @@ const SelectableContent: FunctionComponent = (props) => {
                             }}
                         />
                     );
-                } else if (currentSection === "authenticatedUserReview") {
+                } else if (currentSection === "authenticatedUserReview" && authenticatedUserReview) {
                     return (
                         <SingleReview
                             review={authenticatedUserReview as Review} //

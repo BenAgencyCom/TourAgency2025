@@ -17,6 +17,7 @@ interface DeleteReviewButtonProps {
         type: "landmark" | "destination";
     };
     authenticatedUserReview: StatedDataField<Review | null>;
+    pinnedReview: StatedDataField<Review | null>;
 }
 
 const DeleteReviewButton: FunctionComponent<DeleteReviewButtonProps> = (props) => {
@@ -28,9 +29,10 @@ const DeleteReviewButton: FunctionComponent<DeleteReviewButtonProps> = (props) =
         if (props.authenticatedUserReview.value === null) return;
         //
         await handleDeleteRequest({
-            displaySnackbar,
             record: props.record,
+            pinnedReview: props.pinnedReview,
             authenticatedUserReview: props.authenticatedUserReview,
+            displaySnackbar,
             resetCreateReviewFields: resetCreateReviewFields,
         });
     };

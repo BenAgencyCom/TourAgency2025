@@ -54,7 +54,7 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
     const { reviewContent, tags, scoreInt, scoreFloat } = useCreateReviewContext();
     const { fetchingResult, idOfReviewingItem, reviewsType } = useBulkReviewsContext();
 
-    const authenticatedUserReview = fetchingResult.authenticatedUserReview;
+    const { authenticatedUserReview, pinnedReview } = fetchingResult;
 
     const { actualScore, buttonIsDisabled } = useNewReviewValidator({
         isAuthenticated: isAuthenticated ?? false,
@@ -123,6 +123,7 @@ const SendRequestButton: FunctionComponent<SendRequestButtonProps> = (props) => 
                 <DeleteReviewButton
                     record={record} //
                     authenticatedUserReview={authenticatedUserReview}
+                    pinnedReview={pinnedReview}
                 />
             )}
         </SendRequestButtonWrapper>
