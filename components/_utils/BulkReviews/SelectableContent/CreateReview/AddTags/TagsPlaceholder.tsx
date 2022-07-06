@@ -13,7 +13,6 @@ const FlexBox = styled("div")(({ theme }) => ({
 
 const TagPlaceholder = styled("div")(({ theme }) => ({
     background: theme.palette.text.primary,
-    marginRight: "5px",
     borderRadius: "3px",
     fontSize: "1.1rem",
     userSelect: "none",
@@ -22,7 +21,7 @@ const TagPlaceholder = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     height: "30px",
-    marginTop: "10px",
+    margin: "5px 5px 5px 0",
     animation: `${fadeIn} .3s ease-in-out both`,
     "&:nth-of-type(2)": {
         animationDelay: ".05s",

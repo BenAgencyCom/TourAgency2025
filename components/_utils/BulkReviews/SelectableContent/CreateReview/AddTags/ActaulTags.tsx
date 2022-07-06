@@ -10,7 +10,6 @@ import IconButton from "@mui/material/IconButton";
 import Close from "@mui/icons-material/Close";
 // Styled components
 const ActualTagsWrapper = styled("div")(({ theme }) => ({
-    minHeight: "64px",
     display: "flex",
     flexWrap: "wrap",
     alignItems: "flex-start",
@@ -23,7 +22,7 @@ const SingleTag = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     transition: "background .3s ease-in-out",
-    margin: "10px 5px 0px 0",
+    margin: "5px 5px 5px 0",
     animation: `${fadeIn} .3s ease-in-out both`,
     button: {
         padding: 0,
