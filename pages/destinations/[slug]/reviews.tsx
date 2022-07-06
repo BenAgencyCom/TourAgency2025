@@ -6,20 +6,30 @@ import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/destinations/Reviews";
 // Other components
 import Head from "next/Head";
-import Content from "@/components/destinations/reviews/Wrapper";
+import BulkReviews from "@/components/_utils/BulkReviews";
 
 interface CertinDestinationReviewsProps {
     destination: Destination;
 }
 
-const CertinDestinationReviews: FunctionComponent<CertinDestinationReviewsProps> = (props) => {
+const CertinDestinationReviews: FunctionComponent<CertinDestinationReviewsProps> = ({ destination }) => {
     return (
         <>
             <Head>
-                <title>{props.destination.city} | Reviews</title>
+                <title>{destination.city} | Reviews</title>
             </Head>
 
-            <Content destination={props.destination}></Content>
+            <BulkReviews
+                reviewsType="destination" //
+                idOfReviewingItem={destination.id}
+                landingScreen={{
+                    breadcrumbs: [destination.continent, destination.country, destination.city],
+                    description: destination.shortDescription,
+                    folder: destination.folder,
+                    header: destination.city,
+                    slug: destination.slug,
+                }}
+            />
         </>
     );
 };
