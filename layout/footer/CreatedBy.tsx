@@ -18,8 +18,8 @@ const CreatedByWrapper = styled(FlexBox)(({ theme }) => ({
 const CreatedBy: FunctionComponent = () => {
     return (
         <CreatedByWrapper center>
-            <a href="https://github.com/Kacper-Ksiazek" target="_blank" rel="noreferrer" tabIndex={0}>
-                Created by Kacper Książek 2022
+            <a href="https://github.com/BenAgencyCom" target="_blank" rel="noreferrer" tabIndex={0}>
+                Created by Tyler
             </a>
         </CreatedByWrapper>
     );

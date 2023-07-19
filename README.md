@@ -1,8 +1,7 @@
-# Elo, bejbe tatauzyk 😎
+# Tour Agency in next.js
+using typescript & material components for react
 
-![img](https://glamrap.pl/wp-content/uploads/2020/10/sentino.jpg)
-
-### Furthermore, how to run this exquisite application:
+### Furthermore, how to run this tour agency application:
 
 1. To install all node dependencies included in `package.json`
     ```npm

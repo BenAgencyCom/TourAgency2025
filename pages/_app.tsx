@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
                         return (
                             <>
                                 <Head>
-                                    <title>My exquisite site</title>
+                                    <title>Tour Agency site</title>
                                 </Head>
                                 <Loading />
                             </>

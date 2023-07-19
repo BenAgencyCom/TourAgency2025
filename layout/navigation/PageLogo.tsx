@@ -60,7 +60,7 @@ const PageLogo: FunctionComponent<PageLogoProps> = (props) => {
             {/*  */}
             {width > 1200 && (
                 <Header className="contrast-color alternative-font-family" isScrolledDown={props.isScrolledDown}>
-                    My exquisite page
+                    Tour Agency
                 </Header>
             )}
         </FlexBox>

@@ -26,13 +26,13 @@ export default [
         title: "Company",
         fields: [
             {
-                page: "My portfolio",
-                url: "",
+                page: "Portfolio",
+                url: "https://github.com/BenAgencyCom",
                 openInNewTab: true,
             },
             {
-                page: "My github",
-                url: "",
+                page: "Github",
+                url: "https://github.com/BenAgencyCom",
                 openInNewTab: true,
             },
             {
