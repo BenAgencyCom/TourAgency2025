@@ -26,8 +26,8 @@ export default (): UseLoginRequestResult => {
     const displaySnackbar = useSnackbar();
     const router = useRouter();
 
-    const [password, setPassword] = useState<string>("jebac_gorzen123");
-    const [email, setEmail] = useState<string>("jebac_gorzen@gmail.com");
+    const [password, setPassword] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
     const [requestIsPending, setRequestIsPending] = useState<boolean>(false);
 
     const credentialsAreValid = useCredentialsValidator({ email, password });

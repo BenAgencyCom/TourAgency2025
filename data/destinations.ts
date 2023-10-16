@@ -23,7 +23,7 @@ export default [
         country: "France",
         continent: "Europe",
         city: "Paris",
-        description: "Einem der sieben am stärksten industrialisierten und reichsten Länder der Welt",
+        description: "An artistic capital with iconic landmarks, romantic ambiance, and gourmet cuisine in Western Europe",
         backgroundSrc: "/images/france.jpg",
         length: {
             days: 5,
@@ -56,7 +56,7 @@ export default [
         country: "United Arab Emirates",
         continent: "Africa",
         city: "Abu Dhabi",
-        description: "dein Freund mag Abu Dhabi und ich mag es, wenn ein Tätowierer mit mir spricht",
+        description: "A desert oasis with futuristic architecture and a rich cultural heritage in the Middle East",
         backgroundSrc: "/images/abu_dhabi.jpg",
         length: {
             days: 2,
@@ -96,7 +96,7 @@ export default [
         country: "Poland",
         continent: "Europe",
         city: "Kraków",
-        description: "Es war einmal ein Wawel-Drache, aber ein Junge aus dem Dorf kam und tötete ihn",
+        description: "A European gem, known for its historic charm, medieval streets, and royal traditions",
         backgroundSrc: "/images/krakow.jpg",
         length: {
             days: 7,
@@ -129,7 +129,7 @@ export default [
         country: "Germany",
         continent: "Europe",
         city: "München",
-        description: "Ich wusste verdammt noch mal nicht, wie der Name dieser Stadt geschrieben wurde",
+        description: "A Bavarian hub blending old-world traditions with technological innovation, famous for beer and culture.",
         backgroundSrc: "/images/munchen.jpg",
         length: {
             days: 7,
