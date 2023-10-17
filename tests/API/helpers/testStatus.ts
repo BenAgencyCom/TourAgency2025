@@ -24,6 +24,7 @@ interface TestPOSTRequestStatus {
 }
 export const testRequestStatus = async (props: TestPOSTRequestStatus) => {
     const { endpoint, expectedStatus, Cookie, body } = props;
+
     return await axios({
         method: props.method ?? "POST",
         url: `${API_ADDRESS}/${endpoint}`,

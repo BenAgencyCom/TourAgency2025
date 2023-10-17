@@ -45,6 +45,7 @@ export default class CreateLandmarkAPI extends FileUploader {
      */
     private async handleValidation() {
         await new FieldsValidator(this.fields).validate();
+
         new ReceivedFilesValidator({
             files: this.files,
             fields: this.fields,

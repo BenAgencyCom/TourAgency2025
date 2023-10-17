@@ -32,7 +32,7 @@ export default (DESTINATION_ID: string): ValidLandmarkData => {
             },
             {
                 type: FieldType.PARAGRAPH,
-                content: faker.lorem.words(300).slice(0, 1000),
+                content: faker.lorem.words(300).slice(0, 400),
             },
             {
                 type: FieldType.IMAGE,

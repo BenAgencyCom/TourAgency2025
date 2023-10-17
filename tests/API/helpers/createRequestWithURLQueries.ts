@@ -61,7 +61,7 @@ export default <URLQueries, Response>(params: CreateMakeRequest<URLQueries>) => 
     return async (requestQueries: URLQueries, Cookie: string = ""): Promise<Response> => {
         let url = `${API_ADDRESS}/${transformedEndpointURL}?`;
         possibleURLQueries.forEach((URLQueryName) => {
-            if (requestQueries[URLQueryName]) url += `${URLQueryName}=${requestQueries[URLQueryName]}&`;
+            if (requestQueries[URLQueryName]) url += `${String(URLQueryName)}=${requestQueries[URLQueryName]}&`;
         });
         const { data } = await axios.get(url, {
             headers: {

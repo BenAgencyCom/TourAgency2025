@@ -83,10 +83,17 @@ describe("DESTINATIONS", () => {
             expect(status).toEqual(201);
         });
         test("User should NOT be able to create an destinatnion", async () => {
-            await testRequestStatus("/api/destination/create", 403, notAdminUser.accessToken as string);
+            await testRequestStatus({
+                endpoint: "/api/destination/create",
+                expectedStatus: 403,
+                Cookie: notAdminUser.accessToken as string,
+            });
         });
         test("Anonymous should NOT be able to create an destinatnion", async () => {
-            await testRequestStatus("/api/destination/create", 403);
+            await testRequestStatus({
+                endpoint: "/api/destination/create",
+                expectedStatus: 403,
+            });
         });
     });
 
@@ -196,7 +203,7 @@ describe("DESTINATIONS", () => {
         const landmarksDirectories: string[] = [];
         beforeAll(() => {
             createdDestination?.landmarks.forEach((landmark) => {
-                const _path = path.join(uploadDir, "landmarks", landmark.picture);
+                const _path = path.join(uploadDir, "landmarks", landmark.folder);
 
                 landmarksId.push(landmark.id);
                 landmarksDirectories.push(_path);
