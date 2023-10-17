@@ -36,9 +36,14 @@ class PrismaSeeder extends ConsolePrettier {
         this.consoleMsg("Delete currently storing images");
 
         for (const folder of foldersToRefresh) {
-            await fse.remove(path.join(uploadDir, folder));
-            await fse.mkdir(path.join(uploadDir, folder));
-            this.consoleMsg(`${folder}- folder has been revamped`, "SUCCESS");
+            const _path = path.join(uploadDir, folder);
+            const pathExists: boolean = fse.pathExistsSync(_path);
+
+            if (pathExists) {
+                await fse.remove(_path);
+                await fse.mkdir(_path);
+                this.consoleMsg(`${folder}- folder has been revamped`, "SUCCESS");
+            }
         }
     }
 
@@ -71,19 +76,29 @@ class PrismaSeeder extends ConsolePrettier {
         }
     }
 
+    private disconectPrisma() {
+        prisma.$disconnect();
+    }
+
     async main() {
-        if (process.env.NODE_ENV === "production") return;
-        await this.deleteCurrentImages();
+        try {
+            if (process.env.NODE_ENV === "production") return;
+            await this.deleteCurrentImages();
 
-        await this.seedModel("user", this.userData);
-        await this.seedModel("destination", this.destinationData);
-        await this.seedModel("landmark", this.landmarkData);
-        await this.seedModel("destinationReview", this.destinationReviewData);
-        await this.seedModel("landmarkReview", this.landmarksReviews);
-        await this.seedModel("destinationReviewLike", this.destinationReviewLike);
-        await this.seedModel("landmarkReviewLike", this.landmarkReviewLike);
+            await this.seedModel("user", this.userData);
+            await this.seedModel("destination", this.destinationData);
+            await this.seedModel("landmark", this.landmarkData);
+            await this.seedModel("destinationReview", this.destinationReviewData);
+            await this.seedModel("landmarkReview", this.landmarksReviews);
+            await this.seedModel("destinationReviewLike", this.destinationReviewLike);
+            await this.seedModel("landmarkReviewLike", this.landmarkReviewLike);
 
-        await this.uploadAllImages();
+            await this.uploadAllImages();
+            this.disconectPrisma();
+        } catch (e) {
+            console.error(e);
+            this.disconectPrisma();
+        }
     }
 }
 
