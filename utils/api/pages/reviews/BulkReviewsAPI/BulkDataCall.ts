@@ -10,32 +10,33 @@ import BulkAPIsURLQueriesHandler from "@/utils/api/abstracts/BulkAPIsURLQueriesH
 // Types
 import type { NextApiRequest } from "next";
 import type { ReviewType } from "@prisma/client";
-import type { AuthenticatedUserReviewResult } from "./AuthenticatedUserReview";
 import type { ReviewsCallResponse, Review } from "@/@types/pages/api/ReviewsAPI";
-import type { ExtraProperty } from "@/@types/pages/api/BulkAPIsURLQueriesHandler";
 import type { ReviewFromQuery, PrismaRequestBroker, ExtraProperties, CallForReviewsParams } from "./@types";
 
 export default class BulkDataCall extends BulkAPIsURLQueriesHandler<ExtraProperties> {
     public constructor(private request: NextApiRequest, private PrismaRequestBroker: PrismaRequestBroker) {
-        const extraProperties: ExtraProperty[] = [
-            {
-                name: "certianReviewType",
-                compareWith: "type",
-                default: undefined,
-                required: false,
-                values: ["MIXED", "NEGATIVE", "POSITIVE"] as ReviewType[],
-            },
-            {
-                name: "applyPointsDistribution",
-                default: false,
-                values: ["1"],
-            },
-            {
-                name: "pinnedReviewId",
-                treatThisPropertyAsIDandExcludeItFromResults: true,
-            },
-        ];
-        super(request as any, ["createdAt", "points"], extraProperties);
+        super(
+            request as any,
+            ["createdAt", "points"],
+            [
+                {
+                    name: "certianReviewType",
+                    compareWith: "type",
+                    default: undefined,
+                    required: false,
+                    values: ["MIXED", "NEGATIVE", "POSITIVE"] as ReviewType[],
+                },
+                {
+                    name: "applyPointsDistribution",
+                    default: false,
+                    values: ["1"],
+                },
+                {
+                    name: "pinnedReviewId",
+                    treatThisPropertyAsIDandExcludeItFromResults: true,
+                },
+            ]
+        );
     }
 
     public async main(): Promise<ReviewsCallResponse> {

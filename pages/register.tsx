@@ -62,7 +62,7 @@ const Registration: NextPage = () => {
                     {stage !== "RESULT" && (
                         <ContinueButton
                             allFieldsAreValid={allFieldsAreValid} //
-                            stage={stated(stage, setStage) as any}
+                            stage={stated(stage, setStage as any) as any}
                             disabled={disableContinueButton}
                         />
                     )}
