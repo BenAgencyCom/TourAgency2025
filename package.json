@@ -9,6 +9,7 @@
         "diligent_test": "jest --runInBand",
         "test": "jest",
         "seed": "ts-node ./prisma/seed.ts",
+        "sync_imgs": "ts-node ./prisma/sync_uploaded_images.ts",
         "cypress": "./node_modules/.bin/cypress open"
     },
     "dependencies": {

@@ -1,5 +1,5 @@
 // Tools
-import { PrismaSeeder } from "./classes/PrismaSeeder";
+import { UploadedPicturesHandler } from "./classes/UploadedPicturesHandler";
 // Data
 import userData from "./data/users";
 import destinationData from "./data/destinations";
@@ -12,7 +12,7 @@ import landmarkReviewLike from "./data/landmarksReviewsLikes";
 const main = async () => {
     console.clear();
 
-    const Seeder = new PrismaSeeder({
+    const Seeder = new UploadedPicturesHandler({
         userData,
         destinationData,
         landmarkData,
