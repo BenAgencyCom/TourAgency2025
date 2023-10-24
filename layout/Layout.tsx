@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import Navigation from "./navigation";
 import Snackbar from "./Snackbar";
 import ScrollButton from "./ScrollButton";
-import LayoutFooter from "./Footer";
+import LayoutFooter from "./footer";
 // Redux
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { resize, setScroll } from "@/redux/slices/windowSizes";
