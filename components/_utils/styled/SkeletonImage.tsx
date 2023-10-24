@@ -16,7 +16,8 @@ const ImageWrapper = styled("div")(({ theme }) => ({
     width: "100%",
     height: "100%",
 }));
-interface SkeletonImageProps extends ImageProps {
+interface SkeletonImageProps extends Omit<ImageProps, "src"> {
+    src: string;
     modalMaxResolution?: string;
     advanceModalProperties?: {
         title: string;
@@ -36,6 +37,7 @@ const SkeletonImage: FunctionComponent<SkeletonImageProps> = (props) => {
             <Image
                 alt={props.alt} //
                 {...propsToForward}
+                src={props.src}
                 onLoadingComplete={() => setImageIsStillLoading(false)}
             ></Image>
             {(() => {
