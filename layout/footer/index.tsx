@@ -148,7 +148,7 @@ const FooterContent = styled(FlexBox)(({ theme }) => ({
     },
 }));
 
-const Footer: FunctionComponent = () => {
+const LayoutFooter: FunctionComponent = () => {
     return (
         <FooterWrapper center column>
             <FooterContent column>
@@ -177,4 +177,4 @@ const Footer: FunctionComponent = () => {
     );
 };
 
-export default Footer;
+export default LayoutFooter;

@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import Navigation from "@/layout/navigation";
 import Snackbar from "@/layout//Snackbar";
 import ScrollButton from "@/layout/ScrollButton";
-import Footer from "@/layout/Footer";
+import LayoutFooter from "@/layout/Footer/index";
 // Redux
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { resize, setScroll } from "@/redux/slices/windowSizes";
@@ -82,7 +82,7 @@ const Layout: FunctionComponent<LayoutProps> = (props) => {
 
             {(() => {
                 if (!props.loading && displayAppBar) {
-                    return <Footer></Footer>;
+                    return <LayoutFooter />;
                 }
             })()}
         </>
