@@ -7,10 +7,10 @@ import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
-import Navigation from "@/layout/navigation";
-import Snackbar from "@/layout//Snackbar";
-import ScrollButton from "@/layout/ScrollButton";
-import LayoutFooter from "@/layout/Footer/index";
+import Navigation from "./navigation";
+import Snackbar from "./Snackbar";
+import ScrollButton from "./ScrollButton";
+import LayoutFooter from "./Footer";
 // Redux
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { resize, setScroll } from "@/redux/slices/windowSizes";
