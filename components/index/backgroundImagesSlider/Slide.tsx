@@ -2,7 +2,7 @@ import { TravelDestination } from "@/data/destinations";
 import type { FunctionComponent } from "react";
 // Components
 import Box from "@mui/material/Box";
-import Image from "next/Image";
+import Image from "next/image";
 
 const Slide: FunctionComponent<{ destination: TravelDestination; priority: boolean }> = ({ destination, priority }) => {
     return (

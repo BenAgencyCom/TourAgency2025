@@ -7,7 +7,7 @@ import type { FunctionComponent, ReactNode } from "react";
 // Material UI Components
 import Fade from "@mui/material/Fade";
 // Other components
-import Image from "next/Image";
+import Image from "next/image";
 // Material UI Icons
 import BlurOff from "@mui/icons-material/BlurOff";
 // Styled components

@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 // Other components
 import { ImageControls, SelectImageButton } from "@/components/_utils/ImageControls";
-import Image from "next/Image";
+import Image from "next/image";
 import ImageModal from "@/components/_utils/ImageModal";
 
 interface PictureProps {

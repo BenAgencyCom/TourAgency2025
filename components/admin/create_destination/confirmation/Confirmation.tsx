@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 // Other components
 import Loading from "@/components/_utils/Loading";
 import ReCAPTCHA from "react-google-recaptcha";
-import Image from "next/Image";
+import Image from "next/image";
 import CreateDestinationSingleStep from "@/components/admin/create_destination/_utils/layout/CreateDestinationSingleStep";
 // Styled components
 const ImageWrapper = styled(Box)(({ theme }) => ({

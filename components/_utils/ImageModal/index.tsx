@@ -12,7 +12,7 @@ import type { StatedDataField } from "@/@types/StatedDataField";
 import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 // Other Components
-import Image from "next/Image";
+import Image from "next/image";
 import TopSideButtons from "./TopSideButtons";
 import Loading from "@/components/_utils/Loading";
 const NavigationBetweenImages = dynamic(() => import("./NavigationBetweenImages"));

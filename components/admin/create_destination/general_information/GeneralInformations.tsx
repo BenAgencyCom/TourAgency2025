@@ -16,7 +16,7 @@ import Population from "./Population";
 import City from "./City";
 import Select from "@/components/register/stage_1/PersonalData/Select";
 import AutocompleteCountry from "@/components/register/stage_1/PersonalData/AutocompleteCountry";
-import Image from "next/Image";
+import Image from "next/image";
 // Styled components
 const FormFieldsWrap = styled(Box)({
     width: "100%",

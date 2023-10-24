@@ -3,10 +3,10 @@ import { useState } from "react";
 import { styled } from "@mui/system";
 import stated from "@/utils/client/stated";
 // Types
-import type { ImageProps } from "next/Image";
+import type { ImageProps } from "next/image";
 import type { FunctionComponent } from "react";
 // Other components
-import Image from "next/Image";
+import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 import ImageModal from "@/components/_utils/ImageModal";
 import { ImageControls } from "@/components/_utils/ImageControls";

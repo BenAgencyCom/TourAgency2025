@@ -10,7 +10,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Chip from "@mui/material/Chip";
 import Fade from "@mui/material/Fade";
 // Other Components
-import Image from "next/Image";
+import Image from "next/image";
 import ImageModal from "@/components/_utils/ImageModal";
 import { ImageControls } from "@/components/_utils/ImageControls";
 // Styles

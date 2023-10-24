@@ -6,7 +6,7 @@ import type { FunctionComponent } from "react";
 // Material UI Components
 import Fade from "@mui/material/Fade";
 // Other Components
-import Image from "next/Image";
+import Image from "next/image";
 // Redux
 import { useAppSelector } from "@/hooks/useRedux";
 // Styled components

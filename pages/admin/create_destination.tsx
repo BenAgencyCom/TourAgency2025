@@ -15,7 +15,7 @@ import type { CountryType } from "@/data/countries";
 import Box from "@mui/material/Box";
 // Other Components
 import Head from "next/Head";
-import Image from "next/Image";
+import Image from "next/image";
 import Loading from "@/components/_utils/Loading";
 import Stepper from "@/components/admin/create_destination/Stepper";
 const Thumbnail = dynamic(() => import("@/components/admin/create_destination/thumbnail/Thumbnail"), { loading: () => <Loading /> });

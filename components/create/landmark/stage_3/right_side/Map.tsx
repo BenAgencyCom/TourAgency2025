@@ -4,7 +4,7 @@ import useCreateLandmarkContext from "@/components/create/landmark/hooks/useCrea
 // Types
 import type { FunctionComponent } from "react";
 // Other components
-import Image from "next/Image";
+import Image from "next/image";
 // Styled components
 const MapWrapper = styled("div")(({ theme }) => ({
     height: "calc(50% - 10px)",

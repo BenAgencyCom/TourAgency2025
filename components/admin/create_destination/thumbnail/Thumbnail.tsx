@@ -5,7 +5,7 @@ import stated from "@/utils/client/stated";
 import type { FunctionComponent, ChangeEvent } from "react";
 import type { StatedDataField } from "@/@types/StatedDataField";
 // Other Components
-import Image from "next/Image";
+import Image from "next/image";
 import { ImageControls } from "@/components/_utils/ImageControls";
 import ThumbnailModal from "@/components/admin/create_destination/thumbnail/ThumbnailModal";
 import ThumbnailSkeleton from "@/components/admin/create_destination/thumbnail/ThumbnailSkeleton";

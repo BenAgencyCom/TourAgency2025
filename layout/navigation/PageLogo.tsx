@@ -5,7 +5,7 @@ import useWindowSizes from "@/hooks/useWindowSizes";
 import type { FunctionComponent } from "react";
 // Other components
 import Link from "next/link";
-import Image from "next/Image";
+import Image from "next/image";
 // Styled components
 import FlexBox from "@/components/_utils/styled/FlexBox";
 

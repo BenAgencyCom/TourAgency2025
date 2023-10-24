@@ -5,7 +5,7 @@ import type { SxProps } from "@mui/system";
 import type { FunctionComponent } from "react";
 import type { Continent } from "@prisma/client";
 // Other components
-import Image from "next/Image";
+import Image from "next/image";
 // Styled components
 const ContinentMapWrapper = styled("div")(({ theme }) => ({
     position: "relative",
