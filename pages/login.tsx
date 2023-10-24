@@ -6,7 +6,7 @@ import type { FunctionComponent } from "react";
 import type { GetServerSideProps } from "next";
 // Other components
 import Link from "next/link";
-import Head from "next/Head";
+import Head from "next/head";
 import RememberMe from "@/components/login/RememberMe";
 import StyledButton from "@/components/create/_utils/forms/Button";
 import InputWithIcon from "@/components/_utils/styled/InputWithIcon";

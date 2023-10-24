@@ -12,7 +12,7 @@ import Reviews from "@/components/user_profile/Reviews";
 // Pivotal message to Kacper from future!
 // Implement static imports for both `DestinationReviews` and `LandmarksReviews`
 // you will know why and undoubtedly thank myself from the past
-import Head from "next/Head";
+import Head from "next/head";
 // Styled components
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
 

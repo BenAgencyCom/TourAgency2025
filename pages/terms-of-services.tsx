@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 // Material UI Components
 import Typography from "@mui/material/Typography";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 // Styled components
 import ContentContainter from "@/components/_utils/styled/ContentContainter";
 

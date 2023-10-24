@@ -6,7 +6,7 @@ import CreateLandmarkContextProvider from "@/components/create/landmark/CreateLa
 // Types
 import type { FunctionComponent } from "react";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import Loading from "@/components/_utils/Loading";
 const staticImportLoader = { loading: () => <Loading sx={{ mt: "100px" }} /> };
 const StageOne = dynamic(() => import("@/components/create/landmark/stage_1"), staticImportLoader);

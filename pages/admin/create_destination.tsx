@@ -14,7 +14,7 @@ import type { CountryType } from "@/data/countries";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other Components
-import Head from "next/Head";
+import Head from "next/head";
 import Image from "next/image";
 import Loading from "@/components/_utils/Loading";
 import Stepper from "@/components/admin/create_destination/Stepper";

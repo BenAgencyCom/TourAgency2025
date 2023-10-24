@@ -8,7 +8,7 @@ import useFormFieldsWithValidation from "@/components/register/hooks/useFormFiel
 import type { GetServerSideProps, NextPage } from "next";
 import type { Stage } from "@/components/register/@types";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import Stage1 from "@/components/register/stage_1";
 import Stage2 from "@/components/register/stage_2";
 import Stage3 from "@/components/register/stage_3";

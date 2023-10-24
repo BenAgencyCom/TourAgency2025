@@ -10,7 +10,7 @@ import type { Continent, LandmarkType } from "@prisma/client";
 import type { Landmark } from "@/@types/pages/landmarks/ManyLandmarks";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 // Material UI Icons
 import Public from "@mui/icons-material/Public";
 import AccountBalance from "@mui/icons-material/AccountBalance";

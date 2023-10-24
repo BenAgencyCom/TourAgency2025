@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 // Types
 import type { FunctionComponent } from "react";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import Link from "next/link";
 import LineIntroAnimation from "@/components/_utils/LineIntroAnimation";
 import ContentContainter from "@/components/_utils/styled/ContentContainter";

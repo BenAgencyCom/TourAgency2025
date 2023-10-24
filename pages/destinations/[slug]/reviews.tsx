@@ -5,7 +5,7 @@ import type { GetStaticPaths, GetStaticProps } from "next";
 import type { FunctionComponent } from "react";
 import type { Destination } from "@/@types/pages/destinations/Reviews";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import BulkReviews from "@/components/_utils/BulkReviews";
 
 interface CertinDestinationReviewsProps {

@@ -5,7 +5,7 @@ import type { FunctionComponent } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { Landmark } from "@/@types/pages/landmarks/Reviews";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import BulkReviews from "@/components/_utils/BulkReviews";
 
 interface SingleLandmarkReviewsProps {

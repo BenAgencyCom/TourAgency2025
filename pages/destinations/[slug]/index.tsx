@@ -8,7 +8,7 @@ import type { FunctionComponent } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { Destination } from "@/@types/pages/destinations/SingleDestination";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import Stats from "@/components/destinations/single/Stats";
 import ScrollStepper from "@/components/_utils/ScrollStepper";
 import ParallaxLanding from "@/components/_utils/ParallaxLanding";

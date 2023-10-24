@@ -7,7 +7,7 @@ import type { FunctionComponent } from "react";
 // Material UI Components
 import Box from "@mui/material/Box";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import IndexPageSlider from "@/components/index/backgroundImagesSlider/Slider";
 import SelectDestination from "@/components/index/selectDestination/SelectDestination";
 import CurrentDestinationInfo from "@/components/index/currentDestinationInfo/CurrentDestinationInfo";

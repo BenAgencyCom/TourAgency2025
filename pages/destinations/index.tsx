@@ -8,7 +8,7 @@ import type { Continent } from "@prisma/client";
 import type { PaginationProperties } from "@/@types/pages/api/Pagination";
 import type { Destination } from "@/@types/pages/destinations/ManyDestinations";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import ThereAreNoResults from "@/components/_utils/ThereAreNoResults";
 import URLQueriesManager from "@/components/_utils/URLQueriesManager";
 import SingleDestination from "@/components/destinations/bulk/SingleDestination";

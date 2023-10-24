@@ -8,7 +8,7 @@ import type { FunctionComponent } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { DataFromAPI } from "@/@types/pages/landmarks/SingleLandmark";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import ScrollStepper from "@/components/_utils/ScrollStepper";
 import ParallaxLanding from "@/components/_utils/ParallaxLanding";
 import Destination from "@/components/landmarks/single/Destination";

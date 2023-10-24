@@ -15,7 +15,7 @@ import type { AppProps } from "next/app";
 // Material UI Components
 import { ThemeProvider } from "@mui/material";
 // Other components
-import Head from "next/Head";
+import Head from "next/head";
 import Layout from "@/layout/Layout";
 import Loading from "@/components/_utils/Loading";
 // Redux
