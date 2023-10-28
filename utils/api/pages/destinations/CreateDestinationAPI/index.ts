@@ -4,11 +4,11 @@ import FieldsValidator from "./FieldsValidator";
 import slugGenerator from "@/utils/api/slugGenerator";
 import FileUploader from "@/utils/api/abstracts/FileUploader";
 import ReceivedFilesValidator from "./ReceivedFilesValidator";
-import handleMultipartFormDataRequest from "@/utils/api/handleMultipartFormDataRequest";
+import handleMultipartFormDataRequest from "@/utils/api/HandleMultipartFormDataRequest";
 // Types
 import type { NextApiRequest } from "next";
 import type { ParsedRequestBody } from "./@types";
-import type { SubmittedFilesCollection } from "@/utils/api/handleMultipartFormDataRequest";
+import type { SubmittedFilesCollection } from "@/utils/api/HandleMultipartFormDataRequest";
 
 export default class CreateDestinationAPI extends FileUploader {
     /** Object containing parsed data, alike to express's `req.body` */

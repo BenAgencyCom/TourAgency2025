@@ -3,7 +3,7 @@ import { InvalidRequestedBody } from "@/utils/api/Errors";
 // Types
 import { FieldType } from "@/@types/Description";
 import type { ParsedRequestBody } from "./@types";
-import type { SubmittedFilesCollection } from "@/utils/api/handleMultipartFormDataRequest";
+import type { SubmittedFilesCollection } from "@/utils/api/HandleMultipartFormDataRequest";
 
 /** This class is resposible for ensuring that all received in the
  * request files are adequate and expected by remaining part of the data
