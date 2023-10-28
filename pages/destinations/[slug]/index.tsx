@@ -9,10 +9,10 @@ import type { GetStaticPaths, GetStaticProps } from "next";
 import type { Destination } from "@/@types/pages/destinations/SingleDestination";
 // Other components
 import Head from "next/head";
-import Stats from "@/components/destinations/single/Stats";
 import ScrollStepper from "@/components/_utils/ScrollStepper";
 import ParallaxLanding from "@/components/_utils/ParallaxLanding";
 import FewLatestReviews from "@/components/_utils/FewLatestReviews";
+import Statistics from "@/components/destinations/single/Statistics";
 import Description from "@/components/destinations/single/Description";
 import ThreeRelatedLandmarks from "@/components/_utils/ThreeRelatedLandmarks";
 // Styled components
@@ -75,7 +75,7 @@ const SingleDestination: FunctionComponent<SingleDestinationProps> = (props) => 
                 ></ScrollStepper>
 
                 <Content>
-                    <Stats></Stats>
+                    <Statistics />
                     <Description description={destination.description} folder={destination.folder}></Description>
                     <ThreeRelatedLandmarks
                         id="landmarks"
