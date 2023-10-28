@@ -1,6 +1,6 @@
 // Tools
 import { ValidationError } from "@/utils/api/Errors";
-import BulkLandmarksAPI from "@/utils/api/pages/landmarks/BulkLandmarksAPI";
+import { BulkLandmarksAPI } from "@/utils/api/pages/landmarks/BulkAPI";
 // Types
 import type { NextApiResponse, NextApiRequest } from "next";
 

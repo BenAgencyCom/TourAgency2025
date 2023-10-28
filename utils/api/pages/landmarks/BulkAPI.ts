@@ -12,7 +12,7 @@ interface ExtraProperties {
     certainLandmarkType?: LandmarkType;
 }
 
-export default class BulkLandmarksAPI extends BulkDataAPI<Prisma.LandmarkSelect, ExtraProperties> {
+export class BulkLandmarksAPI extends BulkDataAPI<Prisma.LandmarkSelect, ExtraProperties> {
     public constructor(req: NextApiRequest) {
         super({
             req: req,
