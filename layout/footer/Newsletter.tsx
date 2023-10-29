@@ -93,18 +93,18 @@ const Newsletter: FunctionComponent = () => {
             </InputWrapper>
 
             <FlexBox>
-                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={-1}>
+                <a href="https://github.com/Kacper-Ksiazek" target="_blank" rel="noreferrer" tabIndex={-1}>
                     <SocialMedia primary reverse className="social-media-btn">
                         <Twitter></Twitter>
                     </SocialMedia>
                 </a>
-                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={-1}>
+                <a href="https://github.com/Kacper-Ksiazek" target="_blank" rel="noreferrer" tabIndex={-1}>
                     <SocialMedia primary reverse className="social-media-btn">
                         <Instagram></Instagram>
                     </SocialMedia>
                 </a>
 
-                <a href="https://github.com/DEVRafam" target="_blank" rel="noreferrer" tabIndex={-1}>
+                <a href="https://github.com/Kacper-Ksiazek" target="_blank" rel="noreferrer" tabIndex={-1}>
                     <SocialMedia primary reverse className="social-media-btn">
                         <YouTube></YouTube>
                     </SocialMedia>
