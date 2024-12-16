@@ -1,4 +1,4 @@
-import LocalStorageUserData from "../../../@types/LocalStorageUserData";
+import LocalStorageUserData from "@/@types/LocalStorageUserData";
 import { Gender } from "@prisma/client";
 
 describe("Register Page", () => {
