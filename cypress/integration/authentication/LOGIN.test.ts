@@ -1,4 +1,4 @@
-import LocalStorageUserData from "@/@types/LocalStorageUserData";
+import LocalStorageUserData from "../../../@types/LocalStorageUserData";
 
 describe("Login page", () => {
     const passwordInputSelector = `input[data-cy='password']`;
