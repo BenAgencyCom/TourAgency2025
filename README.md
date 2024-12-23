@@ -2,7 +2,8 @@
 using typescript & material components for react
 
 ### Furthermore, how to run this tour agency application:
-
+## 1. we are using Next.js and prisma, but there are some issues in the Prisma when you run on the VS-code terminal.
+## 2. Use the (Command prompt or Terminal) pannel of Windows or Macbook, Don't use VS-code terminal.
 1. To install all node dependencies included in `package.json`
     ```npm
     npm run i
