@@ -1,6 +1,15 @@
 # Tour Agency in next.js
 using typescript & material components for react
 
+## Before you download this repo some red flags 🚩
+#1 lock-packge.json is unusually fatty
+#2 Dependabot alerts disabled
+#3 Security monitoring off
+#4 Suspicious setup requirements
+#5 Old, vulnerable dependencies
+#6 Project started long back, origenlly taken froma nother suspecious project https://github.com/DEVRafam/nextjs-abu-dhabi
+
+
 ### Furthermore, how to run this tour agency application:
 =======
 # 1. we are using Next.js and prisma, but there are some issues in the Prisma when you run on the VS-code terminal.
